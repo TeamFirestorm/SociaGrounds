@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +24,27 @@ namespace SociaGroundsEngine.Player
 
         public override void update(GameTime gameTime)
         {
-            
+            input(gameTime);
+            animation.Position = position;
         }
 
         public override void draw(SpriteBatch spriteBatch)
         {
             animation.draw(spriteBatch);
+        }
+
+        public void input(GameTime gameTime)
+        {
+            TouchCollection locationArray = TouchPanel.GetState();
+            foreach (TouchLocation touch in TouchPanel.GetState())
+            {
+                if (touch.State == TouchLocationState.Moved)
+                {
+                    animation.play(8, 9, gameTime);
+                    position.Y -= speed;
+                }
+                Debug.WriteLine("TOUCH! " + touch.Position.X + " " + touch.Position.Y + " " + touch.State);
+            }
         }
     }
 }
