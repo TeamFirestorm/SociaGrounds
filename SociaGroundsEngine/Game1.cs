@@ -23,6 +23,7 @@ namespace SociaGroundsEngine
 
         Map map;
         Camera camera;
+        UI ui;
 
         public Game1()
         {
@@ -87,6 +88,7 @@ namespace SociaGroundsEngine
             map.addSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
 
             camera = new Camera(GraphicsDevice.Viewport);
+            ui = new UI();
 
             base.Initialize();
         }
@@ -124,6 +126,7 @@ namespace SociaGroundsEngine
             //alwin.update(gameTime);
 
             camera.Update(GraphicsDevice.Viewport, chris.Position, map);
+            ui.update(camera.centre);
 
             base.Update(gameTime);
         }
