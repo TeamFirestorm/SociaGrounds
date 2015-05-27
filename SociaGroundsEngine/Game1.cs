@@ -8,7 +8,8 @@ using System.Diagnostics;
 namespace SociaGroundsEngine
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// Wouter houdt van fietsen.
+    /// Dit is een grap.
     /// </summary>
     public class Game1 : Game
     {
