@@ -120,14 +120,15 @@ namespace SociaGroundsEngine
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            chris.update(gameTime);
+            ui.update(camera.centre);
+
+            chris.update(gameTime, ui, GraphicsDevice.Viewport, map);
             //gyllion.update(gameTime);
             //thijs.update(gameTime);
             //wouter.update(gameTime);
             //alwin.update(gameTime);
 
             camera.Update(GraphicsDevice.Viewport, chris.Position, map);
-            ui.update(camera.centre);
 
             base.Update(gameTime);
         }

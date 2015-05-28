@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGroundsEngine.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SociaGroundsEngine
 {
-    abstract class CPlayer
+    public abstract class CPlayer
     {
         protected CAnimation animation;
         public CAnimation Animation
@@ -37,7 +38,7 @@ namespace SociaGroundsEngine
         }
 
         // Abstract method to update the player
-        public abstract void update(GameTime gameTime);
+        public abstract void update(GameTime gameTime, UI ui, Viewport viewPort, Map map);
 
         // Abstract method to draw the player
         public abstract void draw(SpriteBatch spriteBatch);
