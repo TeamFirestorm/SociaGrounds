@@ -26,7 +26,7 @@ namespace LibgrenWrapper
                 {
                     if (address.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        if (properties.DnsSuffix != "" || address.Address.ToString().Contains("192."))
+                        if (properties.DnsSuffix != "")
                         {
                             MyIp = address.Address;
                             MyDnsSuffix = properties.DnsSuffix;
