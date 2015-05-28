@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Lidgren.Network;
 
 namespace LibgrenWrapper
@@ -10,6 +11,7 @@ namespace LibgrenWrapper
     public class Server
     {
         private static NetServer s_server;
+        private DispatcherTimer timer;
 
         public async void Setup()
         {
@@ -18,6 +20,15 @@ namespace LibgrenWrapper
             config.MaximumConnections = 100;
             config.Port = 14242;
             s_server = new NetServer(config);
+
+            timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
+            timer.Tick += TimerOnTick;
+            timer.Start();
+        }
+
+        private void TimerOnTick(object sender, EventArgs eventArgs)
+        {
+            
         }
 
         private static void Output(string text)
