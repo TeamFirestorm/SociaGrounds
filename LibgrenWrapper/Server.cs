@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -13,9 +16,10 @@ namespace LibgrenWrapper
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
 
-#pragma warning disable 1998
+        private static IPAddress _myIp;
+        private static string _myDnsSuffix;
+
         public static async void Setup()
-#pragma warning restore 1998
         {
             // set up network
             NetPeerConfiguration config = new NetPeerConfiguration("chat")
@@ -29,6 +33,8 @@ namespace LibgrenWrapper
             _timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
             _timer.Tick += TimerOnTick;
             _timer.Start();
+
+            GetMyIpAndDns();
         }
 
         private static void TimerOnTick(object sender, EventArgs eventArgs)
@@ -117,6 +123,28 @@ namespace LibgrenWrapper
             _sServer.Shutdown("Requested by user");
         }
 
+        private static void GetMyIpAndDns()
+        {
+            // Get a list of all network interfaces (usually one per network card, dialup, and VPN connection) 
+            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            
+            foreach (NetworkInterface network in networkInterfaces)
+            {
+                // Read the IP configuration for each network 
+                IPInterfaceProperties properties = network.GetIPProperties();
 
+                // Each network interface may have multiple IP addresses 
+                foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
+                {
+                    if (address.Address.AddressFamily == AddressFamily.InterNetwork && properties.DnsSuffix != "")
+                    {
+                        _myIp = address.Address;
+                        _myDnsSuffix = properties.DnsSuffix;
+                        break;
+                    }
+                }
+            }
+            throw new Exception("Not Connected to the Interwebs");
+        }
     }
 }
