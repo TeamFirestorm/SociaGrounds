@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using LibgrenWrapper;
 
 namespace Client
 {
@@ -11,6 +12,7 @@ namespace Client
         {
             InitializeComponent();
             LibgrenWrapper.Client.Setup();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

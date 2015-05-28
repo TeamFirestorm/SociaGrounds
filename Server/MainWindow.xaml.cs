@@ -21,6 +21,9 @@ namespace Server
 
             Console.WriteLine("\n" + LibgrenWrapper.Server.MyIp);
             Console.WriteLine(LibgrenWrapper.Server.MyDnsSuffix + "\n");
+
+
+            DataBase.insertConnectionInfo(LibgrenWrapper.Server.MyIp.ToString(), LibgrenWrapper.Server.MyDnsSuffix);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
