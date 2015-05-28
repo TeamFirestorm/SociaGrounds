@@ -46,7 +46,7 @@ namespace LibgrenWrapper
 
             foreach (Connection connect in connections)
             {
-                if (connect.IP.Equals(MyIp.ToString()) && connect.DNS.Equals(MyDnsSuffix))
+                if (connect.IPAddress.Equals(MyIp.ToString()) && connect.DNSSuffix.Equals(MyDnsSuffix))
                 {
                     return true;
                 }

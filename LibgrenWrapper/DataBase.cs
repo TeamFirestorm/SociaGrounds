@@ -36,7 +36,16 @@ namespace LibgrenWrapper
         {
             string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnections.php");
 
-            return JsonConvert.DeserializeObject<List<Connection>>(json);
+            if (json != "")
+            {
+                List<Connection> u = JsonConvert.DeserializeObject<List<Connection>>(json);
+
+                return u;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
