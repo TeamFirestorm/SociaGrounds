@@ -30,7 +30,7 @@ namespace Client
 
             if (adres != null)
             {
-                LibgrenWrapper.Client.Connect(InternetConnection.MyIp.ToString(), 14242);
+                LibgrenWrapper.Client.Connect(adres.ToString(), 14242);
             }
             else
             {
