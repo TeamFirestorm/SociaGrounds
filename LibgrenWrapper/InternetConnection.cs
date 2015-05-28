@@ -44,11 +44,15 @@ namespace LibgrenWrapper
         {
             List<Connection> connections = DataBase.GetConnections();
 
-            string[] myIp = MyIp.ToString().Split();
+            string[] tempIp = MyIp.ToString().Split('.');
+            string myIp = tempIp[0] + tempIp[1] + tempIp[2];
 
             foreach (Connection connect in connections)
             {
-                if (connect.IP.Equals(MyIp.ToString()) && connect.DNS.Equals(MyDnsSuffix))
+                tempIp = connect.IP.ToString().Split('.');
+                string ip = tempIp[0] + tempIp[1] + tempIp[2];
+
+                if (ip.Equals(myIp) && connect.DNS.Equals(MyDnsSuffix))
                 {
                     return IPAddress.Parse(connect.IP);
                 }
