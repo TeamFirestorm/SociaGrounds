@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using Lidgren.Network;
 
@@ -13,9 +11,7 @@ namespace LibgrenWrapper
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
 
-#pragma warning disable 1998
         public static async void Setup()
-#pragma warning restore 1998
         {
             // set up network
             NetPeerConfiguration config = new NetPeerConfiguration("chat")
@@ -29,6 +25,8 @@ namespace LibgrenWrapper
             _timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
             _timer.Tick += TimerOnTick;
             _timer.Start();
+
+            InternetConnection.GetMyIpAndDns();
         }
 
         private static void TimerOnTick(object sender, EventArgs eventArgs)
@@ -116,7 +114,5 @@ namespace LibgrenWrapper
         {
             _sServer.Shutdown("Requested by user");
         }
-
-
     }
 }

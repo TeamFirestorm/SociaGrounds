@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 using System.Windows;
 using LibgrenWrapper;
+using System.Net.NetworkInformation;
 
 namespace Server
 {
@@ -14,29 +17,21 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
-
-            
-
-            //IPAddress[] localIps = Dns.GetHostAddresses(Dns.GetHostName());
-
-            //Console.WriteLine();
-            //foreach (var a in localIps)
-            //{
-            //    if (a.AddressFamily == AddressFamily.InterNetwork)
-            //    {
-            //        Console.WriteLine(a);
-            //    }
-            //}
-
-            //Console.WriteLine(Dns.GetHostAddresses());
-
             LibgrenWrapper.Server.Setup();
+
+            DataBase.InsertConnectionInfo(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LibgrenWrapper.Server.StartServer();
             Console.WriteLine("Started");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            LibgrenWrapper.Server.Shutdown();
+            DataBase.DeleteConnection(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
         }
     }
 }
