@@ -49,12 +49,12 @@ namespace LibgrenWrapper
 
             foreach (Connection connect in connections)
             {
-                tempIp = connect.IP.Split('.');
+                tempIp = connect.IPAddress.Split('.');
                 string ip = tempIp[0] + tempIp[1] + tempIp[2];
 
-                if (ip.Equals(myIp) && connect.DNS.Equals(MyDnsSuffix))
+                if (ip.Equals(myIp) && connect.DNSSuffix.Equals(MyDnsSuffix))
                 {
-                    return IPAddress.Parse(connect.IP);
+                    return IPAddress.Parse(connect.IPAddress);
                 }
             }
             return null;
