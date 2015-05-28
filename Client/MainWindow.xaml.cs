@@ -13,14 +13,14 @@ namespace Client
         {
             InitializeComponent();
 
-            LibgrenWrapper.Client.Setup();
+            ClientCon.Setup();
 
             InternetConnection.GetMyIpAndDns();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LibgrenWrapper.Client.Send(txtMessage.Text);
+            ClientCon.Send(txtMessage.Text);
             txtMessage.Text = "";
         }
 
@@ -30,7 +30,7 @@ namespace Client
 
             if (adres != null)
             {
-                LibgrenWrapper.Client.Connect(adres.ToString(), 14242);
+                ClientCon.Connect(adres.ToString(), 14242);
             }
             else
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -9,8 +8,8 @@ namespace LibgrenWrapper
 {
     public static class InternetConnection
     {
-        public static IPAddress MyIp { get; set; }
-        public static string MyDnsSuffix { get; set; }
+        public static IPAddress MyIp { get; private set; }
+        public static string MyDnsSuffix { get; private set; }
 
         public static void GetMyIpAndDns()
         {
@@ -25,16 +24,19 @@ namespace LibgrenWrapper
                 // Each network interface may have multiple IP addresses 
                 foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
                 {
-                    if (address.Address.AddressFamily == AddressFamily.InterNetwork && properties.DnsSuffix != "")
+                    if (address.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        MyIp = address.Address;
-                        MyDnsSuffix = properties.DnsSuffix;
-                        break;
+                        if (properties.DnsSuffix != "" || address.Address.ToString().Contains("192."))
+                        {
+                            MyIp = address.Address;
+                            MyDnsSuffix = properties.DnsSuffix;
+                            break;
+                        }
                     }
                 }
             }
 
-            if (MyIp.Equals(default(IPAddress)) || MyDnsSuffix.Equals(default(string)))
+            if (MyIp == null || MyDnsSuffix == null)
             {
                 throw new Exception("Not Connected to the Interwebs");
             }
