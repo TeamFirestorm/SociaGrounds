@@ -11,10 +11,17 @@ namespace LibgrenWrapper
     public class DataBase
     {
 
-        public bool insertConnectionInfo(string ipaddress, string dnssuffix)
+        public static bool insertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress="+ipaddress+"&dnssuffix="+dnssuffix);
-            request.GetResponse();
+            if (request.GetResponse().ToString() == "Succes")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
             
         }
 
