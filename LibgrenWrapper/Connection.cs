@@ -8,7 +8,7 @@ namespace LibgrenWrapper
 {
     public class Connection
     {
-        public string IP { get; set; }
-        public string DNS { get; set; }
+        public string IPAddress { get; set; }
+        public string DNSSuffix { get; set; }
     }
 }

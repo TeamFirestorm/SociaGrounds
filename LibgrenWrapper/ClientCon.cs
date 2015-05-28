@@ -5,11 +5,10 @@ using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Lidgren.Network;
 namespace LibgrenWrapper
 {
-    public class Client
+    public class ClientCon
     {
         private static NetClient s_client;
 
@@ -44,25 +43,29 @@ namespace LibgrenWrapper
                         string text = im.ReadString();
                         Output(text);
                         break;
+
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
 
-                        //if (status == NetConnectionStatus.Connected)
-                            //s_form.EnableInput();
-                        //else
-                           // s_form.DisableInput();
+                        if (status == NetConnectionStatus.Connected)
+                        {
+                            Console.WriteLine("Disconnect");
+                        }
 
                         if (status == NetConnectionStatus.Disconnected)
+                        {
                             Console.WriteLine("Connect");
+                        }
 
                         string reason = im.ReadString();
-                        Output(status.ToString() + ": " + reason);
-
+                        Output(status + ": " + reason);
                         break;
+
                     case NetIncomingMessageType.Data:
                         string chat = im.ReadString();
                         Output(chat);
                         break;
+
                     default:
                         Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
                         break;

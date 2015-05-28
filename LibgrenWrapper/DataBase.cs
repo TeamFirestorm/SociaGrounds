@@ -32,11 +32,20 @@ namespace LibgrenWrapper
             }
         }
 
-        public List<Connection> getConnections()
+        public static List<Connection> GetConnections()
         {
-            string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnectionss.php");
+            string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnections.php");
 
-            return JsonConvert.DeserializeObject<List<Connection>>(json);
+            if (json != "")
+            {
+                List<Connection> u = JsonConvert.DeserializeObject<List<Connection>>(json);
+
+                return u;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

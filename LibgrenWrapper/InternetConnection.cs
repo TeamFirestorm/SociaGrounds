@@ -40,9 +40,27 @@ namespace LibgrenWrapper
             }
         }
 
-        public static void din()
+        public static IPAddress CheckPossibleConnection()
         {
-            DataBase.
+            List<Connection> connections = DataBase.GetConnections();
+
+            if (connections != null)
+            {
+                string[] tempIp = MyIp.ToString().Split('.');
+                string myIp = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+
+                foreach (Connection connect in connections)
+                {
+                    tempIp = connect.IPAddress.Split('.');
+                    string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+
+                    if (ip.Equals(myIp) && connect.DNSSuffix.Equals(MyDnsSuffix))
+                    {
+                        return IPAddress.Parse(connect.IPAddress);
+                    }
+                }
+            }
+            return null;
         }
     }
 }
