@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.World
 {
-    class Map
+    public class Map
     {
         List<Asset> nonSolidAssets;
         public List<Asset> NonSolidAssets
