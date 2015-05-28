@@ -5,11 +5,10 @@ using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Lidgren.Network;
 namespace LibgrenWrapper
 {
-    public class Client
+    public class ClientCon
     {
         private static NetClient s_client;
 

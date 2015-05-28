@@ -6,7 +6,7 @@ using Lidgren.Network;
 
 namespace LibgrenWrapper
 {
-    public class Server
+    public class ServerCon
     {
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
