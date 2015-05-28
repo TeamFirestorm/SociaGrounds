@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 using Lidgren.Network;
 namespace LibgrenWrapper
 {
-    public class Class1
+    public class Client
     {
-        public Class1()
-        {
 
     }
-}
 }
