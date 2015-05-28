@@ -28,8 +28,7 @@ namespace SociaGroundsEngine.World
             top = content.Load<Texture2D>("World/Tree/TreeTop");
 
             // Creating the rectangle
-            //rect = new Rectangle((int)position.X - (top.Width / 3), (int)position.Y - (top.Height + (mid.Height * amountOfLogs)), top.Width, (bottom.Height * 2) + (mid.Height * amountOfLogs));
-            rect = new Rectangle((int)position.X, (int)position.Y, bottom.Width, bottom.Height);
+            rect = new Rectangle((int)position.X - (top.Width / 3), (int)position.Y - (top.Height + (mid.Height * amountOfLogs)), top.Width, (bottom.Height * 2) + (mid.Height * amountOfLogs));
 
             isSolid = true;
         }

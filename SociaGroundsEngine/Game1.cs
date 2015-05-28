@@ -152,6 +152,9 @@ namespace SociaGroundsEngine
             //wouter.draw(spriteBatch);
             //alwin.draw(spriteBatch);
 
+            // Debug texture
+            //spriteBatch.Draw(Content.Load<Texture2D>("Enemy"), new Vector2(200, 0), Color.White);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
