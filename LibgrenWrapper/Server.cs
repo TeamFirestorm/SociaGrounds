@@ -21,7 +21,7 @@ namespace LibgrenWrapper
             config.Port = 14242;
             s_server = new NetServer(config);
 
-            timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
+            timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 5)};
             timer.Tick += TimerOnTick;
             timer.Start();
         }
@@ -31,6 +31,11 @@ namespace LibgrenWrapper
                 NetIncomingMessage im;
                 while ((im = s_server.ReadMessage()) != null)
                 {
+                    if (im.LengthBits == 0)
+                    {
+                        return;
+                    }
+
                     // handle incoming message
                     switch (im.MessageType)
                     {
@@ -53,6 +58,7 @@ namespace LibgrenWrapper
 
                             UpdateConnectionsList();
                             break;
+
                         case NetIncomingMessageType.Data:
                             // incoming chat message from a client
                             string chat = im.ReadString();
@@ -70,6 +76,7 @@ namespace LibgrenWrapper
                                 s_server.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
                             }
                             break;
+
                         default:
                             Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes " + im.DeliveryMethod + "|" + im.SequenceChannel);
                             break;

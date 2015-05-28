@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using LibgrenWrapper;
 
 namespace Server
@@ -17,6 +18,7 @@ namespace Server
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LibgrenWrapper.Server.StartServer();
+            Console.WriteLine("Started");
         }
     }
 }
