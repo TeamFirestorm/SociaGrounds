@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net;
 
 namespace LibgrenWrapper
@@ -32,5 +33,11 @@ namespace LibgrenWrapper
             }
         }
 
+        public List<Connection> getConnections()
+        {
+            string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnectionss.php");
+
+            return JsonConvert.DeserializeObject<List<Connection>>(json);
+        }
     }
 }

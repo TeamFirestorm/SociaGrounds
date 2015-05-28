@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Connection.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="InternetConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
