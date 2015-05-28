@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 using System.Windows;
 using LibgrenWrapper;
 
@@ -15,21 +17,28 @@ namespace Server
         {
             InitializeComponent();
 
-            
+            // Get a list of all network interfaces (usually one per network card, dialup, and VPN connection) 
+            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-            //IPAddress[] localIps = Dns.GetHostAddresses(Dns.GetHostName());
+            foreach (NetworkInterface network in networkInterfaces)
+            {
+                // Read the IP configuration for each network 
+                IPInterfaceProperties properties = network.GetIPProperties();
 
-            //Console.WriteLine();
-            //foreach (var a in localIps)
-            //{
-            //    if (a.AddressFamily == AddressFamily.InterNetwork)
-            //    {
-            //        Console.WriteLine(a);
-            //    }
-            //}
+                // Each network interface may have multiple IP addresses 
+                foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
+                {
+                    // We're only interested in IPv4 addresses for now 
+                    if (address.Address.AddressFamily != AddressFamily.InterNetwork)
+                        continue;
 
-            //Console.WriteLine(Dns.GetHostAddresses());
+                    // Ignore loopback addresses (e.g., 127.0.0.1) 
+                    if (IPAddress.IsLoopback(address.Address))
+                        continue;
 
+                    Console.WriteLine(address.Address);
+                }
+            }
             LibgrenWrapper.Server.Setup();
         }
 
