@@ -39,5 +39,10 @@ namespace LibgrenWrapper
                 throw new Exception("Not Connected to the Interwebs");
             }
         }
+
+        public static void din()
+        {
+            DataBase.
+        }
     }
 }

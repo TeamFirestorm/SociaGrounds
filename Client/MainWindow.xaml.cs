@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using LibgrenWrapper;
 
 namespace Client
 {
@@ -11,9 +12,11 @@ namespace Client
         {
             InitializeComponent();
 
-
-
             LibgrenWrapper.Client.Setup();
+
+            InternetConnection.GetMyIpAndDns();
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -24,7 +27,7 @@ namespace Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            LibgrenWrapper.Client.Connect("10.110.110.191", 14242);
+            LibgrenWrapper.Client.Connect(InternetConnection.MyIp.ToString(), 14242);
         }
     }
 }
