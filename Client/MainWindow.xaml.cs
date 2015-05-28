@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Net;
+using System.Windows;
 using LibgrenWrapper;
 
 namespace Client
@@ -25,7 +26,9 @@ namespace Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (InternetConnection.CheckPossibleConnection())
+            IPAddress adres = InternetConnection.CheckPossibleConnection();
+
+            if (adres != null)
             {
                 LibgrenWrapper.Client.Connect(InternetConnection.MyIp.ToString(), 14242);
             }
