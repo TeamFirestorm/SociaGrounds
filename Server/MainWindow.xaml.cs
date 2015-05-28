@@ -14,12 +14,13 @@ namespace Server
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
         public MainWindow()
         {
             InitializeComponent();
             LibgrenWrapper.Server.Setup();
+
+            Console.WriteLine("\n" + LibgrenWrapper.Server.MyIp);
+            Console.WriteLine(LibgrenWrapper.Server.MyDnsSuffix + "\n");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
