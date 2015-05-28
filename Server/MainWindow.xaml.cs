@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Lidgren.Network;
 
 namespace Server
 {
@@ -23,6 +24,8 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
+
+            
         }
     }
 }

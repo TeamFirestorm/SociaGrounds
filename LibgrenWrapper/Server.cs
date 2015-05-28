@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Lidgren.Network;
+
 namespace LibgrenWrapper
 {
-    public class Class1
+    public class Server
     {
-        public Class1()
-        {
-            
-        }
+        
     }
 }
