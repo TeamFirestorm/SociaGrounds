@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibgrenWrapper">
+      <HintPath>..\LibgrenWrapper\bin\Debug\LibgrenWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="Lidgren.Network, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\LibgrenWrapper\Dll\Lidgren.Network.dll</HintPath>

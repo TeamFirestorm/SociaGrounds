@@ -11,9 +11,9 @@ namespace LibgrenWrapper
     public class Server
     {
         private static NetServer s_server;
-        private DispatcherTimer timer;
+        private static DispatcherTimer timer;
 
-        public async void Setup()
+        public static async void Setup()
         {
             // set up network
             NetPeerConfiguration config = new NetPeerConfiguration("chat");
@@ -26,7 +26,7 @@ namespace LibgrenWrapper
             timer.Start();
         }
 
-        private void TimerOnTick(object sender, EventArgs eventArgs)
+        private static void TimerOnTick(object sender, EventArgs eventArgs)
         {
             
         }
