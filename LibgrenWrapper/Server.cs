@@ -70,7 +70,7 @@ namespace LibgrenWrapper
 
                         // broadcast this to all connections, except sender
                         List<NetConnection> all = _sServer.Connections; // get copy
-                        all.Remove(im.SenderConnection);
+                        //all.Remove(im.SenderConnection);
 
                         if (all.Count > 0)
                         {
