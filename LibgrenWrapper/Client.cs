@@ -48,13 +48,15 @@ namespace LibgrenWrapper
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
 
-                        //if (status == NetConnectionStatus.Connected)
-                            //s_form.EnableInput();
-                        //else
-                           // s_form.DisableInput();
+                        if (status == NetConnectionStatus.Connected)
+                        {
+                            Console.WriteLine("Disconnect");
+                        }
 
                         if (status == NetConnectionStatus.Disconnected)
+                        {
                             Console.WriteLine("Connect");
+                        }
 
                         string reason = im.ReadString();
                         Output(status + ": " + reason);
