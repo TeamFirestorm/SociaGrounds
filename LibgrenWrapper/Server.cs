@@ -16,8 +16,9 @@ namespace LibgrenWrapper
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
 
-        private static IPAddress _myIp;
-        private static string _myDnsSuffix;
+        public static IPAddress MyIp { get; set; }
+
+        public static string MyDnsSuffix { get; set; }
 
         public static async void Setup()
         {
@@ -138,13 +139,17 @@ namespace LibgrenWrapper
                 {
                     if (address.Address.AddressFamily == AddressFamily.InterNetwork && properties.DnsSuffix != "")
                     {
-                        _myIp = address.Address;
-                        _myDnsSuffix = properties.DnsSuffix;
+                        MyIp = address.Address;
+                        MyDnsSuffix = properties.DnsSuffix;
                         break;
                     }
                 }
             }
-            throw new Exception("Not Connected to the Interwebs");
+
+            if (MyIp.Equals(default(IPAddress)) || MyDnsSuffix.Equals(default(string)))
+            {
+                throw new Exception("Not Connected to the Interwebs");
+            }           
         }
     }
 }
