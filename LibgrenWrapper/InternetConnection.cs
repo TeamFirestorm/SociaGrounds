@@ -45,12 +45,12 @@ namespace LibgrenWrapper
             List<Connection> connections = DataBase.GetConnections();
 
             string[] tempIp = MyIp.ToString().Split('.');
-            string myIp = tempIp[0] + tempIp[1] + tempIp[2];
+            string myIp = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
 
             foreach (Connection connect in connections)
             {
                 tempIp = connect.IPAddress.Split('.');
-                string ip = tempIp[0] + tempIp[1] + tempIp[2];
+                string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
 
                 if (ip.Equals(myIp) && connect.DNSSuffix.Equals(MyDnsSuffix))
                 {
