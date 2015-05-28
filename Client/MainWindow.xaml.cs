@@ -21,7 +21,7 @@ namespace Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            LibgrenWrapper.Client.Connect("10.110.110.191", 14242);            
+            LibgrenWrapper.Client.Connect("10.110.110.191", 14242);
         }
     }
 }

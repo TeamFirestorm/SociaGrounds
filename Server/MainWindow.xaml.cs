@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using LibgrenWrapper;
 
@@ -12,6 +14,22 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
+
+            
+
+            //IPAddress[] localIps = Dns.GetHostAddresses(Dns.GetHostName());
+
+            //Console.WriteLine();
+            //foreach (var a in localIps)
+            //{
+            //    if (a.AddressFamily == AddressFamily.InterNetwork)
+            //    {
+            //        Console.WriteLine(a);
+            //    }
+            //}
+
+            //Console.WriteLine(Dns.GetHostAddresses());
+
             LibgrenWrapper.Server.Setup();
         }
 
