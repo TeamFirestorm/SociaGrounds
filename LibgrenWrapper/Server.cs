@@ -13,12 +13,17 @@ namespace LibgrenWrapper
         private static NetServer s_server;
         private static DispatcherTimer timer;
 
+#pragma warning disable 1998
         public static async void Setup()
+#pragma warning restore 1998
         {
             // set up network
-            NetPeerConfiguration config = new NetPeerConfiguration("chat");
-            config.MaximumConnections = 100;
-            config.Port = 14242;
+            NetPeerConfiguration config = new NetPeerConfiguration("chat")
+            {
+                MaximumConnections = 100,
+                Port = 14242
+            };
+
             s_server = new NetServer(config);
 
             timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 5)};
