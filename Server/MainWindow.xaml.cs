@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using LibgrenWrapper;
+using System.Net.NetworkInformation;
 
 namespace Server
 {
@@ -19,7 +20,7 @@ namespace Server
 
             // Get a list of all network interfaces (usually one per network card, dialup, and VPN connection) 
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-
+            
             foreach (NetworkInterface network in networkInterfaces)
             {
                 // Read the IP configuration for each network 
@@ -28,15 +29,14 @@ namespace Server
                 // Each network interface may have multiple IP addresses 
                 foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
                 {
-                    // We're only interested in IPv4 addresses for now 
-                    if (address.Address.AddressFamily != AddressFamily.InterNetwork)
-                        continue;
-
                     // Ignore loopback addresses (e.g., 127.0.0.1) 
                     if (IPAddress.IsLoopback(address.Address))
                         continue;
 
-                    Console.WriteLine(address.Address);
+                    if (address.Address.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        Console.WriteLine(address.Address + " " + properties.DnsSuffix);
+                    }
                 }
             }
             LibgrenWrapper.Server.Setup();

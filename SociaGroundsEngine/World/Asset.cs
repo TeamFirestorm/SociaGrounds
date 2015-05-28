@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.World
 {
-    abstract class Asset
+    public abstract class Asset
     {
         // The position of the asset
         protected Vector2 position;

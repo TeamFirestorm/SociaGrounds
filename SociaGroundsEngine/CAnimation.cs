@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SociaGroundsEngine
 {
-    class CAnimation
+    public class CAnimation
     {
         // The spritesheet to be animated
         Texture2D texture;

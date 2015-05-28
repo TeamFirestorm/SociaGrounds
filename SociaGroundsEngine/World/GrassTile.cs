@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.World
 {
-    class GrassTile : Asset
+    public class GrassTile : Asset
     {
         Texture2D texture;
         Texture2D Texture
