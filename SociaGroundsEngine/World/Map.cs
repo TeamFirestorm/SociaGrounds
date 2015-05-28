@@ -23,6 +23,12 @@ namespace SociaGroundsEngine.World
             get { return solidAssets; }
         }
 
+        Vector2 startPosition;
+        public Vector2 StartPosition
+        {
+            get { return startPosition; }
+        }
+
         int mapWidth, mapHeight;
         public int MapWidth
         {
@@ -39,6 +45,7 @@ namespace SociaGroundsEngine.World
             nonSolidAssets = new List<Asset>();
             solidAssets = new List<Asset>();
             Vector2 currentPosition = startPosition;
+            this.startPosition = startPosition;
             Texture2D grassTexture = content.Load<Texture2D>("World/Grass/Grass_0");
 
             // Looping through the multidimensional array that has been given
