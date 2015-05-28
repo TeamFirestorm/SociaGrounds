@@ -32,7 +32,7 @@ namespace LibgrenWrapper
             }
         }
 
-        public List<Connection> getConnections()
+        public static List<Connection> GetConnections()
         {
             string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnectionss.php");
 

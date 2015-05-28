@@ -40,9 +40,18 @@ namespace LibgrenWrapper
             }
         }
 
-        public static void din()
+        public static bool CheckPossibleConnection()
         {
-            DataBase.
+            List<Connection> connections = DataBase.GetConnections();
+
+            foreach (Connection connect in connections)
+            {
+                if (connect.IP.Equals(MyIp.ToString()) && connect.DNS.Equals(MyDnsSuffix))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

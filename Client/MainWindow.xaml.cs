@@ -15,8 +15,6 @@ namespace Client
             LibgrenWrapper.Client.Setup();
 
             InternetConnection.GetMyIpAndDns();
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -27,7 +25,14 @@ namespace Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            LibgrenWrapper.Client.Connect(InternetConnection.MyIp.ToString(), 14242);
+            if (InternetConnection.CheckPossibleConnection())
+            {
+                LibgrenWrapper.Client.Connect(InternetConnection.MyIp.ToString(), 14242);
+            }
+            else
+            {
+                MessageBox.Show("Connection Error");
+            }
         }
     }
 }
