@@ -18,6 +18,7 @@ namespace LibgrenWrapper
             config.MaximumConnections = 100;
             config.Port = 14242;
             s_server = new NetServer(config);
+            
         }
 
         private static void Output(string text)
