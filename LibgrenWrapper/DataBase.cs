@@ -25,5 +25,17 @@ namespace LibgrenWrapper
             
         }
 
+        public static bool deleteConnection(string ipadress, string dnssuffix)
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/deleteConnection.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
+            if (request.GetResponse().ToString() == "Succes")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
