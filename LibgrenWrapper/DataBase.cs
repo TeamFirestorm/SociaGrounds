@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Net;
 
 namespace LibgrenWrapper
@@ -22,7 +17,6 @@ namespace LibgrenWrapper
             {
                 return false;
             }
-            
         }
 
         public static bool deleteConnection(string ipaddress, string dnssuffix)

@@ -19,11 +19,7 @@ namespace Server
             InitializeComponent();
             LibgrenWrapper.Server.Setup();
 
-            Console.WriteLine("\n" + LibgrenWrapper.Server.MyIp);
-            Console.WriteLine(LibgrenWrapper.Server.MyDnsSuffix + "\n");
-
-
-            DataBase.insertConnectionInfo(LibgrenWrapper.Server.MyIp.ToString(), LibgrenWrapper.Server.MyDnsSuffix);
+            DataBase.InsertConnectionInfo(InternetConenction.MyIp.ToString(), InternetConenction.MyDnsSuffix);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
