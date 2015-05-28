@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using Lidgren.Network;
 
@@ -15,10 +10,6 @@ namespace LibgrenWrapper
     {
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
-
-        public static IPAddress MyIp { get; set; }
-
-        public static string MyDnsSuffix { get; set; }
 
         public static async void Setup()
         {
@@ -35,7 +26,7 @@ namespace LibgrenWrapper
             _timer.Tick += TimerOnTick;
             _timer.Start();
 
-            GetMyIpAndDns();
+            InternetConenction.GetMyIpAndDns();
         }
 
         private static void TimerOnTick(object sender, EventArgs eventArgs)
@@ -122,34 +113,6 @@ namespace LibgrenWrapper
         public static void Shutdown()
         {
             _sServer.Shutdown("Requested by user");
-        }
-
-        private static void GetMyIpAndDns()
-        {
-            // Get a list of all network interfaces (usually one per network card, dialup, and VPN connection) 
-            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-            
-            foreach (NetworkInterface network in networkInterfaces)
-            {
-                // Read the IP configuration for each network 
-                IPInterfaceProperties properties = network.GetIPProperties();
-
-                // Each network interface may have multiple IP addresses 
-                foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
-                {
-                    if (address.Address.AddressFamily == AddressFamily.InterNetwork && properties.DnsSuffix != "")
-                    {
-                        MyIp = address.Address;
-                        MyDnsSuffix = properties.DnsSuffix;
-                        break;
-                    }
-                }
-            }
-
-            if (MyIp.Equals(default(IPAddress)) || MyDnsSuffix.Equals(default(string)))
-            {
-                throw new Exception("Not Connected to the Interwebs");
-            }           
         }
     }
 }
