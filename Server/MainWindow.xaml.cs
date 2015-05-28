@@ -27,5 +27,11 @@ namespace Server
             LibgrenWrapper.Server.StartServer();
             Console.WriteLine("Started");
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            LibgrenWrapper.Server.Shutdown();
+            DataBase.DeleteConnection(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
+        }
     }
 }

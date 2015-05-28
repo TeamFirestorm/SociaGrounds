@@ -10,6 +10,9 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
+
+
+
             LibgrenWrapper.Client.Setup();
         }
 
