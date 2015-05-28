@@ -10,7 +10,7 @@ namespace LibgrenWrapper
     {
         public Class1()
         {
-           
-        }
+
     }
+}
 }
