@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace LibgrenWrapper
 {
-    public static class InternetConenction
+    public static class InternetConnection
     {
         public static IPAddress MyIp { get; set; }
         public static string MyDnsSuffix { get; set; }

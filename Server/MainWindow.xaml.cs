@@ -19,7 +19,7 @@ namespace Server
             InitializeComponent();
             LibgrenWrapper.Server.Setup();
 
-            DataBase.InsertConnectionInfo(InternetConenction.MyIp.ToString(), InternetConenction.MyDnsSuffix);
+            DataBase.InsertConnectionInfo(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

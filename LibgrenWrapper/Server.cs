@@ -26,7 +26,7 @@ namespace LibgrenWrapper
             _timer.Tick += TimerOnTick;
             _timer.Start();
 
-            InternetConenction.GetMyIpAndDns();
+            InternetConnection.GetMyIpAndDns();
         }
 
         private static void TimerOnTick(object sender, EventArgs eventArgs)
