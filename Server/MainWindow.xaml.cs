@@ -15,7 +15,16 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LibgrenWrapper.Server.StartServer();
+            Console.WriteLine("Started");
+        }
+
+        public void zooi()
+        {
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
 
             foreach (NetworkInterface adapter in adapters)
@@ -27,17 +36,9 @@ namespace Server
                 {
                     Console.WriteLine("DNS Suffix: " + properties.DnsSuffix);
                 }
-        
+
             }
             Console.WriteLine();
-
-            LibgrenWrapper.Server.Setup();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            LibgrenWrapper.Server.StartServer();
-            Console.WriteLine("Started");
         }
 
         public string LocalIPAddress()
