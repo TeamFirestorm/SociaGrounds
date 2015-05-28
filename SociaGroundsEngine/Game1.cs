@@ -16,12 +16,18 @@ namespace SociaGroundsEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        MyPlayer chris;
-        //Player gyllion;
-        //Player thijs;
-        //Player wouter;
-        //Player alwin;
+        enum ScreenState
+        {
+            LoginScreen,
+            RegisterScreen,
+            LobbyScreen,
+            HomeScreen,
+            RoomScreen
+        }
+        ScreenState CurrentScreenState = ScreenState.LoginScreen;
 
+        // Roomscreen stuff
+        MyPlayer chris;
         Map map;
         Camera camera;
         UI ui;
@@ -47,10 +53,6 @@ namespace SociaGroundsEngine
             // TODO: Add your initialization logic here
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
             chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
-            //gyllion = new Player(Content, new Vector2(100, 50), Content.Load<Texture2D>("Gyllion_Character"));
-            //thijs = new Player(Content, new Vector2(150, 50), Content.Load<Texture2D>("Thijs_Character"));
-            //wouter = new Player(Content, new Vector2(200, 50), Content.Load<Texture2D>("Wouter_Character"));
-            //alwin = new Player(Content, new Vector2(250, 50), Content.Load<Texture2D>("Alwin_Character"));
 
             int[,] mapArray = new int[,]
             {
@@ -119,16 +121,27 @@ namespace SociaGroundsEngine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-            ui.update(camera.centre);
+            // Switch statement to determine the screen update logic
+            switch (CurrentScreenState)
+            {
+                case ScreenState.LoginScreen:
 
-            chris.update(gameTime, ui, GraphicsDevice.Viewport, map);
-            //gyllion.update(gameTime);
-            //thijs.update(gameTime);
-            //wouter.update(gameTime);
-            //alwin.update(gameTime);
+                    break;
+                case ScreenState.RegisterScreen:
 
-            camera.Update(GraphicsDevice.Viewport, chris.Position, map);
+                    break;
+                case ScreenState.LobbyScreen:
+
+                    break;
+                case ScreenState.HomeScreen:
+
+                    break;
+                case ScreenState.RoomScreen:
+                    ui.update(camera.centre);
+                    chris.update(gameTime, ui, GraphicsDevice.Viewport, map);
+                    camera.Update(GraphicsDevice.Viewport, chris.Position, map);
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -141,21 +154,28 @@ namespace SociaGroundsEngine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.tranformPublic);
+            // Switch statement to determine the draw logic
+            switch (CurrentScreenState)
+            {
+                case ScreenState.LoginScreen:
 
-            map.draw(spriteBatch);
+                    break;
+                case ScreenState.RegisterScreen:
 
-            chris.draw(spriteBatch);
-            //gyllion.draw(spriteBatch);
-            //thijs.draw(spriteBatch);
-            //wouter.draw(spriteBatch);
-            //alwin.draw(spriteBatch);
+                    break;
+                case ScreenState.LobbyScreen:
 
-            // Debug texture
-            //spriteBatch.Draw(Content.Load<Texture2D>("Enemy"), new Vector2(200, 0), Color.White);
+                    break;
+                case ScreenState.HomeScreen:
 
-            spriteBatch.End();
+                    break;
+                case ScreenState.RoomScreen:
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.tranformPublic);
+                    map.draw(spriteBatch);
+                    chris.draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+            }
 
             base.Draw(gameTime);
         }
