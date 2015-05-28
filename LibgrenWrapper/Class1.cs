@@ -8,5 +8,6 @@ namespace LibgrenWrapper
 {
     public class Class1
     {
+
     }
 }
