@@ -24,7 +24,7 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.LoginScreen;
+        ScreenState CurrentScreenState = ScreenState.RoomScreen;
 
         // Roomscreen stuff
         MyPlayer chris;
@@ -54,7 +54,7 @@ namespace SociaGroundsEngine
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
             chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
 
-            int[,] mapArray = new int[,]
+            int[,] mapArray = 
             {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
