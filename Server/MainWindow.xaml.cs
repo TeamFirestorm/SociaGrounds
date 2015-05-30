@@ -17,20 +17,20 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
-            LibgrenWrapper.Server.Setup();
+            ServerCon.Setup();
 
             DataBase.InsertConnectionInfo(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LibgrenWrapper.Server.StartServer();
+            ServerCon.StartServer();
             Console.WriteLine("Started");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            LibgrenWrapper.Server.Shutdown();
+            ServerCon.Shutdown();
             DataBase.DeleteConnection(InternetConnection.MyIp.ToString(), InternetConnection.MyDnsSuffix);
         }
     }
