@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using SociaGroundsEngine.Player;
+using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
 using System.Diagnostics;
 
@@ -16,8 +17,6 @@ namespace SociaGroundsEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        SpriteFont font;
-
         enum ScreenState
         {
             LoginScreen,
@@ -26,7 +25,10 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.RoomScreen;
+        ScreenState CurrentScreenState = ScreenState.LoginScreen;
+
+        // Loginscreen stuff
+        LoginScreen loginScreen;
 
         // Roomscreen stuff
         MyPlayer chris;
@@ -53,6 +55,10 @@ namespace SociaGroundsEngine
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: Add your initialization logic here
+
+            // Loginscreen initialize
+            loginScreen = new LoginScreen(Content);
+
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
             chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
 
@@ -95,8 +101,6 @@ namespace SociaGroundsEngine
             camera = new Camera(GraphicsDevice.Viewport);
             ui = new UI();
 
-            font = Content.Load<SpriteFont>("SociaGroundsFont");
-
             base.Initialize();
         }
 
@@ -129,7 +133,7 @@ namespace SociaGroundsEngine
             switch (CurrentScreenState)
             {
                 case ScreenState.LoginScreen:
-
+                    loginScreen.update();
                     break;
                 case ScreenState.RegisterScreen:
 
@@ -163,7 +167,7 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     spriteBatch.Begin();
-                    spriteBatch.DrawString(font, "Wouter houdt van fietsen!!!", new Vector2(50, 50), Color.White);
+                    loginScreen.draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:
