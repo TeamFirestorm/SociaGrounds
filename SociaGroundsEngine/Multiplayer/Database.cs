@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.Multiplayer
 {
@@ -12,19 +9,18 @@ namespace SociaGroundsEngine.Multiplayer
         public static bool InsertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
-            
-            if (request.HaveResponse)
-            {
-                
-            }
-            
-
+            GetResponse(request);
             //if (request.GetResponse().ToString() == "Succes")
             {
                 return true;
             }
             return false;
-            
+        }
+
+        private static async void GetResponse(HttpWebRequest request)
+        {
+            await request.GetResponseAsync();
+            bool val = request.HaveResponse;
         }
 
         public static bool DeleteConnection(string ipaddress, string dnssuffix)

@@ -94,8 +94,6 @@ namespace SociaGroundsEngine
             camera = new Camera(GraphicsDevice.Viewport);
             ui = new UI();
 
-            Database.InsertConnectionInfo("", "");
-
             base.Initialize();
         }
 
