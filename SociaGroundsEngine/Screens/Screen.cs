@@ -9,14 +9,22 @@ namespace SociaGroundsEngine.Screens
 {
     public abstract class Screen
     {
-        Texture2D background;
+        private readonly Texture2D background;
+
+        // List of all the textures of the GUI (button, input field, etc)
+        private readonly List<Texture2D> guiTextures;
+
+        protected Screen(List<Texture2D> guiTextures, Texture2D background)
+        {
+            this.guiTextures = guiTextures;
+            this.background = background;
+        }
+
         public Texture2D Background
         {
             get { return background; }
         }
 
-        // List of all the textures of the GUI (button, input field, etc)
-        List<Texture2D> guiTextures;
         public List<Texture2D> GuiTextures
         {
             get { return guiTextures; }
