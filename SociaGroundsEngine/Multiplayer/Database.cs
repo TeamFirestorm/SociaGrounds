@@ -17,10 +17,6 @@ namespace SociaGroundsEngine.Multiplayer
             {
                 await MessageBox.Show("title", "Wil je dit " + val.ToString(), new List<string> { "button1", "button2" });
             }
-            else
-            {
-                
-            }
         }
 
         public static bool DeleteConnection(string ipaddress, string dnssuffix)
