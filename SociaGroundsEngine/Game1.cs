@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using SociaGroundsEngine.Player;
+using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
-using System.Diagnostics;
-using SociaGroundsEngine.Multiplayer;
 
 namespace SociaGroundsEngine
 {
@@ -25,7 +24,10 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.RoomScreen;
+        ScreenState CurrentScreenState = ScreenState.LoginScreen;
+
+        // Loginscreen stuff
+        LoginScreen loginScreen;
 
         // Roomscreen stuff
         MyPlayer chris;
@@ -52,6 +54,10 @@ namespace SociaGroundsEngine
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: Add your initialization logic here
+
+            // Loginscreen initialize
+            loginScreen = new LoginScreen(Content);
+
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
             chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
 
@@ -126,7 +132,7 @@ namespace SociaGroundsEngine
             switch (CurrentScreenState)
             {
                 case ScreenState.LoginScreen:
-
+                    loginScreen.update();
                     break;
                 case ScreenState.RegisterScreen:
 
@@ -159,7 +165,9 @@ namespace SociaGroundsEngine
             switch (CurrentScreenState)
             {
                 case ScreenState.LoginScreen:
-
+                    spriteBatch.Begin();
+                    loginScreen.draw(spriteBatch);
+                    spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:
 

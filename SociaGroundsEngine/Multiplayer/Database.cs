@@ -6,21 +6,20 @@ namespace SociaGroundsEngine.Multiplayer
 {
     public class Database
     {
-        public static bool InsertConnectionInfo(string ipaddress, string dnssuffix)
+        public static async void InsertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
-            GetResponse(request);
-            //if (request.GetResponse().ToString() == "Succes")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private static async void GetResponse(HttpWebRequest request)
-        {
+            
             await request.GetResponseAsync();
             bool val = request.HaveResponse;
+            if (val)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
         public static bool DeleteConnection(string ipaddress, string dnssuffix)
