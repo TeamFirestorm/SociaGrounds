@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SociaGroundsEngine.Player;
 using SociaGroundsEngine.World;
 using System.Diagnostics;
+using SociaGroundsEngine.Multiplayer;
 
 namespace SociaGroundsEngine
 {
@@ -92,6 +93,8 @@ namespace SociaGroundsEngine
 
             camera = new Camera(GraphicsDevice.Viewport);
             ui = new UI();
+
+            Database.InsertConnectionInfo("", "");
 
             base.Initialize();
         }

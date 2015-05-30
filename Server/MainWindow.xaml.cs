@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using LibgrenWrapper;
-using System.Net.NetworkInformation;
 
 namespace Server
 {

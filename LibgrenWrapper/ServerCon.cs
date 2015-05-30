@@ -10,7 +10,9 @@ namespace LibgrenWrapper
         private static NetServer _sServer;
         private static DispatcherTimer _timer;
 
+#pragma warning disable 1998
         public static async void Setup()
+#pragma warning restore 1998
         {
             // set up network
             NetPeerConfiguration config = new NetPeerConfiguration("chat")
