@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using SociaGroundsEngine.PlayerFolder;
@@ -24,13 +25,15 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.LoginScreen;
+        ScreenState CurrentScreenState = ScreenState.RoomScreen;
 
         // Loginscreen stuff
         LoginScreen loginScreen;
 
         // Roomscreen stuff
-        MyPlayer chris;
+
+        private List<CPlayer> players;
+        //MyPlayer chris;
         Map map;
         Camera camera;
         UI ui;
@@ -59,7 +62,9 @@ namespace SociaGroundsEngine
             loginScreen = new LoginScreen(Content);
 
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
-            chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
+
+            players = new List<CPlayer>();
+            players.Add(new MyPlayer(Content, new Vector2(600, 200), chrisTexture));
 
             int[,] mapArray = 
             {
@@ -145,8 +150,12 @@ namespace SociaGroundsEngine
                     break;
                 case ScreenState.RoomScreen:
                     ui.update(camera.centre);
-                    chris.update(gameTime, ui, GraphicsDevice.Viewport, map);
-                    camera.Update(GraphicsDevice.Viewport, chris.Position, map);
+
+                    foreach (var player in players)
+                    {
+                        player.update(gameTime, ui, GraphicsDevice.Viewport, map);
+                    }
+                    camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
                     break;
             }
 
@@ -181,7 +190,12 @@ namespace SociaGroundsEngine
                 case ScreenState.RoomScreen:
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.tranformPublic);
                     map.draw(spriteBatch);
-                    chris.draw(spriteBatch);
+
+                    foreach (var player in players)
+                    {
+                        player.draw(spriteBatch);
+                    }
+
                     spriteBatch.End();
                     break;
             }
