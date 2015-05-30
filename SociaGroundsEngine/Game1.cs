@@ -64,7 +64,7 @@ namespace SociaGroundsEngine
             Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
 
             players = new List<CPlayer>();
-            players.Add(new MyPlayer(Content, new Vector2(600, 200), chrisTexture));
+            players.Add(new MyPlayer(new Vector2(600, 200), chrisTexture));
 
             int[,] mapArray = 
             {
