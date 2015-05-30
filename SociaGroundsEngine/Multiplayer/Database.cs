@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using Microsoft.Xna.Framework.Input;
 
 namespace SociaGroundsEngine.Multiplayer
 {
@@ -14,11 +15,11 @@ namespace SociaGroundsEngine.Multiplayer
             bool val = request.HaveResponse;
             if (val)
             {
-
+                await MessageBox.Show("title", "Wil je dit " + val.ToString(), new List<string> { "button1", "button2" });
             }
             else
             {
-
+                
             }
         }
 
