@@ -16,6 +16,8 @@ namespace SociaGroundsEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        SpriteFont font;
+
         enum ScreenState
         {
             LoginScreen,
@@ -93,6 +95,8 @@ namespace SociaGroundsEngine
             camera = new Camera(GraphicsDevice.Viewport);
             ui = new UI();
 
+            font = Content.Load<SpriteFont>("SociaGroundsFont");
+
             base.Initialize();
         }
 
@@ -158,7 +162,9 @@ namespace SociaGroundsEngine
             switch (CurrentScreenState)
             {
                 case ScreenState.LoginScreen:
-
+                    spriteBatch.Begin();
+                    spriteBatch.DrawString(font, "Wouter houdt van fietsen!!!", new Vector2(50, 50), Color.White);
+                    spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:
 
