@@ -21,6 +21,8 @@ namespace SociaGroundsEngine.GUI
             set { position = value; }
         }
 
+        // Scaling properties
+        float scale;
         int width;
         public int Width
         {
@@ -50,7 +52,7 @@ namespace SociaGroundsEngine.GUI
         }
 
 
-        public Button(ContentManager content, Vector2 position, string text)
+        public Button(ContentManager content, Vector2 position, string text, float scale)
         {
             // Neutral textures initialize
             this.left = content.Load<Texture2D>("GUI/Button/StandardButtonLeft");
@@ -70,7 +72,7 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             this.width = text.Length / 5;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, left.Width + (mid.Width * width) + right.Width, mid.Height);
+            rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
         }
 
 
@@ -127,37 +129,37 @@ namespace SociaGroundsEngine.GUI
             if (isHold())
             {
                 // Drawing the left part
-                spriteBatch.Draw(leftClicked, position, Color.White);
+                spriteBatch.Draw(leftClicked, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
 
                 // Drawing the mid part
                 for (int i = 0; i < width; i++)
                 {
-                    spriteBatch.Draw(midClicked, new Vector2(position.X + left.Width + (mid.Width * i), position.Y), Color.White);
+                    spriteBatch.Draw(midClicked, new Vector2(position.X + (left.Width * scale) + ((mid.Width * scale) * i), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
                 }
 
                 // Drawing the right part
-                spriteBatch.Draw(rightClicked, new Vector2(position.X + left.Width + (mid.Width * width), position.Y));
+                spriteBatch.Draw(rightClicked, new Vector2(position.X + (left.Width * scale) + ((mid.Width * scale) * width), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
 
                 // Drawing the text
-                spriteBatch.DrawString(font, text, new Vector2(position.X + 30, position.Y + 40), Color.White, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(font, text, new Vector2(position.X + (30 * scale), position.Y + (40 * scale)), Color.White, 0f, new Vector2(0, 0), new Vector2(scale / 0.5f, scale / 0.5f), SpriteEffects.None, 0f);
             }
             // If not, draw the neutral button
             else
             {
                 // Drawing the left part
-                spriteBatch.Draw(left, position, Color.White);
+                spriteBatch.Draw(left, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
 
                 // Drawing the mid part
                 for (int i = 0; i < width; i++)
                 {
-                    spriteBatch.Draw(mid, new Vector2(position.X + left.Width + (mid.Width * i), position.Y), Color.White);
+                    spriteBatch.Draw(mid, new Vector2(position.X + (left.Width * scale) + ((mid.Width * scale) * i), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
                 }
 
                 // Drawing the right part
-                spriteBatch.Draw(right, new Vector2(position.X + left.Width + (mid.Width * width), position.Y));
+                spriteBatch.Draw(right, new Vector2(position.X + (left.Width * scale) + ((mid.Width * scale) * width), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
 
                 // Drawing the text
-                spriteBatch.DrawString(font, text, new Vector2(position.X + 30, position.Y + 40), Color.Black, 0f, new Vector2(0, 0), 2f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(font, text, new Vector2(position.X + (30 * scale), position.Y + (40 * scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(scale / 0.5f, scale / 0.5f), SpriteEffects.None, 0f);
             }
         }
     }

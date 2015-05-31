@@ -19,7 +19,7 @@ namespace SociaGroundsEngine.Screens
         public LoginScreen(ContentManager content)
         {
             buttons = new List<Button>();
-            buttons.Add(new Button(content, new Vector2(200, 400), "Start"));
+            buttons.Add(new Button(content, new Vector2(200, 400), "Start", 0.5f));
         }
 
         public override void update()
