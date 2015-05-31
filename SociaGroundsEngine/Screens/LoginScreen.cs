@@ -14,21 +14,17 @@ namespace SociaGroundsEngine.Screens
     class LoginScreen : Screen
     {
         List<Button> buttons;
+        float timeElapsed;
 
         public LoginScreen(ContentManager content)
         {
             buttons = new List<Button>();
-            buttons.Add(new Button(content, new Vector2(50, 50), 4, "Wouter houdt van fietsen!!!"));
-            buttons.Add(new Button(content, new Vector2(150, 150), 4, "Thijs niet!!!"));
-            buttons.Add(new Button(content, new Vector2(50, 300), 4, "Ik weet niet waarom ik zo luidruchtig ben!!!"));
+            buttons.Add(new Button(content, new Vector2(200, 400), "Start"));
         }
 
         public override void update()
         {
-            if (buttons[0].isHold())
-            {
-                Debug.WriteLine("Click!");
-            }
+
         }
 
         public override void draw(SpriteBatch spriteBatch)
@@ -37,6 +33,21 @@ namespace SociaGroundsEngine.Screens
             {
                 button.draw(spriteBatch);
             }
+        }
+
+        public bool toHomeScreen(GameTime gameTime)
+        {
+            timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+
+            // Go to the home screen if the button has been pressed
+            // Add a slight delay
+            if (buttons[0].isHold() && timeElapsed >= 500)
+            {
+                timeElapsed = 0;
+                return true;
+            }
+
+            return false;
         }
     }
 }
