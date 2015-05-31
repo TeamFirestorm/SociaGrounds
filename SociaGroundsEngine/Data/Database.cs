@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using Microsoft.Xna.Framework.Input;
 
-namespace SociaGroundsEngine.Multiplayer
+namespace SociaGroundsEngine.Data
 {
     public class Database
     {
@@ -12,11 +11,8 @@ namespace SociaGroundsEngine.Multiplayer
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
             
             await request.GetResponseAsync();
-            bool val = request.HaveResponse;
-            if (val)
-            {
-                await MessageBox.Show("title", "Wil je dit " + val.ToString(), new List<string> { "button1", "button2" });
-            }
+
+           // request.
         }
 
         public static bool DeleteConnection(string ipaddress, string dnssuffix)
