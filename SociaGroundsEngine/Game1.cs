@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using SociaGroundsEngine.Player;
+using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
 
@@ -30,7 +31,9 @@ namespace SociaGroundsEngine
         LoginScreen loginScreen;
 
         // Roomscreen stuff
-        MyPlayer chris;
+
+        private List<CPlayer> players;
+        //MyPlayer chris;
         Map map;
         Camera camera;
         UI ui;
@@ -58,8 +61,9 @@ namespace SociaGroundsEngine
             // Loginscreen initialize
             loginScreen = new LoginScreen(Content);
 
-            Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
-            chris = new MyPlayer(Content, new Vector2(600, 200), chrisTexture);
+            players = new List<CPlayer>();
+            players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
+            players.Add(new ForeignPlayer(new Vector2(400, 300), Content.Load<Texture2D>("Personas/Gyllion_Character")));
 
             int[,] mapArray = 
             {
@@ -140,18 +144,28 @@ namespace SociaGroundsEngine
                     }
                     break;
                 case ScreenState.RegisterScreen:
-
                     break;
+
                 case ScreenState.LobbyScreen:
-
                     break;
+
                 case ScreenState.HomeScreen:
-
                     break;
+
                 case ScreenState.RoomScreen:
                     ui.update(camera.centre);
-                    chris.update(gameTime, ui, GraphicsDevice.Viewport, map);
-                    camera.Update(GraphicsDevice.Viewport, chris.Position, map);
+
+                    foreach (var player in players)
+                    {
+                        if (!player.Equals(players[0]))
+                        {
+                            ForeignPlayer foreign = ((ForeignPlayer) player);
+                            foreign.NewPosition = new Vector2(foreign.NewPosition.X , foreign.NewPosition.Y);
+                        }
+                        player.update(gameTime, ui, GraphicsDevice.Viewport, map);
+                    }
+
+                    camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
                     break;
             }
 
@@ -186,7 +200,12 @@ namespace SociaGroundsEngine
                 case ScreenState.RoomScreen:
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.tranformPublic);
                     map.draw(spriteBatch);
-                    chris.draw(spriteBatch);
+
+                    foreach (var player in players)
+                    {
+                        player.draw(spriteBatch);
+                    }
+
                     spriteBatch.End();
                     break;
             }
