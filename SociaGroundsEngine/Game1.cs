@@ -137,6 +137,11 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     loginScreen.update();
+
+                    if (loginScreen.toHomeScreen(gameTime))
+                    {
+                        CurrentScreenState = ScreenState.RoomScreen;
+                    }
                     break;
                 case ScreenState.RegisterScreen:
                     break;
