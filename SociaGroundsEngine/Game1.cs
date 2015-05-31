@@ -25,7 +25,7 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.RoomScreen;
+        ScreenState CurrentScreenState = ScreenState.LoginScreen;
 
         // Loginscreen stuff
         LoginScreen loginScreen;
@@ -61,10 +61,9 @@ namespace SociaGroundsEngine
             // Loginscreen initialize
             loginScreen = new LoginScreen(Content);
 
-            Texture2D chrisTexture = Content.Load<Texture2D>("Personas/Chris_Character");
-
             players = new List<CPlayer>();
-            players.Add(new MyPlayer(new Vector2(600, 200), chrisTexture));
+            players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
+            players.Add(new ForeignPlayer(new Vector2(400, 300), Content.Load<Texture2D>("Personas/Gyllion_Character")));
 
             int[,] mapArray = 
             {
@@ -140,21 +139,27 @@ namespace SociaGroundsEngine
                     loginScreen.update();
                     break;
                 case ScreenState.RegisterScreen:
-
                     break;
+
                 case ScreenState.LobbyScreen:
-
                     break;
+
                 case ScreenState.HomeScreen:
-
                     break;
+
                 case ScreenState.RoomScreen:
                     ui.update(camera.centre);
 
                     foreach (var player in players)
                     {
+                        if (!player.Equals(players[0]))
+                        {
+                            ForeignPlayer foreign = ((ForeignPlayer) player);
+                            foreign.NewPosition = new Vector2(foreign.NewPosition.X , foreign.NewPosition.Y);
+                        }
                         player.update(gameTime, ui, GraphicsDevice.Viewport, map);
                     }
+
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
                     break;
             }
