@@ -157,6 +157,7 @@
     <Compile Include="PlayerFolder\CPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleHelper.cs" />
+    <Compile Include="Screens\LobbyScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="UI.cs" />
