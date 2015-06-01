@@ -42,7 +42,8 @@ namespace SociaGroundsEngine
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            TouchPanel.EnabledGestures = GestureType.Hold;
+            //TouchPanel.EnabledGestures = GestureType.Hold;
+            TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
         /// <summary>
