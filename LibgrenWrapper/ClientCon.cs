@@ -44,17 +44,20 @@ namespace LibgrenWrapper
                         Output(text);
                         break;
 
-                    case NetIncomingMessageType.StatusChanged:
+                   case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
 
                         if (status == NetConnectionStatus.Connected)
                         {
-                            Console.WriteLine("Disconnect");
+                            Console.WriteLine("Connected a nother client");
                         }
-
-                        if (status == NetConnectionStatus.Disconnected)
+                        else if (status == NetConnectionStatus.Disconnected)
                         {
-                            Console.WriteLine("Connect");
+                            Console.WriteLine("Disconnected a nother client");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Random");
                         }
 
                         string reason = im.ReadString();
@@ -87,7 +90,7 @@ namespace LibgrenWrapper
         public static void Shutdown()
         {
             s_client.Disconnect("Requested by user");
-            // s_client.Shutdown("Requested by user");
+            s_client.Shutdown("Requested by user");
         }
 
         // called by the UI

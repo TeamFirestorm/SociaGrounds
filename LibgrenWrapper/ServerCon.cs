@@ -23,7 +23,7 @@ namespace LibgrenWrapper
 
             _sServer = new NetServer(config);
 
-            _timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
+            _timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0, 6)};
             _timer.Tick += TimerOnTick;
             _timer.Start();
 

@@ -18,24 +18,28 @@ namespace Client
             InternetConnection.GetMyIpAndDns();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SendMessgae_Click(object sender, RoutedEventArgs e)
         {
             ClientCon.Send(txtMessage.Text);
             txtMessage.Text = "";
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Connenct_Click(object sender, RoutedEventArgs e)
         {
             IPAddress adres = InternetConnection.CheckPossibleConnection();
 
             if (adres != null)
             {
                 ClientCon.Connect(adres.ToString(), 14242);
+                return;
             }
-            else
-            {
-                MessageBox.Show("Connection Error");
-            }
+            MessageBox.Show("Connection Error");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ClientCon.Shutdown();
+            e.Cancel = true;
         }
     }
 }
