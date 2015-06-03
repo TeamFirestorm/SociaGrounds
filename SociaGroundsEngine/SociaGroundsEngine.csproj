@@ -150,9 +150,11 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Button.cs" />
-    <Compile Include="Data\Connection.cs" />
-    <Compile Include="Data\Database.cs" />
+    <Compile Include="DataBase\Connection.cs" />
+    <Compile Include="DataBase\Database.cs" />
     <Compile Include="Key.cs" />
+    <Compile Include="Multiplayer\MessageCLient.cs" />
+    <Compile Include="Multiplayer\MessageHost.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />
     <Compile Include="PlayerFolder\MyPlayer.cs" />
     <Compile Include="PlayerFolder\CPlayer.cs" />
@@ -192,6 +194,9 @@
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\LibgrenWrapper\Dll\Lidgren.Network.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsPhone81\MonoGame.Framework.dll</HintPath>
     </Reference>
