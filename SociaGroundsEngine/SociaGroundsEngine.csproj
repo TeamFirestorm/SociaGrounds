@@ -152,6 +152,7 @@
     <Compile Include="GUI\Button.cs" />
     <Compile Include="Data\Connection.cs" />
     <Compile Include="Data\Database.cs" />
+    <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />
     <Compile Include="PlayerFolder\MyPlayer.cs" />
     <Compile Include="PlayerFolder\CPlayer.cs" />

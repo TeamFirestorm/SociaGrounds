@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace SociaGroundsEngine.GUI
 {
     class Button
-    {
+    { 
         Vector2 position;
         public Vector2 Position
         {
@@ -43,6 +43,10 @@ namespace SociaGroundsEngine.GUI
         // Text stuff
         SpriteFont font;
         string text;
+        public string Text
+        {
+            get { return text; }
+        }
 
         // Rectangle for detection
         Rectangle rect;
@@ -50,6 +54,10 @@ namespace SociaGroundsEngine.GUI
         {
             get { return rect; }
         }
+
+        // The touch state
+        TouchCollection currentState;
+        TouchCollection oldState;
 
 
         public Button(ContentManager content, Vector2 position, string text, float scale)
@@ -71,6 +79,7 @@ namespace SociaGroundsEngine.GUI
             // Other stuff
             this.position = position;
             this.width = text.Length / 5;
+            this.scale = scale;
 
             rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
         }
@@ -103,25 +112,45 @@ namespace SociaGroundsEngine.GUI
         // Use this method as the event trigger
         public bool isTouched()
         {
+            currentState = TouchPanel.GetState();
+
             // Loop through all the locations where touch is possible
             TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
-                // Check if the position is releeased within the button
+                // Check if the position is released within the button
                 if (touch.Position.X >= rect.Left &&
                     touch.Position.X <= rect.Right &&
                     touch.Position.Y >= rect.Top &&
-                    touch.Position.Y <= rect.Bottom &&
-                    touch.State == TouchLocationState.Released)
+                    touch.Position.Y <= rect.Bottom && 
+                    currentState.Count >= 1 && oldState.Count == 0)
                 {
+                    oldState = currentState;
                     return true;
                 }
             }
 
             // If no release
+            oldState = currentState;
             return false;
         }
 
+        // Return the pressure
+        public void testPressure()
+        {
+            Debug.WriteLine(oldState.Count);
+
+            // Loop through all the locations where touch is possible
+            //if (TouchPanel.GetState().Count > 0)
+            //{
+            //    Debug.WriteLine(TouchPanel.GetState().First().State);
+            //}
+            
+            foreach (TouchLocation touch in TouchPanel.GetState())
+            {
+                Debug.WriteLine(touch.State);
+            }
+        }
 
         public void draw(SpriteBatch spriteBatch)
         {

@@ -19,7 +19,7 @@ namespace SociaGroundsEngine.Screens
         public LoginScreen(ContentManager content)
         {
             buttons = new List<Button>();
-            buttons.Add(new Button(content, new Vector2(200, 400), "Start", 0.5f));
+            buttons.Add(new Button(content, new Vector2(50, 50), "Start", 1.0f));
         }
 
         public override void update()
@@ -41,7 +41,7 @@ namespace SociaGroundsEngine.Screens
 
             // Go to the home screen if the button has been pressed
             // Add a slight delay
-            if (buttons[0].isHold() && timeElapsed >= 500)
+            if (buttons[0].isTouched() && timeElapsed >= 500)
             {
                 timeElapsed = 0;
                 return true;
