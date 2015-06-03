@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using Lidgren.Network;
-namespace LibgrenWrapper
+
+namespace SociaGroundsEngine.Multiplayer
 {
-    public class ClientCon
+    public class MessageClient
     {
         private static NetClient s_client;
 
@@ -21,11 +16,6 @@ namespace LibgrenWrapper
             s_client.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
 
             s_client.Shutdown("Bye");
-        }
-
-        private static void Output(string text)
-        {
-            Console.WriteLine(text);
         }
 
         public static void GotMessage(object peer)
@@ -41,36 +31,33 @@ namespace LibgrenWrapper
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
                         string text = im.ReadString();
-                        Output(text);
+                        //Output(text);
                         break;
 
-                   case NetIncomingMessageType.StatusChanged:
+                    case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
 
                         if (status == NetConnectionStatus.Connected)
                         {
-                            Console.WriteLine("Connected a nother client");
+                            //Console.WriteLine("Disconnect");
                         }
-                        else if (status == NetConnectionStatus.Disconnected)
+
+                        if (status == NetConnectionStatus.Disconnected)
                         {
-                            Console.WriteLine("Disconnected a nother client");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Random");
+                            //Console.WriteLine("Connect");
                         }
 
                         string reason = im.ReadString();
-                        Output(status + ": " + reason);
+                        //Output(status + ": " + reason);
                         break;
 
                     case NetIncomingMessageType.Data:
                         string chat = im.ReadString();
-                        Output(chat);
+                        //Output(chat);
                         break;
 
                     default:
-                        Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
+                        //Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
                         break;
                 }
                 s_client.Recycle(im);
@@ -90,7 +77,7 @@ namespace LibgrenWrapper
         public static void Shutdown()
         {
             s_client.Disconnect("Requested by user");
-            s_client.Shutdown("Requested by user");
+            // s_client.Shutdown("Requested by user");
         }
 
         // called by the UI
@@ -98,7 +85,7 @@ namespace LibgrenWrapper
         {
             NetOutgoingMessage om = s_client.CreateMessage(text);
             s_client.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            Output("Sending '" + text + "'");
+            //Output("Sending '" + text + "'");
             s_client.FlushSendQueue();
         }
     }
