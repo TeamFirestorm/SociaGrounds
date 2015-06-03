@@ -6,6 +6,7 @@ using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
+using SociaGroundsEngine.GUI;
 
 namespace SociaGroundsEngine
 {
@@ -30,6 +31,7 @@ namespace SociaGroundsEngine
 
         // Loginscreen stuff
         LoginScreen loginScreen;
+        SociaKeyboard keyboard;
 
         // Roomscreen stuff
 
@@ -43,7 +45,6 @@ namespace SociaGroundsEngine
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //TouchPanel.EnabledGestures = GestureType.Hold;
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
@@ -62,6 +63,7 @@ namespace SociaGroundsEngine
 
             // Loginscreen initialize
             loginScreen = new LoginScreen(Content);
+            keyboard = new SociaKeyboard(Content, new Vector2(GraphicsDevice.Viewport.Width / 5, GraphicsDevice.Viewport.Height / 2));
 
             players = new List<CPlayer>();
             players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
@@ -139,6 +141,7 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     loginScreen.update();
+                    keyboard.update();
 
                     if (loginScreen.toHomeScreen(gameTime))
                     {
@@ -188,6 +191,7 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     spriteBatch.Begin();
                     loginScreen.draw(spriteBatch);
+                    keyboard.draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:

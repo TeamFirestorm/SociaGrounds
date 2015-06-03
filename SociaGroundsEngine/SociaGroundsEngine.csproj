@@ -150,6 +150,9 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Button.cs" />
+    <Compile Include="Data\Connection.cs" />
+    <Compile Include="Data\Database.cs" />
+    <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="DataBase\Connection.cs" />
     <Compile Include="DataBase\Database.cs" />
     <Compile Include="Key.cs" />
