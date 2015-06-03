@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
 
 namespace SociaGroundsEngine.PlayerFolder
@@ -23,7 +24,7 @@ namespace SociaGroundsEngine.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
-        public override void update(GameTime gameTime, UI ui, Viewport viewPort, Map map)
+        public override void update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
             animation.Position = position;
 

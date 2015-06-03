@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace SociaGroundsEngine
+namespace SociaGroundsEngine.GUI
 {
-    public class UI
+    public class Ui
     {
         Vector2 cameraCentre;
         public Vector2 CameraCentre
@@ -13,22 +13,15 @@ namespace SociaGroundsEngine
             set { cameraCentre = value; }
         }
 
-        public UI()
-        {
-
-        }
-
         public void update(Vector2 position)
         {
             cameraCentre = position;
         }
 
-
         // Input checks for touching up, down, left or right
         public bool touchUp(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is touched within the upper area
@@ -46,7 +39,6 @@ namespace SociaGroundsEngine
         public bool touchDown(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is touched within the upper area
@@ -64,7 +56,6 @@ namespace SociaGroundsEngine
         public bool touchLeft(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is touched within the upper area
@@ -82,7 +73,6 @@ namespace SociaGroundsEngine
         public bool touchRight(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is touched within the upper area

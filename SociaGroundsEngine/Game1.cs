@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
@@ -36,7 +37,7 @@ namespace SociaGroundsEngine
         //MyPlayer chris;
         Map map;
         Camera camera;
-        UI ui;
+        Ui ui;
 
         public Game1()
         {
@@ -103,7 +104,7 @@ namespace SociaGroundsEngine
             map.addSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
 
             camera = new Camera(GraphicsDevice.Viewport);
-            ui = new UI();
+            ui = new Ui();
 
             base.Initialize();
         }
@@ -210,7 +211,6 @@ namespace SociaGroundsEngine
                     spriteBatch.End();
                     break;
             }
-
             base.Draw(gameTime);
         }
     }
