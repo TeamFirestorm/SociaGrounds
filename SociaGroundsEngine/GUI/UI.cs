@@ -13,13 +13,13 @@ namespace SociaGroundsEngine.GUI
             set { cameraCentre = value; }
         }
 
-        public void update(Vector2 position)
+        public void Update(Vector2 position)
         {
             cameraCentre = position;
         }
 
         // Input checks for touching up, down, left or right
-        public bool touchUp(Viewport viewPort)
+        public bool TouchUp(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
@@ -36,7 +36,7 @@ namespace SociaGroundsEngine.GUI
             return false;
         }
 
-        public bool touchDown(Viewport viewPort)
+        public bool TouchDown(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
@@ -53,7 +53,7 @@ namespace SociaGroundsEngine.GUI
             return false;
         }
 
-        public bool touchLeft(Viewport viewPort)
+        public bool TouchLeft(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
@@ -70,7 +70,7 @@ namespace SociaGroundsEngine.GUI
             return false;
         }
 
-        public bool touchRight(Viewport viewPort)
+        public bool TouchRight(Viewport viewPort)
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())

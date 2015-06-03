@@ -24,7 +24,7 @@ namespace SociaGroundsEngine.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
-        public override void update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
             animation.Position = position;
 
@@ -37,35 +37,35 @@ namespace SociaGroundsEngine.PlayerFolder
 
             if (NewPosition.Y > position.Y)
             {
-                animation.play(8, 9, gameTime);
+                animation.Play(8, 9, gameTime);
 
                 position.Y -= (NewPosition.Y - position.Y);
                 
             }
             else if (NewPosition.Y < position.Y)
             {
-                animation.play(10, 9, gameTime);
+                animation.Play(10, 9, gameTime);
 
                 position.Y += (position.Y - NewPosition.Y);
                 
             }
             else if (NewPosition.X < position.X)
             {
-                animation.play(9, 9, gameTime);
+                animation.Play(9, 9, gameTime);
 
                 position.X -= (position.X - NewPosition.X);
             }
             else if (NewPosition.X > position.X)
             {
-                animation.play(11, 9, gameTime);
+                animation.Play(11, 9, gameTime);
 
                 position.X += (NewPosition.X - position.X);
             }
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            animation.draw(spriteBatch);
+            animation.Draw(spriteBatch);
         }
     }
 }

@@ -17,53 +17,53 @@ namespace SociaGroundsEngine.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
-        public override void update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
-            input(gameTime, ui, viewPort, map);
+            Input(gameTime, ui, viewPort, map);
             animation.Position = position;
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            animation.draw(spriteBatch);
+            animation.Draw(spriteBatch);
         }
 
         // Method for all input
-        public void input(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public void Input(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
-            if (ui.touchUp(viewPort))
+            if (ui.TouchUp(viewPort))
             {
-                animation.play(8, 9, gameTime);
+                animation.Play(8, 9, gameTime);
 
-                if (!isCollidingTop(map))
+                if (!IsCollidingTop(map))
                 {
                     position.Y -= speed;
                 }
             }
-            else if(ui.touchDown(viewPort))
+            else if(ui.TouchDown(viewPort))
             {
-                animation.play(10, 9, gameTime);
+                animation.Play(10, 9, gameTime);
 
-                if (!isCollidingBottom(map))
+                if (!IsCollidingBottom(map))
                 {
                     position.Y += speed;
                 }
             }
-            else if(ui.touchLeft(viewPort))
+            else if(ui.TouchLeft(viewPort))
             {
-                animation.play(9, 9, gameTime);
+                animation.Play(9, 9, gameTime);
 
-                if (!isCollidingLeft(map))
+                if (!IsCollidingLeft(map))
                 {
                     position.X -= speed; 
                 }
             }
-            else if (ui.touchRight(viewPort))
+            else if (ui.TouchRight(viewPort))
             {
-                animation.play(11, 9, gameTime);
+                animation.Play(11, 9, gameTime);
 
-                if (!isCollidingRight(map))
+                if (!IsCollidingRight(map))
                 {
                     position.X += speed; 
                 }
@@ -71,7 +71,7 @@ namespace SociaGroundsEngine.PlayerFolder
         }
 
         // Check if the player has a collision on his right side
-        public bool isCollidingRight(Map map)
+        public bool IsCollidingRight(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)
@@ -88,7 +88,7 @@ namespace SociaGroundsEngine.PlayerFolder
         }
 
         // Check if the player has a collision on his left side
-        public bool isCollidingLeft(Map map)
+        public bool IsCollidingLeft(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)
@@ -105,7 +105,7 @@ namespace SociaGroundsEngine.PlayerFolder
         }
 
         // Check if the player has a collision on his top side
-        public bool isCollidingTop(Map map)
+        public bool IsCollidingTop(Map map)
         {
 
             // Check all the solid assets in the map
@@ -123,7 +123,7 @@ namespace SociaGroundsEngine.PlayerFolder
         }
 
         // Check if the player has a collision on his bottom side
-        public bool isCollidingBottom(Map map)
+        public bool IsCollidingBottom(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)

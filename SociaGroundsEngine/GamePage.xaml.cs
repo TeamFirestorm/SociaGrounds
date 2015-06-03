@@ -22,7 +22,7 @@ namespace SociaGroundsEngine
     /// </summary>
     public sealed partial class GamePage : SwapChainBackgroundPanel
     {
-        readonly Game1 _game;
+        readonly Game1 game;
         public GamePage()
         {
             this.InitializeComponent();
@@ -30,7 +30,7 @@ namespace SociaGroundsEngine
 
         public GamePage(string launchArguments)
         {
-            _game = XamlGame<Game1>.Create(launchArguments, Window.Current.CoreWindow, this);
+            game = XamlGame<Game1>.Create(launchArguments, Window.Current.CoreWindow, this);
         }
     }
 }

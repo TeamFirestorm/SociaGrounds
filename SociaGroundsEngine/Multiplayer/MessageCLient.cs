@@ -5,23 +5,23 @@ namespace SociaGroundsEngine.Multiplayer
 {
     public class MessageClient
     {
-        private static NetClient s_client;
+        private static NetClient _sClient;
 
         public static async void Setup()
         {
             NetPeerConfiguration config = new NetPeerConfiguration("chat");
             config.AutoFlushSendQueue = false;
-            s_client = new NetClient(config);
+            _sClient = new NetClient(config);
 
-            s_client.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
+            _sClient.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
 
-            s_client.Shutdown("Bye");
+            _sClient.Shutdown("Bye");
         }
 
         public static void GotMessage(object peer)
         {
             NetIncomingMessage im;
-            while ((im = s_client.ReadMessage()) != null)
+            while ((im = _sClient.ReadMessage()) != null)
             {
                 // handle incoming message
                 switch (im.MessageType)
@@ -60,7 +60,7 @@ namespace SociaGroundsEngine.Multiplayer
                         //Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
                         break;
                 }
-                s_client.Recycle(im);
+                _sClient.Recycle(im);
             }
         }
 
@@ -68,25 +68,25 @@ namespace SociaGroundsEngine.Multiplayer
         // called by the UI
         public static void Connect(string host, int port)
         {
-            s_client.Start();
-            NetOutgoingMessage hail = s_client.CreateMessage("This is the hail message");
-            s_client.Connect(host, port, hail);
+            _sClient.Start();
+            NetOutgoingMessage hail = _sClient.CreateMessage("This is the hail message");
+            _sClient.Connect(host, port, hail);
         }
 
         // called by the UI
         public static void Shutdown()
         {
-            s_client.Disconnect("Requested by user");
+            _sClient.Disconnect("Requested by user");
             // s_client.Shutdown("Requested by user");
         }
 
         // called by the UI
         public static void Send(string text)
         {
-            NetOutgoingMessage om = s_client.CreateMessage(text);
-            s_client.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+            NetOutgoingMessage om = _sClient.CreateMessage(text);
+            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
             //Output("Sending '" + text + "'");
-            s_client.FlushSendQueue();
+            _sClient.FlushSendQueue();
         }
     }
 }

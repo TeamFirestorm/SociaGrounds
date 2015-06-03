@@ -40,7 +40,7 @@ namespace SociaGroundsEngine
 
         // The amount of frames per second
         double fps;
-        public double FPS
+        public double Fps
         {
             get { return fps; }
         }
@@ -114,7 +114,7 @@ namespace SociaGroundsEngine
 
 
         // Method to be called to update the source rectangle
-        public void play(int row, int maxFrames, GameTime gameTime)
+        public void Play(int row, int maxFrames, GameTime gameTime)
         {
             // Check if the time has been elapsed to update the next frame
             // If not, do nothing
@@ -149,7 +149,7 @@ namespace SociaGroundsEngine
 
 
         // Method to draw the current frame
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, sourceRect, Color.White);
         }

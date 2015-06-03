@@ -18,12 +18,12 @@ namespace SociaGroundsEngine.Screens
             sendRequest = false;
         }
 
-        public override void update()
+        public override void Update()
         {
             
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             
         }

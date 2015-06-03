@@ -2,7 +2,7 @@
 {
     public class Connection
     {
-        public string IPAddress { get; set; }
-        public string DNSSuffix { get; set; }
+        public string IpAddress { get; set; }
+        public string DnsSuffix { get; set; }
     }
 }

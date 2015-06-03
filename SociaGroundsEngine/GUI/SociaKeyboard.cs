@@ -75,13 +75,13 @@ namespace SociaGroundsEngine.GUI
         /// Update logic for the keyboard
         /// Building the string if a button has been clicked for example
         /// </summary>
-        public void update()
+        public void Update()
         {
             // Check all the buttons for a click
             int count = 0;
             foreach (Button button in buttons)
             {
-                bool v = button.isTouched();
+                bool v = button.IsTouched();
 
                 // Backspace click
                 if (v && count == buttons.Count - 2)
@@ -118,11 +118,11 @@ namespace SociaGroundsEngine.GUI
         /// <summary>
         /// Drawing the whole keyboard
         /// </summary>
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Button button in buttons)
             {
-                button.draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
         }
     }
