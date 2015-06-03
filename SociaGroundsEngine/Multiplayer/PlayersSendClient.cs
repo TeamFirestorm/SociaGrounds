@@ -3,14 +3,13 @@ using Lidgren.Network;
 
 namespace SociaGroundsEngine.Multiplayer
 {
-    public class MessageClient
+    public class PlayersSendClient
     {
         private static NetClient _sClient;
 
         public static async void Setup()
         {
-            NetPeerConfiguration config = new NetPeerConfiguration("chat");
-            config.AutoFlushSendQueue = false;
+            NetPeerConfiguration config = new NetPeerConfiguration("chat") {AutoFlushSendQueue = false};
             _sClient = new NetClient(config);
 
             _sClient.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));

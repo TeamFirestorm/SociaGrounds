@@ -1,4 +1,4 @@
-﻿namespace SociaGroundsEngine.Data
+﻿namespace SociaGroundsEngine.DataBase
 {
     public class Connection
     {
