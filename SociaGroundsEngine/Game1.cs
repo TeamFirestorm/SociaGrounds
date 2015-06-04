@@ -142,7 +142,6 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
-                    keyboard.Update();
 
                     if (!InternetConnection.IsRunning)
                     {
