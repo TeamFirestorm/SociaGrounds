@@ -145,9 +145,10 @@ namespace SociaGroundsEngine
                     loginScreen.Update();
                     keyboard.Update();
 
-                    if (!DatabaseConnect.IsRunning)
+                    if (!InternetConnection.IsRunning)
                     {
-                        DatabaseConnect.InsertUserAsync("12000000", "Joasdas");
+                        InternetConnection.GetMyIpAndDns();
+                        InternetConnection.CheckPossibleConnection();
                     }
 
                     if (loginScreen.ToHomeScreen(gameTime))

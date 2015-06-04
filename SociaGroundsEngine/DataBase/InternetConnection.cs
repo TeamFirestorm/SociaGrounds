@@ -11,6 +11,9 @@ namespace SociaGroundsEngine.DataBase
         public static string MyIp { get; private set; }
         public static string MyDnsSuffix { get; private set; }
 
+        public static bool IsRunning { get; set; }
+    
+
         public static void GetMyIpAndDns()
         {
             var hostnames = NetworkInformation.GetHostNames();
@@ -35,6 +38,8 @@ namespace SociaGroundsEngine.DataBase
         {
             if (MyIp == null || MyDnsSuffix == null) return null;
 
+            IsRunning = true;
+
             List<Connection> connections = await DbStuff.GetConnections();
 
             if (connections != null)
@@ -53,7 +58,6 @@ namespace SociaGroundsEngine.DataBase
                     }
                 }
             }
-            
             return null;
         }
     }

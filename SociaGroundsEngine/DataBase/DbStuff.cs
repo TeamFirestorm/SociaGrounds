@@ -42,10 +42,7 @@ namespace SociaGroundsEngine.DataBase
 
                 return u;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }
