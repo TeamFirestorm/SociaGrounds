@@ -63,7 +63,6 @@ namespace SociaGroundsEngine
 
             // Loginscreen initialize
             loginScreen = new LoginScreen(Content);
-            keyboard = new SociaKeyboard(Content, new Vector2(GraphicsDevice.Viewport.Width / 5, GraphicsDevice.Viewport.Height / 2));
 
             players = new List<CPlayer>();
             players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
@@ -141,8 +140,6 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
-                    keyboard.Update();
-
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
                         currentScreenState = ScreenState.RoomScreen;
@@ -191,7 +188,6 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     spriteBatch.Begin();
                     loginScreen.Draw(spriteBatch);
-                    keyboard.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:

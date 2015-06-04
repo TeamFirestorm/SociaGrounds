@@ -24,10 +24,15 @@ namespace SociaGroundsEngine.GUI
 
         // Position
         Vector2 position;
-        public Vector2 Position { get; set; }
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
 
-        // Decide whether the keyboard is up or not
-        bool isUp = false;
+        // Variables to check if the position has been updated
+        Vector2 oldPosition;
+        Vector2 newPosition;
 
         // Fields for building the string
         string textBuffer;
@@ -37,14 +42,20 @@ namespace SociaGroundsEngine.GUI
         }
         char[] chars;
 
-        public SociaKeyboard(ContentManager content, Vector2 position)
+        // The maximum amount of characters that can be typed
+        int maxchars;
+
+        public SociaKeyboard(ContentManager content, Vector2 position, int maxchars)
         {
             // Text initialize
             chars = new[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ' };
             textBuffer = "";
+            this.maxchars = maxchars;
 
             // Position initialize
             this.position = position;
+            newPosition = position;
+            oldPosition = position;
 
             // Button list initialize
             buttons = new List<Button>();
@@ -75,13 +86,27 @@ namespace SociaGroundsEngine.GUI
         /// Update logic for the keyboard
         /// Building the string if a button has been clicked for example
         /// </summary>
-        public void Update()
+        public void update()
         {
+            // Retrieve the latest position
+            newPosition = position;
+
+            // Update the button positions if the key board position has been updated
+            float xDiff = oldPosition.X - newPosition.X;
+            float yDiff = oldPosition.Y - newPosition.Y;
+            foreach (Button button in buttons)
+            {
+                button.Position = new Vector2(button.Position.X - xDiff, button.Position.Y - yDiff);
+
+                // Update all the button in the list while the loop is still there
+                button.update();
+            }
+
             // Check all the buttons for a click
             int count = 0;
             foreach (Button button in buttons)
             {
-                bool v = button.IsTouched();
+                bool v = button.isTouched();
 
                 // Backspace click
                 if (v && count == buttons.Count - 2)
@@ -107,22 +132,29 @@ namespace SociaGroundsEngine.GUI
                 // Letter click
                 else if (v && count < buttons.Count)
                 {
-                    textBuffer += button.Text.ToString();
+                    // Check if the maximum amount of characters has been reached
+                    if (textBuffer.Length < maxchars)
+                    {
+                        textBuffer += button.Text.ToString();
+                    }
                     break;
                 }
 
                 count++;
             }
+
+            // Save the old position
+            oldPosition = newPosition;
         }
 
         /// <summary>
         /// Drawing the whole keyboard
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch)
         {
             foreach (Button button in buttons)
             {
-                button.Draw(spriteBatch);
+                button.draw(spriteBatch);
             }
         }
     }
