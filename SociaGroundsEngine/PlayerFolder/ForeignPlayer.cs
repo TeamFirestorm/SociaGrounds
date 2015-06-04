@@ -7,14 +7,6 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class ForeignPlayer : CPlayer
     {
-        private Vector2 newPosition;
-
-        public Vector2 NewPosition
-        {
-            get { return newPosition; }
-            set { newPosition = value; }
-        }
-
         public ForeignPlayer(/*ContentManager Content,*/ Vector2 startPosition, Texture2D texture)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);

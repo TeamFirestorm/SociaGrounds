@@ -27,6 +27,13 @@ namespace SociaGroundsEngine.PlayerFolder
             set { position = value; }
         }
 
+        protected Vector2 newPosition;
+        public Vector2 NewPosition
+        {
+            get { return newPosition; }
+            set { newPosition = value; }
+        }
+
         protected Rectangle rect;
         public Rectangle Rect
         {

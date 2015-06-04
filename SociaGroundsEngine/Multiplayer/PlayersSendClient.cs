@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
@@ -22,8 +23,7 @@ namespace SociaGroundsEngine.Multiplayer
         {
             NetOutgoingMessage om = _clientGame.CreateMessage();
             om.Write((byte)PacketTypes.CONNECT);
-            om.Write(player.Position.X);
-            om.Write(player.Position.Y);
+            om.Write(Convert.ToByte(player));
             return om;
         }
 
@@ -64,15 +64,13 @@ namespace SociaGroundsEngine.Multiplayer
                         if (im.ReadByte() == (byte) PacketTypes.WORLDSTATE)
                         {
                             _locations.Clear();
-
                             int count = 0;
 
                             // Read int
                             count = im.ReadInt32();
-
-                            for (int i = 0; i < count; i++)
+                            for (int i = 1; i < count; i++)
                             {
-                                
+                                im.ReadAllProperties(Game1.players[i]);
                             }
                         }
                         break;
