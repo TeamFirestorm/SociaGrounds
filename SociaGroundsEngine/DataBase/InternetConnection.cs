@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
+using Newtonsoft.Json;
 
 namespace SociaGroundsEngine.DataBase
 {
@@ -29,11 +31,11 @@ namespace SociaGroundsEngine.DataBase
             }
         }
 
-        public static string CheckPossibleConnection()
+        public async static Task<string> CheckPossibleConnection()
         {
             if (MyIp == null || MyDnsSuffix == null) return null;
 
-            List<Connection> connections = new List<Connection>() {new Connection()}; //DataBase.GetConnections();
+            List<Connection> connections = await DbStuff.GetConnections();
 
             if (connections != null)
             {
@@ -51,6 +53,7 @@ namespace SociaGroundsEngine.DataBase
                     }
                 }
             }
+            
             return null;
         }
     }

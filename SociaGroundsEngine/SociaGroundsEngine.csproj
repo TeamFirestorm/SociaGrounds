@@ -153,7 +153,7 @@
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="DataBase\Connection.cs" />
-    <Compile Include="DataBase\Database.cs" />
+    <Compile Include="DataBase\DbStuff.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Multiplayer\MessageClient.cs" />
     <Compile Include="Multiplayer\MessageHost.cs" />

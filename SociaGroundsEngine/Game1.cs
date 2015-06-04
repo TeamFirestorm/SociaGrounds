@@ -145,9 +145,9 @@ namespace SociaGroundsEngine
                     loginScreen.Update();
                     keyboard.Update();
 
-                    if (!Database.IsRunning)
+                    if (!DatabaseConnect.IsRunning)
                     {
-                        //Database.InsertUserAsync("12000000", "Joasdas");
+                        DatabaseConnect.InsertUserAsync("12000000", "Joasdas");
                     }
 
                     if (loginScreen.ToHomeScreen(gameTime))
