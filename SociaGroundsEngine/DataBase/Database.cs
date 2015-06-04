@@ -5,6 +5,8 @@ namespace SociaGroundsEngine.DataBase
 {
     public class Database
     {
+        public static bool IsRunning { get; set; }
+
         public static async void InsertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
@@ -38,6 +40,24 @@ namespace SociaGroundsEngine.DataBase
             //{
                 return null;
             //}
+        }
+
+        public async static void insertUser(string phoneID, string username)
+        {
+            IsRunning = true;
+
+            var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+
+            HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
+
+            if (response.ToString() == "Succes")
+            {
+                return;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
