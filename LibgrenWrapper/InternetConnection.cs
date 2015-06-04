@@ -44,7 +44,7 @@ namespace LibgrenWrapper
 
         public static IPAddress CheckPossibleConnection()
         {
-            List<Connection> connections = DataBase.GetConnections();
+            List<Connection> connections = new List<Connection>();//DataBase.GetConnections();
 
             if (connections != null)
             {

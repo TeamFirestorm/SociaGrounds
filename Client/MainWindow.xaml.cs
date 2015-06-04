@@ -16,8 +16,6 @@ namespace Client
             ClientCon.Setup();
 
             InternetConnection.GetMyIpAndDns();
-
-            DataBase.insertUserAsync("12000", "Mattie");
         }
 
         private void SendMessgae_Click(object sender, RoutedEventArgs e)

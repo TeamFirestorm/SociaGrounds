@@ -31,6 +31,7 @@ namespace SociaGroundsEngine.Screens
         {
             foreach (Button button in buttons)
             {
+
                 button.draw(spriteBatch);
             }
         }
