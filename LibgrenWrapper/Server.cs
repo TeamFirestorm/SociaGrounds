@@ -14,6 +14,14 @@ namespace LibgrenWrapper
         // Configuration object
         static NetPeerConfiguration Config;
 
+        // Object that can be used to store and read messages
+        NetIncomingMessage inc;
+
+        List<Character> GameWorldState;
+
+        DateTime time;
+
+        TimeSpan timetopass;
         public Server()
         {
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
@@ -38,16 +46,15 @@ namespace LibgrenWrapper
             Console.WriteLine("Server Started");
 
             // Create list of "Characters" ( defined later in code ). This list holds the world state. Character positions
-            //List<Character> GameWorldState = new List<Character>();
+            GameWorldState = new List<Character>();
 
-            // Object that can be used to store and read messages
-            NetIncomingMessage inc;
+            
 
             // Check time
-            DateTime time = DateTime.Now;
+            time = DateTime.Now;
 
             // Create timespan of 30ms
-            TimeSpan timetopass = new TimeSpan(0, 0, 0, 0, 30);
+            timetopass = new TimeSpan(0, 0, 0, 0, 30);
 
             // Write to con..
             Console.WriteLine("Waiting for new connections and updating world state to current ones");
