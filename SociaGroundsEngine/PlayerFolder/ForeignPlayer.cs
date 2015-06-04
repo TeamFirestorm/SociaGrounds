@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
@@ -7,11 +8,12 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class ForeignPlayer : CPlayer
     {
-        public ForeignPlayer(/*ContentManager Content,*/ Vector2 startPosition, Texture2D texture)
+        public ForeignPlayer(Vector2 startPosition, NetConnection connection)
         {
-            animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
             speed = 3;
+            this.connection = connection;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }

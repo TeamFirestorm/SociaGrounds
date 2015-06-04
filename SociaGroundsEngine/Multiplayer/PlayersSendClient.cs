@@ -22,8 +22,9 @@ namespace SociaGroundsEngine.Multiplayer
         public static NetOutgoingMessage CreateLocation(CPlayer player)
         {
             NetOutgoingMessage om = _clientGame.CreateMessage();
-            om.Write((byte)PacketTypes.CONNECT);
-            om.Write(Convert.ToByte(player));
+            om.Write((byte)PacketTypes.Connect);
+            om.Write(player.Position.X);
+            om.Write(player.Position.Y);
             return om;
         }
 
@@ -61,7 +62,7 @@ namespace SociaGroundsEngine.Multiplayer
 
                     case NetIncomingMessageType.Data:
 
-                        if (im.ReadByte() == (byte) PacketTypes.WORLDSTATE)
+                        if (im.ReadByte() == (byte) PacketTypes.WorldState)
                         {
                             _locations.Clear();
                             int count = 0;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
@@ -11,6 +12,13 @@ namespace SociaGroundsEngine.PlayerFolder
         public CAnimation Animation
         {
             get { return animation; }
+        }
+
+        protected NetConnection connection;
+        public NetConnection Connection
+        {
+            get { return connection; }
+            set { connection = value; }
         }
 
         protected int speed;
