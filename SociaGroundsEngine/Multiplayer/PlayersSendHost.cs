@@ -40,142 +40,140 @@ namespace SociaGroundsEngine.Multiplayer
             gameWorldState = new List<ForeignPlayer>();
         }
 
-        public async void ServerRunning()
+        private async void ServerRunning()
         {
             // Main loop
             // This kind of loop can't be made in XNA. In there, its basically same, but without while
             // Or maybe it could be while(new messages)
-            while (true)
+            // Server.ReadMessage() Returns new messages, that have not yet been read.
+            // If "inc" is null -> ReadMessage returned null -> Its null, so dont do this :)
+            if ((inc = _netServer.ReadMessage()) != null)
             {
-                // Server.ReadMessage() Returns new messages, that have not yet been read.
-                // If "inc" is null -> ReadMessage returned null -> Its null, so dont do this :)
-                if ((inc = _netServer.ReadMessage()) != null)
+                // Theres few different types of messages. To simplify this process, i left only 2 of em here
+                switch (inc.MessageType)
                 {
-                    // Theres few different types of messages. To simplify this process, i left only 2 of em here
-                    switch (inc.MessageType)
-                    {
-                        // If incoming message is Request for connection approval
-                        // This is the very first packet/message that is sent from client
-                        // Here you can do new player initialisation stuff
-                        case NetIncomingMessageType.ConnectionApproval:
+                    // If incoming message is Request for connection approval
+                    // This is the very first packet/message that is sent from client
+                    // Here you can do new player initialisation stuff
+                    case NetIncomingMessageType.ConnectionApproval:
 
-                            // Read the first byte of the packet
-                            // ( Enums can be casted to bytes, so it be used to make bytes human readable )
-                            if (inc.ReadByte() == (byte)PacketTypes.Connect)
+                        // Read the first byte of the packet
+                        // ( Enums can be casted to bytes, so it be used to make bytes human readable )
+                        if (inc.ReadByte() == (byte)PacketTypes.Connect)
+                        {
+                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
+                            inc.SenderConnection.Approve();
+
+                            // Add new character to the game.
+                            // It adds new player to the list and stores name, ( that was sent from the client )
+                            // Random x, y and stores client IP+Port
+                            int x = inc.ReadInt32();
+                            int y = inc.ReadInt32();
+
+                            gameWorldState.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection));
+
+                            // Create message, that can be written and sent
+                            NetOutgoingMessage outmsg = _netServer.CreateMessage();
+
+                            // first we write byte
+                            outmsg.Write((byte)PacketTypes.WorldState);
+
+                            // then int
+                            outmsg.Write(gameWorldState.Count);
+
+                            // iterate trought every character ingame
+                            foreach (ForeignPlayer ch in gameWorldState)
                             {
-                                // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
-                                inc.SenderConnection.Approve();
+                                // This is handy method
+                                // It writes all the properties of object to the packet
+                                if (inc.SenderConnection != ch.Connection)
+                                {
+                                    outmsg.WriteAllProperties(ch);
+                                }
+                            }
 
-                                // Add new character to the game.
-                                // It adds new player to the list and stores name, ( that was sent from the client )
-                                // Random x, y and stores client IP+Port
+                            // Now, packet contains:
+                            // Byte = packet type
+                            // Int = how many players there is in game
+                            // character object * how many players is in game
+
+                            // Send message/packet to all connections, in reliably order, channel 0
+                            // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
+
+                            _netServer.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+                        }
+
+                        break;
+                    // Data type is all messages manually sent from client
+                    // ( Approval is automated process )
+                    case NetIncomingMessageType.Data:
+
+                        // Read first byte
+                        if (inc.ReadByte() == (byte)PacketTypes.Move)
+                        {
+                            // Check who sent the message
+                            // This way we know, what character belongs to message sender
+                            foreach (ForeignPlayer player in gameWorldState)
+                            {
+                                // If stored connection ( check approved message. We stored ip+port there, to character obj )
+                                // Find the correct character
+                                if (player.Connection != inc.SenderConnection)
+                                    continue;
+
+                                // Read next byte
+                                byte b = inc.ReadByte();
+
+                                // Handle movement. This byte should correspond to some direction
                                 int x = inc.ReadInt32();
                                 int y = inc.ReadInt32();
 
-                                gameWorldState.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection));
+                                player.Position = new Vector2(x, y);
 
-                                // Create message, that can be written and sent
+                                // Create new message
                                 NetOutgoingMessage outmsg = _netServer.CreateMessage();
 
-                                // first we write byte
+                                // Write byte, that is type of world state
                                 outmsg.Write((byte)PacketTypes.WorldState);
+                                outmsg.Write(gameWorldState.IndexOf(player));
+                                outmsg.Write(x);
+                                outmsg.Write(y);
 
-                                // then int
-                                outmsg.Write(gameWorldState.Count);
+                                // Send messsage to clients except the sender ( All connections, in reliable order, channel 0)
+                                List<NetConnection> all = _netServer.Connections;
+                                all.Remove(inc.SenderConnection);
 
-                                // iterate trought every character ingame
-                                foreach (ForeignPlayer ch in gameWorldState)
-                                {
-                                    // This is handy method
-                                    // It writes all the properties of object to the packet
-                                    if (inc.SenderConnection != ch.Connection)
-                                    {
-                                        outmsg.WriteAllProperties(ch);
-                                    }
-                                }
-
-                                // Now, packet contains:
-                                // Byte = packet type
-                                // Int = how many players there is in game
-                                // character object * how many players is in game
-
-                                // Send message/packet to all connections, in reliably order, channel 0
-                                // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
-
-                                _netServer.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+                                _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
+                                break;
                             }
+                        }
+                        break;
+                    case NetIncomingMessageType.StatusChanged:
+                        // In case status changed
+                        // It can be one of these
+                        // NetConnectionStatus.Connected;
+                        // NetConnectionStatus.Connecting;
+                        // NetConnectionStatus.Disconnected;
+                        // NetConnectionStatus.Disconnecting;
+                        // NetConnectionStatus.None;
 
-                            break;
-                        // Data type is all messages manually sent from client
-                        // ( Approval is automated process )
-                        case NetIncomingMessageType.Data:
-
-                            // Read first byte
-                            if (inc.ReadByte() == (byte)PacketTypes.Move)
+                        // NOTE: Disconnecting and Disconnected are not instant unless client is shutdown with disconnect()
+                        //Console.WriteLine(inc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)inc.SenderConnection.Status);
+                        if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
+                        {
+                            // Find disconnected character and remove it
+                            foreach (ForeignPlayer cha in gameWorldState)
                             {
-                                // Check who sent the message
-                                // This way we know, what character belongs to message sender
-                                foreach (ForeignPlayer player in gameWorldState)
+                                if (cha.Connection == inc.SenderConnection)
                                 {
-                                    // If stored connection ( check approved message. We stored ip+port there, to character obj )
-                                    // Find the correct character
-                                    if (player.Connection != inc.SenderConnection)
-                                        continue;
-
-                                    // Read next byte
-                                    byte b = inc.ReadByte();
-
-                                    // Handle movement. This byte should correspond to some direction
-                                    int x = inc.ReadInt32();
-                                    int y = inc.ReadInt32();
-
-                                    player.Position = new Vector2(x, y);
-
-                                    // Create new message
-                                    NetOutgoingMessage outmsg = _netServer.CreateMessage();
-
-                                    // Write byte, that is type of world state
-                                    outmsg.Write((byte)PacketTypes.WorldState);
-                                    outmsg.Write(gameWorldState.IndexOf(player));
-                                    outmsg.Write(x);
-                                    outmsg.Write(y);
-
-                                    // Send messsage to clients except the sender ( All connections, in reliable order, channel 0)
-                                    List<NetConnection> all = _netServer.Connections;
-                                    all.Remove(inc.SenderConnection);
-
-                                    _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
+                                    gameWorldState.Remove(cha);
                                     break;
                                 }
                             }
-                            break;
-                        case NetIncomingMessageType.StatusChanged:
-                            // In case status changed
-                            // It can be one of these
-                            // NetConnectionStatus.Connected;
-                            // NetConnectionStatus.Connecting;
-                            // NetConnectionStatus.Disconnected;
-                            // NetConnectionStatus.Disconnecting;
-                            // NetConnectionStatus.None;
+                        }
+                        break;
+                    default:
+                        break;
 
-                            // NOTE: Disconnecting and Disconnected are not instant unless client is shutdown with disconnect()
-                            //Console.WriteLine(inc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)inc.SenderConnection.Status);
-                            if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
-                            {
-                                // Find disconnected character and remove it
-                                foreach (ForeignPlayer cha in gameWorldState)
-                                {
-                                    if (cha.Connection == inc.SenderConnection)
-                                    {
-                                        gameWorldState.Remove(cha);
-                                        break;
-                                    }
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
                 } // If New messages
             }
         }
