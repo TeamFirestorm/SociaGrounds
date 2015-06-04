@@ -3,17 +3,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.GUI
 {
     class Button
-    { 
+    {
         Vector2 position;
         public Vector2 Position
         {
@@ -28,7 +22,6 @@ namespace SociaGroundsEngine.GUI
         {
             get { return width; }
         }
-
 
         // Neutral textures
         Texture2D left;
@@ -63,14 +56,14 @@ namespace SociaGroundsEngine.GUI
         public Button(ContentManager content, Vector2 position, string text, float scale)
         {
             // Neutral textures initialize
-            this.left = content.Load<Texture2D>("GUI/Button/StandardButtonLeft");
-            this.mid = content.Load<Texture2D>("GUI/Button/StandardButtonMiddle");
-            this.right = content.Load<Texture2D>("GUI/Button/StandardButtonRight");
+            left = content.Load<Texture2D>("GUI/Button/StandardButtonLeft");
+            mid = content.Load<Texture2D>("GUI/Button/StandardButtonMiddle");
+            right = content.Load<Texture2D>("GUI/Button/StandardButtonRight");
 
             // Clicked textures initialize
-            this.leftClicked = content.Load<Texture2D>("GUI/Button/PressedButtonLeft");
-            this.midClicked = content.Load<Texture2D>("GUI/Button/PressedButtonMiddle");
-            this.rightClicked = content.Load<Texture2D>("GUI/Button/PressedButtonRight");
+            leftClicked = content.Load<Texture2D>("GUI/Button/PressedButtonLeft");
+            midClicked = content.Load<Texture2D>("GUI/Button/PressedButtonMiddle");
+            rightClicked = content.Load<Texture2D>("GUI/Button/PressedButtonRight");
 
             // Text stuff
             this.text = text;
@@ -90,7 +83,6 @@ namespace SociaGroundsEngine.GUI
         public bool isHold()
         {
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is touched within the button
@@ -115,14 +107,13 @@ namespace SociaGroundsEngine.GUI
             currentState = TouchPanel.GetState();
 
             // Loop through all the locations where touch is possible
-            TouchCollection locationArray = TouchPanel.GetState();
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
                 // Check if the position is released within the button
                 if (touch.Position.X >= rect.Left &&
                     touch.Position.X <= rect.Right &&
                     touch.Position.Y >= rect.Top &&
-                    touch.Position.Y <= rect.Bottom && 
+                    touch.Position.Y <= rect.Bottom &&
                     currentState.Count >= 1 && oldState.Count == 0)
                 {
                     oldState = currentState;
