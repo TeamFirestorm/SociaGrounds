@@ -32,7 +32,7 @@ namespace SociaGroundsEngine.Screens
             foreach (Button button in buttons)
             {
 
-                button.Draw(spriteBatch);
+                button.draw(spriteBatch);
             }
         }
 
@@ -42,7 +42,7 @@ namespace SociaGroundsEngine.Screens
 
             // Go to the home screen if the button has been pressed
             // Add a slight delay
-            if (buttons[0].IsTouched() && timeElapsed >= 500)
+            if (buttons[0].isTouched() && timeElapsed >= 500)
             {
                 timeElapsed = 0;
                 return true;
