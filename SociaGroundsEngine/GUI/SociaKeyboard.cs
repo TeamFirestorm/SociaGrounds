@@ -30,6 +30,13 @@ namespace SociaGroundsEngine.GUI
             set { position = value; }
         }
 
+        // Height and width of the keyboard
+        float height;
+        public float Height
+        {
+            get { return height; }
+        }
+
         // Variables to check if the position has been updated
         Vector2 oldPosition;
         Vector2 newPosition;
@@ -45,7 +52,7 @@ namespace SociaGroundsEngine.GUI
         // The maximum amount of characters that can be typed
         int maxchars;
 
-        public SociaKeyboard(ContentManager content, Vector2 position, int maxchars)
+        public SociaKeyboard(ContentManager content, Vector2 position, int maxchars, float scale)
         {
             // Text initialize
             chars = new[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ' };
@@ -69,17 +76,17 @@ namespace SociaGroundsEngine.GUI
                     width = 0;
                 }
 
-                buttons.Add(new Button(content, new Vector2(position.X + (75 * width), position.Y + (120 * height)), chars[i].ToString(), 1.0f));
+                buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), chars[i].ToString(), scale));
                 width++;
             }
 
             // Backspace button
-            buttons.Add(new Button(content, new Vector2(position.X + (75 * width), position.Y + (120 * height)), "<----", 1.0f));
+            buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), "<----", scale));
 
             width += 3;
 
             // Enter button
-            buttons.Add(new Button(content, new Vector2(position.X + (75 * width), position.Y + (120 * height)), "Enter", 1.0f));
+            buttons.Add(new Button(content, new Vector2(position.X + (75 * width), position.Y + (120 * height)), "Enter", scale));
         }
 
         /// <summary>
