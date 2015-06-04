@@ -48,5 +48,21 @@ namespace LibgrenWrapper
                 return null;
             }
         }
+
+        public async static void insertUser(string phoneID, string username)
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+            if (request.GetResponse().ToString() == "Succes")
+            {
+                return;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
+
     }
 }
