@@ -11,7 +11,6 @@ namespace SociaGroundsEngine.DataBase
 
         public static void GetMyIpAndDns()
         {
-            List<string> ipAddresses = new List<string>();
             var hostnames = NetworkInformation.GetHostNames();
             foreach (var hn in hostnames)
             {
@@ -26,31 +25,33 @@ namespace SociaGroundsEngine.DataBase
 
             if (MyIp == null || MyDnsSuffix == null)
             {
-                throw new Exception("Not Connected to the Interwebs");
+                throw new Exception("No Wifi connection found!");
             }
         }
 
-        //public static IPAddress CheckPossibleConnection()
-        //{
-        //    List<Connection> connections = DataBase.GetConnections();
+        public static string CheckPossibleConnection()
+        {
+            if (MyIp == null || MyDnsSuffix == null) return null;
 
-        //    if (connections != null)
-        //    {
-        //        string[] tempIp = MyIp.ToString().Split('.');
-        //        string myIp = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+            List<Connection> connections = DataBase.GetConnections();
 
-        //        foreach (Connection connect in connections)
-        //        {
-        //            tempIp = connect.IpAddress.Split('.');
-        //            string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+            if (connections != null)
+            {
+                string[] tempIp = MyIp.Split('.');
+                string myIp = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
 
-        //            if (ip.Equals(myIp) && connect.DnsSuffix.Equals(MyDnsSuffix))
-        //            {
-        //                return IPAddress.Parse(connect.IpAddress);
-        //            }
-        //        }
-        //    }
-        //    return null;
-        //}
+                foreach (Connection connect in connections)
+                {
+                    tempIp = connect.IpAddress.Split('.');
+                    string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+
+                    if (ip.Equals(myIp) && connect.DnsSuffix.Equals(MyDnsSuffix))
+                    {
+                        return connect.IpAddress;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

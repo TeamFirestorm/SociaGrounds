@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
@@ -143,6 +144,7 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
                     keyboard.Update();
+                    InternetConnection.GetMyIpAndDns();
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
@@ -172,6 +174,7 @@ namespace SociaGroundsEngine
                     }
 
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
+
                     break;
             }
 
