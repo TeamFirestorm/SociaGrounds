@@ -9,6 +9,8 @@ namespace LibgrenWrapper
 {
     public class DataBase
     {
+        public List<Connection> connectionsList;
+
         public static bool InsertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress="+ipaddress+"&dnssuffix="+dnssuffix);
@@ -35,32 +37,23 @@ namespace LibgrenWrapper
             }
         }
 
-        public static List<Connection> GetConnections()
+        public async static Task<List<Connection>> GetConnections()
         {
-            string json = new WebClient().DownloadString("http://matthijsreeringh.nl/SociaGrounds/getConnections.php");
+            HttpClient client = new HttpClient();
 
-            if (json != "")
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/getConnections.php");
+
+            string urlContents = await getStringTask;
+
+            if (urlContents != "")
             {
-                List<Connection> u = JsonConvert.DeserializeObject<List<Connection>>(json);
+                List<Connection> u = JsonConvert.DeserializeObject<List<Connection>>(urlContents);
 
                 return u;
             }
             else
             {
                 return null;
-            }
-        }
-
-        public static void insertUser(string phoneID, string username)
-        {
-            var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
-            if (request.GetResponse().ToString() == "Succes")
-            {
-                return;
-            }
-            else
-            {
-                return;
             }
         }
 
