@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.DataBase
 {
     public class Database
     {
+        public static bool IsRunning { get; set; }
+
         public static async void InsertConnectionInfo(string ipaddress, string dnssuffix)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
@@ -38,6 +42,19 @@ namespace SociaGroundsEngine.DataBase
             //{
                 return null;
             //}
+        }
+
+        public async static Task<string> InsertUserAsync(string phoneID, string username)
+        {
+            IsRunning = true;
+
+            HttpClient client = new HttpClient();
+
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+
+            string urlContents = await getStringTask;
+
+            return urlContents;
         }
     }
 }

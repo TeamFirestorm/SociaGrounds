@@ -144,7 +144,11 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
                     keyboard.Update();
-                    InternetConnection.GetMyIpAndDns();
+
+                    if (!Database.IsRunning)
+                    {
+                        //Database.InsertUserAsync("12000000", "Joasdas");
+                    }
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {

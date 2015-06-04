@@ -33,7 +33,7 @@ namespace SociaGroundsEngine.DataBase
         {
             if (MyIp == null || MyDnsSuffix == null) return null;
 
-            List<Connection> connections = DataBase.GetConnections();
+            List<Connection> connections = new List<Connection>() {new Connection()}; //DataBase.GetConnections();
 
             if (connections != null)
             {
