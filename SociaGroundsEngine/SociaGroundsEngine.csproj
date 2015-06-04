@@ -150,14 +150,14 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Button.cs" />
-    <Compile Include="Data\Connection.cs" />
-    <Compile Include="Data\Database.cs" />
     <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="DataBase\Connection.cs" />
     <Compile Include="DataBase\Database.cs" />
     <Compile Include="Key.cs" />
-    <Compile Include="Multiplayer\MessageCLient.cs" />
+    <Compile Include="Multiplayer\MessageClient.cs" />
     <Compile Include="Multiplayer\MessageHost.cs" />
+    <Compile Include="Multiplayer\PlayersSendClient.cs" />
+    <Compile Include="Multiplayer\PlayersSendHost.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />
     <Compile Include="PlayerFolder\MyPlayer.cs" />
     <Compile Include="PlayerFolder\CPlayer.cs" />
@@ -165,8 +165,9 @@
     <Compile Include="RectangleHelper.cs" />
     <Compile Include="Screens\LobbyScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
+    <Compile Include="Screens\RoomScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="GUI\UI.cs" />
     <Compile Include="World\Asset.cs" />
     <Compile Include="World\GrassTile.cs" />
     <Compile Include="World\Map.cs" />

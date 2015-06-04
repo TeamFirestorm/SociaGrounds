@@ -32,9 +32,9 @@ namespace SociaGroundsEngine.Screens
         }
 
         // Method to update the screen frequently
-        public abstract void update();
+        public abstract void Update();
 
         // Method to draw the screen frequently
-        public abstract void draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

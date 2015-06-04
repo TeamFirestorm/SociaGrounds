@@ -124,21 +124,21 @@ namespace SociaGroundsEngine.World
             }
         }
 
-        public void addSolidAsset(Asset asset)
+        public void AddSolidAsset(Asset asset)
         {
             solidAssets.Add(asset);
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach(Asset asset in nonSolidAssets)
             {
-                asset.draw(spriteBatch);
+                asset.Draw(spriteBatch);
             }
 
             foreach (Asset asset in solidAssets)
             {
-                asset.draw(spriteBatch);
+                asset.Draw(spriteBatch);
             }
         }
     }

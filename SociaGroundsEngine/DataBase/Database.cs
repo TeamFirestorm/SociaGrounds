@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using Microsoft.Xna.Framework.Input;
 
-namespace SociaGroundsEngine.Data
+namespace SociaGroundsEngine.DataBase
 {
     public class Database
     {

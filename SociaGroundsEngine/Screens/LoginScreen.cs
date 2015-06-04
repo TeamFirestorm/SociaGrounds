@@ -22,26 +22,26 @@ namespace SociaGroundsEngine.Screens
             buttons.Add(new Button(content, new Vector2(50, 50), "Start", 1.0f));
         }
 
-        public override void update()
+        public override void Update()
         {
 
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             foreach (Button button in buttons)
             {
-                button.draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
         }
 
-        public bool toHomeScreen(GameTime gameTime)
+        public bool ToHomeScreen(GameTime gameTime)
         {
             timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
 
             // Go to the home screen if the button has been pressed
             // Add a slight delay
-            if (buttons[0].isTouched() && timeElapsed >= 500)
+            if (buttons[0].IsTouched() && timeElapsed >= 500)
             {
                 timeElapsed = 0;
                 return true;

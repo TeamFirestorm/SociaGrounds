@@ -80,7 +80,7 @@ namespace SociaGroundsEngine.GUI
 
         // Method to check if the button is touched right now
         // Can be used for holding the button
-        public bool isHold()
+        public bool IsHold()
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
@@ -102,7 +102,7 @@ namespace SociaGroundsEngine.GUI
 
         // Trigger if the button is released
         // Use this method as the event trigger
-        public bool isTouched()
+        public bool IsTouched()
         {
             currentState = TouchPanel.GetState();
 
@@ -127,7 +127,7 @@ namespace SociaGroundsEngine.GUI
         }
 
         // Return the pressure
-        public void testPressure()
+        public void TestPressure()
         {
             Debug.WriteLine(oldState.Count);
 
@@ -143,10 +143,10 @@ namespace SociaGroundsEngine.GUI
             }
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             // If the button is clicked, draw the clicked button
-            if (isHold())
+            if (IsHold())
             {
                 // Drawing the left part
                 spriteBatch.Draw(leftClicked, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);

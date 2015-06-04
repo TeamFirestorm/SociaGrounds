@@ -15,7 +15,7 @@ namespace SociaGroundsEngine
     {
         private Matrix transformPrivate;
 
-        public Matrix tranformPublic
+        public Matrix TranformPublic
         {
             get
             {

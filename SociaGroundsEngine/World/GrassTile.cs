@@ -24,7 +24,7 @@ namespace SociaGroundsEngine.World
             isSolid = false;
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.White);
         }

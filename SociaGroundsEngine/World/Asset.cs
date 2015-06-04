@@ -39,6 +39,6 @@ namespace SociaGroundsEngine.World
         }
 
 
-        public abstract void draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

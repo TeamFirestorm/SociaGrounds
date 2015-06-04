@@ -33,7 +33,7 @@ namespace SociaGroundsEngine.World
             isSolid = true;
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw the bottom and determine the rectangle height
             spriteBatch.Draw(bottom, position, Color.White);

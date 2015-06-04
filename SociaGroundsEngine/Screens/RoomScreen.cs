@@ -7,25 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGroundsEngine.Screens
 {
-    public class LobbyScreen : Screen
+    public class RoomScreen : Screen
     {
-        private bool sendRequest;
-        private string result;
-
-        public LobbyScreen()
-        {
-            result = "";
-            sendRequest = false;
-        }
-
         public override void Update()
         {
-            
+            throw new NotImplementedException();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

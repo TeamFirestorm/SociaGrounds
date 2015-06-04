@@ -20,8 +20,8 @@ namespace Client
 
         private void SendMessgae_Click(object sender, RoutedEventArgs e)
         {
-            ClientCon.Send(txtMessage.Text);
-            txtMessage.Text = "";
+            ClientCon.Send(TxtMessage.Text);
+            TxtMessage.Text = "";
         }
 
         private void Connenct_Click(object sender, RoutedEventArgs e)

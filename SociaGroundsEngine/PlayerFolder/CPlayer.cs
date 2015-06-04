@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
 
 namespace SociaGroundsEngine.PlayerFolder
@@ -33,9 +34,9 @@ namespace SociaGroundsEngine.PlayerFolder
         }
 
         // Abstract method to update the player
-        public abstract void update(GameTime gameTime, UI ui, Viewport viewPort, Map map);
+        public abstract void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map);
 
         // Abstract method to draw the player
-        public abstract void draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

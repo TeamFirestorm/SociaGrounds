@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
@@ -26,7 +27,7 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState CurrentScreenState = ScreenState.LoginScreen;
+        ScreenState currentScreenState = ScreenState.LoginScreen;
 
         // Loginscreen stuff
         LoginScreen loginScreen;
@@ -38,7 +39,7 @@ namespace SociaGroundsEngine
         //MyPlayer chris;
         Map map;
         Camera camera;
-        UI ui;
+        Ui ui;
 
         public Game1()
         {
@@ -100,12 +101,12 @@ namespace SociaGroundsEngine
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
             };
             map = new Map(mapArray, new Vector2(0, GraphicsDevice.Viewport.Height - 100), Content);
-            map.addSolidAsset(new Tree(new Vector2(350, 300), 1, Content));
-            map.addSolidAsset(new Tree(new Vector2(500, 250), 2, Content));
-            map.addSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
+            map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, Content));
+            map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, Content));
+            map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
 
             camera = new Camera(GraphicsDevice.Viewport);
-            ui = new UI();
+            ui = new Ui();
 
             base.Initialize();
         }
@@ -136,15 +137,15 @@ namespace SociaGroundsEngine
         protected override void Update(GameTime gameTime)
         {
             // Switch statement to determine the screen update logic
-            switch (CurrentScreenState)
+            switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    loginScreen.update();
-                    keyboard.update();
+                    loginScreen.Update();
+                    keyboard.Update();
 
-                    if (loginScreen.toHomeScreen(gameTime))
+                    if (loginScreen.ToHomeScreen(gameTime))
                     {
-                        CurrentScreenState = ScreenState.RoomScreen;
+                        currentScreenState = ScreenState.RoomScreen;
                     }
                     break;
                 case ScreenState.RegisterScreen:
@@ -157,7 +158,7 @@ namespace SociaGroundsEngine
                     break;
 
                 case ScreenState.RoomScreen:
-                    ui.update(camera.centre);
+                    ui.Update(camera.centre);
 
                     foreach (var player in players)
                     {
@@ -166,7 +167,7 @@ namespace SociaGroundsEngine
                             ForeignPlayer foreign = ((ForeignPlayer) player);
                             foreign.NewPosition = new Vector2(foreign.NewPosition.X , foreign.NewPosition.Y);
                         }
-                        player.update(gameTime, ui, GraphicsDevice.Viewport, map);
+                        player.Update(gameTime, ui, GraphicsDevice.Viewport, map);
                     }
 
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
@@ -185,12 +186,12 @@ namespace SociaGroundsEngine
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Switch statement to determine the draw logic
-            switch (CurrentScreenState)
+            switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
                     spriteBatch.Begin();
-                    loginScreen.draw(spriteBatch);
-                    keyboard.draw(spriteBatch);
+                    loginScreen.Draw(spriteBatch);
+                    keyboard.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:
@@ -203,18 +204,17 @@ namespace SociaGroundsEngine
 
                     break;
                 case ScreenState.RoomScreen:
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.tranformPublic);
-                    map.draw(spriteBatch);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.TranformPublic);
+                    map.Draw(spriteBatch);
 
                     foreach (var player in players)
                     {
-                        player.draw(spriteBatch);
+                        player.Draw(spriteBatch);
                     }
 
                     spriteBatch.End();
                     break;
             }
-
             base.Draw(gameTime);
         }
     }
