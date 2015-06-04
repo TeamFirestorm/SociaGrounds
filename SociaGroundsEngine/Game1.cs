@@ -146,12 +146,6 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
 
-                    if (!InternetConnection.IsRunning)
-                    {
-                        InternetConnection.GetMyIpAndDns();
-                        InternetConnection.CheckPossibleConnection();
-                    }
-
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
                         currentScreenState = ScreenState.RoomScreen;
