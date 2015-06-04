@@ -2,12 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 using SociaGroundsEngine.World;
-using SociaGroundsEngine.GUI;
 
 namespace SociaGroundsEngine
 {
