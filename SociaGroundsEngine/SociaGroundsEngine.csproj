@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="Camera.cs" />
     <Compile Include="CAnimation.cs" />
+    <Compile Include="DataBase\InternetConnection.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
@@ -160,10 +161,11 @@
     <Compile Include="GUI\SociaInputfield.cs" />
     <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="DataBase\Connection.cs" />
-    <Compile Include="DataBase\Database.cs" />
+    <Compile Include="DataBase\DbStuff.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Multiplayer\MessageClient.cs" />
     <Compile Include="Multiplayer\MessageHost.cs" />
+    <Compile Include="Multiplayer\PacketTypes.cs" />
     <Compile Include="Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Multiplayer\PlayersSendHost.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />

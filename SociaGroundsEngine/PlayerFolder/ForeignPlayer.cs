@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
@@ -7,21 +8,19 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class ForeignPlayer : CPlayer
     {
-        private Vector2 newPosition;
-
-        public Vector2 NewPosition
+        public ForeignPlayer(Vector2 startPosition, NetConnection connection)
         {
-            get { return newPosition; }
-            set { newPosition = value; }
-        }
-
-        public ForeignPlayer(/*ContentManager Content,*/ Vector2 startPosition, Texture2D texture)
-        {
-            animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
             speed = 3;
+            this.connection = connection;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        }
+
+        public ForeignPlayer()
+        {
+            
         }
 
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
@@ -30,10 +29,7 @@ namespace SociaGroundsEngine.PlayerFolder
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            if (NewPosition.Equals(position) || NewPosition.Equals(new Vector2(0,0)))
-            {
-                return;
-            }
+            if (NewPosition.Equals(new Vector2(-1, -1))) return;
 
             if (NewPosition.Y > position.Y)
             {
@@ -61,6 +57,12 @@ namespace SociaGroundsEngine.PlayerFolder
 
                 position.X += (NewPosition.X - position.X);
             }
+            else// (NewPosition.Equals(position))
+            {
+                
+            }
+
+            NewPosition = new Vector2(-1,-1);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
