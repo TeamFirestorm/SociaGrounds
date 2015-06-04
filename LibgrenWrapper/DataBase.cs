@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 
 namespace LibgrenWrapper
@@ -49,7 +51,7 @@ namespace LibgrenWrapper
             }
         }
 
-        public async static void insertUser(string phoneID, string username)
+        public static void insertUser(string phoneID, string username)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
             if (request.GetResponse().ToString() == "Succes")
@@ -62,7 +64,16 @@ namespace LibgrenWrapper
             }
         }
 
+        public async static Task<string> insertUserAsync(string phoneID, string username)
+        {
+            HttpClient client = new HttpClient();
 
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+
+            string urlContents = await getStringTask;
+
+            return urlContents;
+        }
 
     }
 }
