@@ -21,7 +21,7 @@ namespace SociaGroundsEngine
         SpriteBatch spriteBatch;
         public static Texture2D texture;
 
-        enum ScreenState
+        public enum ScreenState
         {
             LoginScreen,
             RegisterScreen,
@@ -29,7 +29,8 @@ namespace SociaGroundsEngine
             HomeScreen,
             RoomScreen
         }
-        ScreenState currentScreenState = ScreenState.LoginScreen;
+
+        public static ScreenState currentScreenState = ScreenState.LoginScreen;
 
         // Loginscreen stuff
         LoginScreen loginScreen;
@@ -148,7 +149,7 @@ namespace SociaGroundsEngine
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
-                        currentScreenState = ScreenState.RoomScreen;
+                        currentScreenState = ScreenState.LobbyScreen;
                     }
                     break;
                 case ScreenState.RegisterScreen:

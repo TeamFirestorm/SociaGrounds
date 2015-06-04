@@ -43,9 +43,12 @@ namespace SociaGroundsEngine.Screens
                 if (ip == null)
                 {
                     PlayersSendHost host = new PlayersSendHost();
-                    return;
                 }
-                PlayersSendClient client = new PlayersSendClient(ip);
+                else
+                {
+                    PlayersSendClient client = new PlayersSendClient(ip);
+                }
+                Game1.currentScreenState = Game1.ScreenState.RoomScreen;
             }
         }
 
