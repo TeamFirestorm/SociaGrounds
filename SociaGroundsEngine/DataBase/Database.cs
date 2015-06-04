@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SociaGroundsEngine.DataBase
 {
@@ -42,22 +44,17 @@ namespace SociaGroundsEngine.DataBase
             //}
         }
 
-        public async static void insertUser(string phoneID, string username)
+        public async static Task<string> InsertUserAsync(string phoneID, string username)
         {
             IsRunning = true;
 
-            var request = (HttpWebRequest)WebRequest.Create("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+            HttpClient client = new HttpClient();
 
-            HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
 
-            if (response.ToString() == "Succes")
-            {
-                return;
-            }
-            else
-            {
-                return;
-            }
+            string urlContents = await getStringTask;
+
+            return urlContents;
         }
     }
 }
