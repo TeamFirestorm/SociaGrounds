@@ -156,6 +156,7 @@
     <Compile Include="Key.cs" />
     <Compile Include="Multiplayer\MessageClient.cs" />
     <Compile Include="Multiplayer\MessageHost.cs" />
+    <Compile Include="Multiplayer\PacketTypes.cs" />
     <Compile Include="Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Multiplayer\PlayersSendHost.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />

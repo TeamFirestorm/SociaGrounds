@@ -1,45 +1,53 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
+using SociaGroundsEngine.PlayerFolder;
 
 namespace SociaGroundsEngine.Multiplayer
 {
     public class PlayersSendClient
     {
-        private static NetClient _sClient;
+        private static NetClient _clientGame;
+        private static NetQueue<List<CPlayer>> _locations;
 
         public static async void Setup()
         {
-            NetPeerConfiguration config = new NetPeerConfiguration("chat") {AutoFlushSendQueue = false};
-            _sClient = new NetClient(config);
-
-            _sClient.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
-
-            _sClient.Shutdown("Bye");
+            NetPeerConfiguration config = new NetPeerConfiguration("game") {AutoFlushSendQueue = false};
+            _clientGame = new NetClient(config);
         }
 
         // called by the UI
-        public static void SendStart(string text)
+        public static NetOutgoingMessage CreateLocation(CPlayer player)
         {
-            NetOutgoingMessage om = _sClient.CreateMessage(text);
-            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            //Output("Sending '" + text + "'");
-            _sClient.FlushSendQueue();
+            NetOutgoingMessage om = _clientGame.CreateMessage();
+            om.Write((byte)PacketTypes.CONNECT);
+            om.Write(player.Position.X);
+            om.Write(player.Position.Y);
+            return om;
         }
 
         // called by the UI
-        public static void SendLocation(Vector2 text)
+        public static void Connect(string host, int port)
         {
-            NetOutgoingMessage om = _sClient.CreateMessage();
-            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            //Output("Sending '" + text + "'");
-            _sClient.FlushSendQueue();
+            _clientGame.Start();
+
+            NetOutgoingMessage hail = CreateLocation(Game1.players[0]);
+            _clientGame.Connect(host, port, hail);
+        }
+
+        // called by the UI
+        public static void SendLocation()
+        {
+            NetOutgoingMessage om = CreateLocation(Game1.players[0]);
+            _clientGame.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+            _clientGame.FlushSendQueue();
         }
 
         public static void GotMessage(object peer)
         {
             NetIncomingMessage im;
-            while ((im = _sClient.ReadMessage()) != null)
+            while ((im = _clientGame.ReadMessage()) != null)
             {
                 // handle incoming message
                 switch (im.MessageType)
@@ -49,6 +57,24 @@ namespace SociaGroundsEngine.Multiplayer
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
                         string error = im.ReadString();
+                        break;
+
+                    case NetIncomingMessageType.Data:
+
+                        if (im.ReadByte() == (byte) PacketTypes.WORLDSTATE)
+                        {
+                            _locations.Clear();
+
+                            int count = 0;
+
+                            // Read int
+                            count = im.ReadInt32();
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                
+                            }
+                        }
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
@@ -67,40 +93,23 @@ namespace SociaGroundsEngine.Multiplayer
                         string reason = im.ReadString();
                         break;
 
-                    case NetIncomingMessageType.Data:
-                        string text = im.ReadString();
-                        break;
-
                     default:
                         //("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
                         break;
                 }
-                _sClient.Recycle(im);
+                _clientGame.Recycle(im);
             }
         }
 
-        // called by the UI
-        public static void Connect(string host, int port)
+        public static void DisConnect()
         {
-            _sClient.Start();
-            NetOutgoingMessage hail = _sClient.CreateMessage("This is the hail message");
-            _sClient.Connect(host, port, hail);
+            _clientGame.Disconnect("Requested by user");
         }
 
         // called by the UI
         public static void Shutdown()
         {
-            _sClient.Disconnect("Requested by user");
-            // s_client.Shutdown("Requested by user");
-        }
-
-        // called by the UI
-        public static void SendText(string text)
-        {
-            NetOutgoingMessage om = _sClient.CreateMessage(text);
-            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            //Output("Sending '" + text + "'");
-            _sClient.FlushSendQueue();
+            _clientGame.Shutdown("Requested by user");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace SociaGroundsEngine
 
         // Roomscreen stuff
 
-        private List<CPlayer> players;
+        public static List<CPlayer> players;
         //MyPlayer chris;
         Map map;
         Camera camera;
