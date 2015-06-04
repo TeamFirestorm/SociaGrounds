@@ -18,16 +18,18 @@ namespace SociaGroundsEngine.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
+        public ForeignPlayer()
+        {
+            
+        }
+
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
             animation.Position = position;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            if (NewPosition.Equals(position) || NewPosition.Equals(new Vector2(0,0)))
-            {
-                return;
-            }
+            if (NewPosition.Equals(new Vector2(-1, -1))) return;
 
             if (NewPosition.Y > position.Y)
             {
@@ -55,6 +57,12 @@ namespace SociaGroundsEngine.PlayerFolder
 
                 position.X += (NewPosition.X - position.X);
             }
+            else// (NewPosition.Equals(position))
+            {
+                
+            }
+
+            NewPosition = new Vector2(-1,-1);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

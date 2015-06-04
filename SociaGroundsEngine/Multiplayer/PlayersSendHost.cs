@@ -129,28 +129,16 @@ namespace SociaGroundsEngine.Multiplayer
                                     int x = inc.ReadInt32();
                                     int y = inc.ReadInt32();
 
-                                    player.NewPosition = new Vector2(x, y);
+                                    player.Position = new Vector2(x, y);
 
                                     // Create new message
                                     NetOutgoingMessage outmsg = _netServer.CreateMessage();
 
                                     // Write byte, that is type of world state
                                     outmsg.Write((byte)PacketTypes.WorldState);
-
-                                    // Write int, "how many players in game?"
-                                    outmsg.Write(gameWorldState.Count);
-
-                                    // Iterate throught all the players in game
-                                    foreach (ForeignPlayer player2 in gameWorldState)
-                                    {
-                                        // Write all the properties of object to message
-                                        outmsg.WriteAllProperties(player2);
-                                    }
-
-                                    // Message contains
-                                    // Byte = PacketType
-                                    // Int = Player count
-                                    // Character obj * Player count
+                                    outmsg.Write(gameWorldState.IndexOf(player));
+                                    outmsg.Write(x);
+                                    outmsg.Write(y);
 
                                     // Send messsage to clients except the sender ( All connections, in reliable order, channel 0)
                                     List<NetConnection> all = _netServer.Connections;
