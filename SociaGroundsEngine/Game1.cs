@@ -36,6 +36,7 @@ namespace SociaGroundsEngine
         SociaKeyboard keyboard;
 
         // Roomscreen stuff
+        RoomMenu roomMenu;
 
         public static List<CPlayer> players;
         //MyPlayer chris;
@@ -65,7 +66,9 @@ namespace SociaGroundsEngine
 
             // Loginscreen initialize
             loginScreen = new LoginScreen(Content);
-            keyboard = new SociaKeyboard(Content, new Vector2(GraphicsDevice.Viewport.Width / 5, GraphicsDevice.Viewport.Height / 2));
+
+            // Roomscreen initialize
+            roomMenu = new RoomMenu(Content, GraphicsDevice.Viewport);
 
             players = new List<CPlayer>();
             players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
@@ -143,7 +146,6 @@ namespace SociaGroundsEngine
             {
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
-                    keyboard.Update();
 
                     if (!InternetConnection.IsRunning)
                     {
@@ -179,7 +181,7 @@ namespace SociaGroundsEngine
                     }
 
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
-
+                    roomMenu.update();
                     break;
             }
 
@@ -200,7 +202,6 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     spriteBatch.Begin();
                     loginScreen.Draw(spriteBatch);
-                    keyboard.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case ScreenState.RegisterScreen:
@@ -220,7 +221,7 @@ namespace SociaGroundsEngine
                     {
                         player.Draw(spriteBatch);
                     }
-
+                    roomMenu.draw(spriteBatch);
                     spriteBatch.End();
                     break;
             }

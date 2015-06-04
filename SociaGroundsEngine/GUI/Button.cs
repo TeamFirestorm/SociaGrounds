@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System.Diagnostics;
 
 namespace SociaGroundsEngine.GUI
 {
@@ -79,9 +80,16 @@ namespace SociaGroundsEngine.GUI
         }
 
 
+        public void update()
+        {
+            // Update the rectangle if the position has been changed
+            rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
+        }
+
+
         // Method to check if the button is touched right now
         // Can be used for holding the button
-        public bool IsHold()
+        public bool isHold()
         {
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
@@ -103,7 +111,7 @@ namespace SociaGroundsEngine.GUI
 
         // Trigger if the button is released
         // Use this method as the event trigger
-        public bool IsTouched()
+        public bool isTouched()
         {
             currentState = TouchPanel.GetState();
 
@@ -144,10 +152,10 @@ namespace SociaGroundsEngine.GUI
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch)
         {
             // If the button is clicked, draw the clicked button
-            if (IsHold())
+            if (isHold())
             {
                 // Drawing the left part
                 spriteBatch.Draw(leftClicked, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
