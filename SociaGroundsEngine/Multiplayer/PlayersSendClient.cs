@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Lidgren.Network;
+using Microsoft.Xna.Framework;
 
 namespace SociaGroundsEngine.Multiplayer
 {
@@ -17,6 +18,24 @@ namespace SociaGroundsEngine.Multiplayer
             _sClient.Shutdown("Bye");
         }
 
+        // called by the UI
+        public static void SendStart(string text)
+        {
+            NetOutgoingMessage om = _sClient.CreateMessage(text);
+            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+            //Output("Sending '" + text + "'");
+            _sClient.FlushSendQueue();
+        }
+
+        // called by the UI
+        public static void SendLocation(Vector2 text)
+        {
+            NetOutgoingMessage om = _sClient.CreateMessage();
+            _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+            //Output("Sending '" + text + "'");
+            _sClient.FlushSendQueue();
+        }
+
         public static void GotMessage(object peer)
         {
             NetIncomingMessage im;
@@ -29,8 +48,7 @@ namespace SociaGroundsEngine.Multiplayer
                     case NetIncomingMessageType.ErrorMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
-                        string text = im.ReadString();
-                        //Output(text);
+                        string error = im.ReadString();
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
@@ -47,16 +65,14 @@ namespace SociaGroundsEngine.Multiplayer
                         }
 
                         string reason = im.ReadString();
-                        //Output(status + ": " + reason);
                         break;
 
                     case NetIncomingMessageType.Data:
-                        string chat = im.ReadString();
-                        //Output(chat);
+                        string text = im.ReadString();
                         break;
 
                     default:
-                        //Output("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
+                        //("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
                         break;
                 }
                 _sClient.Recycle(im);
@@ -79,7 +95,7 @@ namespace SociaGroundsEngine.Multiplayer
         }
 
         // called by the UI
-        public static void Send(string text)
+        public static void SendText(string text)
         {
             NetOutgoingMessage om = _sClient.CreateMessage(text);
             _sClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
