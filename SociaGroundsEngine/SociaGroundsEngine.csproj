@@ -141,6 +141,7 @@
     <Content Include="Content\World\Tree\TreeBottom.png" />
     <Content Include="Content\World\Tree\TreeMid.png" />
     <Content Include="Content\World\Tree\TreeTop.png" />
+    <Content Include="Dll\Lidgren.Network.dll" />
     <Content Include="StoreManifest.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -208,8 +209,9 @@
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\LibgrenWrapper\Dll\Lidgren.Network.dll</HintPath>
+    <Reference Include="Lidgren.Network, Version=2012.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsPhone81\MonoGame.Framework.dll</HintPath>

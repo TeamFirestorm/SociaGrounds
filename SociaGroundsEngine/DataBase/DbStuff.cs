@@ -32,7 +32,7 @@ namespace SociaGroundsEngine.DataBase
         {
             HttpClient client = new HttpClient();
 
-            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/getConnections.php");
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/getConnections.php");
 
             string urlContents = await getStringTask;
 

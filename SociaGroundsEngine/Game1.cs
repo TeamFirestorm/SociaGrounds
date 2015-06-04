@@ -31,10 +31,13 @@ namespace SociaGroundsEngine
         public static ScreenState currentScreenState = ScreenState.LoginScreen;
 
         // Loginscreen stuff
-        LoginScreen loginScreen;
+        private LoginScreen loginScreen;
+
+        // LobbyScreen stuff
+        private LobbyScreen lobby;
 
         // Roomscreen stuff
-        RoomMenu roomMenu;
+        private RoomMenu roomMenu;
 
         public static List<CPlayer> players;
         //MyPlayer chris;
@@ -148,12 +151,15 @@ namespace SociaGroundsEngine
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
                         currentScreenState = ScreenState.LobbyScreen;
+                        lobby = new LobbyScreen();
                     }
                     break;
                 case ScreenState.RegisterScreen:
                     break;
 
                 case ScreenState.LobbyScreen:
+                        lobby.Update();
+                        lobby.Draw(spriteBatch);
                     break;
 
                 case ScreenState.HomeScreen:
