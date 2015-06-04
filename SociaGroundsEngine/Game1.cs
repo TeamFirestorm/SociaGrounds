@@ -33,7 +33,6 @@ namespace SociaGroundsEngine
 
         // Loginscreen stuff
         LoginScreen loginScreen;
-        SociaKeyboard keyboard;
 
         // Roomscreen stuff
         RoomMenu roomMenu;
