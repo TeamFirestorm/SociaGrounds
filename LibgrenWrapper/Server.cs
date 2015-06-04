@@ -48,8 +48,6 @@ namespace LibgrenWrapper
             // Create list of "Characters" ( defined later in code ). This list holds the world state. Character positions
             GameWorldState = new List<Character>();
 
-            
-
             // Check time
             time = DateTime.Now;
 

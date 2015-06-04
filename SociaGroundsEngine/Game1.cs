@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
@@ -18,6 +19,7 @@ namespace SociaGroundsEngine
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static Texture2D texture;
 
         enum ScreenState
         {
@@ -67,7 +69,6 @@ namespace SociaGroundsEngine
 
             players = new List<CPlayer>();
             players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
-            players.Add(new ForeignPlayer(new Vector2(400, 300), Content.Load<Texture2D>("Personas/Gyllion_Character")));
 
             int[,] mapArray = 
             {
@@ -107,6 +108,7 @@ namespace SociaGroundsEngine
 
             camera = new Camera(GraphicsDevice.Viewport);
             ui = new Ui();
+            texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
             base.Initialize();
         }
@@ -142,6 +144,7 @@ namespace SociaGroundsEngine
                 case ScreenState.LoginScreen:
                     loginScreen.Update();
                     keyboard.Update();
+                    InternetConnection.GetMyIpAndDns();
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
@@ -171,6 +174,7 @@ namespace SociaGroundsEngine
                     }
 
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
+
                     break;
             }
 

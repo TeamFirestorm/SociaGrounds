@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
@@ -8,7 +7,7 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class MyPlayer : CPlayer
     {
-        public MyPlayer(/*ContentManager Content,*/ Vector2 startPosition, Texture2D texture)
+        public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;

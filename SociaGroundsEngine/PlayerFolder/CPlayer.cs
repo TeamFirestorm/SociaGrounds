@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.World;
@@ -13,6 +14,13 @@ namespace SociaGroundsEngine.PlayerFolder
             get { return animation; }
         }
 
+        protected NetConnection connection;
+        public NetConnection Connection
+        {
+            get { return connection; }
+            set { connection = value; }
+        }
+
         protected int speed;
         public int Speed
         {
@@ -25,6 +33,13 @@ namespace SociaGroundsEngine.PlayerFolder
         {
             get { return position; }
             set { position = value; }
+        }
+
+        protected Vector2 newPosition;
+        public Vector2 NewPosition
+        {
+            get { return newPosition; }
+            set { newPosition = value; }
         }
 
         protected Rectangle rect;
