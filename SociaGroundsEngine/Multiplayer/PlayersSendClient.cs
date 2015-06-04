@@ -19,21 +19,19 @@ namespace SociaGroundsEngine.Multiplayer
         // Indicates if program is running
         private static bool IsRunning = true;
 
-        public PlayersSendClient()
+        public PlayersSendClient(string ip)
         {
             // Read Ip to string
-            string hostip = "10.110.110.88";
+            string hostip = ip;
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            NetPeerConfiguration Config = new NetPeerConfiguration("game");
+            NetPeerConfiguration config = new NetPeerConfiguration("game");
+            config.Port = 14242;
 
             // Create new client, with previously created configs
-            Client = new NetClient(Config);
+            Client = new NetClient(config);
 
             // Create new outgoing message
             NetOutgoingMessage outmsg = Client.CreateMessage();
-
-
-            //LoginPacket lp = new LoginPacket("Katu");
 
             // Start client
             Client.Start();
@@ -46,8 +44,7 @@ namespace SociaGroundsEngine.Multiplayer
             // Connect client, to ip previously requested from user 
             Client.Connect(hostip, 14242, outmsg);
 
-            update = new DispatcherTimer();
-            update.Interval = new TimeSpan(0, 0, 0, 1);
+            update = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
 
             // When time has elapsed ( 50ms in this case ), call "update_Elapsed" funtion
             update.Tick += update_Elapsed;

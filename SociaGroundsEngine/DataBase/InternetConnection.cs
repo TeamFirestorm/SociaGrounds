@@ -34,13 +34,11 @@ namespace SociaGroundsEngine.DataBase
             }
         }
 
-        public async static Task<string> CheckPossibleConnection()
+        public static string CheckPossibleConnection(List<Connection> connections)
         {
             if (MyIp == null || MyDnsSuffix == null) return null;
 
             IsRunning = true;
-
-            List<Connection> connections = await DbStuff.GetConnections();
 
             if (connections != null)
             {

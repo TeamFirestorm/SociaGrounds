@@ -4,23 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGroundsEngine.DataBase;
+using SociaGroundsEngine.Multiplayer;
 
 namespace SociaGroundsEngine.Screens
 {
     public class LobbyScreen : Screen
     {
-        private bool sendRequest;
-        private string result;
+        private readonly List<Connection> connections;
+
+        private bool createdList;
 
         public LobbyScreen()
         {
-            result = "";
-            sendRequest = false;
+            InternetConnection.GetMyIpAndDns();
+            createdList = false;
+            connections = new List<Connection>();
+            CreateConnections();
+        }
+
+        private async void CreateConnections()
+        {
+            connections.Clear();
+            List<Connection> temp = await DbStuff.GetConnections();
+            foreach (var con in temp)
+            {
+                connections.Add(con);
+            }
+            createdList = true;
         }
 
         public override void Update()
         {
-            
+            if (createdList)
+            {
+                string ip = InternetConnection.CheckPossibleConnection(connections);
+
+                if (ip == null)
+                {
+                    PlayersSendHost host = new PlayersSendHost();
+                    return;
+                }
+                PlayersSendClient client = new PlayersSendClient(ip);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
