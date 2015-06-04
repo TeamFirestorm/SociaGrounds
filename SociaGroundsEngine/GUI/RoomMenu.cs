@@ -14,6 +14,14 @@ namespace SociaGroundsEngine.GUI
         Button showHideButton;
         SociaKeyboard keyboard;
 
+        // Position of the room menu
+        Vector2 position;
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         // Boolean to check if the keyboard is up
         bool isKeyboardUp;
         public bool IsKeyboardUp
@@ -21,20 +29,17 @@ namespace SociaGroundsEngine.GUI
             get { return isKeyboardUp; }
         }
 
-        // Viewport that is saved within this class
-        Viewport viewport;
-
         // Inputfield for the chat
         SociaInputfield inputField;
 
-        public RoomMenu(ContentManager content, Viewport viewport)
+        public RoomMenu(ContentManager content, Vector2 position)
         {
-            this.viewport = viewport;
+            this.position = position;
             isKeyboardUp = false;
 
-            inputField = new SociaInputfield(content, new Vector2(viewport.Width / 4, viewport.Height / 1.15f), 10, 0.15f);
-            showHideButton = new Button(content, new Vector2(viewport.Width / 100, viewport.Height / 1.15f), "show/hide ", 0.75f);
-            keyboard = new SociaKeyboard(content, new Vector2(viewport.Width / 4, viewport.Height), 35);
+            showHideButton = new Button(content, position, "show/hide ", 0.75f);
+            inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.05f);
+            keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 100), 35, 0.5f);
         }
 
         public void update()
@@ -42,24 +47,24 @@ namespace SociaGroundsEngine.GUI
             keyboard.update();
 
             // Check if the Show/Hide button is clicked
-            if (showHideButton.isTouched() && !isKeyboardUp && keyboard.Position.Y >= viewport.Height)
+            if (showHideButton.isTouched() && !isKeyboardUp && keyboard.Position.Y >= position.Y + 100)
             {
                 isKeyboardUp = true;
             }
-            else if (showHideButton.isTouched() && isKeyboardUp && keyboard.Position.Y <= viewport.Height / 2)
+            else if (showHideButton.isTouched() && isKeyboardUp && keyboard.Position.Y <= position.Y - 100)
             {
                 isKeyboardUp = false;
             }
 
             // Updating the keyboard position if the the Show/Hide button has been clicked
             // Keyboard up
-            if (isKeyboardUp && keyboard.Position.Y > viewport.Height / 2)
+            if (isKeyboardUp && keyboard.Position.Y > position.Y)
             {
                 keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y - 30);
                 inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y - 30);
             }
             // Keyboard down
-            else if (!isKeyboardUp && keyboard.Position.Y < viewport.Height)
+            else if (!isKeyboardUp && keyboard.Position.Y < position.Y - 100)
             {
                 keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y + 30);
                 inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y + 30);

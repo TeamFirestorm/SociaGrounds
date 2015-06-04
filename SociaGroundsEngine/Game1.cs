@@ -69,7 +69,6 @@ namespace SociaGroundsEngine
             loginScreen = new LoginScreen(Content);
 
             // Roomscreen initialize
-            roomMenu = new RoomMenu(Content, GraphicsDevice.Viewport);
 
             players = new List<CPlayer>();
             players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
@@ -111,7 +110,7 @@ namespace SociaGroundsEngine
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
 
             camera = new Camera(GraphicsDevice.Viewport);
-            ui = new Ui();
+            ui = new Ui(Content);
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
             base.Initialize();
@@ -179,7 +178,6 @@ namespace SociaGroundsEngine
                     }
 
                     camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
-                    roomMenu.update();
                     break;
             }
 
@@ -214,12 +212,11 @@ namespace SociaGroundsEngine
                 case ScreenState.RoomScreen:
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.TranformPublic);
                     map.Draw(spriteBatch);
-
                     foreach (var player in players)
                     {
                         player.Draw(spriteBatch);
                     }
-                    roomMenu.draw(spriteBatch);
+                    ui.draw(spriteBatch);
                     spriteBatch.End();
                     break;
             }
