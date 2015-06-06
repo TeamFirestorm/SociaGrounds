@@ -37,12 +37,12 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             isKeyboardUp = false;
 
-            showHideButton = new Button(content, position, "show/hide ", 0.75f);
+            showHideButton = new Button(content, position, "show/hide ", 0.3f);
             inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.05f);
             keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 100), 35, 0.5f);
         }
 
-        public void update()
+        public void update(Vector2 newPosition, Viewport viewport)
         {
             keyboard.update();
 
@@ -58,20 +58,25 @@ namespace SociaGroundsEngine.GUI
 
             // Updating the keyboard position if the the Show/Hide button has been clicked
             // Keyboard up
-            if (isKeyboardUp && keyboard.Position.Y > position.Y)
-            {
-                keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y - 30);
-                inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y - 30);
-            }
-            // Keyboard down
-            else if (!isKeyboardUp && keyboard.Position.Y < position.Y - 100)
-            {
-                keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y + 30);
-                inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y + 30);
-            }
+            //if (isKeyboardUp && keyboard.Position.Y > position.Y)
+            //{
+            //    keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y - 30);
+            //    inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y - 30);
+            //}
+            //// Keyboard down
+            //else if (!isKeyboardUp && keyboard.Position.Y < position.Y - 100)
+            //{
+            //    keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y + 30);
+            //    inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y + 30);
+            //}
 
             // Input field update
             inputField.update(keyboard.TextBuffer);
+
+            // Position updates
+            showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4), newPosition.Y + (viewport.Height / 4));
+            keyboard.Position = new Vector2(newPosition.X + 100, newPosition.Y - 100);
+            inputField.Position =  new Vector2(newPosition.X + 100, newPosition.Y);
         }
 
         public void draw(SpriteBatch spriteBatch)

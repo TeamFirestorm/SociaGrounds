@@ -28,7 +28,7 @@ namespace SociaGroundsEngine
             RoomScreen
         }
 
-        public static ScreenState currentScreenState = ScreenState.LoginScreen;
+        public static ScreenState currentScreenState = ScreenState.RoomScreen;
 
         // Loginscreen stuff
         LoginScreen loginScreen;
@@ -106,7 +106,7 @@ namespace SociaGroundsEngine
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
 
             camera = new Camera(GraphicsDevice.Viewport);
-            ui = new Ui(Content);
+            ui = new Ui(Content, GraphicsDevice.Viewport);
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
             base.Initialize();
