@@ -2,17 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using SociaGroundsEngine.GUI;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
-using SociaGroundsEngine.World;
 
 namespace SociaGroundsEngine
 {
-    /// <summary>
-    /// Wouter houdt van fietsen.
-    /// Dit is een grap.
-    /// </summary>
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -22,27 +16,26 @@ namespace SociaGroundsEngine
         public enum ScreenState
         {
             LoginScreen,
-            RegisterScreen,
             LobbyScreen,
             HomeScreen,
             RoomScreen
         }
 
-        public static ScreenState currentScreenState = ScreenState.LoginScreen;
+        //The current Activated Screen;
+        public static ScreenState currentScreenState;
 
+        //The list containing all the players
         public static List<CPlayer> players;
 
-        // Loginscreen stuff
+        // All the screens
         private LoginScreen loginScreen;
-
-        // LobbyScreen stuff
+        private HomeScreen homeScreen;
         private LobbyScreen lobbyScreen;
-        
-        //MyPlayer chris;
-        Map map;
-        Camera camera;
-        Ui ui;
+        private RoomScreen roomScreen;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,55 +54,19 @@ namespace SociaGroundsEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: Add your initialization logic here
-
-            // Loginscreen initialize
-            loginScreen = new LoginScreen(Content);
-
-            // Roomscreen initialize
-
-            players = new List<CPlayer>();
-            players.Add(new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character")));
-
-            int[,] mapArray = 
-            {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 6, 0, 0, 3, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-            };
-            map = new Map(mapArray, new Vector2(0, GraphicsDevice.Viewport.Height - 100), Content);
-            map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, Content));
-            map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, Content));
-            map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, Content));
-
-            camera = new Camera(GraphicsDevice.Viewport);
-            ui = new Ui(Content);
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
+
+            players = new List<CPlayer>
+            {
+                new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character"))
+            };
+
+            // Screens initialize
+            loginScreen = new LoginScreen(Content);
+            roomScreen = new RoomScreen(Content,GraphicsDevice);
+            homeScreen = new HomeScreen();
+
+            currentScreenState = ScreenState.LoginScreen;
 
             base.Initialize();
         }
@@ -147,38 +104,25 @@ namespace SociaGroundsEngine
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
-                        currentScreenState = ScreenState.LobbyScreen;
-                        lobbyScreen = new LobbyScreen();
+                        //Alleen voor het testen
+                        currentScreenState = ScreenState.RoomScreen;
+
+                        //currentScreenState = ScreenState.LobbyScreen;
+                        //lobbyScreen = new LobbyScreen();
                     }
                     break;
-                case ScreenState.RegisterScreen:
-                    break;
-
                 case ScreenState.LobbyScreen:
-                        lobbyScreen.Update();
-                        lobbyScreen.Draw(spriteBatch);
+                    lobbyScreen.Update();
                     break;
 
                 case ScreenState.HomeScreen:
+                    homeScreen.Update();
                     break;
 
                 case ScreenState.RoomScreen:
-                    ui.Update(camera.centre);
-
-                    foreach (var player in players)
-                    {
-                        if (!player.Equals(players[0]))
-                        {
-                            ForeignPlayer foreign = ((ForeignPlayer) player);
-                            foreign.NewPosition = new Vector2(foreign.NewPosition.X , foreign.NewPosition.Y);
-                        }
-                        player.Update(gameTime, ui, GraphicsDevice.Viewport, map);
-                    }
-
-                    camera.Update(GraphicsDevice.Viewport, players[0].Position, map);
+                    roomScreen.Update(gameTime,GraphicsDevice);
                     break;
             }
-
             base.Update(gameTime);
         }
 
@@ -198,24 +142,14 @@ namespace SociaGroundsEngine
                     loginScreen.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
-                case ScreenState.RegisterScreen:
-
-                    break;
                 case ScreenState.LobbyScreen:
-
+                    lobbyScreen.Draw(spriteBatch);
                     break;
                 case ScreenState.HomeScreen:
-
+                    homeScreen.Draw(spriteBatch);
                     break;
                 case ScreenState.RoomScreen:
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.TranformPublic);
-                    map.Draw(spriteBatch);
-                    foreach (var player in players)
-                    {
-                        player.Draw(spriteBatch);
-                    }
-                    ui.draw(spriteBatch);
-                    spriteBatch.End();
+                    roomScreen.Draw(spriteBatch);
                     break;
             }
             base.Draw(gameTime);

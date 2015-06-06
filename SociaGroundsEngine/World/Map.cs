@@ -38,7 +38,7 @@ namespace SociaGroundsEngine.World
         {
             get { return mapHeight; }
         }
-        
+
         // Generate the map by saving certain objects in the list
         public Map(int[,] map, Vector2 startPosition, ContentManager content)
         {
