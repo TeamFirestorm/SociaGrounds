@@ -9,6 +9,7 @@ namespace SociaGroundsEngine.GUI
 {
     class Button
     {
+        // Position of the button
         Vector2 position;
         public Vector2 Position
         {
@@ -47,6 +48,7 @@ namespace SociaGroundsEngine.GUI
         public Rectangle Rect
         {
             get { return rect; }
+            set { rect = value; }
         }
 
         // The touch state
@@ -117,7 +119,7 @@ namespace SociaGroundsEngine.GUI
             // Loop through all the locations where touch is possible
             foreach (TouchLocation touch in TouchPanel.GetState())
             {
-                // Check if the position is released within the button
+                // Check if the position is pressed within the button
                 if (touch.Position.X >= rect.Left &&
                     touch.Position.X <= rect.Right &&
                     touch.Position.Y >= rect.Top &&

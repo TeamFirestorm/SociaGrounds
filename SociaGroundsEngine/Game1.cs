@@ -32,7 +32,7 @@ namespace SociaGroundsEngine
         private HomeScreen homeScreen;
         private LobbyScreen lobbyScreen;
         private RoomScreen roomScreen;
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -112,7 +112,7 @@ namespace SociaGroundsEngine
                     }
                     break;
                 case ScreenState.LobbyScreen:
-                    lobbyScreen.Update();
+                        lobbyScreen.Update();
                     break;
 
                 case ScreenState.HomeScreen:
