@@ -66,31 +66,32 @@ namespace SociaGroundsEngine.GUI
 
             // Button list initialize
             buttons = new List<Button>();
-            int height = 0;
+            int btHeight = 0;
             int width = 0;
             Vector2 beginRect = new Vector2(360, 400);
             for (int i = 0; i < chars.Length; i++)
             {
                 if (width >= 10)
                 {
-                    height++;
+                    btHeight++;
                     width = 0;
                     beginRect.X = 360;
-                    beginRect.Y += 60;
+                    beginRect.Y += 120;
                 }
 
-                buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), chars[i].ToString(), scale, beginRect));
-                beginRect.X += 20;
+                buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * btHeight)), chars[i].ToString(), scale, beginRect));
+                beginRect.X += 75;
                 width++;
             }
 
             // Backspace button
-            buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), "<----", scale));
+            buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * btHeight)), "<----", scale, beginRect));
 
             width += 3;
+            beginRect.X += 200;
 
             // Enter button
-            buttons.Add(new Button(content, new Vector2(position.X + (75 * width), position.Y + (120 * height)), "Enter", scale));
+            buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * btHeight)), "Enter", scale, beginRect));
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
-using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.World;
 
 namespace SociaGroundsEngine.Screens
@@ -28,12 +27,11 @@ namespace SociaGroundsEngine.Screens
 
         public void Update(GameTime gameTime, GraphicsDevice graphics)
         {
-            ui.Update(camera.centre, graphics.Viewport);
-
             foreach (var player in Game1.players)
             {
                 player.Update(gameTime, ui, graphics.Viewport, map);
             }
+            ui.Update(camera.centre, graphics.Viewport);
 
             camera.Update(graphics.Viewport, Game1.players[0].Position, map);
         }
