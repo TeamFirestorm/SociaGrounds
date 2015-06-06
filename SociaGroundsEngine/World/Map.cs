@@ -116,7 +116,7 @@ namespace SociaGroundsEngine.World
                 }
                 // Update the y position of the currentPosition
                 // And reset the x position
-                currentPosition.Y -= grassTexture.Height;
+                currentPosition.Y += grassTexture.Height;
                 currentPosition.X = startPosition.X;
 
                 // Update the mapHeight

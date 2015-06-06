@@ -68,15 +68,19 @@ namespace SociaGroundsEngine.GUI
             buttons = new List<Button>();
             int height = 0;
             int width = 0;
+            Vector2 beginRect = new Vector2(360, 400);
             for (int i = 0; i < chars.Length; i++)
             {
                 if (width >= 10)
                 {
                     height++;
                     width = 0;
+                    beginRect.X = 360;
+                    beginRect.Y += 60;
                 }
 
-                buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), chars[i].ToString(), scale));
+                buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * height)), chars[i].ToString(), scale, beginRect));
+                beginRect.X += 20;
                 width++;
             }
 
@@ -93,7 +97,7 @@ namespace SociaGroundsEngine.GUI
         /// Update logic for the keyboard
         /// Building the string if a button has been clicked for example
         /// </summary>
-        public void update()
+        public void update(Viewport viewport)
         {
             // Retrieve the latest position
             newPosition = position;
@@ -106,7 +110,7 @@ namespace SociaGroundsEngine.GUI
                 button.Position = new Vector2(button.Position.X - xDiff, button.Position.Y - yDiff);
 
                 // Update all the button in the list while the loop is still there
-                button.update();
+                button.update(viewport);
             }
 
             // Check all the buttons for a click

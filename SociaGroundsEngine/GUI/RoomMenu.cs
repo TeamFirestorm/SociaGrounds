@@ -38,7 +38,7 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             isKeyboardUp = false;
 
-            showHideButton = new Button(content, position, "show/hide ", 0.4f);
+            showHideButton = new Button(content, position, "show/hide ", 0.4f, new Vector2(80, 650));
             inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.08f);
             keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 100), 35, 0.5f);
         }
@@ -71,15 +71,12 @@ namespace SociaGroundsEngine.GUI
 
             // Position updates
             showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4.6f), newPosition.Y + (viewport.Height / 4.7f));
-            keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 3.5f));
-            inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 4.7f));
+            keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 30f));
+            //inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 4.7f));
 
             // Input field update
-            showHideButton.update();
             inputField.update(keyboard.TextBuffer);
-            keyboard.update();
-
-            //Debug.WriteLine(showHideButton.Position);
+            keyboard.update(viewport);
         }
 
         public void draw(SpriteBatch spriteBatch)
