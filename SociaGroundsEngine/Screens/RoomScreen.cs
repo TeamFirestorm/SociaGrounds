@@ -17,18 +17,18 @@ namespace SociaGroundsEngine.Screens
         {
             // TODO: Add your initialization logic here
 
-            map = new Map(CreateMap(), new Vector2(0,0), content);
+            map = new Map(CreateMap(), new Vector2(0, 0), content);
             map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
             map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, content));
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
-            camera = new Camera();
-            ui = new Ui(content, graphics.Viewport);
+            camera = new Camera(graphics.Viewport);
+            ui = new Ui(content);
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics)
         {
-            ui.Update(camera.centre);
+            ui.Update(camera.centre, graphics.Viewport);
 
             foreach (var player in Game1.players)
             {

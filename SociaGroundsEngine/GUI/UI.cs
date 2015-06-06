@@ -18,20 +18,16 @@ namespace SociaGroundsEngine.GUI
             set { cameraCentre = value; }
         }
 
-        // Viewport of the gamescreen
-        Viewport viewport;
-
-        public Ui(ContentManager content, Viewport viewport)
+        public Ui(ContentManager content)
         {
             roomMenu = new RoomMenu(content, new Vector2(0, 0));
-            this.viewport = viewport;
         }
 
-        public void Update(Vector2 position)
+        public void Update(Vector2 position, Viewport viewport)
         {
             // Updating the camera centre and the room menu according to the camera centre
             cameraCentre = position;
-            roomMenu.update(position, viewport);
+            roomMenu.update(cameraCentre, viewport);
         }
 
         // Input checks for touching up, down, left or right

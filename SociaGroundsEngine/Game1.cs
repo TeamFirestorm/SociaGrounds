@@ -58,7 +58,7 @@ namespace SociaGroundsEngine
 
             players = new List<CPlayer>
             {
-                new MyPlayer(new Vector2(600, 200), Content.Load<Texture2D>("Personas/Chris_Character"))
+                new MyPlayer(new Vector2(0, 0), Content.Load<Texture2D>("Personas/Chris_Character"))
             };
 
             // Screens initialize

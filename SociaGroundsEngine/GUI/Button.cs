@@ -55,7 +55,10 @@ namespace SociaGroundsEngine.GUI
         TouchCollection currentState;
         TouchCollection oldState;
 
+        // Touch position offset
+        Vector2 offset;
 
+        // First constructor
         public Button(ContentManager content, Vector2 position, string text, float scale)
         {
             // Neutral textures initialize
@@ -76,15 +79,41 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             this.width = text.Length / 5;
             this.scale = scale;
+            this.offset = new Vector2(0, 0);
 
             rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
         }
 
+        public Button(ContentManager content, Vector2 position, string text, float scale, Vector2 rectangle)
+        {
+            // Neutral textures initialize
+            left = content.Load<Texture2D>("GUI/Button/StandardButtonLeft");
+            mid = content.Load<Texture2D>("GUI/Button/StandardButtonMiddle");
+            right = content.Load<Texture2D>("GUI/Button/StandardButtonRight");
 
-        public void update()
+            // Clicked textures initialize
+            leftClicked = content.Load<Texture2D>("GUI/Button/PressedButtonLeft");
+            midClicked = content.Load<Texture2D>("GUI/Button/PressedButtonMiddle");
+            rightClicked = content.Load<Texture2D>("GUI/Button/PressedButtonRight");
+
+            // Text stuff
+            this.text = text;
+            font = content.Load<SpriteFont>("SociaGroundsFont");
+
+            // Other stuff
+            this.position = position;
+            this.width = text.Length / 5;
+            this.scale = scale;
+            this.offset = new Vector2(0, 0);
+
+            rect = new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)(((width * mid.Width) + left.Width + right.Width) * scale), (int)(left.Height * scale));
+        }
+
+
+        public void update(Viewport viewport)
         {
             // Update the rectangle if the position has been changed
-            rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
+            //rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
         }
 
 
