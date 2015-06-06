@@ -24,12 +24,6 @@ namespace SociaGroundsEngine
         }
 
         public Vector2 centre;
-        private Viewport viewport;
-
-        public Camera(Viewport newView)
-        {
-            viewport = newView;
-        }
 
         public void Update(Viewport viewport, Vector2 position, Map map)
         {
@@ -48,7 +42,6 @@ namespace SociaGroundsEngine
             {
                 centre.X = position.X;
             }
-
 
             // If the camera is on the top of the map, stop the vertical camera movement
             if (position.Y < (map.StartPosition.Y - map.MapHeight) + (viewport.Height / 2))

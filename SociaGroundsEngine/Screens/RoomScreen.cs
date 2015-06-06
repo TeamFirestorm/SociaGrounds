@@ -17,12 +17,12 @@ namespace SociaGroundsEngine.Screens
         {
             // TODO: Add your initialization logic here
 
-            map = new Map(CreateMap(), new Vector2(0, graphics.Viewport.Height - 100), content);
+            map = new Map(CreateMap(), new Vector2(0,0), content);
             map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
             map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, content));
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
-            camera = new Camera(graphics.Viewport);
+            camera = new Camera();
             ui = new Ui(content, graphics.Viewport);
         }
 

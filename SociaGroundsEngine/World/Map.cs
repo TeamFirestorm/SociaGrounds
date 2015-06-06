@@ -47,8 +47,8 @@ namespace SociaGroundsEngine.World
         {
             nonSolidAssets = new List<Asset>();
             solidAssets = new List<Asset>();
-            Vector2 currentPosition = startPosition;
             this.startPosition = startPosition;
+            Vector2 currentPosition = startPosition;
             Texture2D grassTexture = content.Load<Texture2D>("World/Grass/Grass_0");
 
             // Looping through the multidimensional array that has been given
@@ -119,7 +119,7 @@ namespace SociaGroundsEngine.World
                 }
                 // Update the y position of the currentPosition
                 // And reset the x position
-                currentPosition.Y -= grassTexture.Height;
+                currentPosition.Y += grassTexture.Height;
                 currentPosition.X = startPosition.X;
 
                 // Update the mapHeight
