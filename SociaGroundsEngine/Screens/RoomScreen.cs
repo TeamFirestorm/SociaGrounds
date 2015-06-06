@@ -32,11 +32,6 @@ namespace SociaGroundsEngine.Screens
 
             foreach (var player in Game1.players)
             {
-                if (!player.Equals(Game1.players[0]))
-                {
-                    ForeignPlayer foreign = ((ForeignPlayer)player);
-                    foreign.NewPosition = new Vector2(foreign.NewPosition.X, foreign.NewPosition.Y);
-                }
                 player.Update(gameTime, ui, graphics.Viewport, map);
             }
 
