@@ -23,7 +23,7 @@ namespace SociaGroundsEngine.Screens
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
             camera = new Camera(graphics.Viewport);
-            ui = new Ui(content);
+            ui = new Ui(content, graphics.Viewport);
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics)
