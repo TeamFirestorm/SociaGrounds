@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -32,7 +31,7 @@ namespace SociaGroundsEngine.DataBase
         {
             HttpClient client = new HttpClient();
 
-            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/getConnections.php");
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/getConnections.php");
 
             string urlContents = await getStringTask;
 

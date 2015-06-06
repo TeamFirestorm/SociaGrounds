@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
