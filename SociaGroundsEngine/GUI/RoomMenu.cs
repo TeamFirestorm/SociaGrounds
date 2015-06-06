@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,15 +38,13 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             isKeyboardUp = false;
 
-            showHideButton = new Button(content, position, "show/hide ", 0.3f);
-            inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.05f);
+            showHideButton = new Button(content, position, "show/hide ", 0.4f);
+            inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.08f);
             keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 100), 35, 0.5f);
         }
 
         public void update(Vector2 newPosition, Viewport viewport)
         {
-            keyboard.update();
-
             // Check if the Show/Hide button is clicked
             if (showHideButton.isTouched() && !isKeyboardUp && keyboard.Position.Y >= position.Y + 100)
             {
@@ -70,13 +69,17 @@ namespace SociaGroundsEngine.GUI
             //    inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y + 30);
             //}
 
-            // Input field update
-            inputField.update(keyboard.TextBuffer);
-
             // Position updates
-            showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4), newPosition.Y + (viewport.Height / 4));
-            keyboard.Position = new Vector2(newPosition.X + 100, newPosition.Y - 100);
-            inputField.Position =  new Vector2(newPosition.X + 100, newPosition.Y);
+            showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4.6f), newPosition.Y + (viewport.Height / 4.7f));
+            keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 3.5f));
+            inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 4.7f));
+
+            // Input field update
+            showHideButton.update();
+            inputField.update(keyboard.TextBuffer);
+            keyboard.update();
+
+            //Debug.WriteLine(showHideButton.Position);
         }
 
         public void draw(SpriteBatch spriteBatch)
