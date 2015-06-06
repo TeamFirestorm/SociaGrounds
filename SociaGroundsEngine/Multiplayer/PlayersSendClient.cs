@@ -155,7 +155,7 @@ namespace SociaGroundsEngine.Multiplayer
                         int x = inc.ReadInt32();
                         int y = inc.ReadInt32();
 
-                        Game1.players[index].NewPosition = new Vector2(x, y);
+                        ((ForeignPlayer)Game1.players[index]).AddNewPosition(new Vector2(x, y));
                     }
                 }
             }

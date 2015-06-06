@@ -12,6 +12,7 @@ namespace SociaGroundsEngine.World
     public class Map
     {
         List<Asset> nonSolidAssets;
+
         public List<Asset> NonSolidAssets
         {
             get { return nonSolidAssets; }
@@ -30,10 +31,12 @@ namespace SociaGroundsEngine.World
         }
 
         int mapWidth, mapHeight;
+
         public int MapWidth
         {
             get { return mapWidth; }
         }
+
         public int MapHeight
         {
             get { return mapHeight; }
