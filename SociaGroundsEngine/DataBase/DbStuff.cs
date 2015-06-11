@@ -14,13 +14,13 @@ namespace SociaGroundsEngine.DataBase
             IsRunning = false;
         }
 
-        public async static Task<string> InsertUserAsync(string phoneID, string username)
+        public async static Task<string> InsertUser(string phoneId, string username)
         {
             IsRunning = true;
 
             HttpClient client = new HttpClient();
 
-            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneID + "&username=" + username);
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertUser.php?phoneID=" + phoneId + "&username=" + username);
 
             string urlContents = await getStringTask;
 
@@ -42,6 +42,38 @@ namespace SociaGroundsEngine.DataBase
                 return u;
             }
             return null;
+        }
+
+        public async static Task<string> InsertConnection()
+        {
+            string ipaddress = InternetConnection.MyIp;
+            string dnssuffix = InternetConnection.MyDnsSuffix;
+
+            if (ipaddress == null || dnssuffix == null) return null;
+
+            HttpClient client = new HttpClient();
+
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/insertConnectionInfo.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
+
+            string urlContents = await getStringTask;
+
+            return urlContents;
+        }
+
+        public static async Task<string> DeleteConnection()
+        {
+            string ipaddress = InternetConnection.MyIp;
+            string dnssuffix = InternetConnection.MyDnsSuffix;
+
+            if (ipaddress == null || dnssuffix == null) return null;
+
+            HttpClient client = new HttpClient();
+
+            Task<string> getStringTask = client.GetStringAsync("http://www.matthijsreeringh.nl/SociaGrounds/deleteConnection.php?ipadress=" + ipaddress + "&dnssuffix=" + dnssuffix);
+
+            string urlContents = await getStringTask;
+
+            return urlContents;
         }
     }
 }

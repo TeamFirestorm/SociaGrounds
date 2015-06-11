@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.PlayerFolder;
 using SociaGroundsEngine.Screens;
 
@@ -41,6 +44,8 @@ namespace SociaGroundsEngine
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             TouchPanel.EnabledGestures = GestureType.Tap;
+
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
@@ -64,11 +69,20 @@ namespace SociaGroundsEngine
             // Screens initialize
             loginScreen = new LoginScreen(Content);
             roomScreen = new RoomScreen(Content,GraphicsDevice);
-            homeScreen = new HomeScreen();
+            homeScreen = new HomeScreen(Content);
 
             currentScreenState = ScreenState.LoginScreen;
 
             base.Initialize();
+        }
+
+        private async void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            if (lobbyScreen.Host != null)
+            {
+                await DbStuff.DeleteConnection();
+            }
+            Application.Current.Exit();
         }
 
         /// <summary>
@@ -105,10 +119,10 @@ namespace SociaGroundsEngine
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
                         //Alleen voor het testen
-                        currentScreenState = ScreenState.RoomScreen;
+                        //currentScreenState = ScreenState.RoomScreen;
 
-                        //currentScreenState = ScreenState.LobbyScreen;
-                        //lobbyScreen = new LobbyScreen();
+                        currentScreenState = ScreenState.LobbyScreen;
+                        lobbyScreen = new LobbyScreen();
                     }
                     break;
                 case ScreenState.LobbyScreen:

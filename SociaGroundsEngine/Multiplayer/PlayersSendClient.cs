@@ -14,9 +14,6 @@ namespace SociaGroundsEngine.Multiplayer
         // Create timer that tells client, when to send update
         private static DispatcherTimer update;
 
-        // Indicates if program is running
-        private static bool IsRunning = true;
-
         public PlayersSendClient(string ip)
         {
             // Read Ip to string
@@ -39,8 +36,8 @@ namespace SociaGroundsEngine.Multiplayer
             outmsg.Write(Game1.players[0].Position.X);
             outmsg.Write(Game1.players[0].Position.Y);
 
-            // Connect client, to ip previously requested from user 
-            Client.Connect(hostip, 14242, outmsg);
+            // Connect client, to ip previously requested from user
+            Client.Connect(hostip, config.Port, outmsg);
 
             update = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
 
@@ -52,18 +49,12 @@ namespace SociaGroundsEngine.Multiplayer
 
             // Start the timer
             update.Start();
-
-            // While..running
-            while (IsRunning)
-            {
-                // Just loop this like madman
-                GetInputAndSendItToServer(Game1.players[0].Position);
-            }
         }
 
         private void update_Elapsed(object sender, object e)
         {
             // Check if server sent new messages
+            GetInputAndSendItToServer(Game1.players[0].Position);
             CheckServerMessages();
         }
 
