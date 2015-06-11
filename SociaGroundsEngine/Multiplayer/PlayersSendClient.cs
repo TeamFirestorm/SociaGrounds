@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Text;
 using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
@@ -20,8 +18,8 @@ namespace SociaGroundsEngine.Multiplayer
 
         public PlayersSendClient(ContentManager content, string ip)
         {
-            byte[] hostip = Encoding.Unicode.GetBytes (ip);
-
+            // Read Ip to string
+            string hostip = ip;
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
@@ -29,7 +27,7 @@ namespace SociaGroundsEngine.Multiplayer
 
             // Create new client, with previously created configs
             Client = new NetClient(config);
-
+          
             Client.Start();
 
             // Create new outgoing message
@@ -41,7 +39,7 @@ namespace SociaGroundsEngine.Multiplayer
             outmsg.Write(Game1.players[0].Position.Y);
 
             // Connect client, to ip previously requested from user
-            Client.Connect(new IPEndPoint(new IPAddress(hostip, 14242), outmsg));
+            Client.Connect(hostip, 14242, outmsg);
 
             update = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 3)};
 
