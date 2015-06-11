@@ -17,7 +17,7 @@ namespace SociaGroundsEngine.Screens
             buttons.Add(new Button(content, new Vector2(50, 50), "Start Game", 1.0f));
         }
 
-        public override void Update()
+        public override void Update(ContentManager content)
         {
 
         }

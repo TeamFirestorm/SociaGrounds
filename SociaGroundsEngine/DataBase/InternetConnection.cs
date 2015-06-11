@@ -28,7 +28,7 @@ namespace SociaGroundsEngine.DataBase
                 }
             }
 
-            if (MyIp == null || MyDnsSuffix == null)
+            if (MyIp == null)
             {
                 throw new Exception("No Wifi connection found!");
             }
@@ -40,6 +40,13 @@ namespace SociaGroundsEngine.DataBase
 
             IsRunning = true;
 
+            string myDns = MyDnsSuffix;
+
+            if (myDns == "")
+            {
+                myDns = "geen";
+            }
+
             if (connections != null)
             {
                 string[] tempIp = MyIp.Split('.');
@@ -50,7 +57,7 @@ namespace SociaGroundsEngine.DataBase
                     tempIp = connect.IpAddress.Split('.');
                     string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
 
-                    if (ip.Equals(myIp) && connect.DnsSuffix.Equals(MyDnsSuffix))
+                    if (ip.Equals(myIp) && connect.DnsSuffix.Equals(myDns))
                     {
                         return connect.IpAddress;
                     }

@@ -49,6 +49,11 @@ namespace SociaGroundsEngine.DataBase
             string ipaddress = InternetConnection.MyIp;
             string dnssuffix = InternetConnection.MyDnsSuffix;
 
+            if (dnssuffix == "")
+            {
+                dnssuffix = "geen";
+            }
+
             if (ipaddress == null || dnssuffix == null) return null;
 
             HttpClient client = new HttpClient();

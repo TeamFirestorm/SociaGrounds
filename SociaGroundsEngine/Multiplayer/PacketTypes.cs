@@ -3,6 +3,7 @@
     public enum PacketTypes
     {
         Connect,
+        Disconnect,
         Move,
         WorldState
     }

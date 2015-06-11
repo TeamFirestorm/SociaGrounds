@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.Multiplayer;
@@ -35,7 +36,7 @@ namespace SociaGroundsEngine.Screens
             createdList = true;
         }
 
-        public override void Update()
+        public override void Update(ContentManager content)
         {
             if (createdList && !alreadyStarted)
             {
@@ -45,14 +46,14 @@ namespace SociaGroundsEngine.Screens
 
                 if (ip == null)
                 {
-                    Host = new PlayersSendHost();
-                    Debug.WriteLine("Created Host and Client");
+                    Host = new PlayersSendHost(content);
+                    Debug.WriteLine("Created and started Host");
                 }
                 else
                 {
                     Host = null;
-                    Client = new PlayersSendClient(ip);
-                    Debug.WriteLine("Client");
+                    Client = new PlayersSendClient(content, ip);
+                    Debug.WriteLine("Created and started Client");
                 }
 
                 #pragma warning disable 4014

@@ -16,46 +16,45 @@ namespace SociaGroundsEngine.GUI
         public delegate void EnterPressed(string text);
 
         // Buttons
-        List<Button> buttons;
+        private List<Button> buttons;
         public List<Button> Buttons
         {
             get { return buttons; }
         }
 
         // Position
-        Vector2 position;
+        private Vector2 position;
         public Vector2 Position
         {
             get { return position; }
             set { position = value; }
         }
 
-        // Height and width of the keyboard
-        float height;
-        public float Height
-        {
-            get { return height; }
-        }
+        //// Height and width of the keyboard
+        //private float height;
+        //public float Height
+        //{
+        //    get { return height; }
+        //}
 
         // Variables to check if the position has been updated
-        Vector2 oldPosition;
-        Vector2 newPosition;
+        private Vector2 oldPosition;
+        private Vector2 newPosition;
 
         // Fields for building the string
-        string textBuffer;
+        private string textBuffer;
         public string TextBuffer
         {
             get { return textBuffer; }
         }
-        char[] chars;
+        private readonly char[] chars = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ' };
 
         // The maximum amount of characters that can be typed
-        int maxchars;
+        private readonly int maxchars;
 
         public SociaKeyboard(ContentManager content, Vector2 position, int maxchars, float scale)
         {
             // Text initialize
-            chars = new[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ' };
             textBuffer = "";
             this.maxchars = maxchars;
 
@@ -63,12 +62,17 @@ namespace SociaGroundsEngine.GUI
             this.position = position;
             newPosition = position;
             oldPosition = position;
+            CreateButtons(content, scale);
+        }
 
+        private void CreateButtons(ContentManager content, float scale)
+        {
             // Button list initialize
             buttons = new List<Button>();
             int btHeight = 0;
             int width = 0;
             Vector2 beginRect = new Vector2(360, 400);
+
             for (int i = 0; i < chars.Length; i++)
             {
                 if (width >= 10)
@@ -78,7 +82,6 @@ namespace SociaGroundsEngine.GUI
                     beginRect.X = 360;
                     beginRect.Y += 120;
                 }
-
                 buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * btHeight)), chars[i].ToString(), scale, beginRect));
                 beginRect.X += 75;
                 width++;
@@ -92,6 +95,7 @@ namespace SociaGroundsEngine.GUI
 
             // Enter button
             buttons.Add(new Button(content, new Vector2(position.X + ((75 * scale) * width), position.Y + ((120 * scale) * btHeight)), "Enter", scale, beginRect));
+
         }
 
         /// <summary>

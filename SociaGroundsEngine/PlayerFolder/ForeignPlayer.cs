@@ -9,9 +9,9 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class ForeignPlayer : CPlayer
     {
-        private Queue<Vector2> NewQPosition;
+        private Vector2 newPosition;
 
-        public ForeignPlayer(Vector2 startPosition, NetConnection connection)
+        public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
             NewQPosition = new Queue<Vector2>();
 
@@ -21,6 +21,10 @@ namespace SociaGroundsEngine.PlayerFolder
             this.connection = connection;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            Id = id;
+
+            newPosition = default(Vector2);
         }
 
         public void AddNewPosition(Vector2 pos)
@@ -46,7 +50,17 @@ namespace SociaGroundsEngine.PlayerFolder
 
         private void NewPosition(GameTime gameTime)
         {
-            Vector2 newPosition = NewQPosition.Dequeue();
+            if (newPosition == default(Vector2))
+            {
+                if (NewQPosition.Count > 0)
+                {
+                    newPosition = NewQPosition.Dequeue();
+                }
+                else
+                {
+                    return;
+                }
+            }
 
             if (newPosition.Y > position.Y)
             {
@@ -59,7 +73,7 @@ namespace SociaGroundsEngine.PlayerFolder
                 animation.Play(10, 9, gameTime);
 
                 position.Y += (position.Y - newPosition.Y);
-            }
+            } 
             else if (newPosition.X < position.X)
             {
                 animation.Play(9, 9, gameTime);
@@ -71,6 +85,11 @@ namespace SociaGroundsEngine.PlayerFolder
                 animation.Play(11, 9, gameTime);
 
                 position.X += (newPosition.X - position.X);
+            }
+
+            if (position == newPosition)
+            {
+                newPosition = default(Vector2);
             }
         }
 
