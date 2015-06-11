@@ -40,6 +40,13 @@ namespace SociaGroundsEngine.DataBase
 
             IsRunning = true;
 
+            string dns = MyDnsSuffix;
+
+            if (dns == "")
+            {
+                dns = "geen";
+            }
+
             if (connections != null)
             {
                 string[] tempIp = MyIp.Split('.');

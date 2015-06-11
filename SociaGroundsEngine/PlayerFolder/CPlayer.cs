@@ -1,4 +1,5 @@
-﻿using Lidgren.Network;
+﻿using System.Collections.Generic;
+using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.GUI;
@@ -46,5 +47,9 @@ namespace SociaGroundsEngine.PlayerFolder
 
         // Abstract method to draw the player
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        public int Id { get; set; }
+
+        protected Queue<Vector2> NewQPosition;
     }
 }

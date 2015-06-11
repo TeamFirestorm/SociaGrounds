@@ -7,6 +7,17 @@ namespace SociaGroundsEngine.PlayerFolder
 {
     public class MyPlayer : CPlayer
     {
+        public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
+        {
+            animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            position = startPosition;
+            speed = 3;
+
+            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            Id = id;
+        }
+
         public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);

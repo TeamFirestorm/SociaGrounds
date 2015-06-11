@@ -61,10 +61,7 @@ namespace SociaGroundsEngine
 
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
-            players = new List<CPlayer>
-            {
-                new MyPlayer(new Vector2(0, 0), Content.Load<Texture2D>("Personas/Chris_Character"))
-            };
+            players = new List<CPlayer>();
 
             // Screens initialize
             loginScreen = new LoginScreen(Content);
@@ -114,7 +111,7 @@ namespace SociaGroundsEngine
             switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    loginScreen.Update();
+                    loginScreen.Update(Content);
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
@@ -126,11 +123,11 @@ namespace SociaGroundsEngine
                     }
                     break;
                 case ScreenState.LobbyScreen:
-                        lobbyScreen.Update();
+                    lobbyScreen.Update(Content);
                     break;
 
                 case ScreenState.HomeScreen:
-                    homeScreen.Update();
+                    homeScreen.Update(Content);
                     break;
 
                 case ScreenState.RoomScreen:
