@@ -30,49 +30,74 @@ namespace SociaGroundsEngine.GUI
             get { return isKeyboardUp; }
         }
 
+        
         // Inputfield for the chat
         SociaInputfield inputField;
+
+        // Variables for the height of the keyboard and the inputfield
+        float keyboardHeight;
+        float inputFieldHeight;
 
         public RoomMenu(ContentManager content, Vector2 position)
         {
             this.position = position;
             isKeyboardUp = false;
 
+            // Initialize
             showHideButton = new Button(content, position, "show/hide ", 0.4f, new Vector2(80, 650));
             inputField = new SociaInputfield(content, new Vector2(position.X + 100, position.Y), 10, 0.08f);
-            keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 100), 35, 0.5f);
+            keyboard = new SociaKeyboard(content, new Vector2(position.X + 100, position.Y + 200), 35, 0.5f);
+
+            // Keyboard and inputfield height
+            keyboardHeight = 3;
+            inputFieldHeight = 4.7f;
         }
 
         public void update(Vector2 newPosition, Viewport viewport)
         {
+            bool isTouched = showHideButton.isTouched();
+
             // Check if the Show/Hide button is clicked
-            if (showHideButton.isTouched() && !isKeyboardUp && keyboard.Position.Y >= position.Y + 100)
+            // Toggle on
+            if (isTouched && !isKeyboardUp && keyboardHeight <= 30)
             {
                 isKeyboardUp = true;
             }
-            else if (showHideButton.isTouched() && isKeyboardUp && keyboard.Position.Y <= position.Y - 100)
+            // Toggle off
+            else if (isTouched && isKeyboardUp && keyboardHeight >= 3)
             {
                 isKeyboardUp = false;
             }
+            
 
             // Updating the keyboard position if the the Show/Hide button has been clicked
             // Keyboard up
-            //if (isKeyboardUp && keyboard.Position.Y > position.Y)
-            //{
-            //    keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y - 30);
-            //    inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y - 30);
-            //}
-            //// Keyboard down
-            //else if (!isKeyboardUp && keyboard.Position.Y < position.Y - 100)
-            //{
-            //    keyboard.Position = new Vector2(keyboard.Position.X, keyboard.Position.Y + 30);
-            //    inputField.Position = new Vector2(inputField.Position.X, inputField.Position.Y + 30);
-            //}
+            if (isKeyboardUp && keyboardHeight <= 30)
+            {
+                keyboardHeight += 2;
+            }
+            // Keyboard down
+            else if (!isKeyboardUp && keyboardHeight >= 3)
+            {
+                keyboardHeight -= 2;
+            }
+
+            // Updating the input field position if the Show/Hide button has been clicked
+            // Input field up
+            if (isKeyboardUp && inputFieldHeight <= 34.7f)
+            {
+                inputFieldHeight += 2;
+            }
+            // Input field down
+            else if (!isKeyboardUp && inputFieldHeight >= 4.7f)
+            {
+                inputFieldHeight -= 2;
+            }
 
             // Position updates
             showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4.6f), newPosition.Y + (viewport.Height / 4.7f));
-            keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 30f));
-            //inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / 4.7f));
+            keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / keyboardHeight));
+            inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / inputFieldHeight));
 
             // Input field update
             inputField.update(keyboard.TextBuffer);
