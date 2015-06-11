@@ -28,7 +28,7 @@ namespace SociaGroundsEngine.DataBase
                 }
             }
 
-            if (MyIp == null || MyDnsSuffix == null)
+            if (MyIp == null)
             {
                 throw new Exception("No Wifi connection found!");
             }

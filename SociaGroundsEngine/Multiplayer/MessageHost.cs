@@ -7,7 +7,9 @@ namespace SociaGroundsEngine.Multiplayer
     {
         private static NetClient _sClient;
 
+#pragma warning disable 1998
         public static async void Setup()
+#pragma warning restore 1998
         {
             NetPeerConfiguration config = new NetPeerConfiguration("chat");
             config.AutoFlushSendQueue = false;

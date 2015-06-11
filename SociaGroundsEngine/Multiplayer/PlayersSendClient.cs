@@ -122,7 +122,9 @@ namespace SociaGroundsEngine.Multiplayer
         /// <summary>
         /// Check for new incoming messages from server
         /// </summary>
+#pragma warning disable 1998
         private async static void CheckServerMessages()
+#pragma warning restore 1998
         {
             // Create new incoming message holder
             NetIncomingMessage inc;
