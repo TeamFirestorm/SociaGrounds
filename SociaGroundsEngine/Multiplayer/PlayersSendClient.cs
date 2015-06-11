@@ -37,7 +37,7 @@ namespace SociaGroundsEngine.Multiplayer
             outmsg.Write(Game1.players[0].Position.Y);
 
             // Connect client, to ip previously requested from user
-            Client.Connect(hostip, 14242, outmsg);
+            Client.Connect(hostip, config.Port, outmsg);
 
             update = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
 

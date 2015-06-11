@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGroundsEngine.DataBase;
 using SociaGroundsEngine.Multiplayer;
@@ -8,7 +9,7 @@ namespace SociaGroundsEngine.Screens
     public class LobbyScreen : Screen
     {
         private readonly List<Connection> connections;
-        private PlayersSendHost Host { get; set; }
+        public PlayersSendHost Host { get; set; }
         private PlayersSendClient Client { get; set; }
 
         private bool createdList;
@@ -38,21 +39,27 @@ namespace SociaGroundsEngine.Screens
         {
             if (createdList && !alreadyStarted)
             {
+                alreadyStarted = true;
+
                 string ip = InternetConnection.CheckPossibleConnection(connections);
 
                 if (ip == null)
                 {
                     Host = new PlayersSendHost();
-                    Client = new PlayersSendClient("127.0.0.1");
+                    Debug.WriteLine("Created Host and Client");
                 }
                 else
                 {
                     Host = null;
                     Client = new PlayersSendClient(ip);
+                    Debug.WriteLine("Client");
                 }
 
+                #pragma warning disable 4014
+                DbStuff.InsertConnection();
+                #pragma warning restore 4014
+
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;
-                alreadyStarted = true;
             }
         }
 

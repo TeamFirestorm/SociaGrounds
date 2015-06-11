@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using SociaGroundsEngine.PlayerFolder;
@@ -13,21 +16,23 @@ namespace SociaGroundsEngine.Multiplayer
         // Object that can be used to store and read messages
         private NetIncomingMessage inc;
 
-        private readonly List<ForeignPlayer> gameWorldState;
-
         // Indicates if program is running
-        private static bool isRunning;
+        private static bool _isRunning;
+
+        private readonly DispatcherTimer _timer;
 
         public PlayersSendHost()
         {
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            NetPeerConfiguration config = new NetPeerConfiguration("game");
+            NetPeerConfiguration config = new NetPeerConfiguration("game")
+            {
+                Port = 14242,
+                MaximumConnections = 20
+            };
 
             // Set server port
-            config.Port = 14242;
 
             // Max client amount
-            config.MaximumConnections = 20;
 
             // Enable New messagetype. Explained later
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -35,27 +40,36 @@ namespace SociaGroundsEngine.Multiplayer
             // Create new server based on the configs just defined
             _netServer = new NetServer(config);
 
-            isRunning = false;
+            _isRunning = false;
 
             // Start it
             _netServer.Start();
 
-            // Create list of "Characters" ( defined later in code ). This list holds the world state. Character positions
-            gameWorldState = new List<ForeignPlayer>();
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0,0,0,2);
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+        }
 
-            Loop();
+        private async void TimerOnTick(object sender, object o)
+        {
+            _timer.Stop();
+
+            #pragma warning disable 4014
+            await Task.Run(new Action(Loop));
+            #pragma warning restore 4014
         }
 
         private void Loop()
         {
-            isRunning = true;
-            while (isRunning)
+            _isRunning = true;
+            while (_isRunning)
             {
                 ServerRunning();
             }
         }
 
-        private async void ServerRunning()
+        private void ServerRunning()
         {
             // Main loop
             // This kind of loop can't be made in XNA. In there, its basically same, but without while
@@ -64,7 +78,6 @@ namespace SociaGroundsEngine.Multiplayer
             // If "inc" is null -> ReadMessage returned null -> Its null, so dont do this :)
             if ((inc = _netServer.ReadMessage()) != null)
             {
-                // Theres few different types of messages. To simplify this process, i left only 2 of em here
                 switch (inc.MessageType)
                 {
                     // If incoming message is Request for connection approval
@@ -85,7 +98,7 @@ namespace SociaGroundsEngine.Multiplayer
                             int x = inc.ReadInt32();
                             int y = inc.ReadInt32();
 
-                            gameWorldState.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection));
+                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection));
 
                             // Create message, that can be written and sent
                             NetOutgoingMessage outmsg = _netServer.CreateMessage();
@@ -94,11 +107,15 @@ namespace SociaGroundsEngine.Multiplayer
                             outmsg.Write((byte)PacketTypes.WorldState);
 
                             // then int
-                            outmsg.Write(gameWorldState.Count);
+                            outmsg.Write(Game1.players.Count);
 
                             // iterate trought every character ingame
-                            foreach (ForeignPlayer ch in gameWorldState)
+                            foreach (CPlayer player in Game1.players)
                             {
+                                if (player.GetType() != typeof (ForeignPlayer)) continue;
+
+                                ForeignPlayer ch = (ForeignPlayer)player;
+
                                 // This is handy method
                                 // It writes all the properties of object to the packet
                                 if (inc.SenderConnection != ch.Connection)
@@ -128,12 +145,15 @@ namespace SociaGroundsEngine.Multiplayer
                         {
                             // Check who sent the message
                             // This way we know, what character belongs to message sender
-                            foreach (ForeignPlayer player in gameWorldState)
+                            foreach (CPlayer player in Game1.players)
                             {
+                                if (player.GetType() != typeof(ForeignPlayer)) continue;
+
+                                ForeignPlayer foreign = (ForeignPlayer)player;
+
                                 // If stored connection ( check approved message. We stored ip+port there, to character obj )
                                 // Find the correct character
-                                if (player.Connection != inc.SenderConnection)
-                                    continue;
+                                if (foreign.Connection != inc.SenderConnection) continue;
 
                                 // Read next byte
                                 byte b = inc.ReadByte();
@@ -142,14 +162,14 @@ namespace SociaGroundsEngine.Multiplayer
                                 int x = inc.ReadInt32();
                                 int y = inc.ReadInt32();
 
-                                player.Position = new Vector2(x, y);
+                                foreign.Position = new Vector2(x, y);
 
                                 // Create new message
                                 NetOutgoingMessage outmsg = _netServer.CreateMessage();
 
                                 // Write byte, that is type of world state
                                 outmsg.Write((byte)PacketTypes.WorldState);
-                                outmsg.Write(gameWorldState.IndexOf(player));
+                                outmsg.Write(Game1.players.IndexOf(foreign));
                                 outmsg.Write(x);
                                 outmsg.Write(y);
 
@@ -176,11 +196,15 @@ namespace SociaGroundsEngine.Multiplayer
                         if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             // Find disconnected character and remove it
-                            foreach (ForeignPlayer cha in gameWorldState)
+                            foreach (CPlayer player in Game1.players)
                             {
-                                if (cha.Connection == inc.SenderConnection)
+                                if (player.GetType() != typeof(ForeignPlayer)) continue;
+
+                                ForeignPlayer foreign = (ForeignPlayer)player;
+
+                                if (foreign.Connection == inc.SenderConnection)
                                 {
-                                    gameWorldState.Remove(cha);
+                                    Game1.players.Remove(foreign);
                                     break;
                                 }
                             }
