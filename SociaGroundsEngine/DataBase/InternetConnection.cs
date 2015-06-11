@@ -40,11 +40,11 @@ namespace SociaGroundsEngine.DataBase
 
             IsRunning = true;
 
-            string dns = MyDnsSuffix;
+            string myDns = MyDnsSuffix;
 
-            if (dns == "")
+            if (myDns == "")
             {
-                dns = "geen";
+                myDns = "geen";
             }
 
             if (connections != null)
@@ -57,7 +57,7 @@ namespace SociaGroundsEngine.DataBase
                     tempIp = connect.IpAddress.Split('.');
                     string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
 
-                    if (ip.Equals(myIp) && connect.DnsSuffix.Equals(MyDnsSuffix))
+                    if (ip.Equals(myIp) && connect.DnsSuffix.Equals(myDns))
                     {
                         return connect.IpAddress;
                     }
