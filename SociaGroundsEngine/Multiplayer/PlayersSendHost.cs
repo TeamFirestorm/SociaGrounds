@@ -15,6 +15,9 @@ namespace SociaGroundsEngine.Multiplayer
 
         private readonly List<ForeignPlayer> gameWorldState;
 
+        // Indicates if program is running
+        private static bool isRunning;
+
         public PlayersSendHost()
         {
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
@@ -32,12 +35,24 @@ namespace SociaGroundsEngine.Multiplayer
             // Create new server based on the configs just defined
             _netServer = new NetServer(config);
 
+            isRunning = false;
+
             // Start it
             _netServer.Start();
 
-
             // Create list of "Characters" ( defined later in code ). This list holds the world state. Character positions
             gameWorldState = new List<ForeignPlayer>();
+
+            Loop();
+        }
+
+        private void Loop()
+        {
+            isRunning = true;
+            while (isRunning)
+            {
+                ServerRunning();
+            }
         }
 
         private async void ServerRunning()
@@ -171,9 +186,6 @@ namespace SociaGroundsEngine.Multiplayer
                             }
                         }
                         break;
-                    default:
-                        break;
-
                 } // If New messages
             }
         }

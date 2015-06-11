@@ -12,11 +12,13 @@ namespace SociaGroundsEngine.Screens
         private PlayersSendClient Client { get; set; }
 
         private bool createdList;
+        private bool alreadyStarted;
 
         public LobbyScreen()
         {
             InternetConnection.GetMyIpAndDns();
             createdList = false;
+            alreadyStarted = false;
             connections = new List<Connection>();
             CreateConnections();
         }
@@ -34,19 +36,23 @@ namespace SociaGroundsEngine.Screens
 
         public override void Update()
         {
-            if (createdList)
+            if (createdList && !alreadyStarted)
             {
                 string ip = InternetConnection.CheckPossibleConnection(connections);
 
                 if (ip == null)
                 {
                     Host = new PlayersSendHost();
+                    Client = new PlayersSendClient("127.0.0.1");
                 }
                 else
                 {
+                    Host = null;
                     Client = new PlayersSendClient(ip);
                 }
+
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;
+                alreadyStarted = true;
             }
         }
 

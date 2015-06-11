@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using SociaGroundsEngine.GUI;
 
 namespace SociaGroundsEngine.Screens
 {
     public class HomeScreen : Screen
     {
-        public override void Update()
+        readonly List<Button> buttons;
+
+        public HomeScreen(ContentManager content)
         {
-            throw new NotImplementedException();
+            buttons = new List<Button>();
+            buttons.Add(new Button(content, new Vector2(50, 50), "Start Game", 1.0f));
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void Update()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (Button button in buttons)
+            {
+
+                button.draw(spriteBatch);
+            }
         }
     }
 }

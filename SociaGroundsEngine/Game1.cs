@@ -64,7 +64,7 @@ namespace SociaGroundsEngine
             // Screens initialize
             loginScreen = new LoginScreen(Content);
             roomScreen = new RoomScreen(Content,GraphicsDevice);
-            homeScreen = new HomeScreen();
+            homeScreen = new HomeScreen(Content);
 
             currentScreenState = ScreenState.LoginScreen;
 
