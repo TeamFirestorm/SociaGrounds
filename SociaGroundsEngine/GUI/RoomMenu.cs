@@ -84,14 +84,14 @@ namespace SociaGroundsEngine.GUI
 
             // Updating the input field position if the Show/Hide button has been clicked
             // Input field up
-            if (isKeyboardUp && inputFieldHeight <= 300f)
+            if (isKeyboardUp && inputFieldHeight <= 100f)
             {
-                inputFieldHeight += 30;
+                inputFieldHeight += 2;
             }
             // Input field down
             else if (!isKeyboardUp && inputFieldHeight >= 4.7f)
             {
-                inputFieldHeight -= 30;
+                inputFieldHeight -= 2;
             }
 
             // Position updates
