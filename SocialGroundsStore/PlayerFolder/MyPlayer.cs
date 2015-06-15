@@ -34,7 +34,6 @@ namespace SocialGroundsStore.PlayerFolder
         {
             Input(gameTime, map, keyState);
             animation.Position = position;
-            ui.Update(position, viewPort);
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
