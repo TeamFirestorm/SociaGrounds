@@ -52,6 +52,10 @@ namespace SocialGroundsStore.Screens
                     Task.Run(new Action(Host.StartLoop));
 
                     Debug.WriteLine("Created and started Host");
+
+//#pragma warning disable 4014
+//                    DbStuff.InsertConnection();
+//#pragma warning restore 4014
                 }
                 else
                 {
@@ -59,11 +63,6 @@ namespace SocialGroundsStore.Screens
                     Client = new PlayersSendClient(content, ip);
                     Debug.WriteLine("Created and started Client");
                 }
-
-                #pragma warning disable 4014
-                DbStuff.InsertConnection();
-                #pragma warning restore 4014
-
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;
             }
         }

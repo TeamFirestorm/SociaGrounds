@@ -81,7 +81,7 @@ namespace SocialGroundsStore.GUI
             this.scale = scale;
             this.offset = new Vector2(0, 0);
 
-            rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
+            rect = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
         }
 
         public Button(ContentManager content, Vector2 position, string text, float scale, Vector2 rectangle)
@@ -109,35 +109,14 @@ namespace SocialGroundsStore.GUI
             rect = new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)(((width * mid.Width) + left.Width + right.Width) * scale), (int)(left.Height * scale));
         }
 
-        // Method to check if the button is touched right now
-        // Can be used for holding the button
-        public bool isHold()
+        public void Update(Viewport viewport, MouseState mouseState)
         {
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
-            {
-                // Check if the position is touched within the button
-                if (touch.Position.X >= rect.Left &&
-                    touch.Position.X <= rect.Right &&
-                    touch.Position.Y >= rect.Top &&
-                    touch.Position.Y <= rect.Bottom)
-                {
-                    return true;
-                }
-            }
-
-            // If no touch
-            return false;
-        }
-
-        public void update(Viewport viewport, MouseState mouseState)
-        {
-            isClicked(mouseState);
+            IsClicked(mouseState);
         }
 
         // Trigger if the button is released
         // Use this method as the event trigger
-        public bool isClicked(MouseState mouseState)
+        public bool IsClicked(MouseState mouseState)
         {
             // Check if the position is pressed within the button
             if (mouseState.Position.X >= rect.Left &&
@@ -147,33 +126,6 @@ namespace SocialGroundsStore.GUI
             {
                 return true;
             }
-            return false;
-        }
-
-
-        // Trigger if the button is released
-        // Use this method as the event trigger
-        public bool isTouched()
-        {
-            currentState = TouchPanel.GetState();
-
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
-            {
-                // Check if the position is pressed within the button
-                if (touch.Position.X >= rect.Left &&
-                    touch.Position.X <= rect.Right &&
-                    touch.Position.Y >= rect.Top &&
-                    touch.Position.Y <= rect.Bottom &&
-                    currentState.Count >= 1 && oldState.Count == 0)
-                {
-                    oldState = currentState;
-                    return true;
-                }
-            }
-
-            // If no release
-            oldState = currentState;
             return false;
         }
 
@@ -194,10 +146,10 @@ namespace SocialGroundsStore.GUI
             }
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             // If the button is clicked, draw the clicked button
-            if (isHold())
+            if (false)
             {
                 // Drawing the left part
                 spriteBatch.Draw(leftClicked, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);

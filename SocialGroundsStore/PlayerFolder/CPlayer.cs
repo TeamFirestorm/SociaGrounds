@@ -2,6 +2,7 @@
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -43,7 +44,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Abstract method to update the player
-        public abstract void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map);
+        public abstract void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState);
 
         // Abstract method to draw the player
         public abstract void Draw(SpriteBatch spriteBatch);

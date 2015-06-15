@@ -1,107 +1,121 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
     public class Ui
     {
         // The room menu
-        RoomMenu roomMenu;
-        
-        // Camera centre
-        Vector2 cameraCentre;
-        public Vector2 CameraCentre
-        {
-            get { return cameraCentre; }
-            set { cameraCentre = value; }
-        }
+        private readonly RoomMenu roomMenu;
+        private bool isCapsLock;
+        private string textBuffer;
 
-        public Ui(ContentManager content)
+        private readonly Keys[] keys = 
         {
-            roomMenu = new RoomMenu(content, new Vector2(0, 0));
+            Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, 
+            Keys.A, Keys.S , Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, 
+            Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Space, 
+            Keys.NumPad1,Keys.NumPad2,Keys.NumPad3,Keys.NumPad4,Keys.NumPad5,Keys.NumPad6,Keys.NumPad7,
+            Keys.NumPad8,Keys.NumPad9,Keys.NumPad0
+        };
+
+        private readonly char[] lowerCase =
+        {
+            'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
+            '1','2','3','4','5','6','7','8','9','0'
+        };
+
+        private readonly char[] upperCase =
+        {
+            'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M',' ',
+            '!','@','#','$','%','^','&','*','(',')'
+        };
+
+        private bool[] isClicked;
+
+        // Camera centre
+        private Vector2 cameraCentre;
+
+        //public Vector2 CameraCentre
+        //{
+        //    get { return cameraCentre; }
+        //    set { cameraCentre = value; }
+        //}
+
+        public Ui(ContentManager content, Viewport viewport)
+        {
+            roomMenu = new RoomMenu(content, new Vector2(0, 0), viewport);
+            textBuffer = "";
+            isCapsLock = false;
+            isClicked = new bool[upperCase.Length];
         }
 
         public void Update(Vector2 position, Viewport viewport)
         {
             // Updating the camera centre and the room menu according to the camera centre
             cameraCentre = position;
-            roomMenu.update(cameraCentre, viewport);
+            roomMenu.Update(cameraCentre, viewport, textBuffer);
         }
 
-        // Input checks for touching up, down, left or right
-        public bool TouchUp(Viewport viewPort)
+        public void CheckKeyState(KeyboardState keyState)
         {
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
+            bool isUpperCase = keyState.IsKeyDown(Keys.LeftShift) || keyState.IsKeyDown(Keys.RightShift);
+
+            if (keyState.IsKeyDown(Keys.CapsLock))
             {
-                // Check if the position is touched within the upper area
-                if (touch.State == TouchLocationState.Moved && 
-                    touch.Position.X <= viewPort.Width * 0.75 &&
-                    touch.Position.X >= viewPort.Width * 0.25 &&
-                    touch.Position.Y <= viewPort.Height * 0.25)
+                isCapsLock = !isCapsLock;
+            }
+
+            if (keyState.IsKeyDown(Keys.Back))
+            {
+                if (textBuffer.Length <= 0) return;
+
+                char[] text = textBuffer.ToCharArray();
+                textBuffer = new string(text, 0, text.Length - 1);
+                return;
+            }
+
+            for (int i = 0; i < keys.Length -1; i++)
+            {
+                if (keyState.IsKeyDown(keys[i]))
                 {
-                    return true;
+                    isClicked[i] = true;
                 }
             }
-            return false;
-        }
 
-        public bool TouchDown(Viewport viewPort)
-        {
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
+            for (int i = 0; i < keys.Length - 1; i++)
             {
-                // Check if the position is touched within the upper area
-                if (touch.State == TouchLocationState.Moved &&
-                    touch.Position.X <= viewPort.Width * 0.75 &&
-                    touch.Position.X >= viewPort.Width * 0.25 &&
-                    touch.Position.Y >= viewPort.Height * 0.75)
+                if (keyState.IsKeyUp(keys[i]))
                 {
-                    return true;
+                    if (isClicked[i])
+                    {
+                        isClicked[i] = false;
+                        AddText(isUpperCase ? upperCase[i] : lowerCase[i]);
+                    }
                 }
             }
-            return false;
         }
 
-        public bool TouchLeft(Viewport viewPort)
+        public void AddText(char value)
         {
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
-            {
-                // Check if the position is touched within the upper area
-                if (touch.State == TouchLocationState.Moved &&
-                    touch.Position.X <= viewPort.Width * 0.25 &&
-                    touch.Position.Y >= viewPort.Height * 0.25 &&
-                    touch.Position.Y <= viewPort.Height * 0.75)
-                {
-                    return true;
-                }
-            }
-            return false;
+            textBuffer = textBuffer + value;
         }
 
-        public bool TouchRight(Viewport viewPort)
+        public void OnEnter()
         {
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in TouchPanel.GetState())
-            {
-                // Check if the position is touched within the upper area
-                if (touch.State == TouchLocationState.Moved &&
-                    touch.Position.X >= viewPort.Width * 0.75 &&
-                    touch.Position.Y >= viewPort.Height * 0.25 &&
-                    touch.Position.Y <= viewPort.Height * 0.75)
-                {
-                    return true;
-                }
-            }
-            return false;
+            textBuffer = "";
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void CheckMouseDown(MouseState mouseState)
         {
-            roomMenu.draw(spriteBatch);
+            roomMenu.CheckMouseDown(mouseState);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            roomMenu.Draw(spriteBatch);
         }
     }
 }

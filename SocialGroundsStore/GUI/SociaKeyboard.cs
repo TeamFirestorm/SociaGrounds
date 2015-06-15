@@ -112,14 +112,14 @@ namespace SocialGroundsStore.GUI
                 button.Position = new Vector2(button.Position.X - xDiff, button.Position.Y - yDiff);
 
                 // Update all the button in the list while the loop is still there
-                button.update(viewport,default(MouseState));
+                button.Update(viewport,default(MouseState));
             }
 
             // Check all the buttons for a click
             int count = 0;
             foreach (Button button in buttons)
             {
-                bool v = button.isTouched();
+                bool v = false;//button.isTouched();
 
                 // Backspace click
                 if (v && count == buttons.Count - 2)
@@ -167,7 +167,7 @@ namespace SocialGroundsStore.GUI
         {
             foreach (Button button in buttons)
             {
-                button.draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace SocialGroundsStore.Screens
         {
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                if (buttons[0].isClicked(mouseState))
+                if (buttons[0].IsClicked(mouseState))
                 {
                     isClicked = true;
                 }              
@@ -36,7 +36,7 @@ namespace SocialGroundsStore.Screens
         {
             foreach (Button button in buttons)
             {
-                button.draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
         }
 

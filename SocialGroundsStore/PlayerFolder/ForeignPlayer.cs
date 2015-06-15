@@ -2,6 +2,7 @@
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -37,7 +38,7 @@ namespace SocialGroundsStore.PlayerFolder
             NewQPosition = new Queue<Vector2>();
         }
 
-        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             if (NewQPosition.Count <= 0) return;
 

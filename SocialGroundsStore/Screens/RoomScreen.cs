@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -14,24 +15,26 @@ namespace SocialGroundsStore.Screens
 
         public RoomScreen(ContentManager content, GraphicsDevice graphics)
         {
-            // TODO: Add your initialization logic here
-
             map = new Map(CreateMap(), new Vector2(0, 0), content);
             map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
             map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, content));
             map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
             camera = new Camera();
-            ui = new Ui(content);
+            ui = new Ui(content, graphics.Viewport);
         }
 
-        public void Update(GameTime gameTime, GraphicsDevice graphics)
+        public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)
         {
+            KeyboardState keyState = Keyboard.GetState();
+
             foreach (var player in Game1.players)
             {
-                player.Update(gameTime, ui, graphics.Viewport, map);
+                player.Update(gameTime, ui, graphics.Viewport, map, keyState);
             }
-            ui.Update(camera.centre, graphics.Viewport);
+
+            ui.CheckKeyState(keyState);
+            //ui.CheckMouseDown(mouseState);
 
             camera.Update(graphics.Viewport, Game1.players[0].Position, map);
         }
@@ -44,7 +47,7 @@ namespace SocialGroundsStore.Screens
             {
                 player.Draw(spriteBatch);
             }
-            ui.draw(spriteBatch);
+            ui.Draw(spriteBatch);
             spriteBatch.End();
         }
 

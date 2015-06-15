@@ -153,6 +153,7 @@
     <Compile Include="Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Multiplayer\PlayersSendHost.cs" />
     <Compile Include="PlayerFolder\CPlayer.cs" />
+    <Compile Include="PlayerFolder\Direction.cs" />
     <Compile Include="PlayerFolder\ForeignPlayer.cs" />
     <Compile Include="PlayerFolder\MyPlayer.cs" />
     <Compile Include="Program.cs" />

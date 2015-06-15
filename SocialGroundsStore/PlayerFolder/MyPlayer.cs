@@ -8,6 +8,8 @@ namespace SocialGroundsStore.PlayerFolder
 {
     public class MyPlayer : CPlayer
     {
+        private Direction lastDirection = Direction.Down;
+
         public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
@@ -28,10 +30,12 @@ namespace SocialGroundsStore.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
-        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
-            Input(gameTime, ui, viewPort, map);
+            Input(gameTime, map, keyState);
             animation.Position = position;
+            ui.Update(position, viewPort);
+
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
@@ -41,45 +45,50 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Method for all input
-        public void Input(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
+        public void Input(GameTime gameTime, Map map, KeyboardState keyState)
         {
-            KeyboardState newState = Keyboard.GetState();
-
-            if (newState.IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.Up))
             {
-                animation.Play(8, 9, gameTime);
-
+                lastDirection = Direction.Up;
                 if (!IsCollidingTop(map))
                 {
+                    animation.Play(8, 9, gameTime);
                     position.Y -= speed;
                 }
             }
-            else if (newState.IsKeyDown(Keys.Down))
+            else if (keyState.IsKeyDown(Keys.Down))
             {
-                animation.Play(10, 9, gameTime);
-
+                lastDirection = Direction.Down;
                 if (!IsCollidingBottom(map))
                 {
+                    animation.Play(10, 9, gameTime);
                     position.Y += speed;
                 }
             }
-            else if (newState.IsKeyDown(Keys.Left))
+            else if (keyState.IsKeyDown(Keys.Left))
             {
-                animation.Play(9, 9, gameTime);
-
+                lastDirection = Direction.Left;
                 if (!IsCollidingLeft(map))
                 {
+                    animation.Play(9, 9, gameTime);
                     position.X -= speed; 
                 }
             }
-            else if (newState.IsKeyDown(Keys.Right))
+            else if (keyState.IsKeyDown(Keys.Right))
             {
-                animation.Play(11, 9, gameTime);
-
+                lastDirection = Direction.Right;
                 if (!IsCollidingRight(map))
                 {
+                    animation.Play(11, 9, gameTime);
                     position.X += speed; 
                 }
+            }
+            else
+            {
+                if (lastDirection == Direction.Up) animation.ResetAnimation(8,gameTime);
+                if (lastDirection == Direction.Left) animation.ResetAnimation(9, gameTime);
+                if (lastDirection == Direction.Down) animation.ResetAnimation(10, gameTime);
+                if (lastDirection == Direction.Right) animation.ResetAnimation(11, gameTime);
             }
         }
 
@@ -90,7 +99,7 @@ namespace SocialGroundsStore.PlayerFolder
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (RectangleHelper.TouchLeftOf(rect, asset.Rect))
+                if (rect.TouchLeftOf(asset.Rect))
                 {
                     return true;
                 }
@@ -107,7 +116,7 @@ namespace SocialGroundsStore.PlayerFolder
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (RectangleHelper.TouchRightOf(rect, asset.Rect))
+                if (rect.TouchRightOf(asset.Rect))
                 {
                     return true;
                 }
@@ -125,7 +134,7 @@ namespace SocialGroundsStore.PlayerFolder
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (RectangleHelper.TouchBottomOf(rect, asset.Rect))
+                if (rect.TouchBottomOf(asset.Rect))
                 {
                     return true;
                 }
@@ -142,7 +151,7 @@ namespace SocialGroundsStore.PlayerFolder
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (RectangleHelper.TouchTopOf(rect, asset.Rect))
+                if (rect.TouchTopOf(asset.Rect))
                 {
                     return true;
                 }

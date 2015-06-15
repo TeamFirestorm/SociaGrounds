@@ -26,7 +26,7 @@ namespace SocialGroundsStore.Screens
             foreach (Button button in buttons)
             {
 
-                button.draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
         }
     }

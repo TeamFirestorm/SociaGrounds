@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Windows.UI.Xaml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-using SocialGroundsStore.DataBase;
 using SocialGroundsStore.PlayerFolder;
 using SocialGroundsStore.Screens;
 
@@ -124,7 +122,7 @@ namespace SocialGroundsStore
                     break;
 
                 case ScreenState.RoomScreen:
-                    roomScreen.Update(gameTime, GraphicsDevice);
+                    roomScreen.Update(gameTime, GraphicsDevice, mouseState);
                     break;
             }
             base.Update(gameTime);
