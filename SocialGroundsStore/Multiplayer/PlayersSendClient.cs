@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Windows.Security.Cryptography.Core;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,11 +15,13 @@ namespace SocialGroundsStore.Multiplayer
         private static NetClient Client;
 
         private int count;
+        private bool started;
 
         public PlayersSendClient(ContentManager content, string ip)
         {
             count = 0;
             CreateDit(content, ip);
+            started = false;
         }
 
         private async void CreateDit(ContentManager content, string ip)
@@ -50,19 +54,30 @@ namespace SocialGroundsStore.Multiplayer
             WaitForStartingInfo();
         }
 
-        private void Elapsed()
+        public async void StartLoop()
         {
-            if (count++ >= 100)
+            await Task.Run(new Action(Loop));
+        }
+
+        private void Loop()
+        {
+            while (true)
             {
-                count = 0;
-                // Check if server sent new messages
-                GetInputAndSendItToServer(Game1.players[0].Position);
-                CheckServerMessages();
+                if (started)
+                {
+                    if (count++ >= 60)
+                    {
+                        count = 0;
+                        // Check if server sent new messages
+                        GetInputAndSendItToServer(Game1.players[0].Position);
+                        CheckServerMessages();
+                    }
+                }
             }
         }
 
         // Before main looping starts, we loop here and wait for approval message
-        private static void WaitForStartingInfo()
+        private void WaitForStartingInfo()
         {
             // When this is set to true, we are approved and ready to go
             bool canStart = false;
@@ -111,7 +126,7 @@ namespace SocialGroundsStore.Multiplayer
 
                                 // When all players are added to list, start the game
                                 canStart = true;
-
+                                started = true;
                             }
                             break;
                     }
