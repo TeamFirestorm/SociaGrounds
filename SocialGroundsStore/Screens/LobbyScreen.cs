@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SocialGroundsStore.DataBase;
@@ -47,6 +49,8 @@ namespace SocialGroundsStore.Screens
                 if (ip == null)
                 {
                     Host = new PlayersSendHost(content);
+                    Task.Run(new Action(Host.StartLoop));
+
                     Debug.WriteLine("Created and started Host");
                 }
                 else

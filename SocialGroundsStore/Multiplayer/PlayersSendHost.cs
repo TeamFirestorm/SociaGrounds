@@ -23,8 +23,6 @@ namespace SocialGroundsStore.Multiplayer
         // Indicates if program is running
         private static bool _isRunning;
 
-        private readonly DispatcherTimer _timer;
-
         private int numberOfPlayers = 1;
 
         private Stopwatch _watch;
@@ -56,20 +54,11 @@ namespace SocialGroundsStore.Multiplayer
 
             // Start it
             _netServer.Start();
-
-            _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0,0,0,1);
-            _timer.Tick += TimerOnTick;
-            _timer.Start();
         }
 
-        private async void TimerOnTick(object sender, object o)
+        public async void StartLoop()
         {
-            _timer.Stop();
-
-            #pragma warning disable 4014
             await Task.Run(new Action(Loop));
-            #pragma warning restore 4014
         }
 
         private void Loop()

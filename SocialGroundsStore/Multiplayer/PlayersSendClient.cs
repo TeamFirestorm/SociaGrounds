@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,10 +12,15 @@ namespace SocialGroundsStore.Multiplayer
         // Client Object
         private static NetClient Client;
 
-        // Create timer that tells client, when to send update
-        private DispatcherTimer update;
+        private int count;
 
         public PlayersSendClient(ContentManager content, string ip)
+        {
+            count = 0;
+            CreateDit(content, ip);
+        }
+
+        private async void CreateDit(ContentManager content, string ip)
         {
             // Read ip to string
             string hostip = ip;
@@ -29,38 +32,33 @@ namespace SocialGroundsStore.Multiplayer
 
             // Create new client, with previously created configs
             Client = new NetClient(config);
-          
+
             Client.Start();
 
             // Create new outgoing message
             NetOutgoingMessage outmsg = Client.CreateMessage();
 
             // Write byte ( first byte informs server about the message type ) ( This way we know, what kind of variables to read )
-            outmsg.Write((byte) PacketTypes.Connect);
+            outmsg.Write((byte)PacketTypes.Connect);
             outmsg.Write(Game1.players[0].Position.X);
             outmsg.Write(Game1.players[0].Position.Y);
 
             // Connect client, to ip previously requested from user
             Client.Connect(hostip, 14242, outmsg);
 
-            update = new DispatcherTimer();
-            update.Interval = new TimeSpan(0,0,0,3);
-
-            // When time has elapsed ( 50ms in this case ), call "update_Elapsed" funtion
-            update.Tick += update_Elapsed;
-
             // Funtion that waits for connection approval info from server
             WaitForStartingInfo();
-
-            // Start the timer
-            update.Start();
         }
 
-        private void update_Elapsed(object sender, object e)
+        private void Elapsed()
         {
-            // Check if server sent new messages
-            GetInputAndSendItToServer(Game1.players[0].Position);
-            CheckServerMessages();
+            if (count++ >= 100)
+            {
+                count = 0;
+                // Check if server sent new messages
+                GetInputAndSendItToServer(Game1.players[0].Position);
+                CheckServerMessages();
+            }
         }
 
         // Before main looping starts, we loop here and wait for approval message
@@ -113,7 +111,7 @@ namespace SocialGroundsStore.Multiplayer
 
                                 // When all players are added to list, start the game
                                 canStart = true;
-                                
+
                             }
                             break;
                     }
@@ -142,15 +140,15 @@ namespace SocialGroundsStore.Multiplayer
                 {
                     byte firstPackage = inc.ReadByte();
 
-                    if (inc.ReadByte() == (byte) PacketTypes.Move)
+                    if (inc.ReadByte() == (byte)PacketTypes.Move)
                     {
                         int id = inc.ReadInt32();
 
                         foreach (CPlayer player in Game1.players)
                         {
-                            if (player.GetType() != typeof (ForeignPlayer)) continue;
+                            if (player.GetType() != typeof(ForeignPlayer)) continue;
 
-                            ForeignPlayer foreign = (ForeignPlayer) player;
+                            ForeignPlayer foreign = (ForeignPlayer)player;
 
                             if (foreign.Id != id) continue;
 
@@ -181,7 +179,6 @@ namespace SocialGroundsStore.Multiplayer
             }
         }
 
-
         // Get input from player and send it to server
         private static void GetInputAndSendItToServer(Vector2 newPosition)
         {
@@ -189,7 +186,7 @@ namespace SocialGroundsStore.Multiplayer
             NetOutgoingMessage outmsg = Client.CreateMessage();
 
             // Write byte = Set "MOVE" as packet type
-            outmsg.Write((byte) PacketTypes.Move);
+            outmsg.Write((byte)PacketTypes.Move);
 
             // Write byte = move direction
             outmsg.Write(newPosition.X);
