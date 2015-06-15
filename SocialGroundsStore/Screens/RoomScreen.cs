@@ -32,11 +32,11 @@ namespace SocialGroundsStore.Screens
             {
                 player.Update(gameTime, ui, graphics.Viewport, map, keyState);
             }
-
+            
             ui.CheckKeyState(keyState);
             //ui.CheckMouseDown(mouseState);
 
-            camera.Update(graphics.Viewport, Game1.players[0].Position, map);
+            camera.Update(graphics.Viewport, Game1.players[0].Position, map, ui);
         }
 
         public void Draw(SpriteBatch spriteBatch)

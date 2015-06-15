@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
 namespace SocialGroundsStore
@@ -18,7 +19,7 @@ namespace SocialGroundsStore
 
         public Vector2 centre;
 
-        public void Update(Viewport viewport, Vector2 position, Map map)
+        public void Update(Viewport viewport, Vector2 position, Map map, Ui ui)
         {
             // If the camera is on the left side of the map, stop the horizontal camera movement
             //if (position.X < map.StartPosition.X + (viewport.Width / 3))
@@ -54,6 +55,7 @@ namespace SocialGroundsStore
 
             // Camera translation
             transformPrivate = Matrix.CreateTranslation(new Vector3(-centre.X + (viewport.Height / 2.5f), -centre.Y + (viewport.Width / 8), 0)) * Matrix.CreateScale(2.0f, 2.0f, 0);
+            ui.Update(centre, viewport);
         }
     }
 }
