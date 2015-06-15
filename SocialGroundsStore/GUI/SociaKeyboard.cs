@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
@@ -111,7 +112,7 @@ namespace SocialGroundsStore.GUI
                 button.Position = new Vector2(button.Position.X - xDiff, button.Position.Y - yDiff);
 
                 // Update all the button in the list while the loop is still there
-                button.update(viewport);
+                button.update(viewport,default(MouseState));
             }
 
             // Check all the buttons for a click

@@ -2,47 +2,51 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 
 namespace SocialGroundsStore.Screens
 {
-    class LoginScreen : Screen
+    class LoginScreen
     {
-        List<Button> buttons;
-        float timeElapsed;
+        private readonly List<Button> buttons;
+        private bool isClicked;
 
         public LoginScreen(ContentManager content)
         {
-            buttons = new List<Button>();
-            buttons.Add(new Button(content, new Vector2(50, 50), "Start", 1.0f));
+            isClicked = false;
+            buttons = new List<Button>
+            {
+                new Button(content, new Vector2(50, 50), "Start", 1.0f)
+            };
         }
 
-        public override void Update(ContentManager content)
+        public void Update(ContentManager content, MouseState mouseState)
         {
-
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (buttons[0].isClicked(mouseState))
+                {
+                    isClicked = true;
+                }              
+            }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Button button in buttons)
             {
-
                 button.draw(spriteBatch);
             }
         }
 
         public bool ToHomeScreen(GameTime gameTime)
         {
-            timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
-
-            // Go to the home screen if the button has been pressed
-            // Add a slight delay
-            if (buttons[0].isTouched() && timeElapsed >= 500)
+            if (isClicked)
             {
-                timeElapsed = 0;
+                isClicked = false;
                 return true;
             }
-
             return false;
         }
     }

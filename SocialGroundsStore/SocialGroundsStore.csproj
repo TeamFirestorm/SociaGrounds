@@ -173,10 +173,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <MonoGameContentReference Include="Content\Content\Content.mgcb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </MonoGameContentReference>
-    <None Include="Content\Content\SociaGroundsFont.spritefont" />
+    <None Include="Content\SociaGroundsFont.spritefont" />
     <None Include="packages.config" />
     <None Include="SocialGroundsStore_TemporaryKey.pfx" />
   </ItemGroup>
@@ -185,76 +182,76 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Content\Content\GUI\Button\PressedButtonLeft.png">
+    <Content Include="Content\GUI\Button\PressedButtonLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Button\PressedButtonMiddle.png">
+    <Content Include="Content\GUI\Button\PressedButtonMiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Button\PressedButtonRight.png">
+    <Content Include="Content\GUI\Button\PressedButtonRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Button\StandardButtonLeft.png">
+    <Content Include="Content\GUI\Button\StandardButtonLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Button\StandardButtonMiddle.png">
+    <Content Include="Content\GUI\Button\StandardButtonMiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Button\StandardButtonRight.png">
+    <Content Include="Content\GUI\Button\StandardButtonRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Inputfield\LeftTextfield.png">
+    <Content Include="Content\GUI\Inputfield\LeftTextfield.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\GUI\Inputfield\MiddleTextfield.png">
+    <Content Include="Content\GUI\Inputfield\MiddleTextfield.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\Personas\Alwin_Character.png">
+    <Content Include="Content\Personas\Alwin_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\Personas\Chris_Character.png">
+    <Content Include="Content\Personas\Chris_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\Personas\Gyllion_Character.png">
+    <Content Include="Content\Personas\Gyllion_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\Personas\Thijs_Character.png">
+    <Content Include="Content\Personas\Thijs_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\Personas\Wouter_Character.png">
+    <Content Include="Content\Personas\Wouter_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_0.png">
+    <Content Include="Content\World\Grass\Grass_0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_1.png">
+    <Content Include="Content\World\Grass\Grass_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_2.png">
+    <Content Include="Content\World\Grass\Grass_2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_3.png">
+    <Content Include="Content\World\Grass\Grass_3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_4.png">
+    <Content Include="Content\World\Grass\Grass_4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_F_0.png">
+    <Content Include="Content\World\Grass\Grass_F_0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_F_1.png">
+    <Content Include="Content\World\Grass\Grass_F_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Grass\Grass_F_2.png">
+    <Content Include="Content\World\Grass\Grass_F_2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Tree\TreeBottom.png">
+    <Content Include="Content\World\Tree\TreeBottom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Tree\TreeMid.png">
+    <Content Include="Content\World\Tree\TreeMid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Content\World\Tree\TreeTop.png">
+    <Content Include="Content\World\Tree\TreeTop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Dll\Lidgren.Network.dll" />

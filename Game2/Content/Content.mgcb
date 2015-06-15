@@ -1,9 +1,9 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/WindowsPhone8
-/intermediateDir:obj/WindowsPhone8
-/platform:WindowsPhone8
+/outputDir:bin/WindowsStoreApp
+/intermediateDir:obj/WindowsStoreApp
+/platform:WindowsStoreApp
 /config:
 /profile:Reach
 /compress:False
@@ -12,10 +12,4 @@
 
 
 #---------------------------------- Content ---------------------------------#
-
-#begin SociaGroundsFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:SociaGroundsFont.spritefont
 

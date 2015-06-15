@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 namespace SocialGroundsStore.GUI
@@ -108,14 +109,6 @@ namespace SocialGroundsStore.GUI
             rect = new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)(((width * mid.Width) + left.Width + right.Width) * scale), (int)(left.Height * scale));
         }
 
-
-        public void update(Viewport viewport)
-        {
-            // Update the rectangle if the position has been changed
-            //rect = new Rectangle((int)position.X, (int)position.Y, (int)((left.Width * scale) + ((mid.Width * width) * scale) + (right.Width * scale)), (int)(mid.Height * scale));
-        }
-
-
         // Method to check if the button is touched right now
         // Can be used for holding the button
         public bool isHold()
@@ -134,6 +127,26 @@ namespace SocialGroundsStore.GUI
             }
 
             // If no touch
+            return false;
+        }
+
+        public void update(Viewport viewport, MouseState mouseState)
+        {
+            isClicked(mouseState);
+        }
+
+        // Trigger if the button is released
+        // Use this method as the event trigger
+        public bool isClicked(MouseState mouseState)
+        {
+            // Check if the position is pressed within the button
+            if (mouseState.Position.X >= rect.Left &&
+                mouseState.Position.X <= rect.Right &&
+                mouseState.Position.Y >= rect.Top &&
+                mouseState.Position.Y <= rect.Bottom)
+            {
+                return true;
+            }
             return false;
         }
 

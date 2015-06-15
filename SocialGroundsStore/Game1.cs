@@ -2,6 +2,7 @@
 using Windows.UI.Xaml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SocialGroundsStore.DataBase;
 using SocialGroundsStore.PlayerFolder;
@@ -70,6 +71,8 @@ namespace SocialGroundsStore
 
             currentScreenState = ScreenState.LoginScreen;
 
+            IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -98,17 +101,16 @@ namespace SocialGroundsStore
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            MouseState mouseState = Mouse.GetState();
+
             // Switch statement to determine the screen update logic
             switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    loginScreen.Update(Content);
+                    loginScreen.Update(Content, mouseState);
 
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
-                        //Alleen voor het testen
-                        //currentScreenState = ScreenState.RoomScreen;
-
                         currentScreenState = ScreenState.LobbyScreen;
                         lobbyScreen = new LobbyScreen();
                     }

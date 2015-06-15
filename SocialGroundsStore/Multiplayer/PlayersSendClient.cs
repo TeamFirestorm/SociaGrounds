@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
@@ -14,15 +15,16 @@ namespace SocialGroundsStore.Multiplayer
         private static NetClient Client;
 
         // Create timer that tells client, when to send update
-        private static DispatcherTimer update;
+        private DispatcherTimer update;
 
         public PlayersSendClient(ContentManager content, string ip)
         {
-            // Read Ip to string
+            // Read ip to string
             string hostip = ip;
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
+            //Players
             Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character")));
 
             // Create new client, with previously created configs
@@ -41,7 +43,8 @@ namespace SocialGroundsStore.Multiplayer
             // Connect client, to ip previously requested from user
             Client.Connect(hostip, 14242, outmsg);
 
-            update = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 3)};
+            update = new DispatcherTimer();
+            update.Interval = new TimeSpan(0,0,0,3);
 
             // When time has elapsed ( 50ms in this case ), call "update_Elapsed" funtion
             update.Tick += update_Elapsed;
