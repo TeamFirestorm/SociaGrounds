@@ -107,10 +107,7 @@ namespace SocialGroundsStore.Multiplayer
 
                             // first we write byte
                             outmsg.Write((byte)PacketTypes.WorldState);
-
                             outmsg.Write(Game1.players.Last().Id);
-
-                            // then int
                             outmsg.Write(Game1.players.Count -1);
 
                             if (Game1.players.Count - 1 > 0)

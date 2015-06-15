@@ -36,7 +36,6 @@ namespace SocialGroundsStore.Multiplayer
 
             // Create new client, with previously created configs
             Client = new NetClient(config);
-
             Client.Start();
 
             // Create new outgoing message
