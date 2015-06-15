@@ -17,8 +17,8 @@ namespace SocialGroundsStore.GUI
             Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, 
             Keys.A, Keys.S , Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, 
             Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Space, 
-            Keys.NumPad1,Keys.NumPad2,Keys.NumPad3,Keys.NumPad4,Keys.NumPad5,Keys.NumPad6,Keys.NumPad7,
-            Keys.NumPad8,Keys.NumPad9,Keys.NumPad0
+            Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5, Keys.NumPad6, Keys.NumPad7,
+            Keys.NumPad8, Keys.NumPad9, Keys.NumPad0
         };
 
         private readonly char[] lowerCase =
@@ -33,7 +33,11 @@ namespace SocialGroundsStore.GUI
             '!','@','#','$','%','^','&','*','(',')'
         };
 
-        private bool[] isClicked;
+        private readonly bool[] isClicked;
+
+        private bool isBackSpace;
+        private bool isEnter;
+        private bool isCapsLockDown;
 
         // Camera centre
         private Vector2 cameraCentre;
@@ -65,16 +69,18 @@ namespace SocialGroundsStore.GUI
 
             if (keyState.IsKeyDown(Keys.CapsLock))
             {
-                isCapsLock = !isCapsLock;
+                isCapsLockDown = true;
             }
 
             if (keyState.IsKeyDown(Keys.Back))
             {
                 if (textBuffer.Length <= 0) return;
+                isBackSpace = true;
+            }
 
-                char[] text = textBuffer.ToCharArray();
-                textBuffer = new string(text, 0, text.Length - 1);
-                return;
+            if (keyState.IsKeyDown(Keys.Enter))
+            {
+                isEnter = true;
             }
 
             for (int i = 0; i < keys.Length -1; i++)
@@ -82,6 +88,34 @@ namespace SocialGroundsStore.GUI
                 if (keyState.IsKeyDown(keys[i]))
                 {
                     isClicked[i] = true;
+                }
+            }
+
+            if (keyState.IsKeyUp(Keys.Back))
+            {
+                if (isBackSpace)
+                {
+                    isBackSpace = false;
+                    char[] text = textBuffer.ToCharArray();
+                    textBuffer = new string(text, 0, text.Length - 1);
+                }
+            }
+
+            if (keyState.IsKeyUp(Keys.Enter))
+            {
+                if (isEnter)
+                {
+                    isEnter = false;
+                    OnEnter();
+                }
+            }
+
+            if (keyState.IsKeyUp(Keys.CapsLock))
+            {
+                isCapsLock = !isCapsLock;
+                if (isCapsLock)
+                {
+                    isUpperCase = true;
                 }
             }
 
@@ -98,7 +132,7 @@ namespace SocialGroundsStore.GUI
             }
         }
 
-        public void AddText(char value)
+        private void AddText(char value)
         {
             textBuffer = textBuffer + value;
         }
