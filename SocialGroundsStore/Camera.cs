@@ -21,7 +21,7 @@ namespace SocialGroundsStore
 
         public void Update(Viewport viewport, Vector2 position, Map map, Ui ui)
         {
-            //// If the camera is on the left side of the map, stop the horizontal camera movement
+            // If the camera is on the left side of the map, stop the horizontal camera movement
             if (position.X < map.StartPosition.X + (viewport.Width / 4f))
             {
                 centre.X = map.StartPosition.X + (viewport.Width / 4f);
@@ -37,7 +37,7 @@ namespace SocialGroundsStore
                 centre.X = position.X;
             }
 
-            //// If the camera is on the top of the map, stop the vertical camera movement
+            // If the camera is on the top of the map, stop the vertical camera movement
             if (position.Y < map.StartPosition.Y + (viewport.Height / 4f))
             {
                 centre.Y = map.StartPosition.Y + (viewport.Height / 4f);
