@@ -62,6 +62,7 @@ namespace SociaGroundsEngine
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
             players = new List<CPlayer>();
+            players.Add(new MyPlayer(new Vector2(600, 300), texture));
 
             // Screens initialize
             loginScreen = new LoginScreen(Content);
@@ -116,10 +117,10 @@ namespace SociaGroundsEngine
                     if (loginScreen.ToHomeScreen(gameTime))
                     {
                         //Alleen voor het testen
-                        //currentScreenState = ScreenState.RoomScreen;
+                        currentScreenState = ScreenState.RoomScreen;
 
-                        currentScreenState = ScreenState.LobbyScreen;
-                        lobbyScreen = new LobbyScreen();
+                        //currentScreenState = ScreenState.LobbyScreen;
+                        //lobbyScreen = new LobbyScreen();
                     }
                     break;
                 case ScreenState.LobbyScreen:

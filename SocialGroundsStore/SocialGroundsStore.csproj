@@ -173,7 +173,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Content\SociaGroundsFont.spritefont" />
     <None Include="packages.config" />
     <None Include="SocialGroundsStore_TemporaryKey.pfx" />
   </ItemGroup>

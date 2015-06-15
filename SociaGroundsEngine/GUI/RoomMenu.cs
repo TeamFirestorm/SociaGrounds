@@ -84,7 +84,7 @@ namespace SociaGroundsEngine.GUI
 
             // Updating the input field position if the Show/Hide button has been clicked
             // Input field up
-            if (isKeyboardUp && inputFieldHeight <= 100f)
+            if (isKeyboardUp && inputFieldHeight <= 30)
             {
                 inputFieldHeight += 2;
             }
@@ -97,7 +97,7 @@ namespace SociaGroundsEngine.GUI
             // Position updates
             showHideButton.Position = new Vector2(newPosition.X - (viewport.Width / 4.6f), newPosition.Y + (viewport.Height / 4.7f));
             keyboard.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / keyboardHeight));
-            inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / inputFieldHeight));
+            inputField.Position = new Vector2(newPosition.X - (viewport.Width / 11f), newPosition.Y + (viewport.Height / inputFieldHeight) - 40);
 
             // Input field update
             inputField.update(keyboard.TextBuffer);

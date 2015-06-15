@@ -31,8 +31,8 @@ namespace SociaGroundsEngine.Screens
             {
                 player.Update(gameTime, ui, graphics.Viewport, map);
             }
-            ui.Update(camera.centre, graphics.Viewport);
 
+            ui.Update(camera.centre, graphics.Viewport);
             camera.Update(graphics.Viewport, Game1.players[0].Position, map);
         }
 
