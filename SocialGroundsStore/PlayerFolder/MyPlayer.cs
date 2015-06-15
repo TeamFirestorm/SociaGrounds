@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -42,7 +43,9 @@ namespace SocialGroundsStore.PlayerFolder
         // Method for all input
         public void Input(GameTime gameTime, Ui ui, Viewport viewPort, Map map)
         {
-            if (ui.TouchUp(viewPort))
+            KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.Up))
             {
                 animation.Play(8, 9, gameTime);
 
@@ -51,7 +54,7 @@ namespace SocialGroundsStore.PlayerFolder
                     position.Y -= speed;
                 }
             }
-            else if(ui.TouchDown(viewPort))
+            else if (newState.IsKeyDown(Keys.Down))
             {
                 animation.Play(10, 9, gameTime);
 
@@ -60,7 +63,7 @@ namespace SocialGroundsStore.PlayerFolder
                     position.Y += speed;
                 }
             }
-            else if(ui.TouchLeft(viewPort))
+            else if (newState.IsKeyDown(Keys.Left))
             {
                 animation.Play(9, 9, gameTime);
 
@@ -69,7 +72,7 @@ namespace SocialGroundsStore.PlayerFolder
                     position.X -= speed; 
                 }
             }
-            else if (ui.TouchRight(viewPort))
+            else if (newState.IsKeyDown(Keys.Right))
             {
                 animation.Play(11, 9, gameTime);
 
