@@ -52,7 +52,7 @@ namespace SocialGroundsStore.Screens
                     Task.Run(new Action(Host.StartLoop));
 
                     Debug.WriteLine("Created and started Host");
-                    DbStuff.InsertConnection();
+                    //DbStuff.InsertConnection();
                 }
                 else
                 {

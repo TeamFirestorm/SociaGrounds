@@ -139,6 +139,7 @@ namespace SocialGroundsStore.GUI
 
         public void OnEnter()
         {
+            Game1.players[0].ChatMessage = textBuffer;
             textBuffer = "";
         }
 

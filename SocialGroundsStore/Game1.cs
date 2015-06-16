@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SocialGroundsStore.PlayerFolder;
 using SocialGroundsStore.Screens;
+using Microsoft.Xna.Framework.Media;
 
 namespace SocialGroundsStore
 {
@@ -37,6 +38,9 @@ namespace SocialGroundsStore
         private LobbyScreen lobbyScreen;
         private RoomScreen roomScreen;
 
+        // All music
+        public static List<Song> songList;
+
         /// <summary>
         /// 
         /// </summary>
@@ -58,14 +62,11 @@ namespace SocialGroundsStore
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
-
+            // Initializing playlist
             players = new List<CPlayer>();
-
-            // Screens initialize
-            loginScreen = new LoginScreen(Content);
-            roomScreen = new RoomScreen(Content, GraphicsDevice);
-            homeScreen = new HomeScreen(Content);
+            
+            // Initializing songlist
+            songList = new List<Song>();
 
             currentScreenState = ScreenState.LoginScreen;
 
@@ -81,6 +82,18 @@ namespace SocialGroundsStore
         protected override void LoadContent()
         {
             // TODO: use this.Content to load your game content here
+
+            texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
+
+            // Songs load
+            //songList.Add(Content.Load<Song>("Music/splashscreen_music"));
+            //songList.Add(Content.Load<Song>("Music/menu_music"));
+            //songList.Add(Content.Load<Song>("Music/in-game-music"));
+
+            // Screens load
+            loginScreen = new LoginScreen(Content);
+            roomScreen = new RoomScreen(Content, GraphicsDevice);
+            homeScreen = new HomeScreen(Content);
         }
 
         /// <summary>
