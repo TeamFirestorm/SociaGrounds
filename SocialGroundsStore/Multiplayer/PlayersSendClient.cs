@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SocialGroundsStore.PlayerFolder;
+using System.Diagnostics;
 
 namespace SocialGroundsStore.Multiplayer
 {
@@ -81,7 +82,7 @@ namespace SocialGroundsStore.Multiplayer
             // When this is set to true, we are approved and ready to go
             bool canStart = false;
 
-            // New incomgin message
+            // New incoming message
             NetIncomingMessage im;
 
             // Loop untill we are approved
