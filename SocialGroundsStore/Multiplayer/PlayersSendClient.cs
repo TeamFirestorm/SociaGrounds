@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Security.Cryptography.Core;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -62,16 +61,15 @@ namespace SocialGroundsStore.Multiplayer
         {
             while (true)
             {
-                if (started)
+                if (!started) continue;
+                if (count >= 60)
                 {
-                    if (count++ >= 60)
-                    {
-                        count = 0;
-                        // Check if server sent new messages
-                        GetInputAndSendItToServer(Game1.players[0].Position);
-                        CheckServerMessages();
-                    }
+                    count = 0;
+                    // Check if server sent new messages
+                    GetInputAndSendItToServer(Game1.players[0].Position);
+                    CheckServerMessages();
                 }
+                count++;
             }
         }
 
@@ -129,6 +127,7 @@ namespace SocialGroundsStore.Multiplayer
                             }
                             break;
                     }
+                     
                 }
             }
         }
