@@ -32,7 +32,7 @@ namespace SocialGroundsStore.Multiplayer
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
             //Players
-            Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character")));
+            Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"), content.Load<SpriteFont>("SociaGroundsFont")));
 
             // Create new client, with previously created configs
             Client = new NetClient(config);
@@ -108,18 +108,18 @@ namespace SocialGroundsStore.Multiplayer
 
                                 if (count > 0)
                                 {
-                                    // Iterate all players
-                                    for (int i = 0; i < count; i++)
-                                    {
-                                        // Create new character to hold the data
-                                        ForeignPlayer player = new ForeignPlayer();
+                                    //// Iterate all players
+                                    //for (int i = 0; i < count; i++)
+                                    //{
+                                    //    // Create new character to hold the data
+                                    //    ForeignPlayer player = new ForeignPlayer();
 
-                                        // Read all properties ( Server writes characters all props, so now we can read em here. Easy )
-                                        im.ReadAllProperties(player);
+                                    //    // Read all properties ( Server writes characters all props, so now we can read em here. Easy )
+                                    //    im.ReadAllProperties(player);
 
-                                        // Add it to list
-                                        Game1.players.Add(player);
-                                    }
+                                    //    // Add it to list
+                                    //    Game1.players.Add(player);
+                                    //}
                                 }
 
                                 // When all players are added to list, start the game

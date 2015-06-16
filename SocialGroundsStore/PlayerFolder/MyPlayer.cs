@@ -25,11 +25,14 @@ namespace SocialGroundsStore.PlayerFolder
             Id = id;
         }
 
-        public MyPlayer(Vector2 startPosition, Texture2D texture)
+        public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
             speed = 3;
+            // Chat message initialize
+            this.font = font;
+            chatMessage = "";
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
