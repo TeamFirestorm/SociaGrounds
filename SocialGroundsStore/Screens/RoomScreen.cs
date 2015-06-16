@@ -47,6 +47,7 @@ namespace SocialGroundsStore.Screens
             {
                 player.Draw(spriteBatch);
             }
+            map.DrawSolid(spriteBatch);
             ui.Draw(spriteBatch);
             spriteBatch.End();
         }

@@ -246,7 +246,7 @@
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\SplashScreen.scale-180.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Content\GUI\Button\PressedButtonLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

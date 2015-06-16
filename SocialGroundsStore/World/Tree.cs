@@ -22,8 +22,10 @@ namespace SocialGroundsStore.World
             mid = content.Load<Texture2D>("World/Tree/TreeMid");
             top = content.Load<Texture2D>("World/Tree/TreeTop");
 
+            //64 x 41
+
             // Creating the rectangle
-            rect = new Rectangle((int)position.X - (top.Width / 3), (int)position.Y - (top.Height + (mid.Height * amountOfLogs)), top.Width, (bottom.Height * 2) + (mid.Height * amountOfLogs));
+            rect = new Rectangle((int)(position.X + (bottom.Width / 3.1f)), (int)position.Y + 10, (int)(bottom.Width / 3), (int)(bottom.Height /2.5));
 
             isSolid = true;
         }

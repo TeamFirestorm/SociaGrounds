@@ -134,7 +134,10 @@ namespace SocialGroundsStore.World
             {
                 asset.Draw(spriteBatch);
             }
+        }
 
+        public void DrawSolid(SpriteBatch spriteBatch)
+        {
             foreach (Asset asset in solidAssets)
             {
                 asset.Draw(spriteBatch);
