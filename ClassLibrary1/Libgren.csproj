@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{795D4765-05EE-432C-BE36-30142B5E5557}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Libgren</RootNamespace>
+    <AssemblyName>Libgren</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Network\NamespaceDoc.cs" />
+    <Compile Include="Network\NetBitWriter.cs" />
+    <Compile Include="Network\NetClient.cs" />
+    <Compile Include="Network\NetConnection.cs" />
+    <Compile Include="Network\NetConnection.Handshake.cs" />
+    <Compile Include="Network\NetConnection.Latency.cs" />
+    <Compile Include="Network\NetConnection.MTU.cs" />
+    <Compile Include="Network\NetConnectionStatistics.cs" />
+    <Compile Include="Network\NetConnectionStatus.cs" />
+    <Compile Include="Network\NetConstants.cs" />
+    <Compile Include="Network\NetDeliveryMethod.cs" />
+    <Compile Include="Network\NetException.cs" />
+    <Compile Include="Network\NetFragmentationHelper.cs" />
+    <Compile Include="Network\NetFragmentationInfo.cs" />
+    <Compile Include="Network\NetIncomingMessage.cs" />
+    <Compile Include="Network\NetIncomingMessage.Peek.cs" />
+    <Compile Include="Network\NetIncomingMessage.Read.cs" />
+    <Compile Include="Network\NetIncomingMessage.Read.Reflection.cs" />
+    <Compile Include="Network\NetIncomingMessage.Write.cs" />
+    <Compile Include="Network\NetIncomingMessageType.cs" />
+    <Compile Include="Network\NetMessageType.cs" />
+    <Compile Include="Network\NetNatIntroduction.cs" />
+    <Compile Include="Network\NetOutgoingMessage.cs" />
+    <Compile Include="Network\NetOutgoingMessage.Write.cs" />
+    <Compile Include="Network\NetOutgoingMessage.Write.Reflection.cs" />
+    <Compile Include="Network\NetPeer.cs" />
+    <Compile Include="Network\NetPeer.Discovery.cs" />
+    <Compile Include="Network\NetPeer.Fragmentation.cs" />
+    <Compile Include="Network\NetPeer.Internal.cs" />
+    <Compile Include="Network\NetPeer.LatencySimulation.cs" />
+    <Compile Include="Network\NetPeer.Logging.cs" />
+    <Compile Include="Network\NetPeer.MessagePools.cs" />
+    <Compile Include="Network\NetPeer.Send.cs" />
+    <Compile Include="Network\NetPeerConfiguration.cs" />
+    <Compile Include="Network\NetPeerStatistics.cs" />
+    <Compile Include="Network\NetPeerStatus.cs" />
+    <Compile Include="Network\NetQueue.cs" />
+    <Compile Include="Network\NetRandom.cs" />
+    <Compile Include="Network\NetReceiverChannelBase.cs" />
+    <Compile Include="Network\NetReliableOrderedReceiver.cs" />
+    <Compile Include="Network\NetReliableSenderChannel.cs" />
+    <Compile Include="Network\NetReliableSequencedReceiver.cs" />
+    <Compile Include="Network\NetReliableUnorderedReceiver.cs" />
+    <Compile Include="Network\NetSenderChannelBase.cs" />
+    <Compile Include="Network\NetSendResult.cs" />
+    <Compile Include="Network\NetServer.cs" />
+    <Compile Include="Network\NetSRP.cs" />
+    <Compile Include="Network\NetStoredReliableMessage.cs" />
+    <Compile Include="Network\NetTime.cs" />
+    <Compile Include="Network\NetTuple.cs" />
+    <Compile Include="Network\NetUnreliableSenderChannel.cs" />
+    <Compile Include="Network\NetUnreliableSequencedReceiver.cs" />
+    <Compile Include="Network\NetUnreliableUnorderedReceiver.cs" />
+    <Compile Include="Network\NetUPnP.cs" />
+    <Compile Include="Network\NetUtility.cs" />
+    <Compile Include="Network\PlatformSocket.cs" />
+    <Compile Include="Network\SenderChannelBase.cs" />
+    <Compile Include="Network\XmlDocument.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\SociaGroundsEngine\Dll\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsPhone81\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Net">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsPhone81\MonoGame.Framework.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
