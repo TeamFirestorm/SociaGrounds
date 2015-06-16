@@ -52,7 +52,7 @@ namespace SocialGroundsStore.Screens
                     Task.Run(new Action(Host.StartLoop));
 
                     Debug.WriteLine("Created and started Host");
-                    //DbStuff.InsertConnection();
+                    InsertConnection();
                 }
                 else
                 {
@@ -63,6 +63,11 @@ namespace SocialGroundsStore.Screens
                 }
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;
             }
+        }
+
+        private async void InsertConnection()
+        {
+            await DbStuff.InsertConnection();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
