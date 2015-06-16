@@ -104,10 +104,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Reference Include="Lidgren.Network, Version=2012.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dll\Lidgren.Network.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows8\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -147,6 +143,76 @@
     <Compile Include="GUI\SociaInputfield.cs" />
     <Compile Include="GUI\SociaKeyboard.cs" />
     <Compile Include="GUI\UI.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\AddressFamily.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\BindingFlags.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\EndPoint.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\IPAddress.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\IPEndPoint.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\IPHostEntry.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\IPv6Address.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\PlatformSocket.WinRT.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\SocketAddress.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\SocketError.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\SocketException.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\Abstraction\TypeExtender.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NamespaceDoc.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBigInteger.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBitVector.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBitWriter.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.Peek.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.Read.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.Read.Reflection.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.Write.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetBuffer.Write.Reflection.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetClient.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnection.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnection.Handshake.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnection.Latency.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnection.MTU.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnectionStatistics.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConnectionStatus.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetConstants.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetDeliveryMethod.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetException.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetFragmentationHelper.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetFragmentationInfo.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetIncomingMessage.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetIncomingMessageType.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetMessageType.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetNatIntroduction.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetOutgoingMessage.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.Discovery.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.Fragmentation.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.Internal.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.LatencySimulation.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.Logging.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.MessagePools.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeer.Send.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeerConfiguration.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeerStatistics.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetPeerStatus.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetQueue.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetRandom.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetRandom.Implementations.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetRandomSeed.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetReceiverChannelBase.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetReliableOrderedReceiver.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetReliableSenderChannel.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetReliableSequencedReceiver.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetReliableUnorderedReceiver.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetSenderChannelBase.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetSendResult.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetServer.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetSRP.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetStoredReliableMessage.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetTime.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetTuple.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetUnreliableSenderChannel.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetUnreliableSequencedReceiver.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetUnreliableUnorderedReceiver.cs" />
+    <Compile Include="Multiplayer\Lidgren.Network\NetUtility.cs" />
     <Compile Include="Multiplayer\MessageClient.cs" />
     <Compile Include="Multiplayer\MessageHost.cs" />
     <Compile Include="Multiplayer\PacketTypes.cs" />
@@ -254,7 +320,6 @@
     <Content Include="Content\World\Tree\TreeTop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dll\Lidgren.Network.dll" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

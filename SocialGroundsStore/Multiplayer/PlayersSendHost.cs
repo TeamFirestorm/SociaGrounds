@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -25,7 +24,7 @@ namespace SocialGroundsStore.Multiplayer
 
         private int numberOfPlayers = 1;
 
-        private Stopwatch _watch;
+        private readonly Stopwatch _watch;
 
         public PlayersSendHost(ContentManager content)
         {

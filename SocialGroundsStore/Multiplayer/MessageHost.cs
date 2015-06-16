@@ -1,10 +1,13 @@
 ﻿using System.Threading;
 using Lidgren.Network;
+using Windows.Networking;
 
 namespace SocialGroundsStore.Multiplayer
 {
     public class MessageHost
     {
+
+
         private static NetClient _sClient;
 
 #pragma warning disable 1998
