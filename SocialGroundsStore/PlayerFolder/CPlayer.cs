@@ -48,10 +48,17 @@ namespace SocialGroundsStore.PlayerFolder
         protected float chatCounter;
 
         protected string chatMessage;
+
+        protected bool changedText;
+
         public string ChatMessage
         {
             get { return chatMessage; }
-            set { chatMessage = value; }
+            set
+            {
+                chatMessage = value;
+                changedText = true;
+            }
         }
 
         // Abstract method to update the player
@@ -62,6 +69,6 @@ namespace SocialGroundsStore.PlayerFolder
 
         public int Id { get; set; }
 
-        protected Queue<Vector2> NewQPosition;
+        protected Queue<Vector2> newQPosition;
     }
 }

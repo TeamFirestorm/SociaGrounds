@@ -14,7 +14,7 @@ namespace SocialGroundsStore.PlayerFolder
 
         public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
-            NewQPosition = new Queue<Vector2>();
+            newQPosition = new Queue<Vector2>();
 
             animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
@@ -30,17 +30,17 @@ namespace SocialGroundsStore.PlayerFolder
 
         public void AddNewPosition(Vector2 pos)
         {
-            NewQPosition.Enqueue(pos);
+            newQPosition.Enqueue(pos);
         }
 
         public ForeignPlayer()
         {
-            NewQPosition = new Queue<Vector2>();
+            newQPosition = new Queue<Vector2>();
         }
 
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
-            if (NewQPosition.Count <= 0) return;
+            if (newQPosition.Count <= 0) return;
 
             NewPosition(gameTime);
 
@@ -53,9 +53,9 @@ namespace SocialGroundsStore.PlayerFolder
         {
             if (newPosition == default(Vector2))
             {
-                if (NewQPosition.Count > 0)
+                if (newQPosition.Count > 0)
                 {
-                    newPosition = NewQPosition.Dequeue();
+                    newPosition = newQPosition.Dequeue();
                 }
                 else
                 {

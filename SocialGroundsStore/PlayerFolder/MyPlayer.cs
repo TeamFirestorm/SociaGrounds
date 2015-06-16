@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
-using System.Diagnostics;
 
 namespace SocialGroundsStore.PlayerFolder
 {
@@ -46,6 +45,12 @@ namespace SocialGroundsStore.PlayerFolder
             if (chatMessage != "")
             {
                 chatCounter += gameTime.ElapsedGameTime.Milliseconds;
+            }
+
+            if (changedText)
+            {
+                chatCounter = 0;
+                changedText = false;
             }
 
             // Then flush the chat message and reset the counter
