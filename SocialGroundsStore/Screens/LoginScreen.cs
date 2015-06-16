@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
+using Microsoft.Xna.Framework.Media;
 
 namespace SocialGroundsStore.Screens
 {
@@ -19,6 +20,8 @@ namespace SocialGroundsStore.Screens
             {
                 new Button(content, new Vector2(50, 50), "Start", 1.0f)
             };
+                // Play background music
+            //MediaPlayer.Play(Game1.songList[1]);
         }
 
         public void Update(ContentManager content, MouseState mouseState)

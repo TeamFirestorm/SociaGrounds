@@ -43,6 +43,17 @@ namespace SocialGroundsStore.PlayerFolder
             get { return rect; }
         }
 
+        // Chat properties
+        protected SpriteFont font;
+        protected float chatCounter;
+
+        protected string chatMessage;
+        public string ChatMessage
+        {
+            get { return chatMessage; }
+            set { chatMessage = value; }
+        }
+
         // Abstract method to update the player
         public abstract void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState);
 

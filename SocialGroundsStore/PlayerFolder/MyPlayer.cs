@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
+using System.Diagnostics;
 
 namespace SocialGroundsStore.PlayerFolder
 {
@@ -10,13 +11,17 @@ namespace SocialGroundsStore.PlayerFolder
     {
         private Direction lastDirection = Direction.Down;
 
-        public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
+        public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font, int id)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
             speed = 3;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            // Chat message initialize
+            this.font = font;
+            chatMessage = "";
 
             Id = id;
         }
@@ -36,11 +41,25 @@ namespace SocialGroundsStore.PlayerFolder
             animation.Position = position;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            // Show the chat message for a certain amount of time
+            if (chatMessage != "")
+            {
+                chatCounter += gameTime.ElapsedGameTime.Milliseconds;
+            }
+
+            // Then flush the chat message and reset the counter
+            if (chatCounter >= 5000)
+            {
+                chatMessage = "";
+                chatCounter = 0;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
+            spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
         }
 
         // Method for all input
