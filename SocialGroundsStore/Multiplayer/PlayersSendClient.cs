@@ -24,7 +24,7 @@ namespace SocialGroundsStore.Multiplayer
             started = false;
         }
 
-        private async void CreateDit(ContentManager content, string ip)
+        private void CreateDit(ContentManager content, string ip)
         {
             // Read ip to string
             string hostip = ip;
