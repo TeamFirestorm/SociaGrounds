@@ -127,8 +127,6 @@ namespace SocialGroundsStore.Multiplayer
                             _incMsg.SenderConnection.Approve();
 
                             // Add new character to the game.
-                            // It adds new player to the list and stores name, ( that was sent from the client )
-                            // Random x, y and stores client IP+Port
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
 
