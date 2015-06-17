@@ -17,7 +17,7 @@ namespace SocialGroundsStore.PlayerFolder
         {
             newQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
+            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
             speed = 3;
             this.connection = connection;
@@ -36,7 +36,7 @@ namespace SocialGroundsStore.PlayerFolder
         {
             newQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
+            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
             speed = 3;
 
