@@ -137,7 +137,7 @@ namespace SocialGroundsStore.Multiplayer
                             NetOutgoingMessage outmsg = _netServer.CreateMessage();
 
                             // first we write byte
-                            outmsg.Write((byte)PacketTypes.WorldState);
+                            outmsg.Write((byte)PacketTypes.Connect);
                             outmsg.Write(Game1.players.Last().Id);
 
                             outmsg.Write(Game1.players.Count - 1);
