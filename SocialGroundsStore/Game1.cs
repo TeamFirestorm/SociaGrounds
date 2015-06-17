@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SocialGroundsStore.PlayerFolder;
 using SocialGroundsStore.Screens;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
 
 namespace SocialGroundsStore
 {
