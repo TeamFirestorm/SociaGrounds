@@ -14,17 +14,16 @@ namespace SocialGroundsStore.Multiplayer
         // Client Object
         private static NetClient _client;
 
-        private int count;
-        private bool started;
-        private Stopwatch _watch;
+        private bool _started;
+        private bool _stopped;
+        private readonly Stopwatch _watch;
 
         public PlayersSendClient(ContentManager content, string ip)
         {
             _watch = new Stopwatch();
-
-            count = 0;
+            _started = false;
+            _stopped = false;
             CreateClient(content, ip);
-            started = false;
         }
 
         private void CreateClient(ContentManager content, string ip)
@@ -62,13 +61,11 @@ namespace SocialGroundsStore.Multiplayer
             // When this is set to true, we are approved and ready to go
             bool canStart = false;
 
-            // New incoming message
-            NetIncomingMessage msg;
-
             // Loop untill we are approved
             while (!canStart)
             {
-                // If new messages arrived
+                // New incoming message // If new messages arrived
+                NetIncomingMessage msg;
                 if ((msg = _client.ReadMessage()) != null)
                 {
                     // Switch based on the message types
@@ -99,7 +96,7 @@ namespace SocialGroundsStore.Multiplayer
                                 _watch.Start();
                                 
                                 canStart = true;
-                                started = true;
+                                _started = true;
                             }
                             break;
                     }
@@ -176,18 +173,17 @@ namespace SocialGroundsStore.Multiplayer
 
         private void Loop()
         {
-            while (true)
+            while (!_stopped)
             {
-                if (!started) continue;
+                if (!_started) continue;
 
                 CheckServerMessages();
                 if (_watch.ElapsedMilliseconds >= 3000)
                 {
-                    count = 0;
+                    _watch.Restart();
                     // Check if server sent new messages
                     GetInputAndSendItToServer(Game1.players[0].Position);
                 }
-                count++;
             }
         }
 
