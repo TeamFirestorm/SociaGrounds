@@ -122,6 +122,13 @@ namespace SocialGroundsStore.Multiplayer
             {
                 switch (msg.MessageType)
                 {
+                    case NetIncomingMessageType.DebugMessage:
+                    case NetIncomingMessageType.ErrorMessage:
+                    case NetIncomingMessageType.Error:
+                    case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.WarningMessage:
+                    break;
+
                     case NetIncomingMessageType.Data:
 
                     byte firstPackage = msg.ReadByte();
