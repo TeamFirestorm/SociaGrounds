@@ -60,8 +60,27 @@ namespace SocialGroundsStore.Multiplayer
             _isRunning = true;
             while (_isRunning)
             {
+                if (_watch.ElapsedMilliseconds >= 3000)
+                {
+                    _watch.Restart();
+                    SendLocationToClients();
+                }
                 ServerRunning();
             }
+        }
+
+
+        // Get input from player and send it to server
+        private static void SendLocationToClients()
+        {
+            // Write byte = Set "MOVE" as packet type
+            NetOutgoingMessage outMsg = _netServer.CreateMessage();
+            outMsg.Write((byte)PacketTypes.Move);
+            outMsg.Write(0); //id
+            outMsg.Write(Game1.players[0].Position.X);
+            outMsg.Write(Game1.players[0].Position.Y);
+
+            _netServer.SendMessage(outMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
         private void ServerRunning()
@@ -162,20 +181,6 @@ namespace SocialGroundsStore.Multiplayer
                             all.Remove(_incMsg.SenderConnection);
 
                             _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
-
-                            //if (_watch.ElapsedMilliseconds >= 3000)
-                            //{
-                            //    _watch.Restart();
-                            //    NetOutgoingMessage nOutMsg = _netServer.CreateMessage();
-                                
-                            //    // Write host information
-                            //    nOutMsg.Write((byte)PacketTypes.Move);
-                            //    nOutMsg.Write(0); //id
-                            //    nOutMsg.Write(Game1.players[0].Position.X);
-                            //    nOutMsg.Write(Game1.players[0].Position.Y);
-
-                            //    _netServer.SendMessage(nOutMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-                            //}
                         }
                         break;
                     case NetIncomingMessageType.StatusChanged:
