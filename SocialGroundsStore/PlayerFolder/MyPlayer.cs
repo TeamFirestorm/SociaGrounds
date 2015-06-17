@@ -10,6 +10,14 @@ namespace SocialGroundsStore.PlayerFolder
     {
         private Direction lastDirection = Direction.Down;
 
+        /// <summary>
+        /// Constructor of the player that can be controlled with direct input
+        /// This version is used if the player is a client
+        /// </summary>
+        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="texture">The spritesheet of the player</param>
+        /// <param name="font">The font in which the chatmessage will be displayed</param>
+        /// <param name="id">The ID of the player relevant for the server</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font, int id)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
@@ -25,15 +33,25 @@ namespace SocialGroundsStore.PlayerFolder
             Id = id;
         }
 
+        /// <summary>
+        /// Constructor of the player that can be controlled with direct input
+        /// This version is used for the host
+        /// </summary>
+        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="texture">The spritesheet of the player</param>
+        /// <param name="font">The font in which the chatmessage will be displayed</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font)
         {
+            // General initialize
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
             speed = 3;
+
             // Chat message initialize
             this.font = font;
             chatMessage = "";
 
+            // Rectangle initialize
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 

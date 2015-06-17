@@ -10,12 +10,14 @@ namespace SocialGroundsStore.PlayerFolder
 {
     public abstract class CPlayer
     {
+        // For the animation of the player
         protected CAnimation animation;
         public CAnimation Animation
         {
             get { return animation; }
         }
 
+        // 
         protected NetConnection connection;
         public NetConnection Connection
         {
@@ -23,6 +25,7 @@ namespace SocialGroundsStore.PlayerFolder
             set { connection = value; }
         }
 
+        // The walkspeed of the player
         protected int speed;
         public int Speed
         {
@@ -30,6 +33,7 @@ namespace SocialGroundsStore.PlayerFolder
             set { speed = value; }
         }
 
+        // The current position of the player
         protected Vector2 position;
         public Vector2 Position
         {
@@ -37,6 +41,7 @@ namespace SocialGroundsStore.PlayerFolder
             set { position = value; }
         }
 
+        // The rectangle of the player used for collision detection
         protected Rectangle rect;
         public Rectangle Rect
         {
@@ -67,8 +72,10 @@ namespace SocialGroundsStore.PlayerFolder
         // Abstract method to draw the player
         public abstract void Draw(SpriteBatch spriteBatch);
 
+        // ID of the player for the server
         public int Id { get; set; }
 
+        // A queue that 
         protected Queue<Vector2> newQPosition;
     }
 }
