@@ -65,8 +65,8 @@ namespace SocialGroundsStore.Multiplayer
             while (!canStart)
             {
                 // New incoming message // If new messages arrived
-                NetIncomingMessage msg;
-                if ((msg = _client.ReadMessage()) != null)
+                NetIncomingMessage msg = _client.ReadMessage();
+                if ((msg.MessageType == NetIncomingMessageType.Data))
                 {
                     // Switch based on the message types
                     switch (msg.MessageType)
