@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,17 +15,19 @@ namespace SocialGroundsStore.Multiplayer
         private static NetServer _netServer;
 
         // Object that can be used to store and read messages
-        private NetIncomingMessage inc;
+        private NetIncomingMessage _incMsg;
 
         // Indicates if program is running
-        private static bool _isRunning;
+        private bool _isRunning;
 
-        private int numberOfPlayers = 1;
+        private int _numberOfPlayers;
 
         private readonly Stopwatch _watch;
 
         public PlayersSendHost(ContentManager content)
         {
+            _numberOfPlayers = 1;
+
             Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"), content.Load<SpriteFont>("SociaGroundsFont"),0));
 
             _watch = new Stopwatch();
@@ -55,18 +55,31 @@ namespace SocialGroundsStore.Multiplayer
             _netServer.Start();
         }
 
-        public async void StartLoop()
-        {
-            await Task.Run(new Action(Loop));
-        }
-
-        private void Loop()
+        public void Loop()
         {
             _isRunning = true;
             while (_isRunning)
             {
+                if (_watch.ElapsedMilliseconds >= 3000)
+                {
+                    _watch.Restart();
+                    SendLocationToClients();
+                }
                 ServerRunning();
             }
+        }
+
+        // Get input from player and send it to server
+        private static void SendLocationToClients()
+        {
+            // Write byte = Set "MOVE" as packet type
+            NetOutgoingMessage outMsg = _netServer.CreateMessage();
+            outMsg.Write((byte)PacketTypes.Move);
+            outMsg.Write(0); //id
+            outMsg.Write(Game1.players[0].Position.X);
+            outMsg.Write(Game1.players[0].Position.Y);
+
+            _netServer.SendMessage(outMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
         private void ServerRunning()
@@ -76,10 +89,17 @@ namespace SocialGroundsStore.Multiplayer
             // Or maybe it could be while(new messages)
             // Server.ReadMessage() Returns new messages, that have not yet been read.
             // If "inc" is null -> ReadMessage returned null -> Its null, so dont do this :)
-            if ((inc = _netServer.ReadMessage()) != null)
+            if ((_incMsg = _netServer.ReadMessage()) != null)
             {
-                switch (inc.MessageType)
+                switch (_incMsg.MessageType)
                 {
+                    case NetIncomingMessageType.DebugMessage:
+                    case NetIncomingMessageType.ErrorMessage:
+                    case NetIncomingMessageType.Error:
+                    case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.WarningMessage:
+                        break;
+
                     // If incoming message is Request for connection approval
                     // This is the very first packet/message that is sent from client
                     // Here you can do new player initialisation stuff
@@ -87,19 +107,19 @@ namespace SocialGroundsStore.Multiplayer
 
                         // Read the first byte of the packet
                         // ( Enums can be casted to bytes, so it be used to make bytes human readable )
-                        if (inc.ReadByte() == (byte)PacketTypes.Connect)
+                        if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)
                         {
                             // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
-                            inc.SenderConnection.Approve();
+                            _incMsg.SenderConnection.Approve();
 
                             // Add new character to the game.
                             // It adds new player to the list and stores name, ( that was sent from the client )
                             // Random x, y and stores client IP+Port
-                            float x = inc.ReadFloat();
-                            float y = inc.ReadFloat();
+                            float x = _incMsg.ReadFloat();
+                            float y = _incMsg.ReadFloat();
 
-                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection, numberOfPlayers));
-                            numberOfPlayers++;
+                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
+                            _numberOfPlayers++;
 
                             // Create message, that can be written and sent
                             NetOutgoingMessage outmsg = _netServer.CreateMessage();
@@ -117,7 +137,7 @@ namespace SocialGroundsStore.Multiplayer
                                 {
                                     // This is handy method
                                     // It writes all the properties of object to the packet
-                                    if (inc.SenderConnection != player.Connection)
+                                    if (_incMsg.SenderConnection != player.Connection)
                                     {
                                         outmsg.Write(player.Id);
                                         outmsg.Write(player.Position.X);
@@ -129,7 +149,7 @@ namespace SocialGroundsStore.Multiplayer
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
 
-                            _netServer.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+                            _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
 
                             _watch.Restart();
                         }
@@ -140,11 +160,11 @@ namespace SocialGroundsStore.Multiplayer
                     case NetIncomingMessageType.Data:
 
                         // Read first byte
-                        if (inc.ReadByte() == (byte)PacketTypes.Move)
+                        if (_incMsg.ReadByte() == (byte)PacketTypes.Move)
                         {
-                            int id = inc.ReadInt32();
-                            float x = inc.ReadFloat();
-                            float y = inc.ReadFloat();
+                            int id = _incMsg.ReadInt32();
+                            float x = _incMsg.ReadFloat();
+                            float y = _incMsg.ReadFloat();
 
                             ForeignPlayer foreign = (ForeignPlayer)Game1.CompareById(id);
                             foreign.AddNewPosition(new Vector2(x, y));
@@ -157,23 +177,9 @@ namespace SocialGroundsStore.Multiplayer
                             outmsg.Write(y);
 
                             List<NetConnection> all = _netServer.Connections;
-                            all.Remove(inc.SenderConnection);
+                            all.Remove(_incMsg.SenderConnection);
 
                             _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
-
-                            if (_watch.ElapsedMilliseconds >= 3000)
-                            {
-                                _watch.Restart();
-                                NetOutgoingMessage newMessage = _netServer.CreateMessage();
-                                
-                                // Write host information
-                                newMessage.Write((byte)PacketTypes.Move);
-                                newMessage.Write(0); //id
-                                newMessage.Write(Game1.players[0].Position.X);
-                                newMessage.Write(Game1.players[0].Position.Y);
-
-                                _netServer.SendMessage(newMessage, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-                            }
                         }
                         break;
                     case NetIncomingMessageType.StatusChanged:
@@ -187,7 +193,7 @@ namespace SocialGroundsStore.Multiplayer
 
                         // NOTE: Disconnecting and Disconnected are not instant unless client is shutdown with disconnect()
                         //Console.WriteLine(inc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)inc.SenderConnection.Status);
-                        if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
+                        if (_incMsg.SenderConnection.Status == NetConnectionStatus.Disconnected || _incMsg.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             // Find disconnected character and remove it
                             foreach (CPlayer player in Game1.players)
@@ -196,7 +202,7 @@ namespace SocialGroundsStore.Multiplayer
 
                                 ForeignPlayer foreign = (ForeignPlayer)player;
 
-                                if (foreign.Connection == inc.SenderConnection)
+                                if (foreign.Connection == _incMsg.SenderConnection)
                                 {
                                     NetOutgoingMessage outmsg = _netServer.CreateMessage();
                                     outmsg.Write((byte)PacketTypes.Disconnect);
@@ -205,7 +211,7 @@ namespace SocialGroundsStore.Multiplayer
                                     Game1.players.Remove(foreign);
 
                                     List<NetConnection> all = _netServer.Connections;
-                                    all.Remove(inc.SenderConnection);
+                                    all.Remove(_incMsg.SenderConnection);
 
                                     _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
                                     break;
