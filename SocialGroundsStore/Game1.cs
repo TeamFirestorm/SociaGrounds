@@ -179,6 +179,10 @@ namespace SocialGroundsStore
                     roomScreen.Draw(spriteBatch);
                     break;
             }
+
+            //float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //System.Diagnostics.Debug.WriteLine(frameRate);
+
             base.Draw(gameTime);
         }
     }
