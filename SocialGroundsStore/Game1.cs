@@ -158,6 +158,7 @@ namespace SocialGroundsStore
 
                 case ScreenState.RoomScreen:
                     _roomScreen.Update(gameTime, GraphicsDevice, mouseState);
+                    MediaPlayer.Play(songList[1]);
                     break;
             }
 
