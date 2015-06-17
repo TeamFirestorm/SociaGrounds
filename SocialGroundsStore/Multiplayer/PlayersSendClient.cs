@@ -71,6 +71,14 @@ namespace SocialGroundsStore.Multiplayer
                     // Switch based on the message types
                     switch (msg.MessageType)
                     {
+                        case NetIncomingMessageType.DebugMessage:
+                        case NetIncomingMessageType.ErrorMessage:
+                        case NetIncomingMessageType.Error:
+                        case NetIncomingMessageType.VerboseDebugMessage:
+                        case NetIncomingMessageType.WarningMessage:
+                            break;
+
+
                         // All manually sent messages are type of "Data"
                         case NetIncomingMessageType.Data:
 

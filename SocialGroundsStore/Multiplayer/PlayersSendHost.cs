@@ -169,17 +169,20 @@ namespace SocialGroundsStore.Multiplayer
                             ForeignPlayer foreign = (ForeignPlayer)Game1.CompareById(id);
                             foreign.AddNewPosition(new Vector2(x, y));
 
-                            NetOutgoingMessage outmsg = _netServer.CreateMessage();
-                            // Write byte, that is type of world state
-                            outmsg.Write((byte)PacketTypes.Move);
-                            outmsg.Write(foreign.Id);
-                            outmsg.Write(x);
-                            outmsg.Write(y);
-
                             List<NetConnection> all = _netServer.Connections;
                             all.Remove(_incMsg.SenderConnection);
 
-                            _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
+                            if (all.Count > 0)
+                            {
+                                NetOutgoingMessage outmsg = _netServer.CreateMessage();
+                                // Write byte, that is type of world state
+                                outmsg.Write((byte) PacketTypes.Move);
+                                outmsg.Write(foreign.Id);
+                                outmsg.Write(x);
+                                outmsg.Write(y);
+
+                                _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
+                            }
                         }
                         break;
                     case NetIncomingMessageType.StatusChanged:
