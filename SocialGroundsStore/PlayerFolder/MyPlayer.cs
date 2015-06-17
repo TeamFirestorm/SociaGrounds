@@ -55,6 +55,14 @@ namespace SocialGroundsStore.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
+        /// <summary>
+        /// The update method for the player
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="ui">The UI object relevant to the player</param>
+        /// <param name="viewPort">For the height and width of the screen</param>
+        /// <param name="map">For the </param>
+        /// <param name="keyState"></param>
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             Input(gameTime, map, keyState);
