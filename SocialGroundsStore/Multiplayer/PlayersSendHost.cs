@@ -112,9 +112,6 @@ namespace SocialGroundsStore.Multiplayer
                         // ( Enums can be casted to bytes, so it be used to make bytes human readable )
                         if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)
                         {
-                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
-                            _incMsg.SenderConnection.Approve();
-
                             // Add new character to the game.
                             // It adds new player to the list and stores name, ( that was sent from the client )
                             // Random x, y and stores client IP+Port
@@ -152,6 +149,9 @@ namespace SocialGroundsStore.Multiplayer
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
                             _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+
+                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
+                            _incMsg.SenderConnection.Approve();
 
                             _watch.Restart();
                         }
