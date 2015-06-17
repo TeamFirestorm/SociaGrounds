@@ -95,8 +95,8 @@ namespace SocialGroundsStore.Multiplayer
                             // Add new character to the game.
                             // It adds new player to the list and stores name, ( that was sent from the client )
                             // Random x, y and stores client IP+Port
-                            int x = inc.ReadInt32();
-                            int y = inc.ReadInt32();
+                            float x = inc.ReadFloat();
+                            float y = inc.ReadFloat();
 
                             Game1.players.Add(new ForeignPlayer(new Vector2(x, y), inc.SenderConnection, numberOfPlayers));
                             numberOfPlayers++;
@@ -107,7 +107,8 @@ namespace SocialGroundsStore.Multiplayer
                             // first we write byte
                             outmsg.Write((byte)PacketTypes.WorldState);
                             outmsg.Write(Game1.players.Last().Id);
-                            outmsg.Write(Game1.players.Count -1);
+
+                            outmsg.Write(Game1.players.Count - 1);
 
                             if (Game1.players.Count - 1 > 0)
                             {
@@ -118,10 +119,13 @@ namespace SocialGroundsStore.Multiplayer
                                     // It writes all the properties of object to the packet
                                     if (inc.SenderConnection != player.Connection)
                                     {
-                                        outmsg.WriteAllProperties(player);
+                                        outmsg.Write(player.Id);
+                                        outmsg.Write(player.Position.X);
+                                        outmsg.Write(player.Position.Y);
                                     }
                                 }
                             }
+
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
 
@@ -138,59 +142,37 @@ namespace SocialGroundsStore.Multiplayer
                         // Read first byte
                         if (inc.ReadByte() == (byte)PacketTypes.Move)
                         {
-                            // Check who sent the message
-                            // This way we know, what character belongs to message sender
-                            foreach (CPlayer player in Game1.players)
+                            int id = inc.ReadInt32();
+                            float x = inc.ReadFloat();
+                            float y = inc.ReadFloat();
+
+                            ForeignPlayer foreign = (ForeignPlayer)Game1.CompareById(id);
+                            foreign.AddNewPosition(new Vector2(x, y));
+
+                            NetOutgoingMessage outmsg = _netServer.CreateMessage();
+                            // Write byte, that is type of world state
+                            outmsg.Write((byte)PacketTypes.Move);
+                            outmsg.Write(foreign.Id);
+                            outmsg.Write(x);
+                            outmsg.Write(y);
+
+                            List<NetConnection> all = _netServer.Connections;
+                            all.Remove(inc.SenderConnection);
+
+                            _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
+
+                            if (_watch.ElapsedMilliseconds >= 3000)
                             {
-                                if (player.GetType() != typeof(ForeignPlayer)) continue;
-
-                                ForeignPlayer foreign = (ForeignPlayer)player;
-
-                                // If stored connection ( check approved message. We stored ip+port there, to character obj )
-                                // Find the correct character
-                                if (foreign.Connection != inc.SenderConnection) continue;
-
-                                // Read next byte
-                                //byte b = inc.ReadByte();
-
-                                // Handle movement. This byte should correspond to some direction
-                                int x = inc.ReadInt32();
-                                int y = inc.ReadInt32();
-
-                                foreign.AddNewPosition(new Vector2(x,y));
-
-                                // Create new message
-                                NetOutgoingMessage outmsg = _netServer.CreateMessage();
-
-                                // Write byte, that is type of world state
-                                outmsg.Write((byte)PacketTypes.Move);
-                                outmsg.Write(foreign.Id);
-                                outmsg.Write(x);
-                                outmsg.Write(y);
-
-                                // Send messsage to clients except the sender ( All connections, in reliable order, channel 0)
-                                List<NetConnection> all = _netServer.Connections;
-                                all.Remove(inc.SenderConnection);
-
-                                _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
-
+                                _watch.Restart();
                                 NetOutgoingMessage newMessage = _netServer.CreateMessage();
+                                
+                                // Write host information
+                                newMessage.Write((byte)PacketTypes.Move);
+                                newMessage.Write(0); //id
+                                newMessage.Write(Game1.players[0].Position.X);
+                                newMessage.Write(Game1.players[0].Position.Y);
 
-                                if (_watch.ElapsedMilliseconds > 3000)
-                                {
-                                    _watch.Restart();
-                                    // Write byte, that is type of world state
-                                    newMessage.Write((byte)PacketTypes.Move);
-                                    newMessage.Write(0);
-                                    newMessage.Write(Game1.players[0].Position.X);
-                                    newMessage.Write(Game1.players[0].Position.Y);
-
-                                    all = _netServer.Connections;
-
-                                    _netServer.SendMessage(newMessage, all, NetDeliveryMethod.ReliableOrdered, 0);
-                                }
-
-                                break;
+                                _netServer.SendMessage(newMessage, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
                             }
                         }
                         break;

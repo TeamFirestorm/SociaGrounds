@@ -28,14 +28,24 @@ namespace SocialGroundsStore.PlayerFolder
             newPosition = default(Vector2);
         }
 
+        public ForeignPlayer(Vector2 startPosition, int id)
+        {
+            newQPosition = new Queue<Vector2>();
+
+            animation = new CAnimation(Game1.texture, startPosition, 64, 64, 10, 25, true);
+            position = startPosition;
+            speed = 3;
+
+            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            Id = id;
+
+            newPosition = default(Vector2);
+        }
+
         public void AddNewPosition(Vector2 pos)
         {
             newQPosition.Enqueue(pos);
-        }
-
-        public ForeignPlayer()
-        {
-            newQPosition = new Queue<Vector2>();
         }
 
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)

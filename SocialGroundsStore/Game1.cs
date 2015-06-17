@@ -51,6 +51,18 @@ namespace SocialGroundsStore
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
+        public static CPlayer CompareById(int id)
+        {
+            foreach (CPlayer player in players)
+            {
+                if (player.Id == id)
+                {
+                    return player;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic

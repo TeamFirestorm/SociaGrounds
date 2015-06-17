@@ -1,30 +1,33 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SocialGroundsStore.PlayerFolder;
-using System.Diagnostics;
 
 namespace SocialGroundsStore.Multiplayer
 {
     public class PlayersSendClient
     {
         // Client Object
-        private static NetClient Client;
+        private static NetClient _client;
 
         private int count;
         private bool started;
+        private Stopwatch _watch;
 
         public PlayersSendClient(ContentManager content, string ip)
         {
+            _watch = new Stopwatch();
+
             count = 0;
-            CreateDit(content, ip);
+            CreateClient(content, ip);
             started = false;
         }
 
-        private void CreateDit(ContentManager content, string ip)
+        private void CreateClient(ContentManager content, string ip)
         {
             // Read ip to string
             string hostip = ip;
@@ -35,11 +38,11 @@ namespace SocialGroundsStore.Multiplayer
             Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"), content.Load<SpriteFont>("SociaGroundsFont")));
 
             // Create new client, with previously created configs
-            Client = new NetClient(config);
-            Client.Start();
+            _client = new NetClient(config);
+            _client.Start();
 
             // Create new outgoing message
-            NetOutgoingMessage outmsg = Client.CreateMessage();
+            NetOutgoingMessage outmsg = _client.CreateMessage();
 
             // Write byte ( first byte informs server about the message type ) ( This way we know, what kind of variables to read )
             outmsg.Write((byte)PacketTypes.Connect);
@@ -47,31 +50,10 @@ namespace SocialGroundsStore.Multiplayer
             outmsg.Write(Game1.players[0].Position.Y);
 
             // Connect client, to ip previously requested from user
-            Client.Connect(hostip, 14242, outmsg);
+            _client.Connect(hostip, 14242, outmsg);
 
             // Funtion that waits for connection approval info from server
             WaitForStartingInfo();
-        }
-
-        public async void StartLoop()
-        {
-            await Task.Run(new Action(Loop));
-        }
-
-        private void Loop()
-        {
-            while (true)
-            {
-                if (!started) continue;
-                if (count >= 60)
-                {
-                    count = 0;
-                    // Check if server sent new messages
-                    GetInputAndSendItToServer(Game1.players[0].Position);
-                    CheckServerMessages();
-                }
-                count++;
-            }
         }
 
         // Before main looping starts, we loop here and wait for approval message
@@ -81,58 +63,49 @@ namespace SocialGroundsStore.Multiplayer
             bool canStart = false;
 
             // New incoming message
-            NetIncomingMessage im;
+            NetIncomingMessage msg;
 
             // Loop untill we are approved
             while (!canStart)
             {
                 // If new messages arrived
-                if ((im = Client.ReadMessage()) != null)
+                if ((msg = _client.ReadMessage()) != null)
                 {
                     // Switch based on the message types
-                    switch (im.MessageType)
+                    switch (msg.MessageType)
                     {
                         // All manually sent messages are type of "Data"
                         case NetIncomingMessageType.Data:
 
-                            byte firstPackage = im.ReadByte();
+                            byte firstPackage = msg.ReadByte();
 
                             // Read the first byte
                             // This way we can separate packets from each others
                             if (firstPackage == (byte)PacketTypes.WorldState)
                             {
-                                Game1.players[0].Id = im.ReadInt32();
+                                Game1.players[0].Id = msg.ReadInt32();
+                                int numPlayers = msg.ReadInt32();
 
-                                // Read int
-                                int count = im.ReadInt32();
-
-                                if (count > 0)
+                                for (int i = 0; i < numPlayers; i++)
                                 {
-                                    //// Iterate all players
-                                    //for (int i = 0; i < count; i++)
-                                    //{
-                                    //    // Create new character to hold the data
-                                    //    ForeignPlayer player = new ForeignPlayer();
+                                    int id = msg.ReadInt32();
+                                    float x = msg.ReadFloat();
+                                    float y = msg.ReadFloat();
 
-                                    //    // Read all properties ( Server writes characters all props, so now we can read em here. Easy )
-                                    //    im.ReadAllProperties(player);
-
-                                    //    // Add it to list
-                                    //    Game1.players.Add(player);
-                                    //}
+                                    Game1.players.Add(new ForeignPlayer(new Vector2(x,y), id));
                                 }
 
                                 // When all players are added to list, start the game
+                                _watch.Start();
+                                
                                 canStart = true;
                                 started = true;
                             }
                             break;
                     }
-                     
                 }
             }
         }
-
 
         /// <summary>
         /// Check for new incoming messages from server
@@ -142,21 +115,23 @@ namespace SocialGroundsStore.Multiplayer
 #pragma warning restore 1998
         {
             // Create new incoming message holder
-            NetIncomingMessage inc;
+            NetIncomingMessage msg;
 
             // While theres new messages
             // THIS is exactly the same as in WaitForStartingInfo() function
             // Check if its Data message
             // If its WorldState, read all the characters to list
-            while ((inc = Client.ReadMessage()) != null)
+            while ((msg = _client.ReadMessage()) != null)
             {
-                if (inc.MessageType == NetIncomingMessageType.Data)
+                switch (msg.MessageType)
                 {
-                    byte firstPackage = inc.ReadByte();
+                    case NetIncomingMessageType.Data:
 
-                    if (inc.ReadByte() == (byte)PacketTypes.Move)
+                    byte firstPackage = msg.ReadByte();
+
+                    if (firstPackage == (byte)PacketTypes.Move)
                     {
-                        int id = inc.ReadInt32();
+                        int id = msg.ReadInt32();
 
                         foreach (CPlayer player in Game1.players)
                         {
@@ -166,15 +141,15 @@ namespace SocialGroundsStore.Multiplayer
 
                             if (foreign.Id != id) continue;
 
-                            int x = inc.ReadInt32();
-                            int y = inc.ReadInt32();
+                            int x = msg.ReadInt32();
+                            int y = msg.ReadInt32();
 
                             foreign.AddNewPosition(new Vector2(x, y));
                         }
                     }
                     else if (firstPackage == (byte)PacketTypes.Disconnect)
                     {
-                        int id = inc.ReadInt32();
+                        int id = msg.ReadInt32();
 
                         foreach (CPlayer player in Game1.players)
                         {
@@ -189,7 +164,30 @@ namespace SocialGroundsStore.Multiplayer
                             }
                         }
                     }
+                    break;
                 }
+            }
+        }
+
+        public async void StartLoop()
+        {
+            await Task.Run(new Action(Loop));
+        }
+
+        private void Loop()
+        {
+            while (true)
+            {
+                if (!started) continue;
+
+                CheckServerMessages();
+                if (_watch.ElapsedMilliseconds >= 3000)
+                {
+                    count = 0;
+                    // Check if server sent new messages
+                    GetInputAndSendItToServer(Game1.players[0].Position);
+                }
+                count++;
             }
         }
 
@@ -197,7 +195,7 @@ namespace SocialGroundsStore.Multiplayer
         private static void GetInputAndSendItToServer(Vector2 newPosition)
         {
             // Create new message
-            NetOutgoingMessage outmsg = Client.CreateMessage();
+            NetOutgoingMessage outmsg = _client.CreateMessage();
 
             // Write byte = Set "MOVE" as packet type
             outmsg.Write((byte)PacketTypes.Move);
@@ -207,7 +205,7 @@ namespace SocialGroundsStore.Multiplayer
             outmsg.Write(newPosition.Y);
 
             // Send it to server
-            Client.SendMessage(outmsg, NetDeliveryMethod.ReliableOrdered);
+            _client.SendMessage(outmsg, NetDeliveryMethod.ReliableOrdered);
         }
     }
 }
