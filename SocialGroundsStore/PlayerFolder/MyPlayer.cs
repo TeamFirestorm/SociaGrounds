@@ -58,11 +58,11 @@ namespace SocialGroundsStore.PlayerFolder
         /// <summary>
         /// The update method for the player
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">Gametime object</param>
         /// <param name="ui">The UI object relevant to the player</param>
         /// <param name="viewPort">For the height and width of the screen</param>
-        /// <param name="map">For the </param>
-        /// <param name="keyState"></param>
+        /// <param name="map">All info about the map</param>
+        /// <param name="keyState">The current keystate</param>
         public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             Input(gameTime, map, keyState);
@@ -90,12 +90,21 @@ namespace SocialGroundsStore.PlayerFolder
             }
         }
 
+        /// <summary>
+        /// Draw method for 
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
         }
 
-        // Method for all input
+        /// <summary>
+        /// Method for all input for the palyer
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="map"></param>
+        /// <param name="keyState"></param>
         public void Input(GameTime gameTime, Map map, KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Up))
