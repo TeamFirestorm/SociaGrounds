@@ -72,14 +72,17 @@ namespace SocialGroundsStore.Multiplayer
         // Get input from player and send it to server
         private static void SendLocationToClients()
         {
-            // Write byte = Set "MOVE" as packet type
-            NetOutgoingMessage outMsg = _netServer.CreateMessage();
-            outMsg.Write((byte)PacketTypes.Move);
-            outMsg.Write(0); //id
-            outMsg.Write(Game1.players[0].Position.X);
-            outMsg.Write(Game1.players[0].Position.Y);
-
-            _netServer.SendMessage(outMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            List<NetConnection> all = _netServer.Connections;
+            if (all.Count > 0)
+            {
+                // Write byte = Set "MOVE" as packet type
+                NetOutgoingMessage outMsg = _netServer.CreateMessage();
+                outMsg.Write((byte)PacketTypes.Move);
+                outMsg.Write(0); //id
+                outMsg.Write(Game1.players[0].Position.X);
+                outMsg.Write(Game1.players[0].Position.Y);
+                _netServer.SendMessage(outMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            }         
         }
 
         private void ServerRunning()
@@ -148,10 +151,7 @@ namespace SocialGroundsStore.Multiplayer
 
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
-
                             _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-
-                            _watch.Restart();
                         }
 
                         break;

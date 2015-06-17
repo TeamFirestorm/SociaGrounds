@@ -78,7 +78,6 @@ namespace SocialGroundsStore.Multiplayer
                         case NetIncomingMessageType.WarningMessage:
                             break;
 
-
                         // All manually sent messages are type of "Data"
                         case NetIncomingMessageType.Data:
 
