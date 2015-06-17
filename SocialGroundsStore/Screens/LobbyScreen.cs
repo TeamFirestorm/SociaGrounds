@@ -24,10 +24,9 @@ namespace SocialGroundsStore.Screens
             _createdList = false;
             _alreadyStarted = false;
             _connections = new List<Connection>();
-            CreateConnections();
         }
 
-        private async void CreateConnections()
+        public async void CreateConnections()
         {
             _connections.Clear();
             List<Connection> temp = await DbStuff.GetConnections();

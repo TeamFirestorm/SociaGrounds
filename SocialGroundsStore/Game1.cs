@@ -14,8 +14,8 @@ namespace SocialGroundsStore
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        GraphicsDeviceManager _graphics;
+        SpriteBatch _spriteBatch;
         public static Texture2D texture;
 
         public enum ScreenState
@@ -33,10 +33,10 @@ namespace SocialGroundsStore
         public static List<CPlayer> players;
 
         // All the screens
-        private LoginScreen loginScreen;
-        private HomeScreen homeScreen;
-        private LobbyScreen lobbyScreen;
-        private RoomScreen roomScreen;
+        private LoginScreen _loginScreen;
+        private HomeScreen _homeScreen;
+        private LobbyScreen _lobbyScreen;
+        private RoomScreen _roomScreen;
 
         // All music
         public static List<Song> songList;
@@ -46,7 +46,7 @@ namespace SocialGroundsStore
         /// </summary>
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
@@ -72,7 +72,7 @@ namespace SocialGroundsStore
         protected override void Initialize()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Initializing playlist
             players = new List<CPlayer>();
@@ -93,7 +93,6 @@ namespace SocialGroundsStore
         /// </summary>
         protected override void LoadContent()
         {
-            // TODO: use this.Content to load your game content here
 
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
 
@@ -103,9 +102,10 @@ namespace SocialGroundsStore
             //songList.Add(Content.Load<Song>("Music/in-game-music"));
 
             // Screens load
-            loginScreen = new LoginScreen(Content);
-            roomScreen = new RoomScreen(Content, GraphicsDevice);
-            homeScreen = new HomeScreen(Content);
+            _loginScreen = new LoginScreen(Content);
+            _roomScreen = new RoomScreen(Content, GraphicsDevice);
+            _homeScreen = new HomeScreen(Content);
+            _lobbyScreen = new LobbyScreen();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace SocialGroundsStore
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -130,24 +130,24 @@ namespace SocialGroundsStore
             switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    loginScreen.Update(Content, mouseState);
+                    _loginScreen.Update(Content, mouseState);
 
-                    if (loginScreen.ToHomeScreen(gameTime))
+                    if (_loginScreen.ToHomeScreen(gameTime))
                     {
+                        _lobbyScreen.CreateConnections();
                         currentScreenState = ScreenState.LobbyScreen;
-                        lobbyScreen = new LobbyScreen();
                     }
                     break;
                 case ScreenState.LobbyScreen:
-                    lobbyScreen.Update(Content);
+                    _lobbyScreen.Update(Content);
                     break;
 
                 case ScreenState.HomeScreen:
-                    homeScreen.Update(Content);
+                    _homeScreen.Update(Content);
                     break;
 
                 case ScreenState.RoomScreen:
-                    roomScreen.Update(gameTime, GraphicsDevice, mouseState);
+                    _roomScreen.Update(gameTime, GraphicsDevice, mouseState);
                     break;
             }
 
@@ -166,18 +166,18 @@ namespace SocialGroundsStore
             switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    spriteBatch.Begin();
-                    loginScreen.Draw(spriteBatch);
-                    spriteBatch.End();
+                    _spriteBatch.Begin();
+                    _loginScreen.Draw(_spriteBatch);
+                    _spriteBatch.End();
                     break;
                 case ScreenState.LobbyScreen:
-                    lobbyScreen.Draw(spriteBatch);
+                    _lobbyScreen.Draw(_spriteBatch);
                     break;
                 case ScreenState.HomeScreen:
-                    homeScreen.Draw(spriteBatch);
+                    _homeScreen.Draw(_spriteBatch);
                     break;
                 case ScreenState.RoomScreen:
-                    roomScreen.Draw(spriteBatch);
+                    _roomScreen.Draw(_spriteBatch);
                     break;
             }
 
