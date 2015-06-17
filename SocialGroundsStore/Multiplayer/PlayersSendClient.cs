@@ -34,7 +34,7 @@ namespace SocialGroundsStore.Multiplayer
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
             //Players
-            Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"), content.Load<SpriteFont>("SociaGroundsFont")));
+            Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character")));
 
             // Create new client, with previously created configs
             _client = new NetClient(config);

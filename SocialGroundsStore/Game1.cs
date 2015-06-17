@@ -17,6 +17,7 @@ namespace SocialGroundsStore
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         public static Texture2D texture;
+        public static SpriteFont font;
 
         public enum ScreenState
         {
@@ -95,6 +96,7 @@ namespace SocialGroundsStore
         {
 
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
+            font = Content.Load<SpriteFont>("SociaGroundsFont");
 
             // Songs load
             //songList.Add(Content.Load<Song>("Music/splashscreen_music"));
