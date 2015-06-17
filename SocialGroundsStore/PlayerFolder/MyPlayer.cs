@@ -18,7 +18,7 @@ namespace SocialGroundsStore.PlayerFolder
         /// <param name="texture">The spritesheet of the player</param>
         /// <param name="font">The font in which the chatmessage will be displayed</param>
         /// <param name="id">The ID of the player relevant for the server</param>
-        public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font, int id)
+        public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
@@ -27,7 +27,7 @@ namespace SocialGroundsStore.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Chat message initialize
-            this.font = font;
+            this.font = Game1.font;
             chatMessage = "";
 
             Id = id;
@@ -40,7 +40,7 @@ namespace SocialGroundsStore.PlayerFolder
         /// <param name="startPosition">The startposition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
         /// <param name="font">The font in which the chatmessage will be displayed</param>
-        public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font)
+        public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             // General initialize
             animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
@@ -48,7 +48,7 @@ namespace SocialGroundsStore.PlayerFolder
             speed = 3;
 
             // Chat message initialize
-            this.font = font;
+            this.font = Game1.font;
             chatMessage = "";
 
             // Rectangle initialize

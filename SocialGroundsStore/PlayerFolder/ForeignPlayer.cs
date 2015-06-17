@@ -23,6 +23,9 @@ namespace SocialGroundsStore.PlayerFolder
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
+            font = Game1.font;
+            chatMessage = "";
+
             Id = id;
 
             _newPosition = default(Vector2);
@@ -37,6 +40,9 @@ namespace SocialGroundsStore.PlayerFolder
             speed = 3;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+
+            font = Game1.font;
+            chatMessage = "";
 
             Id = id;
 
