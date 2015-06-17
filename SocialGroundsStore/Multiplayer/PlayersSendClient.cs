@@ -68,6 +68,8 @@ namespace SocialGroundsStore.Multiplayer
                 NetIncomingMessage msg = _client.ReadMessage();
                 if ((msg != null))
                 {
+                    byte firstPackage = msg.ReadByte();
+
                     // Switch based on the message types
                     switch (msg.MessageType)
                     {
@@ -81,11 +83,9 @@ namespace SocialGroundsStore.Multiplayer
                         // All manually sent messages are type of "Data"
                         case NetIncomingMessageType.Data:
 
-                            byte firstPackage = msg.ReadByte();
-
                             // Read the first byte
                             // This way we can separate packets from each others
-                            if (firstPackage == (byte)PacketTypes.WorldState)
+                            if (firstPackage == (byte)PacketTypes.Connect)
                             {
                                 Game1.players[0].Id = msg.ReadInt32();
                                 int numPlayers = msg.ReadInt32();
