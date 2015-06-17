@@ -153,8 +153,8 @@ namespace SocialGroundsStore.Multiplayer
 
                             if (foreign.Id != id) continue;
 
-                            int x = msg.ReadInt32();
-                            int y = msg.ReadInt32();
+                            float x = msg.ReadFloat();
+                            float y = msg.ReadFloat();
 
                             foreign.AddNewPosition(new Vector2(x, y));
                         }
