@@ -83,7 +83,16 @@ namespace SocialGroundsStore
         //    get { return textureData; }
         //}
 
-        // Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="texture">The spritesheet to be parsed</param>
+        /// <param name="position">The position of the animation to draw</param>
+        /// <param name="frameWidth">The width of a single frame</param>
+        /// <param name="frameHeight">The height of a single frame</param>
+        /// <param name="startRow">Which row do you want to be animated?</param>
+        /// <param name="fps">The amount of frames per second to play</param>
+        /// <param name="isLooping">Should the animation loop or not?</param>
         public CAnimation(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
         {
             this._texture = texture;
@@ -105,6 +114,11 @@ namespace SocialGroundsStore
             texture.GetData(_textureData);
         }
 
+        /// <summary>
+        /// Reset the current animation frame to the default frame
+        /// </summary>
+        /// <param name="row">Which row are you targetting?</param>
+        /// <param name="gameTime">The amount of time that has been elapsed</param>
         public void ResetAnimation(int row, GameTime gameTime)
         {
             // Check if the time has been elapsed to update the next frame
