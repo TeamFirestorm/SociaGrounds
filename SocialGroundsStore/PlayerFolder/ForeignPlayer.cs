@@ -83,13 +83,13 @@ namespace SocialGroundsStore.PlayerFolder
             {
                 animation.Play(8, 9, gameTime);
 
-                position.Y -= (_newPosition.Y - position.Y);
+                position.Y += (_newPosition.Y - position.Y);
             }
             else if (_newPosition.Y < position.Y)
             {
                 animation.Play(10, 9, gameTime);
 
-                position.Y += (position.Y - _newPosition.Y);
+                position.Y -= (position.Y - _newPosition.Y);
             } 
             else if (_newPosition.X < position.X)
             {
