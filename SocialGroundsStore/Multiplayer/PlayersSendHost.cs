@@ -24,6 +24,8 @@ namespace SocialGroundsStore.Multiplayer
 
         private readonly Stopwatch _watch;
 
+        private Vector2 lastPosition;
+
         public PlayersSendHost(ContentManager content)
         {
             _numberOfPlayers = 1;
@@ -41,6 +43,8 @@ namespace SocialGroundsStore.Multiplayer
                 // Max client amount
                 MaximumConnections = 20
             };
+
+            lastPosition = new Vector2(0,0);
 
             // Enable New messagetype. Explained later
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -70,11 +74,15 @@ namespace SocialGroundsStore.Multiplayer
         }
 
         // Get input from player and send it to server
-        private static void SendLocationToClients()
+        private void SendLocationToClients()
         {
             List<NetConnection> all = _netServer.Connections;
             if (all.Count > 0)
             {
+                if (lastPosition == Game1.players[0].Position) return;
+
+                lastPosition = Game1.players[0].Position;
+
                 // Write byte = Set "MOVE" as packet type
                 NetOutgoingMessage outMsg = _netServer.CreateMessage();
                 outMsg.Write((byte)PacketTypes.Move);
