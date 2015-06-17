@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Lidgren.Network;
@@ -178,9 +179,11 @@ namespace SocialGroundsStore.Multiplayer
                             int id = _incMsg.ReadInt32();
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
+                            string msg = _incMsg.ReadString();
 
                             ForeignPlayer foreign = (ForeignPlayer)Game1.CompareById(id);
                             foreign.AddNewPosition(new Vector2(x, y));
+                            foreign.ChatMessage = msg;
 
                             List<NetConnection> all = _netServer.Connections;
                             all.Remove(_incMsg.SenderConnection);
@@ -193,6 +196,7 @@ namespace SocialGroundsStore.Multiplayer
                                 outmsg.Write(foreign.Id);
                                 outmsg.Write(x);
                                 outmsg.Write(y);
+                                outmsg.Write(msg);
 
                                 _netServer.SendMessage(outmsg, all, NetDeliveryMethod.ReliableOrdered, 0);
                             }
