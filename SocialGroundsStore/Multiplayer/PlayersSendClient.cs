@@ -101,12 +101,11 @@ namespace SocialGroundsStore.Multiplayer
 
                                 // When all players are added to list, start the game
                                 _watch.Start();
-                                
                                 canStart = true;
                                 _started = true;
                             }
                             break;
-                    }
+                    }                                
                 }
             }
         }
