@@ -51,12 +51,12 @@ namespace SocialGroundsStore.DataBase
             if (connections != null)
             {
                 string[] tempIp = MyIp.Split('.');
-                string myIp = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+                string myIp = tempIp[0] + "." + tempIp[1];// + "." + tempIp[2];
 
                 foreach (Connection connect in connections)
                 {
                     tempIp = connect.IpAddress.Split('.');
-                    string ip = tempIp[0] + "." + tempIp[1] + "." + tempIp[2];
+                    string ip = tempIp[0] + "." + tempIp[1];// + "." + tempIp[2];
 
                     if (ip.Equals(myIp) && connect.DnsSuffix.Equals(myDns))
                     {
