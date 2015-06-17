@@ -74,19 +74,19 @@ namespace SocialGroundsStore.PlayerFolder
             if (chatMessage != "")
             {
                 chatCounter += gameTime.ElapsedGameTime.Milliseconds;
-            }
 
-            if (changedText)
-            {
-                chatCounter = 0;
-                changedText = false;
-            }
+                if (changedText)
+                {
+                    chatCounter = 0;
+                    changedText = false;
+                }
 
-            // Then flush the chat message and reset the counter
-            if (chatCounter >= 5000)
-            {
-                chatMessage = "";
-                chatCounter = 0;
+                // Then flush the chat message and reset the counter
+                if (chatCounter >= 5000)
+                {
+                    chatMessage = "";
+                    chatCounter = 0;
+                }
             }
         }
 

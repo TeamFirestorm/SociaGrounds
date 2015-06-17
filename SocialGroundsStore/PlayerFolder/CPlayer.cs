@@ -81,8 +81,10 @@ namespace SocialGroundsStore.PlayerFolder
 
         public void DrawText(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
-
+            if (!string.IsNullOrEmpty(ChatMessage))
+            {
+                spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
+            }
         }
     }
 }

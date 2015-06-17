@@ -67,28 +67,29 @@ namespace SocialGroundsStore.Multiplayer
                 if (_watch.ElapsedMilliseconds >= Game1.sendTime)
                 {
                     _watch.Restart();
-                    SendLocationToClients();
+                    SendLocationToClients(Game1.players[0]);
                 }
                 ServerRunning();
             }
         }
 
         // Get input from player and send it to server
-        private void SendLocationToClients()
+        private void SendLocationToClients(CPlayer player)
         {
             List<NetConnection> all = _netServer.Connections;
             if (all.Count > 0)
             {
-                if (_lastPosition == Game1.players[0].Position) return;
+                if (_lastPosition == player.Position) return;
 
-                _lastPosition = Game1.players[0].Position;
+                _lastPosition = player.Position;
 
                 // Write byte = Set "MOVE" as packet type
                 NetOutgoingMessage outMsg = _netServer.CreateMessage();
                 outMsg.Write((byte)PacketTypes.Move);
                 outMsg.Write(0); //id
-                outMsg.Write(Game1.players[0].Position.X);
-                outMsg.Write(Game1.players[0].Position.Y);
+                outMsg.Write(player.Position.X);
+                outMsg.Write(player.Position.Y);
+                outMsg.Write(player.ChatMessage);
                 _netServer.SendMessage(outMsg, _netServer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             }         
         }
@@ -154,6 +155,7 @@ namespace SocialGroundsStore.Multiplayer
                                         outmsg.Write(player.Id);
                                         outmsg.Write(player.Position.X);
                                         outmsg.Write(player.Position.Y);
+                                        outmsg.Write(player.ChatMessage);
                                     }
                                 }
                             }

@@ -147,14 +147,16 @@ namespace SocialGroundsStore.Multiplayer
                         {
                             if (player.GetType() != typeof(ForeignPlayer)) continue;
 
-                            ForeignPlayer foreign = (ForeignPlayer)player;
+                            if (player.Id != id) continue;
 
-                            if (foreign.Id != id) continue;
+                            ForeignPlayer foreign = (ForeignPlayer)player;
 
                             float x = msg.ReadFloat();
                             float y = msg.ReadFloat();
+                            string mes = msg.ReadString();
 
                             foreign.AddNewPosition(new Vector2(x, y));
+                            foreign.ChatMessage = mes;
                         }
                     }
                     else if (firstPackage == (byte)PacketTypes.Disconnect)
@@ -190,13 +192,13 @@ namespace SocialGroundsStore.Multiplayer
                 {
                     _watch.Restart();
                     // Check if server sent new messages
-                    GetInputAndSendItToServer(Game1.players[0].Position);
+                    GetInputAndSendItToServer(Game1.players[0]);
                 }
             }
         }
 
         // Get input from player and send it to server
-        private static void GetInputAndSendItToServer(Vector2 newPosition)
+        private static void GetInputAndSendItToServer(CPlayer player)
         {
             // Create new message
             NetOutgoingMessage outmsg = _client.CreateMessage();
@@ -205,9 +207,10 @@ namespace SocialGroundsStore.Multiplayer
             outmsg.Write((byte)PacketTypes.Move);
 
             // Write byte = move direction
-            outmsg.Write(Game1.players[0].Id);
-            outmsg.Write(newPosition.X);
-            outmsg.Write(newPosition.Y);
+            outmsg.Write(player.Id);
+            outmsg.Write(player.Position.X);
+            outmsg.Write(player.Position.Y);
+            outmsg.Write(player.ChatMessage);
 
             // Send it to server
             _client.SendMessage(outmsg, NetDeliveryMethod.ReliableOrdered);
