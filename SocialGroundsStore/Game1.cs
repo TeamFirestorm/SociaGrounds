@@ -20,7 +20,6 @@ namespace SocialGroundsStore
         public static SpriteFont font;
         public static int sendTime = 50;
 
-
         public enum ScreenState
         {
             LoginScreen,

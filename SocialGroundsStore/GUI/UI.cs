@@ -140,7 +140,7 @@ namespace SocialGroundsStore.GUI
 
         private void OnEnter()
         {
-            if (!String.IsNullOrEmpty(_textBuffer)) return;
+            if (String.IsNullOrEmpty(_textBuffer)) return;
 
             Game1.players[0].ChatMessage = _textBuffer;
             _textBuffer = "";
