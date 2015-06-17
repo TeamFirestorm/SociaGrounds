@@ -24,13 +24,13 @@ namespace SocialGroundsStore.Multiplayer
 
         private readonly Stopwatch _watch;
 
-        private Vector2 lastPosition;
+        private Vector2 _lastPosition;
 
         public PlayersSendHost(ContentManager content)
         {
             _numberOfPlayers = 1;
 
-            Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"),0));
+            Game1.players.Add(new MyPlayer(new Vector2(100, 100), content.Load<Texture2D>("Personas/Chris_Character"),0));
 
             _watch = new Stopwatch();
 
@@ -44,7 +44,7 @@ namespace SocialGroundsStore.Multiplayer
                 MaximumConnections = 20
             };
 
-            lastPosition = new Vector2(0,0);
+            _lastPosition = new Vector2(0,0);
 
             // Enable New messagetype. Explained later
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -79,9 +79,9 @@ namespace SocialGroundsStore.Multiplayer
             List<NetConnection> all = _netServer.Connections;
             if (all.Count > 0)
             {
-                if (lastPosition == Game1.players[0].Position) return;
+                if (_lastPosition == Game1.players[0].Position) return;
 
-                lastPosition = Game1.players[0].Position;
+                _lastPosition = Game1.players[0].Position;
 
                 // Write byte = Set "MOVE" as packet type
                 NetOutgoingMessage outMsg = _netServer.CreateMessage();
@@ -120,6 +120,9 @@ namespace SocialGroundsStore.Multiplayer
                         // ( Enums can be casted to bytes, so it be used to make bytes human readable )
                         if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)
                         {
+                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
+                            _incMsg.SenderConnection.Approve();
+
                             // Add new character to the game.
                             // It adds new player to the list and stores name, ( that was sent from the client )
                             // Random x, y and stores client IP+Port
@@ -157,9 +160,6 @@ namespace SocialGroundsStore.Multiplayer
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
                             _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-
-                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
-                            _incMsg.SenderConnection.Approve();
 
                             _watch.Restart();
                         }

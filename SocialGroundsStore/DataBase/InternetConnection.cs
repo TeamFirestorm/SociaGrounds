@@ -60,6 +60,11 @@ namespace SocialGroundsStore.DataBase
 
                     if (ip.Equals(myIp) && connect.DnsSuffix.Equals(myDns))
                     {
+                        if (IsRunning)
+                        {
+                            if (connect.IpAddress.Equals(MyIp)) return null;
+                        }
+
                         return connect.IpAddress;
                     }
                 }
