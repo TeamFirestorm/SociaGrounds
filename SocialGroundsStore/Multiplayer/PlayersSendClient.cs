@@ -168,7 +168,7 @@ namespace SocialGroundsStore.Multiplayer
 
         public async void StartLoop()
         {
-            await Task.Run(new Action(Loop));
+            
         }
 
         private void Loop()

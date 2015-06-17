@@ -8,7 +8,7 @@ namespace SocialGroundsStore.PlayerFolder
 {
     public class MyPlayer : CPlayer
     {
-        private Direction lastDirection = Direction.Down;
+        private Direction _lastDirection = Direction.Down;
 
         public MyPlayer(Vector2 startPosition, Texture2D texture, SpriteFont font, int id)
         {
@@ -75,7 +75,7 @@ namespace SocialGroundsStore.PlayerFolder
         {
             if (keyState.IsKeyDown(Keys.Up))
             {
-                lastDirection = Direction.Up;
+                _lastDirection = Direction.Up;
                 if (!IsCollidingTop(map))
                 {
                     animation.Play(8, 9, gameTime);
@@ -84,7 +84,7 @@ namespace SocialGroundsStore.PlayerFolder
             }
             else if (keyState.IsKeyDown(Keys.Down))
             {
-                lastDirection = Direction.Down;
+                _lastDirection = Direction.Down;
                 if (!IsCollidingBottom(map))
                 {
                     animation.Play(10, 9, gameTime);
@@ -93,7 +93,7 @@ namespace SocialGroundsStore.PlayerFolder
             }
             else if (keyState.IsKeyDown(Keys.Left))
             {
-                lastDirection = Direction.Left;
+                _lastDirection = Direction.Left;
                 if (!IsCollidingLeft(map))
                 {
                     animation.Play(9, 9, gameTime);
@@ -102,7 +102,7 @@ namespace SocialGroundsStore.PlayerFolder
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
-                lastDirection = Direction.Right;
+                _lastDirection = Direction.Right;
                 if (!IsCollidingRight(map))
                 {
                     animation.Play(11, 9, gameTime);
@@ -111,10 +111,10 @@ namespace SocialGroundsStore.PlayerFolder
             }
             else
             {
-                if (lastDirection == Direction.Up) animation.ResetAnimation(8,gameTime);
-                if (lastDirection == Direction.Left) animation.ResetAnimation(9, gameTime);
-                if (lastDirection == Direction.Down) animation.ResetAnimation(10, gameTime);
-                if (lastDirection == Direction.Right) animation.ResetAnimation(11, gameTime);
+                if (_lastDirection == Direction.Up) animation.ResetAnimation(8,gameTime);
+                if (_lastDirection == Direction.Left) animation.ResetAnimation(9, gameTime);
+                if (_lastDirection == Direction.Down) animation.ResetAnimation(10, gameTime);
+                if (_lastDirection == Direction.Right) animation.ResetAnimation(11, gameTime);
             }
         }
 
