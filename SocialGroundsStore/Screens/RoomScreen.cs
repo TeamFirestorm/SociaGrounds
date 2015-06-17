@@ -13,6 +13,12 @@ namespace SocialGroundsStore.Screens
         private readonly Map _map;
         private readonly Camera _camera;
         private readonly Ui _ui;
+        private bool isPlayingMusic;
+        public bool IsPlayingMusic
+        {
+            get { return isPlayingMusic; }
+            set { isPlayingMusic = value; }
+        }
 
         public RoomScreen(ContentManager content, GraphicsDevice graphics)
         {
@@ -24,7 +30,7 @@ namespace SocialGroundsStore.Screens
             _camera = new Camera();
             _ui = new Ui(content, graphics.Viewport);
 
-            MediaPlayer.Play(Game1.songList[1]);
+            isPlayingMusic = true;
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)

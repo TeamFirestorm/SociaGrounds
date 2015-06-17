@@ -141,6 +141,12 @@ namespace SocialGroundsStore
                         _lobbyScreen.CreateConnections();
                         currentScreenState = ScreenState.LobbyScreen;
                     }
+
+                    //if (!_loginScreen.IsPlayingMusic)
+                    //{
+                        MediaPlayer.Play(songList[0]);
+                    //    _loginScreen.IsPlayingMusic = true;
+                    //}
                     break;
                 case ScreenState.LobbyScreen:
                     _lobbyScreen.Update(Content);

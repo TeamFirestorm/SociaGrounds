@@ -13,6 +13,13 @@ namespace SocialGroundsStore.Screens
         private readonly List<Button> buttons;
         private bool isClicked;
 
+        private bool isPlayingMusic;
+        public bool IsPlayingMusic
+        {
+            get { return isPlayingMusic; }
+            set { isPlayingMusic = value; }
+        }
+
         public LoginScreen(ContentManager content)
         {
             isClicked = false;
@@ -21,8 +28,6 @@ namespace SocialGroundsStore.Screens
                 new Button(content, new Vector2(50, 50), "Start", 1.0f)
             };
             
-            // Play background music
-            MediaPlayer.Play(Game1.songList[1]);
         }
 
         public void Update(ContentManager content, MouseState mouseState)
