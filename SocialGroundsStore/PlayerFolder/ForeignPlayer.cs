@@ -10,7 +10,7 @@ namespace SocialGroundsStore.PlayerFolder
 {
     public class ForeignPlayer : CPlayer
     {
-        private Vector2 newPosition;
+        private Vector2 _newPosition;
 
         public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
@@ -25,7 +25,7 @@ namespace SocialGroundsStore.PlayerFolder
 
             Id = id;
 
-            newPosition = default(Vector2);
+            _newPosition = default(Vector2);
         }
 
         public ForeignPlayer(Vector2 startPosition, int id)
@@ -40,7 +40,7 @@ namespace SocialGroundsStore.PlayerFolder
 
             Id = id;
 
-            newPosition = default(Vector2);
+            _newPosition = default(Vector2);
         }
 
         public void AddNewPosition(Vector2 pos)
@@ -61,11 +61,11 @@ namespace SocialGroundsStore.PlayerFolder
 
         private void NewPosition(GameTime gameTime)
         {
-            if (newPosition == default(Vector2))
+            if (_newPosition == default(Vector2))
             {
                 if (newQPosition.Count > 0)
                 {
-                    newPosition = newQPosition.Dequeue();
+                    _newPosition = newQPosition.Dequeue();
                 }
                 else
                 {
@@ -73,34 +73,34 @@ namespace SocialGroundsStore.PlayerFolder
                 }
             }
 
-            if (newPosition.Y > position.Y)
+            if (_newPosition.Y > position.Y)
             {
                 animation.Play(8, 9, gameTime);
 
-                position.Y -= (newPosition.Y - position.Y);
+                position.Y -= (_newPosition.Y - position.Y);
             }
-            else if (newPosition.Y < position.Y)
+            else if (_newPosition.Y < position.Y)
             {
                 animation.Play(10, 9, gameTime);
 
-                position.Y += (position.Y - newPosition.Y);
+                position.Y += (position.Y - _newPosition.Y);
             } 
-            else if (newPosition.X < position.X)
+            else if (_newPosition.X < position.X)
             {
                 animation.Play(9, 9, gameTime);
 
-                position.X -= (position.X - newPosition.X);
+                position.X -= (position.X - _newPosition.X);
             }
-            else if (newPosition.X > position.X)
+            else if (_newPosition.X > position.X)
             {
                 animation.Play(11, 9, gameTime);
 
-                position.X += (newPosition.X - position.X);
+                position.X += (_newPosition.X - position.X);
             }
 
-            if (position == newPosition)
+            if (position == _newPosition)
             {
-                newPosition = default(Vector2);
+                _newPosition = default(Vector2);
             }
         }
 

@@ -137,7 +137,7 @@ namespace SocialGroundsStore.GUI
             _textBuffer = _textBuffer + value;
         }
 
-        public void OnEnter()
+        private void OnEnter()
         {
             Game1.players[0].ChatMessage = _textBuffer;
             _textBuffer = "";

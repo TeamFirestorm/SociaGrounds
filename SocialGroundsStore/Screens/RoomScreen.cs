@@ -48,6 +48,10 @@ namespace SocialGroundsStore.Screens
                 player.Draw(spriteBatch);
             }
             _map.DrawSolid(spriteBatch);
+            foreach (var player in Game1.players)
+            {
+                player.DrawText(spriteBatch);
+            }
             _ui.Draw(spriteBatch);
             spriteBatch.End();
         }

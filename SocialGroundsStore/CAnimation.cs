@@ -6,78 +6,78 @@ namespace SocialGroundsStore
     public class CAnimation
     {
         // The spritesheet to be animated
-        private readonly Texture2D texture;
+        private readonly Texture2D _texture;
         //public Texture2D Texture
         //{
         //    get { return texture; }
         //}
 
         // The source rectangle
-        private Rectangle sourceRect;
+        private Rectangle _sourceRect;
         //public Rectangle SourceRect
         //{
         //    get { return sourceRect; }
         //}
 
         // Width of a single frame
-        private readonly int frameWidth;
+        private readonly int _frameWidth;
         //public int FrameWidth
         //{
         //    get { return frameWidth; }
         //}
 
         // Height of a single frame
-        private readonly int frameHeight;
+        private readonly int _frameHeight;
         //public int FrameHeight
         //{
         //    get { return frameHeight; }
         //}
 
         // The amount of frames per second
-        private readonly double fps;
+        private readonly double _fps;
         //public double Fps
         //{
         //    get { return fps; }
         //}
 
         // Boolean to check if the animation is looping or not
-        private readonly bool isLooping;
+        private readonly bool _isLooping;
         //public bool IsLooping
         //{
         //    get { return isLooping; }
         //}
 
         // Integer to check what frame is currently at position
-        private int currentFrame;
+        private int _currentFrame;
         //public int CurrentFrame
         //{
         //    get { return currentFrame; }
         //}
 
         // Boolean to check if the animation should be playing or not
-        private bool isPlaying;
+        private bool _isPlaying;
         //public bool IsPlaying
         //{
         //    get { return isPlaying; }
         //}
 
         // The amount of time that has been elapsed
-        private float timeElapsed;
+        private float _timeElapsed;
         //public float TimeElapsed
         //{
         //    get { return timeElapsed; }
         //}
 
         // The position to draw the animation at
-        private Vector2 position;
+        private Vector2 _position;
         public Vector2 Position
         {
-            get { return position; }
-            set { position = value; }
+            get { return _position; }
+            set { _position = value; }
         }
 
         // The pixel data of the texture
-        private readonly Color[] textureData;
+        private readonly Color[] _textureData;
         //public Color[] TextureData
         //{
         //    get { return textureData; }
@@ -86,44 +86,44 @@ namespace SocialGroundsStore
         // Constructor
         public CAnimation(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
         {
-            this.texture = texture;
-            this.position = position;
-            this.isLooping = isLooping;
-            this.frameWidth = frameWidth;
-            this.frameHeight = frameHeight;
-            isPlaying = true;
-            timeElapsed = 0;
+            this._texture = texture;
+            this._position = position;
+            this._isLooping = isLooping;
+            this._frameWidth = frameWidth;
+            this._frameHeight = frameHeight;
+            _isPlaying = true;
+            _timeElapsed = 0;
 
             // FPS is entered in the parameter, but transformed in this class
-            this.fps = ((double)1 / (double)fps) * 1000;
+            this._fps = ((double)1 / (double)fps) * 1000;
 
             // Initializing the source rectangle
-            sourceRect = new Rectangle(0, frameHeight * startRow, frameWidth, frameHeight);
+            _sourceRect = new Rectangle(0, frameHeight * startRow, frameWidth, frameHeight);
 
             // Initializing the texture data
-            textureData = new Color[texture.Width * texture.Height];
-            texture.GetData(textureData);
+            _textureData = new Color[texture.Width * texture.Height];
+            texture.GetData(_textureData);
         }
 
         public void ResetAnimation(int row, GameTime gameTime)
         {
             // Check if the time has been elapsed to update the next frame
             // If not, do nothing
-            if (timeElapsed >= fps)
+            if (_timeElapsed >= _fps)
             {
                 // If the animation should be playing, update the source rectangle
-                if (isPlaying)
+                if (_isPlaying)
                 {
-                    currentFrame = 0;
-                    sourceRect = new Rectangle(frameWidth * currentFrame, frameHeight * row, frameWidth, frameHeight);
+                    _currentFrame = 0;
+                    _sourceRect = new Rectangle(_frameWidth * _currentFrame, _frameHeight * row, _frameWidth, _frameHeight);
                 }
 
                 // Reset the amount of times elapsed
-                timeElapsed = 0;
+                _timeElapsed = 0;
             }
 
             // Update the amount of time elapsed
-            timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            _timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
         }
 
         // Method to be called to update the source rectangle
@@ -131,40 +131,40 @@ namespace SocialGroundsStore
         {
             // Check if the time has been elapsed to update the next frame
             // If not, do nothing
-            if (timeElapsed >= fps)
+            if (_timeElapsed >= _fps)
             {
                 // Check if the max amount of frames has been reached
                 // If the animation is set on looping, reset animation and play it again
-                if (currentFrame == maxFrames && isLooping)
+                if (_currentFrame == maxFrames && _isLooping)
                 {
-                    currentFrame = 0;
+                    _currentFrame = 0;
                 }
                 // If the animation is not set on looping, stop the animation
-                else if (currentFrame == maxFrames && !isLooping)
+                else if (_currentFrame == maxFrames && !_isLooping)
                 {
-                    isPlaying = false;
+                    _isPlaying = false;
                 }
 
                 // If the animation should be playing, update the source rectangle
-                if (isPlaying)
+                if (_isPlaying)
                 {
-                    sourceRect = new Rectangle(frameWidth * currentFrame, frameHeight * row, frameWidth, frameHeight);
-                    currentFrame++;
+                    _sourceRect = new Rectangle(_frameWidth * _currentFrame, _frameHeight * row, _frameWidth, _frameHeight);
+                    _currentFrame++;
                 }
 
                 // Reset the amount of times elapsed
-                timeElapsed = 0;
+                _timeElapsed = 0;
             }
 
             // Update the amount of time elapsed
-            timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            _timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
         }
 
 
         // Method to draw the current frame
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, sourceRect, Color.White);
+            spriteBatch.Draw(_texture, _position, _sourceRect, Color.White);
         }
     }
 }

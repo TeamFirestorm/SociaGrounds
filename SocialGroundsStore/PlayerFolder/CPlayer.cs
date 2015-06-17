@@ -3,6 +3,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct2D1;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -77,5 +78,11 @@ namespace SocialGroundsStore.PlayerFolder
 
         // A queue that 
         protected Queue<Vector2> newQPosition;
+
+        public void DrawText(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
+
+        }
     }
 }

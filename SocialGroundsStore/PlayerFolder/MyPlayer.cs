@@ -93,7 +93,6 @@ namespace SocialGroundsStore.PlayerFolder
         public override void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
-            spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
         }
 
         // Method for all input
