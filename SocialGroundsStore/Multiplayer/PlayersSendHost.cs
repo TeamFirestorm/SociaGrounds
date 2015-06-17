@@ -152,6 +152,8 @@ namespace SocialGroundsStore.Multiplayer
                             // Send message/packet to all connections, in reliably order, channel 0
                             // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
                             _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+
+                            _watch.Restart();
                         }
 
                         break;
