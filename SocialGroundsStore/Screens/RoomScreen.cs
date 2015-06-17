@@ -9,19 +9,19 @@ namespace SocialGroundsStore.Screens
 {
     public class RoomScreen
     {
-        private readonly Map map;
-        private readonly Camera camera;
-        private readonly Ui ui;
+        private readonly Map _map;
+        private readonly Camera _camera;
+        private readonly Ui _ui;
 
         public RoomScreen(ContentManager content, GraphicsDevice graphics)
         {
-            map = new Map(CreateMap(), new Vector2(0, 0), content);
-            map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
-            map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, content));
-            map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
+            _map = new Map(CreateMap(), new Vector2(0, 0), content);
+            _map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
+            _map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, content));
+            _map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
-            camera = new Camera();
-            ui = new Ui(content, graphics.Viewport);
+            _camera = new Camera();
+            _ui = new Ui(content, graphics.Viewport);
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)
@@ -30,25 +30,25 @@ namespace SocialGroundsStore.Screens
 
             foreach (var player in Game1.players)
             {
-                player.Update(gameTime, ui, graphics.Viewport, map, keyState);
+                player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
             }
             
-            ui.CheckKeyState(keyState);
+            _ui.CheckKeyState(keyState);
             //ui.CheckMouseDown(mouseState);
 
-            camera.Update(graphics.Viewport, Game1.players[0].Position, map, ui);
+            _camera.Update(graphics.Viewport, Game1.players[0].Position, _map, _ui);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.TranformPublic);
-            map.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _camera.TranformPublic);
+            _map.Draw(spriteBatch);
             foreach (var player in Game1.players)
             {
                 player.Draw(spriteBatch);
             }
-            map.DrawSolid(spriteBatch);
-            ui.Draw(spriteBatch);
+            _map.DrawSolid(spriteBatch);
+            _ui.Draw(spriteBatch);
             spriteBatch.End();
         }
 
