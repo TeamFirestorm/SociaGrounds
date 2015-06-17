@@ -199,6 +199,7 @@ namespace SocialGroundsStore.Multiplayer
             outmsg.Write((byte)PacketTypes.Move);
 
             // Write byte = move direction
+            outmsg.Write(Game1.players[0].Id);
             outmsg.Write(newPosition.X);
             outmsg.Write(newPosition.Y);
 
