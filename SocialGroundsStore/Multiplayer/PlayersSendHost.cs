@@ -118,8 +118,9 @@ namespace SocialGroundsStore.Multiplayer
 
                         // Read the first byte of the packet
                         // ( Enums can be casted to bytes, so it be used to make bytes human readable )
-                        if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)
+                        if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)  
                         {
+                            _watch.Stop();
                             // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
                             _incMsg.SenderConnection.Approve();
 
