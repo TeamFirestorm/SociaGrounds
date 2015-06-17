@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -20,14 +18,16 @@ namespace SocialGroundsStore.Multiplayer
         private NetIncomingMessage _incMsg;
 
         // Indicates if program is running
-        private static bool _isRunning;
+        private bool _isRunning;
 
-        private int _numberOfPlayers = 1;
+        private int _numberOfPlayers;
 
         private readonly Stopwatch _watch;
 
         public PlayersSendHost(ContentManager content)
         {
+            _numberOfPlayers = 1;
+
             Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character"), content.Load<SpriteFont>("SociaGroundsFont"),0));
 
             _watch = new Stopwatch();
@@ -68,7 +68,6 @@ namespace SocialGroundsStore.Multiplayer
                 ServerRunning();
             }
         }
-
 
         // Get input from player and send it to server
         private static void SendLocationToClients()
