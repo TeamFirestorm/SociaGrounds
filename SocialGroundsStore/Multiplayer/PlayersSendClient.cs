@@ -105,7 +105,7 @@ namespace SocialGroundsStore.Multiplayer
                                 _started = true;
                             }
                             break;
-                    }                                
+                    }                        
                 }
             }
         }
