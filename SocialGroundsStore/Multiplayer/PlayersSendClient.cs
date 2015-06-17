@@ -104,6 +104,10 @@ namespace SocialGroundsStore.Multiplayer
                                 canStart = true;
                                 _started = true;
                             }
+                            else if (firstPackage != (byte)PacketTypes.Connect)
+                            {
+                                Debug.WriteLine("NO!");
+                            }
                             break;
                     }                        
                 }

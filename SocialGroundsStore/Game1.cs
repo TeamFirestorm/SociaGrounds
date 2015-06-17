@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SocialGroundsStore.PlayerFolder;
 using SocialGroundsStore.Screens;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SocialGroundsStore
 {
@@ -101,9 +102,8 @@ namespace SocialGroundsStore
             font = Content.Load<SpriteFont>("SociaGroundsFont");
 
             // Songs load
-            //songList.Add(Content.Load<Song>("Music/splashscreen_music"));
-            //songList.Add(Content.Load<Song>("Music/menu_music"));
-            //songList.Add(Content.Load<Song>("Music/in-game-music"));
+            songList.Add(Content.Load<Song>("Music/splashscreen_music"));
+            songList.Add(Content.Load<Song>("Music/in-game-music"));
 
             // Screens load
             _loginScreen = new LoginScreen(Content);

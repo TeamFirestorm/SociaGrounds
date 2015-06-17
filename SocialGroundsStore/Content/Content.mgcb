@@ -19,3 +19,21 @@
 /processorParam:TextureFormat=Compressed
 /build:SociaGroundsFont.spritefont
 
+#begin Music/in-game-music.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/in-game-music.mp3
+
+#begin Music/menu_music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/menu_music.wav
+
+#begin Music/splashscreen_music.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/splashscreen_music.mp3
+

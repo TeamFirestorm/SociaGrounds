@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -22,6 +23,8 @@ namespace SocialGroundsStore.Screens
 
             _camera = new Camera();
             _ui = new Ui(content, graphics.Viewport);
+
+            MediaPlayer.Play(Game1.songList[1]);
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)
