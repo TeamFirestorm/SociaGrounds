@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
@@ -71,7 +72,7 @@ namespace SocialGroundsStore.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Show the chat message for a certain amount of time
-            if (chatMessage != "")
+            if (!String.IsNullOrEmpty(chatMessage))
             {
                 chatCounter += gameTime.ElapsedGameTime.Milliseconds;
 
