@@ -14,6 +14,7 @@ namespace SocialGroundsStore.Screens
         private readonly Camera _camera;
         private readonly Ui _ui;
         private bool isPlayingMusic;
+
         public bool IsPlayingMusic
         {
             get { return isPlayingMusic; }
@@ -30,7 +31,7 @@ namespace SocialGroundsStore.Screens
             _camera = new Camera();
             _ui = new Ui(content, graphics.Viewport);
 
-            isPlayingMusic = true;
+            isPlayingMusic = false;
         }
 
         public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)

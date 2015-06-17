@@ -145,6 +145,7 @@ namespace SocialGroundsStore
                         MediaPlayer.Play(songList[0]);
                         _loginScreen.IsPlayingMusic = true;
                     }
+
                     break;
                 case ScreenState.LobbyScreen:
                     _lobbyScreen.Update(Content);
@@ -156,7 +157,13 @@ namespace SocialGroundsStore
 
                 case ScreenState.RoomScreen:
                     _roomScreen.Update(gameTime, GraphicsDevice, mouseState);
-                    MediaPlayer.Play(songList[1]);
+
+                    if (!_roomScreen.IsPlayingMusic)
+                    {
+                        MediaPlayer.Play(songList[1]);
+                        MediaPlayer.IsRepeating = true;
+                        _roomScreen.IsPlayingMusic = true;
+                    }
                     break;
             }
 
