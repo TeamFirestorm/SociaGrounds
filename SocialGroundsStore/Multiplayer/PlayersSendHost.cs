@@ -55,12 +55,7 @@ namespace SocialGroundsStore.Multiplayer
             _netServer.Start();
         }
 
-        public async void StartLoop()
-        {
-            await Task.Run(new Action(Loop));
-        }
-
-        private void Loop()
+        public void Loop()
         {
             _isRunning = true;
             while (_isRunning)

@@ -11,46 +11,45 @@ namespace SocialGroundsStore.Screens
 {
     public class LobbyScreen : Screen
     {
-        private readonly List<Connection> connections;
+        private readonly List<Connection> _connections;
         public PlayersSendHost Host { get; set; }
         private PlayersSendClient Client { get; set; }
 
-        private bool createdList;
-        private bool alreadyStarted;
+        private bool _createdList;
+        private bool _alreadyStarted;
 
         public LobbyScreen()
         {
             InternetConnection.GetMyIpAndDns();
-            createdList = false;
-            alreadyStarted = false;
-            connections = new List<Connection>();
+            _createdList = false;
+            _alreadyStarted = false;
+            _connections = new List<Connection>();
             CreateConnections();
         }
 
         private async void CreateConnections()
         {
-            connections.Clear();
+            _connections.Clear();
             List<Connection> temp = await DbStuff.GetConnections();
             foreach (var con in temp)
             {
-                connections.Add(con);
+                _connections.Add(con);
             }
-            createdList = true;
+            _createdList = true;
         }
 
         public override void Update(ContentManager content)
         {
-            if (createdList && !alreadyStarted)
+            if (_createdList && !_alreadyStarted)
             {
-                alreadyStarted = true;
+                _alreadyStarted = true;
 
-                string ip = InternetConnection.CheckPossibleConnection(connections);
+                string ip = InternetConnection.CheckPossibleConnection(_connections);
 
                 if (ip == null)
                 {
                     Host = new PlayersSendHost(content);
-                    Task.Run(new Action(Host.StartLoop));
-
+                    Task.Run(new Action(Host.Loop));
                     Debug.WriteLine("Created and started Host");
                     InsertConnection();
                 }
@@ -59,7 +58,7 @@ namespace SocialGroundsStore.Screens
                     Host = null;
                     Client = new PlayersSendClient(content, ip);
                     Debug.WriteLine("Created and started Client");
-                    Task.Run(new Action(Client.StartLoop));
+                    Task.Run(new Action(Client.Loop));
                 }
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;
             }

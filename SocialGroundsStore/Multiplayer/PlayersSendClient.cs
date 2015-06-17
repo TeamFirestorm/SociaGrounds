@@ -166,12 +166,7 @@ namespace SocialGroundsStore.Multiplayer
             }
         }
 
-        public async void StartLoop()
-        {
-            
-        }
-
-        private void Loop()
+        public void Loop()
         {
             while (!_stopped)
             {
