@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +10,7 @@ namespace SocialGroundsStore.GUI
     {
         // The room menu
         private readonly RoomMenu _roomMenu;
-        private bool _isCapsLock;
+        //private bool _isCapsLock;
         private string _textBuffer;
 
         private readonly Keys[] _keys = 
@@ -52,7 +53,7 @@ namespace SocialGroundsStore.GUI
         {
             _roomMenu = new RoomMenu(content, new Vector2(0, 0), viewport);
             _textBuffer = "";
-            _isCapsLock = false;
+            //_isCapsLock = false;
             _isClicked = new bool[_upperCase.Length];
         }
 
@@ -139,6 +140,8 @@ namespace SocialGroundsStore.GUI
 
         private void OnEnter()
         {
+            if (!String.IsNullOrEmpty(_textBuffer)) return;
+
             Game1.players[0].ChatMessage = _textBuffer;
             _textBuffer = "";
         }
