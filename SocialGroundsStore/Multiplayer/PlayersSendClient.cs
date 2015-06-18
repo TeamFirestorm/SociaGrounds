@@ -52,67 +52,67 @@ namespace SocialGroundsStore.Multiplayer
             _client.Connect(hostip, 14242, outmsg);
 
             // Funtion that waits for connection approval info from server
-            //WaitForStartingInfo();
+            WaitForStartingInfo();
         }
 
-        //// Before main looping starts, we loop here and wait for approval message
-        //private void WaitForStartingInfo()
-        //{
-        //    // When this is set to true, we are approved and ready to go
-        //    bool canStart = false;
+        // Before main looping starts, we loop here and wait for approval message
+        private void WaitForStartingInfo()
+        {
+            // When this is set to true, we are approved and ready to go
+            bool canStart = false;
 
-        //    // Loop untill we are approved
-        //    while (!canStart)
-        //    {
-        //        // New incoming message // If new messages arrived
-        //        NetIncomingMessage msg = _client.ReadMessage();
-        //        if ((msg != null))
-        //        {
-        //            byte firstPackage = msg.ReadByte();
+            // Loop untill we are approved
+            while (!canStart)
+            {
+                // New incoming message // If new messages arrived
+                NetIncomingMessage msg = _client.ReadMessage();
+                if ((msg != null))
+                {
+                    byte firstPackage = msg.ReadByte();
 
-        //            // Switch based on the message types
-        //            switch (msg.MessageType)
-        //            {
-        //                case NetIncomingMessageType.DebugMessage:
-        //                case NetIncomingMessageType.ErrorMessage:
-        //                case NetIncomingMessageType.Error:
-        //                case NetIncomingMessageType.VerboseDebugMessage:
-        //                case NetIncomingMessageType.WarningMessage:
-        //                    break;
+                    // Switch based on the message types
+                    switch (msg.MessageType)
+                    {
+                        case NetIncomingMessageType.DebugMessage:
+                        case NetIncomingMessageType.ErrorMessage:
+                        case NetIncomingMessageType.Error:
+                        case NetIncomingMessageType.VerboseDebugMessage:
+                        case NetIncomingMessageType.WarningMessage:
+                            break;
 
-        //                // All manually sent messages are type of "Data"
-        //                case NetIncomingMessageType.Data:
+                        // All manually sent messages are type of "Data"
+                        case NetIncomingMessageType.Data:
 
-        //                    // Read the first byte
-        //                    // This way we can separate packets from each others
-        //                    if (firstPackage == (byte)PacketTypes.Connect)
-        //                    {
-        //                        Game1.players[0].Id = msg.ReadInt32();
-        //                        int numPlayers = msg.ReadInt32();
+                            // Read the first byte
+                            // This way we can separate packets from each others
+                            if (firstPackage == (byte)PacketTypes.Connect)
+                            {
+                                Game1.players[0].Id = msg.ReadInt32();
+                                int numPlayers = msg.ReadInt32();
 
-        //                        for (int i = 0; i < numPlayers; i++)
-        //                        {
-        //                            int id = msg.ReadInt32();
-        //                            float x = msg.ReadFloat();
-        //                            float y = msg.ReadFloat();
+                                for (int i = 0; i < numPlayers; i++)
+                                {
+                                    int id = msg.ReadInt32();
+                                    float x = msg.ReadFloat();
+                                    float y = msg.ReadFloat();
 
-        //                            Game1.players.Add(new ForeignPlayer(new Vector2(x,y), id));
-        //                        }
+                                    Game1.players.Add(new ForeignPlayer(new Vector2(x, y), id));
+                                }
 
-        //                        // When all players are added to list, start the game
-        //                        _watch.Start();
-        //                        canStart = true;
-        //                        _started = true;
-        //                    }
-        //                    else if (firstPackage != (byte)PacketTypes.Connect)
-        //                    {
-        //                        Debug.WriteLine("NO!");
-        //                    }
-        //                    break;
-        //            }                        
-        //        }
-        //    }
-        //}
+                                // When all players are added to list, start the game
+                                _watch.Start();
+                                canStart = true;
+                                _started = true;
+                            }
+                            else if (firstPackage != (byte)PacketTypes.Connect)
+                            {
+                                Debug.WriteLine("NO!");
+                            }
+                            break;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Check for new incoming messages from server
@@ -143,27 +143,7 @@ namespace SocialGroundsStore.Multiplayer
 
                     byte firstPackage = msg.ReadByte();
 
-                    if (firstPackage == (byte)PacketTypes.Connect)
-                    {
-                        if (_started) return;
-
-                        Game1.players[0].Id = msg.ReadInt32();
-                        int numPlayers = msg.ReadInt32();
-
-                        for (int i = 0; i < numPlayers; i++)
-                        {
-                            int id = msg.ReadInt32();
-                            float x = msg.ReadFloat();
-                            float y = msg.ReadFloat();
-
-                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), id));
-                        }
-
-                        // When all players are added to list, start the game
-                        _started = true;
-                        _watch.Start();
-                    }
-                    else if (firstPackage == (byte)PacketTypes.Move)
+                    if (firstPackage == (byte)PacketTypes.Move)
                     {
                         if (!_started) return;
 
