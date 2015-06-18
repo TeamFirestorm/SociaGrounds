@@ -130,39 +130,42 @@ namespace SocialGroundsStore.Multiplayer
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
 
-                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
+                            Game1.players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection,_numberOfPlayers));
                             _numberOfPlayers++;
 
-                            // Create message, that can be written and sent
-                            NetOutgoingMessage outmsg = _netServer.CreateMessage();
-
-                            // first we write byte
-                            outmsg.Write((byte)PacketTypes.Connect);
-                            outmsg.Write(Game1.players.Last().Id);
-
-                            outmsg.Write(Game1.players.Count - 1);
-
-                            if (Game1.players.Count - 1 > 0)
+                            for (int i = 0; i < 3; i++)
                             {
-                                // iterate trought every character ingame
-                                foreach (CPlayer player in Game1.players)
+                                // Create message, that can be written and sent
+                                NetOutgoingMessage outmsg = _netServer.CreateMessage();
+
+                                // first we write byte
+                                outmsg.Write((byte) PacketTypes.Connect);
+                                outmsg.Write(Game1.players.Last().Id);
+
+                                outmsg.Write(Game1.players.Count - 1);
+
+                                if (Game1.players.Count - 1 > 0)
                                 {
-                                    // This is handy method
-                                    // It writes all the properties of object to the packet
-                                    if (_incMsg.SenderConnection != player.Connection)
+                                    // iterate trought every character ingame
+                                    foreach (CPlayer player in Game1.players)
                                     {
-                                        outmsg.Write(player.Id);
-                                        outmsg.Write(player.Position.X);
-                                        outmsg.Write(player.Position.Y);
-                                        outmsg.Write(player.ChatMessage);
+                                        // This is handy method
+                                        // It writes all the properties of object to the packet
+                                        if (_incMsg.SenderConnection != player.Connection)
+                                        {
+                                            outmsg.Write(player.Id);
+                                            outmsg.Write(player.Position.X);
+                                            outmsg.Write(player.Position.Y);
+                                            outmsg.Write(player.ChatMessage);
+                                        }
                                     }
                                 }
+
+                                // Send message/packet to all connections, in reliably order, channel 0
+                                // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
+                                _netServer.SendMessage(outmsg, _incMsg.SenderConnection,
+                                    NetDeliveryMethod.ReliableOrdered, 0);
                             }
-
-                            // Send message/packet to all connections, in reliably order, channel 0
-                            // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
-                            _netServer.SendMessage(outmsg, _incMsg.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-
                             _watch.Restart();
                         }
 
