@@ -133,7 +133,7 @@ namespace SocialGroundsStore.Multiplayer
                             Game1.players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection,_numberOfPlayers));
                             _numberOfPlayers++;
 
-                            for (int i = 0; i < 3; i++)
+                            for (int i = 0; i < 10; i++)
                             {
                                 // Create message, that can be written and sent
                                 NetOutgoingMessage outmsg = _netServer.CreateMessage();
