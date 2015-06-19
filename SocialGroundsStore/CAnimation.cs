@@ -14,7 +14,6 @@ namespace SocialGroundsStore
         // Width of a single frame
         private readonly int _frameWidth;
 
-
         // Height of a single frame
         private readonly int _frameHeight;
 
