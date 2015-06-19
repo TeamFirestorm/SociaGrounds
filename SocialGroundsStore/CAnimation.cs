@@ -32,12 +32,8 @@ namespace SocialGroundsStore
         // The amount of time that has been elapsed
         private float _timeElapsed;
 
-        // The position to draw the animation at
-        private Vector2 _position;
-        public Vector2 Position
-        {
-            set { _position = value; }
-        }
+        /// The position to draw the animation at
+        public Vector2 Position { get; set; }
 
         /// <summary>
         /// Constructor
@@ -52,7 +48,7 @@ namespace SocialGroundsStore
         public CAnimation(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
         {
             _texture = texture;
-            _position = position;
+            Position = position;
             _isLooping = isLooping;
             _frameWidth = frameWidth;
             _frameHeight = frameHeight;
@@ -96,7 +92,12 @@ namespace SocialGroundsStore
             _timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
         }
 
-        // Method to be called to update the source rectangle
+        /// <summary>
+        /// Method to be called to update the source rectangle
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="maxFrames"></param>
+        /// <param name="gameTime"></param>
         public void Play(int row, int maxFrames, GameTime gameTime)
         {
             // Check if the time has been elapsed to update the next frame
@@ -131,10 +132,13 @@ namespace SocialGroundsStore
         }
 
 
-        // Method to draw the current frame
+        /// <summary>
+        /// Method to draw the current frame
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, _sourceRect, Color.White);
+            spriteBatch.Draw(_texture, Position, _sourceRect, Color.White);
         }
     }
 }
