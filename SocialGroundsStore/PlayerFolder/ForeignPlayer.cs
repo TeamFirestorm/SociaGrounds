@@ -85,6 +85,10 @@ namespace SocialGroundsStore.PlayerFolder
             }
         }
 
+        /// <summary>
+        /// Sets the new posiotion of a foreign player
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void NewPosition(GameTime gameTime)
         {
             if (_newPosition == default(Vector2))
@@ -129,7 +133,11 @@ namespace SocialGroundsStore.PlayerFolder
                 _newPosition = default(Vector2);
             }
         }
-
+        
+        /// <summary>
+        /// Draw
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
