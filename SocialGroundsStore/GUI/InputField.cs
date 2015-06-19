@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SocialGroundsStore.GUI
 {
-    class SociaInputfield
+    public class InputField
     {
         // Textures for the inputfield
         private readonly Texture2D _textFieldEnd;
@@ -28,7 +28,7 @@ namespace SocialGroundsStore.GUI
         // Scale of the inputfield
         private readonly float _scale;
 
-        public SociaInputfield(ContentManager content, Vector2 position, int width, float scale)
+        public InputField(ContentManager content, Vector2 position, int width, float scale)
         {
             // Loading the textures
             _textFieldEnd = content.Load<Texture2D>("GUI/Inputfield/LeftTextField");
