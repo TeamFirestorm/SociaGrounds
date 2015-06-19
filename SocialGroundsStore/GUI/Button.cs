@@ -27,6 +27,8 @@ namespace SocialGroundsStore.GUI
             get { return _text; }
         }
 
+        public bool ClickedThis { get; set; }
+
         // Rectangle for detection
         private Rectangle _rect;
 

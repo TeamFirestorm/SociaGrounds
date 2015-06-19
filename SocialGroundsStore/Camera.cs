@@ -48,6 +48,7 @@ namespace SocialGroundsStore
 
             // Camera translation
             TranformPublic = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Height / 2.5f), -_centre.Y + (viewport.Width / 8f), 0)) * Matrix.CreateScale(2.0f, 2.0f, 0);
+
             ui.Update(_centre, viewport, keyState);
         }
     }

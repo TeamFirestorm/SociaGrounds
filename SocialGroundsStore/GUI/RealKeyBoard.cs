@@ -46,7 +46,7 @@ namespace SocialGroundsStore.GUI
             _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
         }
 
-        public void Update(Vector2 position, Viewport viewport,KeyboardState keyState)
+        public void Update(Vector2 position, Viewport viewport, KeyboardState keyState)
         {
             _inputField.Position = new Vector2(position.X - (viewport.Width / 11f), position.Y + (viewport.Height / _inputFieldHeight));
             CheckKeyState(keyState);

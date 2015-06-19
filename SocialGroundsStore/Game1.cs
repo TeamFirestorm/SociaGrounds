@@ -21,26 +21,29 @@ namespace SocialGroundsStore
 
         public enum ScreenState
         {
-            LoginScreen,
-            LobbyScreen,
             HomeScreen,
-            RoomScreen
+            LobbyScreen,
+            RoomScreen,
+            AboutScreen,
         }
+
+        // All the screens
+        private HomeScreen _homeScreen;
+        private LobbyScreen _lobbyScreen;
+        private AboutScreen _aboutScreen;
+        private RoomScreen _roomScreen;
+
+        // All music
+        private static List<Song> _songList;
+
+        //The size of the current screen
+        public static Viewport Viewport { get; private set; }
 
         //The current Activated Screen;
         public static ScreenState currentScreenState;
 
         //The list containing all the players
         public static List<CPlayer> players;
-
-        // All the screens
-        private LoginScreen _loginScreen;
-        private HomeScreen _homeScreen;
-        private LobbyScreen _lobbyScreen;
-        private RoomScreen _roomScreen;
-
-        // All music
-        private static List<Song> _songList;
 
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
@@ -88,9 +91,11 @@ namespace SocialGroundsStore
             // Initializing songlist
             _songList = new List<Song>();
 
-            currentScreenState = ScreenState.LoginScreen;
+            currentScreenState = ScreenState.HomeScreen;
 
             IsMouseVisible = true;
+
+            Viewport = GraphicsDevice.Viewport;
 
             base.Initialize();
         }
@@ -101,7 +106,6 @@ namespace SocialGroundsStore
         /// </summary>
         protected override void LoadContent()
         {
-
             texture = Content.Load<Texture2D>("Personas/Gyllion_Character");
             font = Content.Load<SpriteFont>("SociaGroundsFont");
 
@@ -110,8 +114,8 @@ namespace SocialGroundsStore
             _songList.Add(Content.Load<Song>("Music/in-game-music"));
 
             // Screens load
-            _loginScreen = new LoginScreen(Content, GraphicsDevice.Viewport);
-            _homeScreen = new HomeScreen(Content, GraphicsDevice.Viewport);
+            _homeScreen = new HomeScreen(Content);
+            _aboutScreen = new AboutScreen();
             _lobbyScreen = new LobbyScreen();
             _roomScreen = new RoomScreen(Content);
         }
@@ -133,41 +137,41 @@ namespace SocialGroundsStore
         protected override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
+            KeyboardState keyState = Keyboard.GetState();
 
             // Switch statement to determine the screen update logic
             switch (currentScreenState)
             {
-                case ScreenState.LoginScreen:
-                    _loginScreen.Update(mouseState);
+                case ScreenState.HomeScreen:
+                    _homeScreen.Update(mouseState);
 
-                    if (_loginScreen.ToHomeScreen())
-                    {
-                        _lobbyScreen.CreateConnections();
-                        currentScreenState = ScreenState.LobbyScreen;
-                    }
-
-                    if (!_loginScreen.IsPlayingMusic)
+                    if (!_homeScreen.IsPlayingMusic)
                     {
                         MediaPlayer.Play(_songList[0]);
-                        _loginScreen.IsPlayingMusic = true;
+                        _homeScreen.IsPlayingMusic = true;
                     }
-
                     break;
+
                 case ScreenState.LobbyScreen:
+
+                    if (!_lobbyScreen._firstStarted)
+                    {
+                        _lobbyScreen._firstStarted = true;
+                        _lobbyScreen.CreateConnections();
+                    } 
                     _lobbyScreen.Update(Content);
                     break;
 
-                case ScreenState.HomeScreen:
-                    _homeScreen.Update(Content);
+                case ScreenState.AboutScreen:
+                    _aboutScreen.Update();
                     break;
 
                 case ScreenState.RoomScreen:
-                    _roomScreen.Update(gameTime, GraphicsDevice);
+                    _roomScreen.Update(gameTime, GraphicsDevice, keyState);
 
                     if (!_roomScreen.IsPlayingMusic)
                     {
-                        MediaPlayer.Play(_songList[1]);
-                        MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Play(_songList[1]); MediaPlayer.IsRepeating = true;
                         _roomScreen.IsPlayingMusic = true;
                     }
                     break;
@@ -187,16 +191,16 @@ namespace SocialGroundsStore
             // Switch statement to determine the draw logic
             switch (currentScreenState)
             {
-                case ScreenState.LoginScreen:
+                case ScreenState.HomeScreen:
                     _spriteBatch.Begin();
-                    _loginScreen.Draw(_spriteBatch);
+                    _homeScreen.Draw(_spriteBatch);
                     _spriteBatch.End();
                     break;
                 case ScreenState.LobbyScreen:
                     _lobbyScreen.Draw(_spriteBatch);
                     break;
-                case ScreenState.HomeScreen:
-                    _homeScreen.Draw(_spriteBatch);
+                case ScreenState.AboutScreen:
+                    _aboutScreen.Draw(_spriteBatch);
                     break;
                 case ScreenState.RoomScreen:
                     _roomScreen.Draw(_spriteBatch);
