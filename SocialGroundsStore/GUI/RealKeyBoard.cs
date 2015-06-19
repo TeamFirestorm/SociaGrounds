@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
-    public class RealKeyBoard
+    public class RealKeyBoard : IKeyBoard
     {
         private string _textBuffer;
 
@@ -35,7 +35,7 @@ namespace SocialGroundsStore.GUI
 
         private bool _isBackSpace;
         private bool _isEnter;
-        private readonly SociaInputfield _inputField;
+        private readonly InputField _inputField;
         private readonly float _inputFieldHeight;
 
         public RealKeyBoard(ContentManager content)
@@ -43,7 +43,7 @@ namespace SocialGroundsStore.GUI
             _textBuffer = "";
             _isClicked = new bool[_upperCase.Length];
             _inputFieldHeight = 4.7f;
-            _inputField = new SociaInputfield(content, new Vector2(100, 0), 10, 0.08f);
+            _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
         }
 
         public void Update(Vector2 position, Viewport viewport,KeyboardState keyState)

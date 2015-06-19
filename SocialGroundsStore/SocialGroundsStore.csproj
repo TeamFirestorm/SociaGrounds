@@ -141,8 +141,9 @@
     <Compile Include="DataBase\Connection.cs" />
     <Compile Include="DataBase\DbStuff.cs" />
     <Compile Include="GUI\Button.cs" />
+    <Compile Include="GUI\KeyBoard.cs" />
     <Compile Include="GUI\RealKeyBoard.cs" />
-    <Compile Include="GUI\SociaInputfield.cs" />
+    <Compile Include="GUI\InputField.cs" />
     <Compile Include="GUI\GUI.cs" />
     <Compile Include="Multiplayer\Lidgren.Network\Abstraction\AddressFamily.cs" />
     <Compile Include="Multiplayer\Lidgren.Network\Abstraction\BindingFlags.cs" />

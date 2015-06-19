@@ -16,10 +16,13 @@ namespace SocialGroundsStore.Screens
 
         public LoginScreen(ContentManager content, Viewport viewport)
         {
+            float middleWidth = viewport.Width/2f;
+            float middleHeight = viewport.Height/2f;
+
             _isClicked = false;
             _buttons = new List<Button>
             {
-                new Button(content, new Vector2(50, 50), "Login", 1.0f)
+                new Button(content, new Vector2(middleWidth, middleHeight), "Login", 1.0f)
             };
             
         }

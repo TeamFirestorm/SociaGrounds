@@ -110,10 +110,10 @@ namespace SocialGroundsStore
             _songList.Add(Content.Load<Song>("Music/in-game-music"));
 
             // Screens load
-            _loginScreen = new LoginScreen(Content);
-            _roomScreen = new RoomScreen(Content);
+            _loginScreen = new LoginScreen(Content, GraphicsDevice.Viewport);
             _homeScreen = new HomeScreen(Content, GraphicsDevice.Viewport);
             _lobbyScreen = new LobbyScreen();
+            _roomScreen = new RoomScreen(Content);
         }
 
         /// <summary>
