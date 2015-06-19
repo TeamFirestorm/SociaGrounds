@@ -163,7 +163,7 @@ namespace SocialGroundsStore
                     break;
 
                 case ScreenState.AboutScreen:
-                    _aboutScreen.Update();
+                    _aboutScreen.Update(keyState);
                     break;
 
                 case ScreenState.RoomScreen:

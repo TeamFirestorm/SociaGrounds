@@ -57,7 +57,7 @@ namespace SocialGroundsStore.Screens
             }
             if (_buttons[1].ClickedThis)
             {
-                _buttons[0].ClickedThis = false;
+                _buttons[1].ClickedThis = false;
                 Game1.currentScreenState = Game1.ScreenState.AboutScreen;
             }
         }
