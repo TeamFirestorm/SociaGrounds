@@ -7,81 +7,38 @@ namespace SocialGroundsStore
     {
         // The spritesheet to be animated
         private readonly Texture2D _texture;
-        //public Texture2D Texture
-        //{
-        //    get { return texture; }
-        //}
 
         // The source rectangle
         private Rectangle _sourceRect;
-        //public Rectangle SourceRect
-        //{
-        //    get { return sourceRect; }
-        //}
 
         // Width of a single frame
         private readonly int _frameWidth;
-        //public int FrameWidth
-        //{
-        //    get { return frameWidth; }
-        //}
+
 
         // Height of a single frame
         private readonly int _frameHeight;
-        //public int FrameHeight
-        //{
-        //    get { return frameHeight; }
-        //}
 
         // The amount of frames per second
         private readonly double _fps;
-        //public double Fps
-        //{
-        //    get { return fps; }
-        //}
 
         // Boolean to check if the animation is looping or not
         private readonly bool _isLooping;
-        //public bool IsLooping
-        //{
-        //    get { return isLooping; }
-        //}
 
         // Integer to check what frame is currently at position
         private int _currentFrame;
-        //public int CurrentFrame
-        //{
-        //    get { return currentFrame; }
-        //}
 
         // Boolean to check if the animation should be playing or not
         private bool _isPlaying;
-        //public bool IsPlaying
-        //{
-        //    get { return isPlaying; }
-        //}
 
         // The amount of time that has been elapsed
         private float _timeElapsed;
-        //public float TimeElapsed
-        //{
-        //    get { return timeElapsed; }
-        //}
 
         // The position to draw the animation at
         private Vector2 _position;
         public Vector2 Position
         {
-            get { return _position; }
             set { _position = value; }
         }
-
-        // The pixel data of the texture
-        private readonly Color[] _textureData;
-        //public Color[] TextureData
-        //{
-        //    get { return textureData; }
-        //}
 
         /// <summary>
         /// Constructor
@@ -95,23 +52,23 @@ namespace SocialGroundsStore
         /// <param name="isLooping">Should the animation loop or not?</param>
         public CAnimation(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
         {
-            this._texture = texture;
-            this._position = position;
-            this._isLooping = isLooping;
-            this._frameWidth = frameWidth;
-            this._frameHeight = frameHeight;
+            _texture = texture;
+            _position = position;
+            _isLooping = isLooping;
+            _frameWidth = frameWidth;
+            _frameHeight = frameHeight;
             _isPlaying = true;
             _timeElapsed = 0;
 
             // FPS is entered in the parameter, but transformed in this class
-            this._fps = ((double)1 / (double)fps) * 1000;
+            _fps = (1d / fps) * 1000;
 
             // Initializing the source rectangle
             _sourceRect = new Rectangle(0, frameHeight * startRow, frameWidth, frameHeight);
 
             // Initializing the texture data
-            _textureData = new Color[texture.Width * texture.Height];
-            texture.GetData(_textureData);
+            var textureData = new Color[texture.Width * texture.Height];
+            texture.GetData(textureData);
         }
 
         /// <summary>

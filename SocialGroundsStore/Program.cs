@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SocialGroundsStore
+﻿namespace SocialGroundsStore
 {
     /// <summary>
     /// The main class.

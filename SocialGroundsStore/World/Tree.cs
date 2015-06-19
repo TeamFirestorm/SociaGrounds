@@ -15,17 +15,15 @@ namespace SocialGroundsStore.World
         {
             // Initialization
             this.position = position;
-            this._amountOfLogs = amountOfLogs;
+            _amountOfLogs = amountOfLogs;
 
             // Loading textures
             _bottom = content.Load<Texture2D>("World/Tree/TreeBottom");
             _mid = content.Load<Texture2D>("World/Tree/TreeMid");
             _top = content.Load<Texture2D>("World/Tree/TreeTop");
 
-            //64 x 41
-
             // Creating the rectangle
-            rect = new Rectangle((int)(position.X + (_bottom.Width / 3.1f)), (int)position.Y + 10, (int)(_bottom.Width / 3), (int)(_bottom.Height /2.5));
+            rect = new Rectangle((int)(position.X + (_bottom.Width / 3.1f)), (int)position.Y + 10, (_bottom.Width / 3), (int)(_bottom.Height /2.5));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -41,7 +41,7 @@ namespace SocialGroundsStore
         private RoomScreen _roomScreen;
 
         // All music
-        public static List<Song> songList;
+        private static List<Song> _songList;
 
         /// <summary>
         /// 
@@ -80,7 +80,7 @@ namespace SocialGroundsStore
             players = new List<CPlayer>();
             
             // Initializing songlist
-            songList = new List<Song>();
+            _songList = new List<Song>();
 
             currentScreenState = ScreenState.LoginScreen;
 
@@ -100,8 +100,8 @@ namespace SocialGroundsStore
             font = Content.Load<SpriteFont>("SociaGroundsFont");
 
             // Songs load
-            songList.Add(Content.Load<Song>("Music/splashscreen_music"));
-            songList.Add(Content.Load<Song>("Music/in-game-music"));
+            _songList.Add(Content.Load<Song>("Music/splashscreen_music"));
+            _songList.Add(Content.Load<Song>("Music/in-game-music"));
 
             // Screens load
             _loginScreen = new LoginScreen(Content);
@@ -142,7 +142,7 @@ namespace SocialGroundsStore
 
                     if (!_loginScreen.IsPlayingMusic)
                     {
-                        MediaPlayer.Play(songList[0]);
+                        MediaPlayer.Play(_songList[0]);
                         _loginScreen.IsPlayingMusic = true;
                     }
 
@@ -160,7 +160,7 @@ namespace SocialGroundsStore
 
                     if (!_roomScreen.IsPlayingMusic)
                     {
-                        MediaPlayer.Play(songList[1]);
+                        MediaPlayer.Play(_songList[1]);
                         MediaPlayer.IsRepeating = true;
                         _roomScreen.IsPlayingMusic = true;
                     }
