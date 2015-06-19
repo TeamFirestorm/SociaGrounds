@@ -6,11 +6,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
-    public class Ui
+    public class RealKeyBoard
     {
-        // The room menu
-        private readonly RoomMenu _roomMenu;
-        //private bool _isCapsLock;
         private string _textBuffer;
 
         private readonly Keys[] _keys = 
@@ -22,57 +19,60 @@ namespace SocialGroundsStore.GUI
             Keys.NumPad8, Keys.NumPad9, Keys.NumPad0
         };
 
-        private readonly char[] _lowerCase =
-        {
-            'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
-            '1','2','3','4','5','6','7','8','9','0'
-        };
-
         private readonly char[] _upperCase =
         {
             'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M',' ',
             '!','@','#','$','%','^','&','*','(',')'
         };
 
+        //private readonly char[] _lowerCase =
+        //{
+        //    'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
+        //    '1','2','3','4','5','6','7','8','9','0'
+        //};
+
         private readonly bool[] _isClicked;
 
         private bool _isBackSpace;
         private bool _isEnter;
-        //private bool _isCapsLockDown;
+        private readonly SociaInputfield _inputField;
+        private readonly float _inputFieldHeight;
 
-        // Camera centre
-        private Vector2 _cameraCentre;
-
-        //public Vector2 CameraCentre
-        //{
-        //    get { return cameraCentre; }
-        //    set { cameraCentre = value; }
-        //}
-
-        public Ui(ContentManager content, Viewport viewport)
+        public RealKeyBoard(ContentManager content)
         {
-            _roomMenu = new RoomMenu(content, new Vector2(0, 0), viewport);
             _textBuffer = "";
-            //_isCapsLock = false;
             _isClicked = new bool[_upperCase.Length];
+            _inputFieldHeight = 4.7f;
+            _inputField = new SociaInputfield(content, new Vector2(100, 0), 10, 0.08f);
         }
 
-        public void Update(Vector2 position, Viewport viewport)
+        public void Update(Vector2 position, Viewport viewport,KeyboardState keyState)
         {
-            // Updating the camera centre and the room menu according to the camera centre
-            _cameraCentre = position;
-            _roomMenu.Update(_cameraCentre, viewport, _textBuffer);
+            _inputField.Position = new Vector2(position.X - (viewport.Width / 11f), position.Y + (viewport.Height / _inputFieldHeight));
+            CheckKeyState(keyState);
+            _inputField.Update(_textBuffer);
         }
 
-        public void CheckKeyState(KeyboardState keyState)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            bool isUpperCase = false;//keyState.IsKeyDown(Keys.LeftShift) || keyState.IsKeyDown(Keys.RightShift);
+            _inputField.Draw(spriteBatch);
+        }
 
-            //if (keyState.IsKeyDown(Keys.CapsLock))
-            //{
-            //    _isCapsLockDown = true;
-            //}
+        private void AddText(char value)
+        {
+            _textBuffer = _textBuffer + value;
+        }
 
+        private void OnEnter()
+        {
+            if (String.IsNullOrEmpty(_textBuffer)) return;
+
+            Game1.players[0].ChatMessage = _textBuffer;
+            _textBuffer = "";
+        }
+
+        private void CheckKeyState(KeyboardState keyState)
+        {
             if (keyState.IsKeyDown(Keys.Back))
             {
                 if (_textBuffer.Length <= 0) return;
@@ -84,7 +84,7 @@ namespace SocialGroundsStore.GUI
                 _isEnter = true;
             }
 
-            for (int i = 0; i < _keys.Length -1; i++)
+            for (int i = 0; i < _keys.Length - 1; i++)
             {
                 if (keyState.IsKeyDown(_keys[i]))
                 {
@@ -111,15 +111,6 @@ namespace SocialGroundsStore.GUI
                 }
             }
 
-            //if (keyState.IsKeyUp(Keys.CapsLock))
-            //{
-            //    _isCapsLock = !_isCapsLock;
-            //    if (_isCapsLock)
-            //    {
-            //        isUpperCase = true;
-            //    }
-            //}
-
             for (int i = 0; i < _keys.Length - 1; i++)
             {
                 if (keyState.IsKeyUp(_keys[i]))
@@ -127,33 +118,10 @@ namespace SocialGroundsStore.GUI
                     if (_isClicked[i])
                     {
                         _isClicked[i] = false;
-                        AddText(isUpperCase ? _upperCase[i] : _lowerCase[i]);
+                        AddText(_upperCase[i]);
                     }
                 }
             }
-        }
-
-        private void AddText(char value)
-        {
-            _textBuffer = _textBuffer + value;
-        }
-
-        private void OnEnter()
-        {
-            if (String.IsNullOrEmpty(_textBuffer)) return;
-
-            Game1.players[0].ChatMessage = _textBuffer;
-            _textBuffer = "";
-        }
-
-        //public void CheckMouseDown(MouseState mouseState)
-        //{
-        //    _roomMenu.CheckMouseDown(mouseState);
-        //}
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _roomMenu.Draw(spriteBatch);
         }
     }
 }

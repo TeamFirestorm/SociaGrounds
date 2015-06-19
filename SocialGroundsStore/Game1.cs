@@ -105,7 +105,7 @@ namespace SocialGroundsStore
 
             // Screens load
             _loginScreen = new LoginScreen(Content);
-            _roomScreen = new RoomScreen(Content, GraphicsDevice);
+            _roomScreen = new RoomScreen(Content);
             _homeScreen = new HomeScreen(Content);
             _lobbyScreen = new LobbyScreen();
         }
@@ -156,7 +156,7 @@ namespace SocialGroundsStore
                     break;
 
                 case ScreenState.RoomScreen:
-                    _roomScreen.Update(gameTime, GraphicsDevice, mouseState);
+                    _roomScreen.Update(gameTime, GraphicsDevice);
 
                     if (!_roomScreen.IsPlayingMusic)
                     {

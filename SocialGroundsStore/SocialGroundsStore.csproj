@@ -142,10 +142,9 @@
     <Compile Include="DataBase\DbStuff.cs" />
     <Compile Include="DataBase\InternetConnection.cs" />
     <Compile Include="GUI\Button.cs" />
-    <Compile Include="GUI\RoomMenu.cs" />
+    <Compile Include="GUI\RealKeyBoard.cs" />
     <Compile Include="GUI\SociaInputfield.cs" />
-    <Compile Include="GUI\SociaKeyboard.cs" />
-    <Compile Include="GUI\UI.cs" />
+    <Compile Include="GUI\GUI.cs" />
     <Compile Include="Multiplayer\Lidgren.Network\Abstraction\AddressFamily.cs" />
     <Compile Include="Multiplayer\Lidgren.Network\Abstraction\BindingFlags.cs" />
     <Compile Include="Multiplayer\Lidgren.Network\Abstraction\EndPoint.cs" />

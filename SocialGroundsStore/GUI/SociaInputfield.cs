@@ -7,71 +7,66 @@ namespace SocialGroundsStore.GUI
     class SociaInputfield
     {
         // Textures for the inputfield
-        Texture2D textFieldEnd;
-        Texture2D textFieldMiddle;
+        private readonly Texture2D _textFieldEnd;
+        private readonly Texture2D _textFieldMiddle;
 
         // Position of the inputfield
-        Vector2 position;
+        private Vector2 _position;
+
         public Vector2 Position
         {
-            get { return position; }
-            set { position = value; }
+            set { _position = value; }
         }
 
         // String that will be updated in the textfield
-        SpriteFont font;
-        string text;
-        public string Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
+        private readonly SpriteFont _font;
+        private string _text;
 
         // Amount of middle pieces in the textfield
-        int width;
+        private readonly int _width;
 
         // Scale of the inputfield
-        float scale;
+        private readonly float _scale;
 
         public SociaInputfield(ContentManager content, Vector2 position, int width, float scale)
         {
             // Loading the textures
-            textFieldEnd = content.Load<Texture2D>("GUI/Inputfield/LeftTextField");
-            textFieldMiddle = content.Load<Texture2D>("GUI/Inputfield/MiddleTextfield");
+            _textFieldEnd = content.Load<Texture2D>("GUI/Inputfield/LeftTextField");
+            _textFieldMiddle = content.Load<Texture2D>("GUI/Inputfield/MiddleTextfield");
 
             // Initializing the position
-            this.position = position;
+            _position = position;
 
             // Loading the text stuff
-            font = content.Load<SpriteFont>("SociaGroundsFont");
-            this.text = "";
+            _font = content.Load<SpriteFont>("SociaGroundsFont");
+            _text = "";
 
-            this.width = width;
-            this.scale = scale;
+            _width = width;
+            _scale = scale;
         }
 
-        public void update(string text)
+        public void Update(string text)
         {
             // Update the text in the textfield
-            this.text = text;
+            _text = text;
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             // Left area draw
-            spriteBatch.Draw(textFieldEnd, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
+            spriteBatch.Draw(_textFieldEnd, _position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
             // Middle area draw
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < _width; i++)
             {
-                spriteBatch.Draw(textFieldMiddle, new Vector2(position.X + (textFieldEnd.Width * scale) + ((textFieldMiddle.Width * scale) * i), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
+                spriteBatch.Draw(_textFieldMiddle, new Vector2(_position.X + (_textFieldEnd.Width * _scale) + ((_textFieldMiddle.Width * _scale) * i), _position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
             }
 
             // Right area draw
-            spriteBatch.Draw(textFieldEnd, new Vector2(position.X + (textFieldEnd.Width * scale) + ((textFieldMiddle.Width * scale) * width), position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(scale, scale), SpriteEffects.None, 0f);
+            spriteBatch.Draw(_textFieldEnd, new Vector2(_position.X + (_textFieldEnd.Width * _scale) + ((_textFieldMiddle.Width * _scale) * _width), _position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
             // Text draw
-            spriteBatch.DrawString(font, text, new Vector2(position.X + (30 * scale), position.Y + (80 * scale)), Color.White, 0f, new Vector2(0, 0), new Vector2(scale / 0.07f, scale / 0.07f), SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _text, new Vector2(_position.X + (30 * _scale), _position.Y + (80 * _scale)), Color.White, 0f, new Vector2(0, 0), new Vector2(_scale / 0.07f, _scale / 0.07f), SpriteEffects.None, 0f);
         }
     }
 }

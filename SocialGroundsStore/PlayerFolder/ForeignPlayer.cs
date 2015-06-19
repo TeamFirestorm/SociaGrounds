@@ -55,7 +55,7 @@ namespace SocialGroundsStore.PlayerFolder
             newQPosition.Enqueue(pos);
         }
 
-        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
+        public override void Update(GameTime gameTime, Gui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             if (newQPosition.Count <= 0) return;
 

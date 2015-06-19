@@ -64,7 +64,7 @@ namespace SocialGroundsStore.PlayerFolder
         /// <param name="viewPort">For the height and width of the screen</param>
         /// <param name="map">All info about the map</param>
         /// <param name="keyState">The current keystate</param>
-        public override void Update(GameTime gameTime, Ui ui, Viewport viewPort, Map map, KeyboardState keyState)
+        public override void Update(GameTime gameTime, Gui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             Input(gameTime, map, keyState);
             animation.Position = position;

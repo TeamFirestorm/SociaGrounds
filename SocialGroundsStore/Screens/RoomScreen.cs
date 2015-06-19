@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -12,16 +11,11 @@ namespace SocialGroundsStore.Screens
     {
         private readonly Map _map;
         private readonly Camera _camera;
-        private readonly Ui _ui;
-        private bool isPlayingMusic;
+        private readonly Gui _ui;
 
-        public bool IsPlayingMusic
-        {
-            get { return isPlayingMusic; }
-            set { isPlayingMusic = value; }
-        }
+        public bool IsPlayingMusic { get; set; }
 
-        public RoomScreen(ContentManager content, GraphicsDevice graphics)
+        public RoomScreen(ContentManager content)
         {
             _map = new Map(CreateMap(), new Vector2(0, 0), content);
             _map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, content));
@@ -29,12 +23,12 @@ namespace SocialGroundsStore.Screens
             _map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
             _camera = new Camera();
-            _ui = new Ui(content, graphics.Viewport);
+            _ui = new Gui(content);
 
-            isPlayingMusic = false;
+            IsPlayingMusic = false;
         }
 
-        public void Update(GameTime gameTime, GraphicsDevice graphics, MouseState mouseState)
+        public void Update(GameTime gameTime, GraphicsDevice graphics)
         {
             KeyboardState keyState = Keyboard.GetState();
 
@@ -42,11 +36,8 @@ namespace SocialGroundsStore.Screens
             {
                 player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
             }
-            
-            _ui.CheckKeyState(keyState);
-            //ui.CheckMouseDown(mouseState);
 
-            _camera.Update(graphics.Viewport, Game1.players[0].Position, _map, _ui);
+            _camera.Update(graphics.Viewport, Game1.players[0].Position, _map, _ui, keyState);
         }
 
         public void Draw(SpriteBatch spriteBatch)
