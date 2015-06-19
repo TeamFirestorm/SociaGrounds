@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Net;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Base class for NetIncomingMessage and NetOutgoingMessage

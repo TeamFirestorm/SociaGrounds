@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 using Newtonsoft.Json;
 
-namespace SocialGroundsStore.DataBase
+namespace SocialGroundsStore.DB
 {
-
-    public static class DbStuff
+    public static class DataBase
     {
         private static bool IsRunning { get; set; }
         private static string MyIp { get; set; }
         private static string MyDnsSuffix { get; set; }
 
-        static DbStuff()
+        static DataBase()
         {
             IsRunning = false;
         }

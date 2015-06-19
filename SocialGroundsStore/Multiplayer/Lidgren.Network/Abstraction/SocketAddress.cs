@@ -29,9 +29,9 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System.Net.Sockets;
+using System;
 
-namespace System.Net
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction
 {
 
     public class SocketAddress

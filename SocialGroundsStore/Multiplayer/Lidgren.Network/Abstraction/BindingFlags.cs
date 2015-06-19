@@ -1,7 +1,7 @@
-﻿namespace System.Reflection
-{
-    using System;
+﻿using System;
 
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction
+{
     [Flags]
     public enum BindingFlags
     {

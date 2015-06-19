@@ -3,15 +3,13 @@
 #endif
 
 using System;
-using System.Net;
-using System.Threading;
-using System.Diagnostics;
-using System.Net.Sockets;
 using System.Collections.Generic;
-using Lidgren.Network.Abstraction;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	public partial class NetPeer
 	{

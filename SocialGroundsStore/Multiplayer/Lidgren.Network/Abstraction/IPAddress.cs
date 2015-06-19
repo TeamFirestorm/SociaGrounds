@@ -29,10 +29,8 @@
 
 using System;
 using System.Globalization;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
 
-namespace System.Net
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction
 {
 
     /// <remarks>

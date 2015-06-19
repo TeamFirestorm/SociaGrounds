@@ -17,16 +17,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
+
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 //
 // Comment for Linux Mono users: reports of library thread hangs on EnterReadLock() suggests switching to plain lock() works better
 //
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Thread safe (blocking) expanding queue with TryDequeue() and EnqueueFirst()

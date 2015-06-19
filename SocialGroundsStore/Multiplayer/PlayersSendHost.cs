@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SocialGroundsStore.Multiplayer.Lidgren.Network;
 using SocialGroundsStore.PlayerFolder;
 
 namespace SocialGroundsStore.Multiplayer

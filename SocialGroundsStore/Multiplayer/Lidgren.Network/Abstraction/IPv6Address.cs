@@ -35,11 +35,9 @@
 
 using System;
 using System.Globalization;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 
-namespace System.Net
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction
 {
 
     /// <remarks>
@@ -452,7 +450,7 @@ namespace System.Net
         /// </returns>
         public override bool Equals(object other)
         {
-            System.Net.IPv6Address ipv6 = other as System.Net.IPv6Address;
+            IPv6Address ipv6 = other as IPv6Address;
             if (ipv6 != null)
             {
                 for (int i = 0; i < 8; i++)
@@ -461,7 +459,7 @@ namespace System.Net
                 return true;
             }
 
-            System.Net.IPAddress ipv4 = other as System.Net.IPAddress;
+            IPAddress ipv4 = other as IPAddress;
             if (ipv4 != null)
             {
                 for (int i = 0; i < 5; i++)

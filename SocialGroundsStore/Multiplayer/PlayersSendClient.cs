@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SocialGroundsStore.Multiplayer.Lidgren.Network;
 using SocialGroundsStore.PlayerFolder;
 
 namespace SocialGroundsStore.Multiplayer

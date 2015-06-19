@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SocialGroundsStore.DataBase;
+using SocialGroundsStore.DB;
 using SocialGroundsStore.Multiplayer;
 
 namespace SocialGroundsStore.Screens
@@ -21,7 +21,7 @@ namespace SocialGroundsStore.Screens
 
         public LobbyScreen()
         {
-            DbStuff.GetMyIpAndDns();
+            DataBase.GetMyIpAndDns();
             _createdList = false;
             _alreadyStarted = false;
             _firstStarted = false;
@@ -31,7 +31,7 @@ namespace SocialGroundsStore.Screens
         public async void CreateConnections()
         {
             _connections.Clear();
-            List<Connection> temp = await DbStuff.GetConnections();
+            List<Connection> temp = await DataBase.GetConnections();
             foreach (var con in temp)
             {
                 _connections.Add(con);
@@ -45,7 +45,7 @@ namespace SocialGroundsStore.Screens
             {
                 _alreadyStarted = true;
 
-                string ip = DbStuff.CheckPossibleConnection(_connections);
+                string ip = DataBase.CheckPossibleConnection(_connections);
 
                 if (ip == null)
                 {
@@ -65,7 +65,7 @@ namespace SocialGroundsStore.Screens
 
         private static async void InsertConnection()
         {
-            await DbStuff.InsertConnection();
+            await DataBase.InsertConnection();
         }
 
         public void Draw(SpriteBatch spriteBatch)
