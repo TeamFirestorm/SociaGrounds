@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Net;
 using System.Threading;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	public partial class NetPeer
 	{

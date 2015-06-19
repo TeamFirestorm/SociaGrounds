@@ -1,14 +1,14 @@
 ﻿using System;
-
-#if NETFX_CORE
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
-using System.Runtime.InteropServices.WindowsRuntime;
+#if NETFX_CORE
+
 #else
 using System.Security.Cryptography;
 #endif
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Multiply With Carry random

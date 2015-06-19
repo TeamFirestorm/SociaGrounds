@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Specialized version of NetPeer used for "server" peers

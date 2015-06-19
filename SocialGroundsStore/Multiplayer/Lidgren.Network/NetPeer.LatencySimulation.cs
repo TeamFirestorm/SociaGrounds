@@ -19,14 +19,11 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 //#define USE_RELEASE_STATISTICS
 
-using Lidgren.Network.Abstraction;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using System.Diagnostics;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	public partial class NetPeer
 	{

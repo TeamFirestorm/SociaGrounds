@@ -138,8 +138,8 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="CAnimation.cs" />
-    <Compile Include="DataBase\Connection.cs" />
-    <Compile Include="DataBase\DbStuff.cs" />
+    <Compile Include="DB\Connection.cs" />
+    <Compile Include="DB\DataBase.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\KeyBoard.cs" />
     <Compile Include="GUI\RealKeyBoard.cs" />
@@ -296,6 +296,7 @@
     <Content Include="Content\Personas\Wouter_Character.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Background\Sociagrounds_title.png" />
     <Content Include="Content\World\Grass\Grass_0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

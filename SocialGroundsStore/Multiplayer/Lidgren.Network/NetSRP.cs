@@ -3,7 +3,7 @@
 using System;
 using System.Text;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Helper methods for implementing SRP authentication

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text;
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Collections.Generic;
+using System.Text;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Big integer class based on BouncyCastle (http://www.bouncycastle.org) big integer code

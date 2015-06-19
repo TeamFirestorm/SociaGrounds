@@ -17,10 +17,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
-using System;
-using System.Net;
 
-namespace Lidgren.Network
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
+
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Partly immutable after NetPeer has been initialized

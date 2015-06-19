@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Sender part of Selective repeat ARQ for a particular NetChannel

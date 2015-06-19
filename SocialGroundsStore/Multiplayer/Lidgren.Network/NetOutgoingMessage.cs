@@ -17,10 +17,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
+
 using System;
 using System.Diagnostics;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Outgoing message used to send data to remote peer(s)

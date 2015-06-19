@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading;
 using System.Collections.Generic;
-using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Represents a local peer capable of holding zero, one or more connections to remote peers

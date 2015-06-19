@@ -20,33 +20,28 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define IS_FULL_NET_AVAILABLE
 #endif
 
-using System;
-using System.Net;
-
 #if IS_FULL_NET_AVAILABLE
 using System.Net.NetworkInformation;
 #endif
-
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
+using System;
 using System.Collections.Generic;
-
-#if WINDOWS_PHONE || NETFX_CORE
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage.Streams;
+using SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction;
+#if WINDOWS_PHONE || NETFX_CORE
 #endif
 
 #if NETFX_CORE
-using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
-using Windows.Security.Cryptography;
-using System.Runtime.InteropServices.WindowsRuntime;
+
 #else
 using System.Security.Cryptography;
 #endif
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Utility methods

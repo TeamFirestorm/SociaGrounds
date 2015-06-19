@@ -17,11 +17,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
-using System;
-using System.Diagnostics;
-using System.Net;
 
-namespace Lidgren.Network
+using System;
+
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	public partial class NetBuffer
 	{

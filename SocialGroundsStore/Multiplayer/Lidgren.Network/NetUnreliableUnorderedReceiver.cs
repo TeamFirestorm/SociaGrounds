@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lidgren.Network
+﻿namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	internal sealed class NetUnreliableUnorderedReceiver : NetReceiverChannelBase
 	{

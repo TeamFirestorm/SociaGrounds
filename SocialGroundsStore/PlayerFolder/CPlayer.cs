@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
+using SocialGroundsStore.Multiplayer.Lidgren.Network;
 using SocialGroundsStore.World;
 
 namespace SocialGroundsStore.PlayerFolder

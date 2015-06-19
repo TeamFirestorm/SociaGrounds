@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Class for generating random seeds

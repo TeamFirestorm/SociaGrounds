@@ -27,7 +27,7 @@
 
 using System;
 
-namespace System.Net
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network.Abstraction
 {
 
     public class IPHostEntry

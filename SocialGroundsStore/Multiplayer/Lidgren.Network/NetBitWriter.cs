@@ -19,12 +19,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
-using System;
-using System.Collections.Generic;
 
+using System;
 using System.Diagnostics;
 
-namespace Lidgren.Network
+namespace SocialGroundsStore.Multiplayer.Lidgren.Network
 {
 	/// <summary>
 	/// Helper class for NetBuffer to write/read bits
