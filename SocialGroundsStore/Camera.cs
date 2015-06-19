@@ -8,15 +8,7 @@ namespace SocialGroundsStore
 {
     class Camera
     {
-        private Matrix _transformPrivate;
-
-        public Matrix TranformPublic
-        {
-            get
-            {
-                return _transformPrivate;
-            }
-        }
+        public Matrix TranformPublic { get; private set; }
 
         private Vector2 _centre;
 
@@ -55,7 +47,7 @@ namespace SocialGroundsStore
             }
 
             // Camera translation
-            _transformPrivate = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Height / 2.5f), -_centre.Y + (viewport.Width / 8f), 0)) * Matrix.CreateScale(2.0f, 2.0f, 0);
+            TranformPublic = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Height / 2.5f), -_centre.Y + (viewport.Width / 8f), 0)) * Matrix.CreateScale(2.0f, 2.0f, 0);
             ui.Update(_centre, viewport, keyState);
         }
     }
