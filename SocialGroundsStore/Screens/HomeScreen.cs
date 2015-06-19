@@ -10,11 +10,12 @@ namespace SocialGroundsStore.Screens
     {
         private readonly List<Button> _buttons;
 
-        public HomeScreen(ContentManager content)
+        public HomeScreen(ContentManager content, Viewport viewport)
         {
             _buttons = new List<Button>
             {
-                new Button(content, new Vector2(50, 50), "Start Game", 1.0f)
+                new Button(content, new Vector2(viewport.Width/2f, viewport.Height/2f), "Start Game", 1.0f),
+                new Button(content, new Vector2(50, 50), "Start Game", 1.0f),
             };
         }
 
@@ -27,7 +28,6 @@ namespace SocialGroundsStore.Screens
         {
             foreach (Button button in _buttons)
             {
-
                 button.Draw(spriteBatch);
             }
         }

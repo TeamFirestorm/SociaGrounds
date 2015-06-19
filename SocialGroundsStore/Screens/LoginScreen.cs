@@ -14,12 +14,12 @@ namespace SocialGroundsStore.Screens
 
         public bool IsPlayingMusic { get; set; }
 
-        public LoginScreen(ContentManager content)
+        public LoginScreen(ContentManager content, Viewport viewport)
         {
             _isClicked = false;
             _buttons = new List<Button>
             {
-                new Button(content, new Vector2(50, 50), "Start", 1.0f)
+                new Button(content, new Vector2(50, 50), "Login", 1.0f)
             };
             
         }

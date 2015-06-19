@@ -112,7 +112,7 @@ namespace SocialGroundsStore
             // Screens load
             _loginScreen = new LoginScreen(Content);
             _roomScreen = new RoomScreen(Content);
-            _homeScreen = new HomeScreen(Content);
+            _homeScreen = new HomeScreen(Content, GraphicsDevice.Viewport);
             _lobbyScreen = new LobbyScreen();
         }
 
