@@ -25,6 +25,7 @@ namespace SocialGroundsStore
             LobbyScreen,
             RoomScreen,
             AboutScreen,
+            SettingsScreen,
         }
 
         // All the screens
@@ -32,6 +33,9 @@ namespace SocialGroundsStore
         private LobbyScreen _lobbyScreen;
         private AboutScreen _aboutScreen;
         private RoomScreen _roomScreen;
+        private SettingsScreen _settingsScreen;
+
+        private DefaultBackground _background;
 
         // All music
         private static List<Song> _songList;
@@ -113,11 +117,14 @@ namespace SocialGroundsStore
             _songList.Add(Content.Load<Song>("Music/splashscreen_music"));
             _songList.Add(Content.Load<Song>("Music/in-game-music"));
 
+            _background = new DefaultBackground(Content);
+
             // Screens load
             _homeScreen = new HomeScreen(Content);
             _aboutScreen = new AboutScreen();
             _lobbyScreen = new LobbyScreen();
             _roomScreen = new RoomScreen(Content);
+            _settingsScreen = new SettingsScreen();
         }
 
         /// <summary>
@@ -166,6 +173,10 @@ namespace SocialGroundsStore
                     _aboutScreen.Update(keyState);
                     break;
 
+                case ScreenState.SettingsScreen:
+                    _settingsScreen.Update(keyState);
+                    break;
+
                 case ScreenState.RoomScreen:
                     _roomScreen.Update(gameTime, GraphicsDevice, keyState);
 
@@ -201,6 +212,9 @@ namespace SocialGroundsStore
                     break;
                 case ScreenState.AboutScreen:
                     _aboutScreen.Draw(_spriteBatch);
+                    break;
+                case ScreenState.SettingsScreen:
+                    _settingsScreen.Draw(_spriteBatch);
                     break;
                 case ScreenState.RoomScreen:
                     _roomScreen.Draw(_spriteBatch);

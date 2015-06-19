@@ -70,7 +70,11 @@ namespace SocialGroundsStore.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Begin();
+
+            DefaultBackground.Draw(spriteBatch);
+
+            spriteBatch.End();
         }
     }
 }

@@ -25,6 +25,8 @@ namespace SocialGroundsStore.Screens
         {
             spriteBatch.Begin();
 
+            DefaultBackground.Draw(spriteBatch);
+
             float height = 0;
 
             spriteBatch.DrawString(Game1.font, "Press escape to return", new Vector2(100,100), Color.Black);

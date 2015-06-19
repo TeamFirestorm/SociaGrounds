@@ -10,18 +10,12 @@ namespace SocialGroundsStore.Screens
     public class HomeScreen
     {
         private readonly List<Button> _buttons;
-        private readonly Texture2D _background;
-        private readonly Texture2D _title;
-
         public bool IsPlayingMusic { get; set; }
 
         public HomeScreen(ContentManager content)
         {
             float middleWidth = Game1.Viewport.Width / 2f;
             float middleHeight = Game1.Viewport.Height / 2f;
-
-            _background = content.Load<Texture2D>("Background/background.png");
-            _title = content.Load<Texture2D>("Background/Sociagrounds_title.png");
 
             _buttons = new List<Button>
             {
@@ -49,9 +43,7 @@ namespace SocialGroundsStore.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_background,new Vector2(0,0),Color.White);
-
-            spriteBatch.Draw(_title, new Vector2((Game1.Viewport.Width /2f - _title.Width / 2f), 50), Color.White);
+            DefaultBackground.Draw(spriteBatch);
 
             foreach (Button button in _buttons)
             {
@@ -70,6 +62,11 @@ namespace SocialGroundsStore.Screens
             {
                 _buttons[1].ClickedThis = false;
                 Game1.currentScreenState = Game1.ScreenState.AboutScreen;
+            }
+            if (_buttons[2].ClickedThis)
+            {
+                _buttons[2].ClickedThis = false;
+                Game1.currentScreenState = Game1.ScreenState.SettingsScreen;
             }
         }
     }
