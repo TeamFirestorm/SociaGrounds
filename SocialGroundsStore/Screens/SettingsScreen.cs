@@ -5,11 +5,6 @@ namespace SocialGroundsStore.Screens
 {
     public class SettingsScreen
     {
-        public SettingsScreen()
-        {
-            
-        }
-
         public void Update(KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Escape))

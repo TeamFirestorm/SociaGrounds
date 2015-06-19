@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,14 +16,14 @@ namespace SocialGroundsStore.Screens
 
         private bool _createdList;
         private bool _alreadyStarted;
-        public bool _firstStarted { get; set; }
+        public bool FirstStarted { get; set; }
 
         public LobbyScreen()
         {
             DataBase.GetMyIpAndDns();
             _createdList = false;
             _alreadyStarted = false;
-            _firstStarted = false;
+            FirstStarted = false;
             _connections = new List<Connection>();
         }
 

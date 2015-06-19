@@ -161,9 +161,9 @@ namespace SocialGroundsStore
 
                 case ScreenState.LobbyScreen:
 
-                    if (!_lobbyScreen._firstStarted)
+                    if (!_lobbyScreen.FirstStarted)
                     {
-                        _lobbyScreen._firstStarted = true;
+                        _lobbyScreen.FirstStarted = true;
                         _lobbyScreen.CreateConnections();
                     } 
                     _lobbyScreen.Update(Content);
