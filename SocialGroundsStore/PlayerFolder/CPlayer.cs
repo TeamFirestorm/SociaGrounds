@@ -8,6 +8,10 @@ using SocialGroundsStore.World;
 
 namespace SocialGroundsStore.PlayerFolder
 {
+    /// <summary>
+    /// This is the abstract class for both the myPlayer and Foreignplayer class.
+    /// It's used to tie these two together.
+    /// </summary>
     public abstract class CPlayer
     {
         // For the animation of the player
@@ -59,7 +63,7 @@ namespace SocialGroundsStore.PlayerFolder
         // ID of the player for the server
         public int Id { get; set; }
 
-        // A queue that 
+        // A queue that holds the new position of the foreign player
         protected Queue<Vector2> newQPosition;
 
         public void DrawText(SpriteBatch spriteBatch)
