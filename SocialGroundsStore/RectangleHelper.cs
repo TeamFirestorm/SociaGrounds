@@ -2,6 +2,7 @@
 
 namespace SocialGroundsStore
 {
+    // This class keeps track of the hit detection in-game.
     static class RectangleHelper
     {
         public static bool TouchTopOf(this Rectangle r1, Rectangle r2)

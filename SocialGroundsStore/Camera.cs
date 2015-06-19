@@ -5,9 +5,12 @@ using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
 namespace SocialGroundsStore
-{
+
     class Camera
     {
+        /// <summary>
+        /// Camera class keeps track of the player
+        /// </summary>
         public Matrix TranformPublic { get; private set; }
 
         private Vector2 _centre;
