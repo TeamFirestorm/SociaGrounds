@@ -49,14 +49,12 @@ namespace SocialGroundsStore.Screens
                 {
                     Host = new PlayersSendHost(content);
                     Task.Run(new Action(Host.Loop));
-                    Debug.WriteLine("Created and started Host");
                     InsertConnection();
                 }
                 else
                 {
                     Host = null;
                     Client = new PlayersSendClient(content, ip);
-                    Debug.WriteLine("Created and started Client");
                     Task.Run(new Action(Client.Loop));
                 }
                 Game1.currentScreenState = Game1.ScreenState.RoomScreen;

@@ -67,8 +67,9 @@ namespace SocialGroundsStore.Multiplayer
             {
                 if (_watch.ElapsedMilliseconds >= Game1.SendTime)
                 {
-                    _watch.Restart();
+                    _watch.Stop();
                     SendLocationToClients(Game1.players[0]);
+                    _watch.Restart();
                 }
                 ServerRunning();
             }

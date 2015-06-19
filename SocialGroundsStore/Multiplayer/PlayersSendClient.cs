@@ -52,7 +52,7 @@ namespace SocialGroundsStore.Multiplayer
             _client.Connect(hostip, 14242, outmsg);
 
             // Funtion that waits for connection approval info from server
-            WaitForStartingInfo();
+            Task.Run(new Action(WaitForStartingInfo));
         }
 
         // Before main looping starts, we loop here and wait for approval message
@@ -103,10 +103,6 @@ namespace SocialGroundsStore.Multiplayer
                                 _watch.Start();
                                 canStart = true;
                                 _started = true;
-                            }
-                            else if (firstPackage != (byte)PacketTypes.Connect)
-                            {
-                                Debug.WriteLine("NO!");
                             }
                             break;
                     }
