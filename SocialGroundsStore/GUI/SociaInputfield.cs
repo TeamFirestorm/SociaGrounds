@@ -6,7 +6,9 @@ namespace SocialGroundsStore.GUI
 {
     class SociaInputfield
     {
-        // Textures for the inputfield
+        /// <summary>
+        /// Textures for the inputfield
+        /// </summary>
         private readonly Texture2D _textFieldEnd;
         private readonly Texture2D _textFieldMiddle;
 

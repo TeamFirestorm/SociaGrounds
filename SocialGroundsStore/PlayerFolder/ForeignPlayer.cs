@@ -13,6 +13,13 @@ namespace SocialGroundsStore.PlayerFolder
     {
         private Vector2 _newPosition;
 
+        /// <summary>
+        /// Constructor of the foreign player AKA the host.
+        /// This version is used by everyone playing the game.
+        /// </summary>
+        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="connection">The connection received by the host to make a connection</param>
+        /// <param name="id">The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
             newQPosition = new Queue<Vector2>();
@@ -32,6 +39,13 @@ namespace SocialGroundsStore.PlayerFolder
             _newPosition = default(Vector2);
         }
 
+        /// <summary>
+        /// Constructor for the players that are not the host but are clients.
+        /// Because the host sends out the neccesary information it is not neccesary for the client
+        /// to contain the connection details.
+        /// </summary>
+        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="id">The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, int id)
         {
             newQPosition = new Queue<Vector2>();
@@ -50,11 +64,23 @@ namespace SocialGroundsStore.PlayerFolder
             _newPosition = default(Vector2);
         }
 
+        /// <summary>
+        /// This method is used to receive the new position data from the host
+        /// </summary>
+        /// <param name="pos">Positions of the foreign players</param>
         public void AddNewPosition(Vector2 pos)
         {
             newQPosition.Enqueue(pos);
         }
 
+        /// <summary>
+        /// The update method for the foreign player
+        /// </summary>
+        /// <param name="gameTime">Gametime object</param>
+        /// <param name="ui">The UI object relevant to the player</param>
+        /// <param name="viewPort">For the height and width of the screen</param>
+        /// <param name="map">All info about the map</param>
+        /// <param name="keyState">The current keystate</param>
         public override void Update(GameTime gameTime, Gui ui, Viewport viewPort, Map map, KeyboardState keyState)
         {
             if (newQPosition.Count <= 0) return;
@@ -86,7 +112,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         /// <summary>
-        /// Sets the new posiotion of a foreign player
+        /// Sets the new position of a foreign player
         /// </summary>
         /// <param name="gameTime"></param>
         private void NewPosition(GameTime gameTime)
@@ -137,7 +163,7 @@ namespace SocialGroundsStore.PlayerFolder
         /// <summary>
         /// Draw
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">The spritebatch used for drawing</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch);
