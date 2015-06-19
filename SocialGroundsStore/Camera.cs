@@ -5,8 +5,8 @@ using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
 namespace SocialGroundsStore
-
-    class Camera
+{
+    public class Camera
     {
         /// <summary>
         /// Camera class keeps track of the player
