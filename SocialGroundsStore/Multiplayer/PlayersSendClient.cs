@@ -97,9 +97,9 @@ namespace SocialGroundsStore.Multiplayer
                                 }
 
                                 // When all players are added to list, start the game
-                                _watch.Start();
-                                canStart = true;
                                 _started = true;
+                                canStart = true;
+                                _watch.Start();
                             }
                             break;
                     }
@@ -185,13 +185,12 @@ namespace SocialGroundsStore.Multiplayer
             while (!_stopped)
             {
                 if (!_started) continue;
-
-                CheckServerMessages();
                 if (_watch.ElapsedMilliseconds >= Game1.SendTime)
                 {
                     _watch.Restart();
                     // Check if server sent new messages
                     GetInputAndSendItToServer(Game1.players[0]);
+                    CheckServerMessages();
                 }
             }
         }
