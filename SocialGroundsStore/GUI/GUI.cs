@@ -10,29 +10,29 @@ namespace SocialGroundsStore.GUI
         private readonly RealKeyBoard _keyboard;
 
         /// <summary>
-        /// 
+        /// This class is used to build the user interface of the application
         /// </summary>
-        /// <param name="content"></param>
+        /// <param name="content">The contents in this parameter will be used to draw the GUI</param>
         public Gui(ContentManager content)
         {
             _keyboard = new RealKeyBoard(content);
         }
 
         /// <summary>
-        /// Update
+        /// Update method for the keyboard
         /// </summary>
-        /// <param name="position"></param>
-        /// <param name="viewport"></param>
-        /// <param name="keyState"></param>
+        /// <param name="position">Position of the key pressed</param>
+        /// <param name="viewport">Your screen(resolution)</param>
+        /// <param name="keyState">All keys in the keyboard</param>
         public void Update(Vector2 position, Viewport viewport, KeyboardState keyState)
         {
             _keyboard.Update(position,viewport,keyState);
         }
 
         /// <summary>
-        /// Draw
+        /// Draw the text and show it above the corresponding player's head
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">Contains the text for the chat</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             _keyboard.Draw(spriteBatch);

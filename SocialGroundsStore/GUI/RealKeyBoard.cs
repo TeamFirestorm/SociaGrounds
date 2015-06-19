@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
+    /// <summary>
+    /// This class is used for the desktop version of the application to manage the keyboard input
+    /// </summary>
     public class RealKeyBoard : IKeyBoard
     {
         private string _textBuffer;
@@ -38,6 +41,11 @@ namespace SocialGroundsStore.GUI
         private readonly InputField _inputField;
         private readonly float _inputFieldHeight;
 
+        /// <summary>
+        /// Constructor of the keyboard, setting the textbuffer, 
+        /// wether it's clicked or not, the height of the field and making a vector object out of it
+        /// </summary>
+        /// <param name="content">Content of the keyboard</param>
         public RealKeyBoard(ContentManager content)
         {
             _textBuffer = "";
@@ -46,6 +54,12 @@ namespace SocialGroundsStore.GUI
             _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
         }
 
+        /// <summary>
+        /// Update method
+        /// </summary>
+        /// <param name="position">Position of the key</param>
+        /// <param name="viewport">Your screen</param>
+        /// <param name="keyState">State of the keys on the keyboard</param>
         public void Update(Vector2 position, Viewport viewport,KeyboardState keyState)
         {
             _inputField.Position = new Vector2(position.X - (viewport.Width / 11f), position.Y + (viewport.Height / _inputFieldHeight));
@@ -53,16 +67,27 @@ namespace SocialGroundsStore.GUI
             _inputField.Update(_textBuffer);
         }
 
+        /// <summary>
+        /// Draw method
+        /// </summary>
+        /// <param name="spriteBatch">Contains the spriteBatch to draw</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             _inputField.Draw(spriteBatch);
         }
 
+        /// <summary>
+        /// Method that adds text to the textbuffer
+        /// </summary>
+        /// <param name="value">The value that needs to be added</param>
         private void AddText(char value)
         {
             _textBuffer = _textBuffer + value;
         }
 
+        /// <summary>
+        /// method that stores and sends the message when enter is pressed
+        /// </summary>
         private void OnEnter()
         {
             if (String.IsNullOrEmpty(_textBuffer)) return;
@@ -71,6 +96,10 @@ namespace SocialGroundsStore.GUI
             _textBuffer = "";
         }
 
+        /// <summary>
+        /// method that keeps check of the current keystates
+        /// </summary>
+        /// <param name="keyState">Input of current keystate</param>
         private void CheckKeyState(KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Back))

@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SocialGroundsStore.GUI
 {
+    /// <summary>
+    /// This class is used to manage all the buttons of the application.
+    /// </summary>
     class Button
     {
         // Position of the button
@@ -19,7 +22,7 @@ namespace SocialGroundsStore.GUI
         private readonly Texture2D _mid;
         private readonly Texture2D _right;
 
-        // Text stuff
+        // Text
         private readonly SpriteFont _font;
         private readonly string _text;
         public string Text
@@ -38,11 +41,11 @@ namespace SocialGroundsStore.GUI
             _mid = content.Load<Texture2D>("GUI/Button/StandardButtonMiddle");
             _right = content.Load<Texture2D>("GUI/Button/StandardButtonRight");
 
-            // Text stuff
+            // Text
             _text = text;
             _font = content.Load<SpriteFont>("SociaGroundsFont");
 
-            // Other stuff
+            // The position, width and scale
             Position = position;
             _width = text.Length / 5;
             _scale = scale;
@@ -57,11 +60,11 @@ namespace SocialGroundsStore.GUI
             _mid = content.Load<Texture2D>("GUI/Button/StandardButtonMiddle");
             _right = content.Load<Texture2D>("GUI/Button/StandardButtonRight");
 
-            // Text stuff
+            // Text
             _text = text;
             _font = content.Load<SpriteFont>("SociaGroundsFont");
 
-            // Other stuff
+            // The position, width and scale
             Position = position;
             _width = text.Length / 5;
             _scale = scale;
@@ -105,6 +108,6 @@ namespace SocialGroundsStore.GUI
 
                 // Drawing the text
                 spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (30 * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
-            }
         }
+    }
 }
