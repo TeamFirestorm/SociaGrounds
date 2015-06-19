@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -45,7 +45,7 @@ namespace SociaGroundsEngine
             Content.RootDirectory = "Content";
             TouchPanel.EnabledGestures = GestureType.Tap;
 
-            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SociaGroundsEngine
             base.Initialize();
         }
 
-        private async void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
             if (lobbyScreen.Host != null)
             {
