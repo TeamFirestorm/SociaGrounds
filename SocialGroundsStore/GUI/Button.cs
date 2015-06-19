@@ -14,6 +14,11 @@ namespace SocialGroundsStore.GUI
         private readonly float _scale;
         private readonly int _width;
 
+        public float Width
+        {
+            get { return _width; }
+        }
+
         // Neutral textures
         private readonly Texture2D _left;
         private readonly Texture2D _mid;
@@ -32,7 +37,7 @@ namespace SocialGroundsStore.GUI
         // Rectangle for detection
         private Rectangle _rect;
 
-        // First constructor
+        
         public Button(ContentManager content, Vector2 position, string text, float scale)
         {
             // Neutral textures initialize
@@ -46,13 +51,14 @@ namespace SocialGroundsStore.GUI
 
             // Other stuff
             Position = position;
-            _width = text.Length / 5;
+            _width = text.Length;
             _scale = scale;
 
             _rect = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_left.Width * scale) + ((_mid.Width * _width) * scale) + (_right.Width * scale)), (int)(_mid.Height * scale));
         }
 
-        public Button(ContentManager content, Vector2 position, string text, float scale, Vector2 rectangle)
+        
+        public Button(ContentManager content, Vector2 position, string text, float scale, float fixedWidth)
         {
             // Neutral textures initialize
             _left = content.Load<Texture2D>("GUI/Button/StandardButtonLeft");
@@ -65,10 +71,10 @@ namespace SocialGroundsStore.GUI
 
             // Other stuff
             Position = position;
-            _width = text.Length / 5;
+            _width = fixedWidth;
             _scale = scale;
 
-            _rect = new Rectangle((int)rectangle.X, (int)rectangle.Y, (int)(((_width * _mid.Width) + _left.Width + _right.Width) * scale), (int)(_left.Height * scale));
+            _rect = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_left.Width * scale) + ((_mid.Width * _width) * scale) + (_right.Width * scale)), (int)(_mid.Height * scale));
         }
 
         public void Update(MouseState mouseState)
@@ -106,7 +112,7 @@ namespace SocialGroundsStore.GUI
                 spriteBatch.Draw(_right, new Vector2(Position.X + (_left.Width * _scale) + ((_mid.Width * _scale) * _width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
                 // Drawing the text
-                spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (30 * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
+                spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (22 * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
             }
         }
 }

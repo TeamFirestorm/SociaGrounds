@@ -24,8 +24,9 @@ namespace SocialGroundsStore.Screens
             _buttons = new List<Button>
             {
                 new Button(content, new Vector2(middleWidth - 200, middleHeight), "Play the Game", 1.0f),
-                new Button(content, new Vector2(middleWidth + 300, middleHeight), "ABout", 1.0f)
             };
+
+            _buttons.Add(new Button(content, new Vector2(middleWidth + 300, middleHeight), "ABout", 1.0f, _buttons[0].Width));
         }
 
         public void Update(MouseState mouseState)
