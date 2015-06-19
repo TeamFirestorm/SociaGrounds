@@ -30,17 +30,12 @@ namespace SocialGroundsStore.GUI
         // Text
         private readonly SpriteFont _font;
         private readonly string _text;
-        public string Text
-        {
-            get { return _text; }
-        }
-
         public bool ClickedThis { get; set; }
 
         // Rectangle for detection
         private Rectangle _rect;
 
-        private readonly int _textPosition;
+        private readonly float _textPosition;
         
         public Button(ContentManager content, Vector2 position, string text, float scale)
         {
@@ -81,7 +76,7 @@ namespace SocialGroundsStore.GUI
             _width = fixedWidth;
             _scale = scale;
 
-            _textPosition = (int) ((_width/2f - _text.Length/2f)*10);
+            _textPosition = ((_width/2f));
 
             _rect = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_left.Width * scale) + ((_mid.Width * _width) * scale) + (_right.Width * scale)), (int)(_mid.Height * scale));
         }
