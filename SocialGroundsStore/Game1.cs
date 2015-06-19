@@ -14,7 +14,7 @@ namespace SocialGroundsStore
     /// </summary>
     public class Game1 : Game
     {
-        SpriteBatch _spriteBatch;
+        private SpriteBatch _spriteBatch;
         public static Texture2D texture;
         public static SpriteFont font;
         public static int sendTime = 50;
@@ -48,7 +48,7 @@ namespace SocialGroundsStore
         public Game1()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            new GraphicsDeviceManager(this);
+            new GraphicsDeviceManager(game: this);
 
             Content.RootDirectory = "Content";
             TouchPanel.EnabledGestures = GestureType.Tap;
