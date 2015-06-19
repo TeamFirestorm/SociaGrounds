@@ -194,7 +194,7 @@ namespace SocialGroundsStore.Multiplayer
                 if (!_started) continue;
 
                 CheckServerMessages();
-                if (_watch.ElapsedMilliseconds >= Game1.sendTime)
+                if (_watch.ElapsedMilliseconds >= Game1.SendTime)
                 {
                     _watch.Restart();
                     // Check if server sent new messages

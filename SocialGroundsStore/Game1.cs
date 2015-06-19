@@ -17,7 +17,7 @@ namespace SocialGroundsStore
         private SpriteBatch _spriteBatch;
         public static Texture2D texture;
         public static SpriteFont font;
-        public static int sendTime = 50;
+        public const int SendTime = 50;
 
         public enum ScreenState
         {
