@@ -90,28 +90,7 @@ namespace SocialGroundsStore.GUI
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {
-            //// If the button is clicked, draw the clicked button
-            //if (false)
-            //{
-            //    // Drawing the left part
-            //    spriteBatch.Draw(_leftClicked, _position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
-
-            //    // Drawing the mid part
-            //    for (int i = 0; i < _width; i++)
-            //    {
-            //        spriteBatch.Draw(_midClicked, new Vector2(_position.X + (_left.Width * _scale) + ((_mid.Width * _scale) * i), _position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
-            //    }
-
-            //    // Drawing the right part
-            //    spriteBatch.Draw(_rightClicked, new Vector2(_position.X + (_left.Width * _scale) + ((_mid.Width * _scale) * _width), _position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
-
-            //    // Drawing the text
-            //    spriteBatch.DrawString(_font, _text, new Vector2(_position.X + (30 * _scale), _position.Y + (40 * _scale)), Color.White, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
-            //}
-            //// If not, draw the neutral button
-            //else
-            {
+        {       
                 // Drawing the left part
                 spriteBatch.Draw(_left, Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
@@ -128,5 +107,4 @@ namespace SocialGroundsStore.GUI
                 spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (30 * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
             }
         }
-    }
 }
