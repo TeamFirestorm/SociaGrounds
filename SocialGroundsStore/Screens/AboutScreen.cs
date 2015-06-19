@@ -27,6 +27,8 @@ namespace SocialGroundsStore.Screens
 
             float height = 0;
 
+            spriteBatch.DrawString(Game1.font, "Press escape to return", new Vector2(100,100), Color.Black);
+
             foreach (string name in _names)
             {
                 spriteBatch.DrawString(Game1.font, name, new Vector2(Game1.Viewport.Width / 2f, ((Game1.Viewport.Height / 2f) + height)), Color.Black);
