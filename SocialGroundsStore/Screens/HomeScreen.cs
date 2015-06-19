@@ -10,6 +10,7 @@ namespace SocialGroundsStore.Screens
     public class HomeScreen
     {
         private readonly List<Button> _buttons;
+        private Texture2D _background;
 
         public bool IsPlayingMusic { get; set; }
 
@@ -17,6 +18,8 @@ namespace SocialGroundsStore.Screens
         {
             float middleWidth = Game1.Viewport.Width / 2f;
             float middleHeight = Game1.Viewport.Height / 2f;
+
+            _background = content.Load<Texture2D>("Personas/Gyllion_Character");
 
             _buttons = new List<Button>
             {
@@ -42,6 +45,7 @@ namespace SocialGroundsStore.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw();
             foreach (Button button in _buttons)
             {
                 button.Draw(spriteBatch);
