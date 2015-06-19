@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace SocialGroundsStore.DB
 {
+    /// <summary>
+    /// This class handles all the in and output to the database.
+    /// </summary>
     public static class DataBase
     {
         private static bool IsRunning { get; set; }
@@ -18,6 +21,12 @@ namespace SocialGroundsStore.DB
             IsRunning = false;
         }
 
+        /// <summary>
+        /// Method that inserts a user into the database
+        /// </summary>
+        /// <param name="phoneId">The windows Phone ID</param>
+        /// <param name="username">The chosen Username</param>
+        /// <returns></returns>
         public async static Task<string> InsertUser(string phoneId, string username)
         {
             IsRunning = true;
@@ -31,6 +40,10 @@ namespace SocialGroundsStore.DB
             return urlContents;
         }
 
+        /// <summary>
+        /// Method that returns all the available connections
+        /// </summary>
+        /// <returns>A list of avilable connections</returns>
         public async static Task<List<Connection>> GetConnections()
         {
             HttpClient client = new HttpClient();
@@ -48,6 +61,10 @@ namespace SocialGroundsStore.DB
             return null;
         }
 
+        /// <summary>
+        /// Method that inserts the connection info of the host into the database
+        /// </summary>
+        /// <returns>Wether or not the connection has been inserted</returns>
         public async static Task<string> InsertConnection()
         {
             string ipaddress = MyIp;
@@ -69,6 +86,10 @@ namespace SocialGroundsStore.DB
             return urlContents;
         }
 
+        /// <summary>
+        /// Method that deletes the current connection out of the database when the host quits the game
+        /// </summary>
+        /// <returns>Wether or not the connection has been deleted</returns>
         public static async Task<string> DeleteConnection()
         {
             string ipaddress = MyIp;
@@ -85,13 +106,16 @@ namespace SocialGroundsStore.DB
             return urlContents;
         }
 
+        /// <summary>
+        /// This method records your ip adress and dns suffix needed for the hosting of the room
+        /// IanaInterfaceType == 71 => Wifi
+        /// IanaInterfaceType == 6 => Ethernet (Emulator)
+        /// </summary>
         public static void GetMyIpAndDns()
         {
             var hostnames = NetworkInformation.GetHostNames();
             foreach (var hn in hostnames)
-            {
-                //IanaInterfaceType == 71 => Wifi
-                //IanaInterfaceType == 6 => Ethernet (Emulator)
+            {             
                 if (hn.IPInformation != null)
                 {
                     if (hn.IPInformation.NetworkAdapter.IanaInterfaceType == 71 || hn.IPInformation.NetworkAdapter.IanaInterfaceType == 6)
@@ -108,6 +132,11 @@ namespace SocialGroundsStore.DB
             }
         }
 
+        /// <summary>
+        /// This method tries to find a host on the network the player is connected to
+        /// </summary>
+        /// <param name="connections">A list of currently active connections</param>
+        /// <returns>A ip that the player can connect to</returns>
         public static string CheckPossibleConnection(List<Connection> connections)
         {
             if (MyIp == null || MyDnsSuffix == null) return null;
