@@ -7,11 +7,6 @@ namespace SocialGroundsStore.World
     {
         // The position of the asset
         protected Vector2 position;
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
 
         // The rectangle of the asset for collsion detection
         protected Rectangle rect;
@@ -20,19 +15,10 @@ namespace SocialGroundsStore.World
             get { return rect; }
         }
 
-        // Boolean to check if the player can walk through the object or not
-        protected bool isSolid;
-        public bool IsSolid
-        {
-            get { return isSolid; }
-        }
-
-
-        public Asset(Vector2 position)
+        protected Asset(Vector2 position)
         {
             this.position = position;
         }
-
 
         public abstract void Draw(SpriteBatch spriteBatch);
     }

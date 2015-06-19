@@ -17,7 +17,6 @@ namespace SocialGroundsStore.PlayerFolder
         /// </summary>
         /// <param name="startPosition">The startposition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
-        /// <param name="font">The font in which the chatmessage will be displayed</param>
         /// <param name="id">The ID of the player relevant for the server</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
@@ -28,7 +27,7 @@ namespace SocialGroundsStore.PlayerFolder
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Chat message initialize
-            this.font = Game1.font;
+            font = Game1.font;
             chatMessage = "";
 
             Id = id;
@@ -40,7 +39,6 @@ namespace SocialGroundsStore.PlayerFolder
         /// </summary>
         /// <param name="startPosition">The startposition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
-        /// <param name="font">The font in which the chatmessage will be displayed</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             // General initialize
@@ -49,7 +47,7 @@ namespace SocialGroundsStore.PlayerFolder
             speed = 3;
 
             // Chat message initialize
-            this.font = Game1.font;
+            font = Game1.font;
             chatMessage = "";
 
             // Rectangle initialize
@@ -106,43 +104,43 @@ namespace SocialGroundsStore.PlayerFolder
         /// <param name="gameTime"></param>
         /// <param name="map"></param>
         /// <param name="keyState"></param>
-        public void Input(GameTime gameTime, Map map, KeyboardState keyState)
+        private void Input(GameTime gameTime, Map map, KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Up))
             {
                 _lastDirection = Direction.Up;
-                if (!IsCollidingTop(map))
-                {
-                    animation.Play(8, 9, gameTime);
-                    position.Y -= speed;
-                }
+
+                if (IsCollidingTop(map)) return;
+
+                animation.Play(8, 9, gameTime);
+                position.Y -= speed;
             }
             else if (keyState.IsKeyDown(Keys.Down))
             {
                 _lastDirection = Direction.Down;
-                if (!IsCollidingBottom(map))
-                {
-                    animation.Play(10, 9, gameTime);
-                    position.Y += speed;
-                }
+
+                if (IsCollidingBottom(map)) return;
+
+                animation.Play(10, 9, gameTime);
+                position.Y += speed;
             }
             else if (keyState.IsKeyDown(Keys.Left))
             {
                 _lastDirection = Direction.Left;
-                if (!IsCollidingLeft(map))
-                {
-                    animation.Play(9, 9, gameTime);
-                    position.X -= speed; 
-                }
+
+                if (IsCollidingLeft(map)) return;
+
+                animation.Play(9, 9, gameTime);
+                position.X -= speed;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
                 _lastDirection = Direction.Right;
-                if (!IsCollidingRight(map))
-                {
-                    animation.Play(11, 9, gameTime);
-                    position.X += speed; 
-                }
+
+                if (IsCollidingRight(map)) return;
+
+                animation.Play(11, 9, gameTime);
+                position.X += speed;
             }
             else
             {
@@ -154,7 +152,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Check if the player has a collision on his right side
-        public bool IsCollidingRight(Map map)
+        private bool IsCollidingRight(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)
@@ -171,7 +169,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Check if the player has a collision on his left side
-        public bool IsCollidingLeft(Map map)
+        private bool IsCollidingLeft(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)
@@ -188,7 +186,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Check if the player has a collision on his top side
-        public bool IsCollidingTop(Map map)
+        private bool IsCollidingTop(Map map)
         {
 
             // Check all the solid assets in the map
@@ -206,7 +204,7 @@ namespace SocialGroundsStore.PlayerFolder
         }
 
         // Check if the player has a collision on his bottom side
-        public bool IsCollidingBottom(Map map)
+        private bool IsCollidingBottom(Map map)
         {
             // Check all the solid assets in the map
             foreach (Asset asset in map.SolidAssets)

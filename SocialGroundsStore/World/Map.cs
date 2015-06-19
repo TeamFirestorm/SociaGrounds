@@ -7,56 +7,51 @@ namespace SocialGroundsStore.World
 {
     public class Map
     {
-        List<Asset> nonSolidAssets;
+        private readonly List<Asset> _nonSolidAssets;
 
-        public List<Asset> NonSolidAssets
-        {
-            get { return nonSolidAssets; }
-        }
-
-        List<Asset> solidAssets;
+        private readonly List<Asset> _solidAssets;
         public List<Asset> SolidAssets
         {
-            get { return solidAssets; }
+            get { return _solidAssets; }
         }
 
-        Vector2 startPosition;
+        private readonly Vector2 _startPosition;
         public Vector2 StartPosition
         {
-            get { return startPosition; }
+            get { return _startPosition; }
         }
 
-        int mapWidth, mapHeight;
+        private readonly int _mapWidth, _mapHeight;
 
         public int MapWidth
         {
-            get { return mapWidth; }
+            get { return _mapWidth; }
         }
 
         public int MapHeight
         {
-            get { return mapHeight; }
+            get { return _mapHeight; }
         }
 
         // Generate the map by saving certain objects in the list
         public Map(int[,] map, Vector2 startPosition, ContentManager content)
         {
-            nonSolidAssets = new List<Asset>();
-            solidAssets = new List<Asset>();
-            this.startPosition = startPosition;
+            _nonSolidAssets = new List<Asset>();
+            _solidAssets = new List<Asset>();
+            _startPosition = startPosition;
             Vector2 currentPosition = startPosition;
             Texture2D grassTexture = content.Load<Texture2D>("World/Grass/Grass_0");
 
             // Looping through the multidimensional array that has been given
             for (int x = 0; x < map.GetLength(0); x++)
             {
-                mapWidth = 0;
+                _mapWidth = 0;
 
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
                     if (map[x,y] == 0)
                     {
-                        nonSolidAssets.Add(new GrassTile(grassTexture, currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(grassTexture, currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -64,7 +59,7 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 1)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_2"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_2"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -72,7 +67,7 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 2)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_3"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_3"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -80,7 +75,7 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 3)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_4"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_4"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -88,7 +83,7 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 4)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_0"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_0"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -96,7 +91,7 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 5)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_1"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_1"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
@@ -104,14 +99,14 @@ namespace SocialGroundsStore.World
 
                     if (map[x, y] == 6)
                     {
-                        nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_2"), currentPosition));
+                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("World/Grass/Grass_F_2"), currentPosition));
 
                         // Update the x position of the currentPosition
                         currentPosition.X += grassTexture.Width;
                     }
 
                     // Update the mapWidth
-                    mapWidth += grassTexture.Width;
+                    _mapWidth += grassTexture.Width;
                 }
                 // Update the y position of the currentPosition
                 // And reset the x position
@@ -119,18 +114,18 @@ namespace SocialGroundsStore.World
                 currentPosition.X = startPosition.X;
 
                 // Update the mapHeight
-                mapHeight += grassTexture.Height;
+                _mapHeight += grassTexture.Height;
             }
         }
 
         public void AddSolidAsset(Asset asset)
         {
-            solidAssets.Add(asset);
+            _solidAssets.Add(asset);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Asset asset in nonSolidAssets)
+            foreach(Asset asset in _nonSolidAssets)
             {
                 asset.Draw(spriteBatch);
             }
@@ -138,7 +133,7 @@ namespace SocialGroundsStore.World
 
         public void DrawSolid(SpriteBatch spriteBatch)
         {
-            foreach (Asset asset in solidAssets)
+            foreach (Asset asset in _solidAssets)
             {
                 asset.Draw(spriteBatch);
             }

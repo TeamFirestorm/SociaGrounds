@@ -3,7 +3,6 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct2D1;
 using SocialGroundsStore.GUI;
 using SocialGroundsStore.World;
 
@@ -13,41 +12,25 @@ namespace SocialGroundsStore.PlayerFolder
     {
         // For the animation of the player
         protected CAnimation animation;
-        public CAnimation Animation
-        {
-            get { return animation; }
-        }
 
-        // 
         protected NetConnection connection;
         public NetConnection Connection
         {
             get { return connection; }
-            set { connection = value; }
         }
 
         // The walkspeed of the player
         protected int speed;
-        public int Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
 
         // The current position of the player
         protected Vector2 position;
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
         }
 
         // The rectangle of the player used for collision detection
         protected Rectangle rect;
-        public Rectangle Rect
-        {
-            get { return rect; }
-        }
 
         // Chat properties
         protected SpriteFont font;
