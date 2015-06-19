@@ -229,7 +229,6 @@
     <Compile Include="Screens\LobbyScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\RoomScreen.cs" />
-    <Compile Include="Screens\Screen.cs" />
     <Compile Include="World\Asset.cs" />
     <Compile Include="World\GrassTile.cs" />
     <Compile Include="World\Map.cs" />

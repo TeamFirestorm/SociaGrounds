@@ -9,10 +9,10 @@ using SocialGroundsStore.Multiplayer;
 
 namespace SocialGroundsStore.Screens
 {
-    public class LobbyScreen : Screen
+    public class LobbyScreen
     {
         private readonly List<Connection> _connections;
-        public PlayersSendHost Host { get; set; }
+        private PlayersSendHost Host { get; set; }
         private PlayersSendClient Client { get; set; }
 
         private bool _createdList;
@@ -63,7 +63,7 @@ namespace SocialGroundsStore.Screens
             }
         }
 
-        private async void InsertConnection()
+        private static async void InsertConnection()
         {
             await DbStuff.InsertConnection();
         }

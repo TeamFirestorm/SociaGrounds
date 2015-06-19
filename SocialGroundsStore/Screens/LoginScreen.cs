@@ -4,56 +4,50 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialGroundsStore.GUI;
-using Microsoft.Xna.Framework.Media;
 
 namespace SocialGroundsStore.Screens
 {
     class LoginScreen
     {
-        private readonly List<Button> buttons;
-        private bool isClicked;
+        private readonly List<Button> _buttons;
+        private bool _isClicked;
 
-        private bool isPlayingMusic;
-        public bool IsPlayingMusic
-        {
-            get { return isPlayingMusic; }
-            set { isPlayingMusic = value; }
-        }
+        public bool IsPlayingMusic { get; set; }
 
         public LoginScreen(ContentManager content)
         {
-            isClicked = false;
-            buttons = new List<Button>
+            _isClicked = false;
+            _buttons = new List<Button>
             {
                 new Button(content, new Vector2(50, 50), "Start", 1.0f)
             };
             
         }
 
-        public void Update(ContentManager content, MouseState mouseState)
+        public void Update(MouseState mouseState)
         {
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                if (buttons[0].IsClicked(mouseState))
+                if (_buttons[0].IsClicked(mouseState))
                 {
-                    isClicked = true;
+                    _isClicked = true;
                 }              
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Button button in buttons)
+            foreach (Button button in _buttons)
             {
                 button.Draw(spriteBatch);
             }
         }
 
-        public bool ToHomeScreen(GameTime gameTime)
+        public bool ToHomeScreen()
         {
-            if (isClicked)
+            if (_isClicked)
             {
-                isClicked = false;
+                _isClicked = false;
                 return true;
             }
             return false;
