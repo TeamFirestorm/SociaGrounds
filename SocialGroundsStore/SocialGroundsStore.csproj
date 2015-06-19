@@ -247,7 +247,7 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.scale-180.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Content\Background\Loginscherm.png" />
+    <Content Include="Content\Background\background.png" />
     <Content Include="Content\GUI\Button\PressedButtonLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
