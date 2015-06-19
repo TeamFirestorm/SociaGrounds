@@ -76,7 +76,7 @@ namespace SocialGroundsStore.GUI
             _width = fixedWidth;
             _scale = scale;
 
-            _textPosition = ((_width/2f));
+            _textPosition = (((_width * _mid.Width) /2) - ((text.Length * _mid.Width) /3f));
 
             _rect = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_left.Width * scale) + ((_mid.Width * _width) * scale) + (_right.Width * scale)), (int)(_mid.Height * scale));
         }
