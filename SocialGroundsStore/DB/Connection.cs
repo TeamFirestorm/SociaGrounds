@@ -1,4 +1,4 @@
-﻿namespace SocialGroundsStore.DataBase
+﻿namespace SocialGroundsStore.DB
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     /// <summary>
