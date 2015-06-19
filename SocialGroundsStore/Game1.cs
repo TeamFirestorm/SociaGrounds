@@ -43,7 +43,7 @@ namespace SocialGroundsStore
         private static List<Song> _songList;
 
         /// <summary>
-        /// 
+        /// Creates Game1 wihich inherits from Monogame Game class
         /// </summary>
         public Game1()
         {
@@ -54,6 +54,11 @@ namespace SocialGroundsStore
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
+        /// <summary>
+        /// CompareById the parameter id to the id of the player
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static CPlayer CompareById(int id)
         {
             foreach (CPlayer player in players)
@@ -133,9 +138,9 @@ namespace SocialGroundsStore
             switch (currentScreenState)
             {
                 case ScreenState.LoginScreen:
-                    _loginScreen.Update(Content, mouseState);
+                    _loginScreen.Update(mouseState);
 
-                    if (_loginScreen.ToHomeScreen(gameTime))
+                    if (_loginScreen.ToHomeScreen())
                     {
                         _lobbyScreen.CreateConnections();
                         currentScreenState = ScreenState.LobbyScreen;

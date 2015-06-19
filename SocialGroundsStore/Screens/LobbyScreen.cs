@@ -37,7 +37,7 @@ namespace SocialGroundsStore.Screens
             _createdList = true;
         }
 
-        public override void Update(ContentManager content)
+        public void Update(ContentManager content)
         {
             if (_createdList && !_alreadyStarted)
             {
@@ -68,7 +68,7 @@ namespace SocialGroundsStore.Screens
             await DbStuff.InsertConnection();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             
         }

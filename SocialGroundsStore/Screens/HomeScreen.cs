@@ -18,12 +18,12 @@ namespace SocialGroundsStore.Screens
             };
         }
 
-        public override void Update(ContentManager content)
+        public void Update(ContentManager content)
         {
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Button button in _buttons)
             {
