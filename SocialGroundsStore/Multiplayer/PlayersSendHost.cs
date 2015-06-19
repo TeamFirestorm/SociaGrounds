@@ -10,8 +10,11 @@ using SocialGroundsStore.PlayerFolder;
 
 namespace SocialGroundsStore.Multiplayer
 {
+    /// <summary>
+    /// This class is used by the clients to send data to the host
+    /// </summary>
     public class PlayersSendHost
-    {
+    {        
         // Server object
         private static NetServer _netServer;
 
@@ -21,12 +24,18 @@ namespace SocialGroundsStore.Multiplayer
         // Indicates if program is running
         private bool _isRunning;
 
+        // Keep track of the amount of players
         private int _numberOfPlayers;
+
 
         private readonly Stopwatch _watch;
 
         private Vector2 _lastPosition;
 
+        /// <summary>
+        /// Constructor of the class, adding players and making a connection to the host
+        /// </summary>
+        /// <param name="content">Content to send to the host</param>
         public PlayersSendHost(ContentManager content)
         {
             _numberOfPlayers = 1;
@@ -60,6 +69,9 @@ namespace SocialGroundsStore.Multiplayer
             _netServer.Start();
         }
 
+        /// <summary>
+        /// Loop that keeps the game updated
+        /// </summary>
         public void Loop()
         {
             _isRunning = true;
@@ -99,10 +111,7 @@ namespace SocialGroundsStore.Multiplayer
         private void ServerRunning()
         {
             // Main loop
-            // This kind of loop can't be made in XNA. In there, its basically same, but without while
-            // Or maybe it could be while(new messages)
-            // Server.ReadMessage() Returns new messages, that have not yet been read.
-            // If "inc" is null -> ReadMessage returned null -> Its null, so dont do this :)
+            // Server.ReadMessage() This methods returns messages to the player that have not been read yet
             if ((_incMsg = _netServer.ReadMessage()) != null)
             {
                 switch (_incMsg.MessageType)
@@ -114,20 +123,17 @@ namespace SocialGroundsStore.Multiplayer
                     case NetIncomingMessageType.WarningMessage:
                         break;
 
-                    // If incoming message is Request for connection approval
-                    // This is the very first packet/message that is sent from client
-                    // Here you can do new player initialisation stuff
+                    //First message of the host arrives here. Making sure connectinon is established and player can be loaded.
                     case NetIncomingMessageType.ConnectionApproval:
 
-                        // Read the first byte of the packet
-                        // ( Enums can be casted to bytes, so it be used to make bytes human readable )
+                        // Reads the first byte of the packet
                         if (_incMsg.ReadByte() == (byte)PacketTypes.Connect)  
                         {
                             _watch.Stop();
-                            // Approve clients connection ( Its sort of agreenment. "You can be my client and i will host you" )
+                            // Agreement of host and client is made here.
                             _incMsg.SenderConnection.Approve();
 
-                            // Add new character to the game.
+                            // Add a new player on this location
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
 
@@ -136,10 +142,10 @@ namespace SocialGroundsStore.Multiplayer
 
                             for (int i = 0; i < 10; i++)
                             {
-                                // Create message, that can be written and sent
+                                // Create a message to send and receive
                                 NetOutgoingMessage outmsg = _netServer.CreateMessage();
 
-                                // first we write byte
+                                // Write the bytes
                                 outmsg.Write((byte) PacketTypes.Connect);
                                 outmsg.Write(Game1.players.Last().Id);
 
@@ -147,11 +153,10 @@ namespace SocialGroundsStore.Multiplayer
 
                                 if (Game1.players.Count - 1 > 0)
                                 {
-                                    // iterate trought every character ingame
+                                    // Loop through every character in the game
                                     foreach (CPlayer player in Game1.players)
                                     {
-                                        // This is handy method
-                                        // It writes all the properties of object to the packet
+                                        // All properties of the packet are kept here to send out
                                         if (_incMsg.SenderConnection != player.Connection)
                                         {
                                             outmsg.Write(player.Id);
@@ -162,8 +167,8 @@ namespace SocialGroundsStore.Multiplayer
                                     }
                                 }
 
-                                // Send message/packet to all connections, in reliably order, channel 0
-                                // Reliably means, that each packet arrives in same order they were sent. Its slower than unreliable, but easyest to understand
+                                // Sends message to all players in chronological order
+                                // Messages are send in a reliable way, meaning they'll arrive in the same way that they are send
                                 _netServer.SendMessage(outmsg, _incMsg.SenderConnection,
                                     NetDeliveryMethod.ReliableOrdered, 0);
                             }
@@ -171,8 +176,7 @@ namespace SocialGroundsStore.Multiplayer
                         }
 
                         break;
-                    // Data type is all messages manually sent from client
-                    // ( Approval is automated process )
+
                     case NetIncomingMessageType.Data:
 
                         // Read first byte
@@ -205,19 +209,18 @@ namespace SocialGroundsStore.Multiplayer
                         }
                         break;
                     case NetIncomingMessageType.StatusChanged:
-                        // In case status changed
-                        // It can be one of these
+                        // When the status changes:
+                        // Status can be:
+
                         // NetConnectionStatus.Connected;
                         // NetConnectionStatus.Connecting;
                         // NetConnectionStatus.Disconnected;
                         // NetConnectionStatus.Disconnecting;
                         // NetConnectionStatus.None;
 
-                        // NOTE: Disconnecting and Disconnected are not instant unless client is shutdown with disconnect()
-                        //Console.WriteLine(inc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)inc.SenderConnection.Status);
                         if (_incMsg.SenderConnection.Status == NetConnectionStatus.Disconnected || _incMsg.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
-                            // Find disconnected character and remove it
+                            // Loop through the player until inactive is found and remove
                             foreach (CPlayer player in Game1.players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
@@ -241,7 +244,7 @@ namespace SocialGroundsStore.Multiplayer
                             }
                         }
                         break;
-                } // If New messages
+                }
             }
         }
     }

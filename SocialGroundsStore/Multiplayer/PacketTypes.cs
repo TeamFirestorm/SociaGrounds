@@ -1,5 +1,8 @@
 ﻿namespace SocialGroundsStore.Multiplayer
 {
+    /// <summary>
+    /// Packettypes that determine what to do
+    /// </summary>
     public enum PacketTypes
     {
         Connect,
@@ -8,6 +11,9 @@
         WorldState
     }
 
+    /// <summary>
+    /// Move direction that determines which way to move
+    /// </summary>
     public enum MoveDirection
     {
         Up,

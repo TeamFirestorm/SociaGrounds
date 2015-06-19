@@ -17,12 +17,14 @@ namespace SocialGroundsStore.Screens
 
         private bool _createdList;
         private bool _alreadyStarted;
+        public bool _firstStarted { get; set; }
 
         public LobbyScreen()
         {
             DbStuff.GetMyIpAndDns();
             _createdList = false;
             _alreadyStarted = false;
+            _firstStarted = false;
             _connections = new List<Connection>();
         }
 

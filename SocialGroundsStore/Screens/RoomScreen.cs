@@ -28,10 +28,8 @@ namespace SocialGroundsStore.Screens
             IsPlayingMusic = false;
         }
 
-        public void Update(GameTime gameTime, GraphicsDevice graphics)
+        public void Update(GameTime gameTime, GraphicsDevice graphics, KeyboardState keyState)
         {
-            KeyboardState keyState = Keyboard.GetState();
-
             foreach (var player in Game1.players)
             {
                 player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);

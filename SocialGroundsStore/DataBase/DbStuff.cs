@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace SocialGroundsStore.DataBase
 {
+
     public static class DbStuff
     {
         private static bool IsRunning { get; set; }

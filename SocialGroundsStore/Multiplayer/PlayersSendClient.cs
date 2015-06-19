@@ -9,9 +9,12 @@ using SocialGroundsStore.PlayerFolder;
 
 namespace SocialGroundsStore.Multiplayer
 {
+    /// <summary>
+    /// This class is used by the host to send data to the clients
+    /// </summary>
     public class PlayersSendClient
     {
-        // Client Object
+        // Host Object
         private static NetClient _client;
 
         private bool _started;
@@ -28,47 +31,47 @@ namespace SocialGroundsStore.Multiplayer
 
         private void CreateClient(ContentManager content, string ip)
         {
-            // Read ip to string
+            // Read the ip and make it a string
             string hostip = ip;
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
+            // Create new object of configs.
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
             //Players
             Game1.players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("Personas/Chris_Character")));
 
-            // Create new client, with previously created configs
+            // Create new client with the defined settings
             _client = new NetClient(config);
             _client.Start();
 
             // Create new outgoing message
             NetOutgoingMessage outmsg = _client.CreateMessage();
 
-            // Write byte ( first byte informs server about the message type ) ( This way we know, what kind of variables to read )
+            // Write byte, first byte describes the message type, letting the application know what to do with it.
             outmsg.Write((byte)PacketTypes.Connect);
             outmsg.Write(Game1.players[0].Position.X);
             outmsg.Write(Game1.players[0].Position.Y);
 
-            // Connect client, to ip previously requested from user
+            // Connect client with the host IP and default port
             _client.Connect(hostip, 14242, outmsg);
 
-            // Funtion that waits for connection approval info from server
+            // Task that waits for the approval of the host
             Task.Run(new Action(WaitForStartingInfo));
         }
 
-        // Before main looping starts, we loop here and wait for approval message
+        // Method that waits for the approval message before starting the connection
         private void WaitForStartingInfo()
         {
-            // When this is set to true, we are approved and ready to go
+            // When canStart is enabled, the game can start
             bool canStart = false;
 
-            // Loop untill we are approved
+            // Wait for approval
             while (!canStart)
             {
-                // New incoming message // If new messages arrived
+                // Read new messages
                 NetIncomingMessage msg = _client.ReadMessage();
                 if ((msg != null))
                 {
-                    // Switch based on the message types
+                    //Switch that determines the message type
                     switch (msg.MessageType)
                     {
                         case NetIncomingMessageType.DebugMessage:
@@ -78,10 +81,9 @@ namespace SocialGroundsStore.Multiplayer
                         case NetIncomingMessageType.WarningMessage:
                             break;
 
-                        // All manually sent messages are type of "Data"
+                        
                         case NetIncomingMessageType.Data:
                             // Read the first byte
-                            // This way we can separate packets from each others
                             if (msg.ReadByte() == (byte)PacketTypes.Connect)
                             {
                                 Game1.players[0].Id = msg.ReadInt32();
@@ -108,19 +110,16 @@ namespace SocialGroundsStore.Multiplayer
         }
 
         /// <summary>
-        /// Check for new incoming messages from server
+        /// Check if there are new messages from the server
         /// </summary>
 #pragma warning disable 1998
         private async void CheckServerMessages()
 #pragma warning restore 1998
         {
-            // Create new incoming message holder
+            // Create a message holder
             NetIncomingMessage msg;
 
-            // While theres new messages
-            // THIS is exactly the same as in WaitForStartingInfo() function
-            // Check if its Data message
-            // If its WorldState, read all the characters to list
+           //Check data messages, when found, add players to the list
             while ((msg = _client.ReadMessage()) != null)
             {
                 switch (msg.MessageType)
