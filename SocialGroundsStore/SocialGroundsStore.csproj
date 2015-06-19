@@ -140,7 +140,6 @@
     <Compile Include="CAnimation.cs" />
     <Compile Include="DataBase\Connection.cs" />
     <Compile Include="DataBase\DbStuff.cs" />
-    <Compile Include="DataBase\InternetConnection.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\RealKeyBoard.cs" />
     <Compile Include="GUI\SociaInputfield.cs" />

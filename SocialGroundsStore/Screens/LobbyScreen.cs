@@ -20,7 +20,7 @@ namespace SocialGroundsStore.Screens
 
         public LobbyScreen()
         {
-            InternetConnection.GetMyIpAndDns();
+            DbStuff.GetMyIpAndDns();
             _createdList = false;
             _alreadyStarted = false;
             _connections = new List<Connection>();
@@ -43,7 +43,7 @@ namespace SocialGroundsStore.Screens
             {
                 _alreadyStarted = true;
 
-                string ip = InternetConnection.CheckPossibleConnection(_connections);
+                string ip = DbStuff.CheckPossibleConnection(_connections);
 
                 if (ip == null)
                 {
