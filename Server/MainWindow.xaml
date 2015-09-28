@@ -1,8 +1,0 @@
-﻿<Window x:Class="Server.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
-    <Grid>
-        <Button Content="Start Lissening" HorizontalAlignment="Left" Margin="118,179,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click"/>
-    </Grid>
-</Window>

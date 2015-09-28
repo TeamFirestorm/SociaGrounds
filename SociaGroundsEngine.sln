@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SociaGroundsEngine", "Socia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialGroundsStore", "SocialGroundsStore\SocialGroundsStore.csproj", "{BD84590C-DE7A-4639-A9B1-4AD9B574E933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SociaGrounds", "D:\Users\Documents\Visual Studio 2015\Projects\SociaGrounds\SociaGrounds\SociaGrounds.csproj", "{C98AAB5D-54C4-4ABD-8FE3-467BBA5FD355}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SociaGrounds", "..\..\..\Dropbox\C#\MonoGame\SociaGrounds\SociaGrounds\SociaGrounds.csproj", "{C98AAB5D-54C4-4ABD-8FE3-467BBA5FD355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren", "Lidgren\Lidgren.csproj", "{D6722D10-3F96-47BE-9756-B1160925D5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,26 @@ Global
 		{C98AAB5D-54C4-4ABD-8FE3-467BBA5FD355}.Release|x86.ActiveCfg = Release|x86
 		{C98AAB5D-54C4-4ABD-8FE3-467BBA5FD355}.Release|x86.Build.0 = Release|x86
 		{C98AAB5D-54C4-4ABD-8FE3-467BBA5FD355}.Release|x86.Deploy.0 = Release|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|ARM.Build.0 = Debug|ARM
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|x64.ActiveCfg = Debug|x64
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|x64.Build.0 = Debug|x64
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|x86.ActiveCfg = Debug|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Debug|x86.Build.0 = Debug|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|ARM.ActiveCfg = Release|ARM
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|ARM.Build.0 = Release|ARM
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|x64.ActiveCfg = Release|x64
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|x64.Build.0 = Release|x64
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|x86.ActiveCfg = Release|x86
+		{D6722D10-3F96-47BE-9756-B1160925D5EA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
