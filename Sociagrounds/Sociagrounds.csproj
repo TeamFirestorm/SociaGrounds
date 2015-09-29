@@ -105,16 +105,19 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game1.cs" />
+    <Compile Include="Model\Controllers\SMouse.cs" />
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
+    <Compile Include="Model\Controllers\STouch.cs" />
     <Compile Include="Model\DB\Connection.cs" />
     <Compile Include="Model\DB\DataBase.cs" />
     <Compile Include="Model\GUI\Button.cs" />
     <Compile Include="Model\GUI\Camera.cs" />
     <Compile Include="Model\GUI\GUI.cs" />
     <Compile Include="Model\GUI\InputField.cs" />
-    <Compile Include="Model\GUI\KeyBoard.cs" />
-    <Compile Include="Model\GUI\RealKeyBoard.cs" />
+    <Compile Include="Model\KeyBoards\KeyBoard.cs" />
+    <Compile Include="Model\KeyBoards\RealKeyBoard.cs" />
+    <Compile Include="Model\KeyBoards\SociaKeyboard.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />

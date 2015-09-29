@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace SociaGrounds.Model.GUI
+namespace SociaGrounds.Model.KeyBoards
 {
     /// <summary>
     /// Class is used to connect the windows phone & desktop keyboards.

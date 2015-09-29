@@ -5,8 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.GUI;
-using SociaGrounds.Model.Players;
+using SociaGrounds.Model.KeyBoards;
 using SociaGrounds.Model.Screens;
 using static SociaGrounds.Model.Controllers.Static;
 
@@ -27,7 +26,6 @@ namespace SociaGrounds
         private RoomScreen _roomScreen;
         private SettingsScreen _settingsScreen;
 
-
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
         /// </summary>
@@ -41,23 +39,6 @@ namespace SociaGrounds
         }
 
         /// <summary>
-        /// CompareById the parameter id to the id of the player
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static CPlayer CompareById(int id)
-        {
-            foreach (CPlayer player in Players)
-            {
-                if (player.Id == id)
-                {
-                    return player;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
@@ -67,11 +48,9 @@ namespace SociaGrounds
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            ThisDevice = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
             CurrentScreenState = ScreenState.HomeScreen;
-
             IsMouseVisible = true;
-
             ScreenSize = GraphicsDevice.Viewport;
 
             base.Initialize();
@@ -100,7 +79,15 @@ namespace SociaGrounds
             _roomScreen = new RoomScreen(Content);
             _settingsScreen = new SettingsScreen();
 
-            Static.Keyboard = new RealKeyBoard();
+
+            if (ThisDevice != "Windows.Desktop")
+            {
+                
+            }
+            else
+            {
+                Static.Keyboard = new RealKeyBoard();
+            }
         }
 
         /// <summary>
@@ -119,13 +106,21 @@ namespace SociaGrounds
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            MouseState mouseState = Mouse.GetState();
+            if (ThisDevice != "Windows.Desktop")
+            {
+                STouch.NewTouchLocations = TouchPanel.GetState();
+            }
+            else
+            {
+                SMouse.NewMouseState = Mouse.GetState();
+            }
+            
 
             // Switch statement to determine the screen update logic
             switch (CurrentScreenState)
             {
                 case ScreenState.HomeScreen:
-                    _homeScreen.Update(mouseState);
+                    _homeScreen.Update();
                     break;
 
                 case ScreenState.LobbyScreen:
@@ -152,6 +147,11 @@ namespace SociaGrounds
 
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+
+            if (ThisDevice == "Windows.Desktop")
+            {
+                SMouse.OldMouseState = SMouse.NewMouseState;
             }
 
             base.Update(gameTime);

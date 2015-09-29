@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
+using static SociaGrounds.Model.Controllers.SMouse;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -27,7 +28,7 @@ namespace SociaGrounds.Model.Screens
             _buttons.Add(new Button(content, new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Width));
         }
 
-        public void Update(MouseState mouseState)
+        public void Update()
         {
             if (!IsPlayingMusic)
             {
@@ -37,9 +38,8 @@ namespace SociaGrounds.Model.Screens
 
             foreach (Button button in _buttons)
             {
-                if (button.IsHover(mouseState))
+                if (button.CheckButtonSelected())
                 {
-                    if (mouseState.LeftButton != ButtonState.Pressed) continue;
                     ChangeScreen(button);
                 }
             }

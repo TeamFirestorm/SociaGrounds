@@ -187,7 +187,7 @@ namespace SociaGrounds.Model.Multiplayer
                             float y = _incMsg.ReadFloat();
                             string msg = _incMsg.ReadString();
 
-                            ForeignPlayer foreign = (ForeignPlayer)Game1.CompareById(id);
+                            ForeignPlayer foreign = Static.FindForeignPlayerById(id);
                             foreign.AddNewPosition(new Vector2(x, y));
                             foreign.ChatMessage = msg;
 

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 
-namespace SociaGrounds.Model.GUI
+namespace SociaGrounds.Model.KeyBoards
 {
     /// <summary>
     /// This class is used for the desktop version of the application to manage the keyboard input

@@ -2,6 +2,10 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using SociaGrounds.Model.Controllers;
+using static SociaGrounds.Model.Controllers.SMouse;
+using static SociaGrounds.Model.Controllers.STouch;
 
 namespace SociaGrounds.Model.GUI
 {
@@ -27,9 +31,13 @@ namespace SociaGrounds.Model.GUI
 
         // Rectangle for detection
         private readonly Rectangle _hitBox;
-        private int state;
+
+        //The currentstate of the button
+        private int _buttonState;
 
         private readonly float _textPosition;
+
+        private bool _isTouched;
         
         public Button(ContentManager content, Vector2 position, string text, float scale) 
             : this(content, position, text, scale, text.Length)
@@ -67,39 +75,76 @@ namespace SociaGrounds.Model.GUI
 
             _hitBox = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
 
-            state = 0;
+            _buttonState = 0;
+        }
+
+        public bool CheckButtonSelected()
+        {
+            if (Static.ThisDevice != "Windows.Desktop")
+            {
+                return IsTouchReleased();
+            }
+
+            return IsClicked();
+        }
+
+        public bool IsTouchReleased()
+        {
+            if (NewTouchLocations.Count == 0 && _isTouched)
+            {
+                _isTouched = false;
+                _buttonState = 0;
+                return true;
+            }
+
+            if (NewTouchLocations.Count == 0) return false;
+
+            // Loop through all the locations where touch is possible
+            foreach (TouchLocation touch in NewTouchLocations)
+            {
+                // Check if the position is pressed within the button
+                if (new Rectangle((int)touch.Position.X, (int)touch.Position.Y, 1, 1).Intersects(_hitBox))
+                {
+                    _buttonState = 1;
+                    _isTouched = true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
         /// Checks if the mousecursor hovers over this buttons hitbox
         /// </summary>
-        /// <param name="mouseState">the current mousestate</param>
         /// <returns></returns>
-        public bool IsHover(MouseState mouseState)
+        private bool IsClicked()
         {
             // Check if the current mouse position is over hitbox
-            if (new Rectangle(mouseState.X, mouseState.Y, 1, 1).Intersects(_hitBox))
+            if (new Rectangle(NewMouseState.X, NewMouseState.Y, 1, 1).Intersects(_hitBox))
             {
-                state = 1;
-                return true;
+                _buttonState = 1;
+                if (NewMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
             }
-            state = 0;
+            _buttonState = 0;
             return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {       
                 // Drawing the left part
-                spriteBatch.Draw(_tetxures[state][0], Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+                spriteBatch.Draw(_tetxures[_buttonState][0], Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
                 // Drawing the mid part
                 for (int i = 0; i < Width; i++)
                 {
-                    spriteBatch.Draw(_tetxures[state][1], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * i), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(_tetxures[_buttonState][1], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * i), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
                 }
 
                 // Drawing the right part
-                spriteBatch.Draw(_tetxures[state][2], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * Width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+                spriteBatch.Draw(_tetxures[_buttonState][2], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * Width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
                 // Drawing the text
                 spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (_textPosition * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
