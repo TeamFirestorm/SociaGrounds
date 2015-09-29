@@ -15,11 +15,6 @@ namespace SociaGrounds.Model.GUI
         // Position of the inputfield
         private Vector2 _position;
 
-        public Vector2 Position
-        {
-            set { _position = value; }
-        }
-
         // String that will be updated in the textfield
         private readonly SpriteFont _font;
         private string _text;
@@ -47,8 +42,10 @@ namespace SociaGrounds.Model.GUI
             _scale = scale;
         }
 
-        public void Update(string text)
+        public void Update(string text, Vector2 newPosition)
         {
+            _position = newPosition;
+
             // Update the text in the textfield
             _text = text;
         }

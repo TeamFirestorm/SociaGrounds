@@ -115,9 +115,10 @@
     <Compile Include="Model\GUI\Camera.cs" />
     <Compile Include="Model\GUI\GUI.cs" />
     <Compile Include="Model\GUI\InputField.cs" />
+    <Compile Include="Model\GUI\RoomMenu.cs" />
     <Compile Include="Model\KeyBoards\KeyBoard.cs" />
     <Compile Include="Model\KeyBoards\RealKeyBoard.cs" />
-    <Compile Include="Model\KeyBoards\SociaKeyboard.cs" />
+    <Compile Include="Model\KeyBoards\VirtualKeyboard.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />

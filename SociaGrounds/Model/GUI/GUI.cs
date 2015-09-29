@@ -23,12 +23,11 @@ namespace SociaGrounds.Model.GUI
         /// <summary>
         /// Update method for the keyboard
         /// </summary>
-        /// <param name="position">Position of the key pressed</param>
+        /// <param name="cameraCenter">Position of the key pressed</param>
         /// <param name="viewport">Your screen(resolution)</param>
-        public void Update(Vector2 position, Viewport viewport)
+        public void Update(Vector2 cameraCenter, Viewport viewport)
         {
-            _inputField.Position = new Vector2(position.X - (viewport.Width / 11f), position.Y + (viewport.Height / _inputFieldHeight));
-            _inputField.Update(Static.Keyboard.TextBuffer);
+            _inputField.Update(Static.Keyboard.TextBuffer, new Vector2(cameraCenter.X - (viewport.Width / 11f), cameraCenter.Y + (viewport.Height / _inputFieldHeight)));
         }
 
         /// <summary>

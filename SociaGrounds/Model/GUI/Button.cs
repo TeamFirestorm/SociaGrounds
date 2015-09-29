@@ -39,11 +39,33 @@ namespace SociaGrounds.Model.GUI
 
         private bool _isTouched;
         
+
+        /// <summary>
+        /// CCreates a new button with the lenght of the text as width
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="position"></param>
+        /// <param name="text"></param>
+        /// <param name="scale"></param>
         public Button(ContentManager content, Vector2 position, string text, float scale) 
             : this(content, position, text, scale, text.Length)
         {
         }
 
+        public Button(ContentManager content, Vector2 position, string text, float scale, Rectangle rectangle)
+    : this(content, position, text, scale, text.Length)
+        {
+            _hitBox = rectangle;
+        }
+
+        /// <summary>
+        /// Creates a new Button with a fixed width
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="position"></param>
+        /// <param name="text"></param>
+        /// <param name="scale"></param>
+        /// <param name="fixedWidth"></param>
         public Button(ContentManager content, Vector2 position, string text, float scale, float fixedWidth)
         {
             _tetxures = new[]
