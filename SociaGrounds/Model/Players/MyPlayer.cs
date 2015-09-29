@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
 
@@ -27,7 +28,7 @@ namespace SociaGrounds.Model.Players
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Chat message initialize
-            font = Game1.Font;
+            font = Static.Font;
             chatMessage = "";
 
             Id = id;
@@ -47,7 +48,7 @@ namespace SociaGrounds.Model.Players
             speed = 3;
 
             // Chat message initialize
-            font = Game1.Font;
+            font = Static.Font;
             chatMessage = "";
 
             // Rectangle initialize

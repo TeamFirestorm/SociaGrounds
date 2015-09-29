@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Windows.UI.Xaml.Documents;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.GUI
 {
@@ -10,6 +13,8 @@ namespace SociaGrounds.Model.GUI
     /// </summary>
     public class RealKeyBoard : IKeyBoard
     {
+        private KeyboardState _oldState;
+
         private string _textBuffer;
 
         private readonly Keys[] _keys = 
@@ -27,16 +32,15 @@ namespace SociaGrounds.Model.GUI
             '!','@','#','$','%','^','&','*','(',')'
         };
 
-        //private readonly char[] _lowerCase =
-        //{
-        //    'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
-        //    '1','2','3','4','5','6','7','8','9','0'
-        //};
+        private readonly char[] _lowerCase =
+        {
+            'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
+            '1','2','3','4','5','6','7','8','9','0'
+        };
 
-        private readonly bool[] _isClicked;
+        private bool _isUppercase;
+        private bool _isCapsLock;
 
-        private bool _isBackSpace;
-        private bool _isEnter;
         private readonly InputField _inputField;
         private readonly float _inputFieldHeight;
 
@@ -48,9 +52,9 @@ namespace SociaGrounds.Model.GUI
         public RealKeyBoard(ContentManager content)
         {
             _textBuffer = "";
-            _isClicked = new bool[_upperCase.Length];
             _inputFieldHeight = 4.7f;
             _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
+            _isUppercase = false;
         }
 
         /// <summary>
@@ -85,71 +89,61 @@ namespace SociaGrounds.Model.GUI
         }
 
         /// <summary>
-        /// method that stores and sends the message when enter is pressed
-        /// </summary>
-        private void OnEnter()
-        {
-            if (string.IsNullOrEmpty(_textBuffer)) return;
-
-            Game1.Players[0].ChatMessage = _textBuffer;
-            _textBuffer = "";
-        }
-
-        /// <summary>
         /// method that keeps check of the current keystates
         /// </summary>
-        /// <param name="keyState">Input of current keystate</param>
-        private void CheckKeyState(KeyboardState keyState)
+        /// <param name="newState">Input of current keystate</param>
+        private void CheckKeyState(KeyboardState newState)
         {
-            if (keyState.IsKeyDown(Keys.Back))
+            if (_oldState.IsKeyDown(Keys.CapsLock) && newState.IsKeyUp(Keys.CapsLock))
             {
-                if (_textBuffer.Length <= 0) return;
-                _isBackSpace = true;
-            }
-
-            if (keyState.IsKeyDown(Keys.Enter))
-            {
-                _isEnter = true;
-            }
-
-            for (int i = 0; i < _keys.Length - 1; i++)
-            {
-                if (keyState.IsKeyDown(_keys[i]))
+                switch (_isUppercase)
                 {
-                    _isClicked[i] = true;
+                    case true:
+                        _isUppercase = false;
+                        _isCapsLock = false;
+                        break;
+                    case false:
+                        _isUppercase = true;
+                        _isCapsLock = true;
+                        break;
                 }
             }
 
-            if (keyState.IsKeyUp(Keys.Back))
+            foreach (Keys key in _keys)
             {
-                if (_isBackSpace)
+                if (!_oldState.IsKeyDown(key) || !newState.IsKeyUp(key)) continue;
+
+                AddText(_isUppercase ? _upperCase[Array.IndexOf(_keys,key)] : _lowerCase[Array.IndexOf(_keys, key)]);
+            }
+
+            if (_oldState.IsKeyDown(Keys.Enter) && newState.IsKeyUp(Keys.Enter))
+            {
+                if (string.IsNullOrEmpty(_textBuffer)) return;
+
+                Static.Players[0].ChatMessage = _textBuffer;
+                _textBuffer = "";
+            }
+
+            if (_oldState.IsKeyDown(Keys.Back) && newState.IsKeyUp(Keys.Back))
+            {
+                if (_textBuffer.Length > 0)
                 {
-                    _isBackSpace = false;
                     char[] text = _textBuffer.ToCharArray();
                     _textBuffer = new string(text, 0, text.Length - 1);
                 }
             }
 
-            if (keyState.IsKeyUp(Keys.Enter))
+            if (newState.IsKeyDown(Keys.LeftShift))
             {
-                if (_isEnter)
-                {
-                    _isEnter = false;
-                    OnEnter();
-                }
+                _isUppercase = !_isCapsLock;
+                
+            }
+            else if (_oldState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift))
+            {
+                _isUppercase = _isCapsLock;
             }
 
-            for (int i = 0; i < _keys.Length - 1; i++)
-            {
-                if (keyState.IsKeyUp(_keys[i]))
-                {
-                    if (_isClicked[i])
-                    {
-                        _isClicked[i] = false;
-                        AddText(_upperCase[i]);
-                    }
-                }
-            }
+            _oldState = newState;
         }
     }
 }

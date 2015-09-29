@@ -5,6 +5,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.Players;
 
 namespace SociaGrounds.Model.Multiplayer
@@ -39,7 +40,7 @@ namespace SociaGrounds.Model.Multiplayer
         {
             _numberOfPlayers = 1;
 
-            Game1.Players.Add(new MyPlayer(new Vector2(100, 100), content.Load<Texture2D>("Personas/Chris_Character"), 0));
+            Static.Players.Add(new MyPlayer(new Vector2(100, 100), content.Load<Texture2D>("Personas/Chris_Character"), 0));
 
             _watch = new Stopwatch();
 
@@ -79,7 +80,7 @@ namespace SociaGrounds.Model.Multiplayer
                 if (_watch.ElapsedMilliseconds >= Game1.SendTime)
                 {
                     _watch.Stop();
-                    SendLocationToClients(Game1.Players[0]);
+                    SendLocationToClients(Static.Players[0]);
                     _watch.Restart();
                 }
                 ServerRunning();
@@ -136,7 +137,7 @@ namespace SociaGrounds.Model.Multiplayer
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
 
-                            Game1.Players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
+                            Static.Players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
                             _numberOfPlayers++;
 
                             for (int i = 0; i < 10; i++)
@@ -146,14 +147,14 @@ namespace SociaGrounds.Model.Multiplayer
 
                                 // Write the bytes
                                 outmsg.Write((byte)PacketTypes.Connect);
-                                outmsg.Write(Game1.Players.Last().Id);
+                                outmsg.Write(Static.Players.Last().Id);
 
-                                outmsg.Write(Game1.Players.Count - 1);
+                                outmsg.Write(Static.Players.Count - 1);
 
-                                if (Game1.Players.Count - 1 > 0)
+                                if (Static.Players.Count - 1 > 0)
                                 {
                                     // Loop through every character in the game
-                                    foreach (CPlayer player in Game1.Players)
+                                    foreach (CPlayer player in Static.Players)
                                     {
                                         // All properties of the packet are kept here to send out
                                         if (_incMsg.SenderConnection != player.Connection)
@@ -220,7 +221,7 @@ namespace SociaGrounds.Model.Multiplayer
                         if (_incMsg.SenderConnection.Status == NetConnectionStatus.Disconnected || _incMsg.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             // Loop through the player until inactive is found and remove
-                            foreach (CPlayer player in Game1.Players)
+                            foreach (CPlayer player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -232,7 +233,7 @@ namespace SociaGrounds.Model.Multiplayer
                                     outmsg.Write((byte)PacketTypes.Disconnect);
                                     outmsg.Write(foreign.Id);
 
-                                    Game1.Players.Remove(foreign);
+                                    Static.Players.Remove(foreign);
 
                                     List<NetConnection> all = _netServer.Connections;
                                     all.Remove(_incMsg.SenderConnection);

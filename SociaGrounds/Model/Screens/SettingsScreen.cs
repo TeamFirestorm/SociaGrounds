@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -9,7 +10,7 @@ namespace SociaGrounds.Model.Screens
         {
             if (keyState.IsKeyDown(Keys.Escape))
             {
-                Game1.CurrentScreenState = Game1.ScreenState.HomeScreen;
+                Static.CurrentScreenState = ScreenState.HomeScreen;
             }
         }
 

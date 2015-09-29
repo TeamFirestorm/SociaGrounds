@@ -15,8 +15,8 @@ namespace SociaGrounds.Model.Screens
 
         public HomeScreen(ContentManager content)
         {
-            float middleWidth = Game1.Viewport.Width / 2f;
-            float middleHeight = Game1.Viewport.Height / 2f;
+            float middleWidth = Static.ScreenSize.Width / 2f;
+            float middleHeight = Static.ScreenSize.Height / 2f;
 
             _buttons = new List<Button>
             {
@@ -24,7 +24,7 @@ namespace SociaGrounds.Model.Screens
             };
 
             _buttons.Add(new Button(content, new Vector2(0 + 200, middleHeight), "ABout", 1.0f, _buttons[0].Width));
-            _buttons.Add(new Button(content, new Vector2(Game1.Viewport.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Width));
+            _buttons.Add(new Button(content, new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Width));
         }
 
         public void Update(MouseState mouseState)
@@ -59,15 +59,15 @@ namespace SociaGrounds.Model.Screens
         {
             if (_buttons[0].Equals(clicked))
             {
-                Game1.CurrentScreenState = Game1.ScreenState.LobbyScreen;
+                Static.CurrentScreenState = ScreenState.LobbyScreen;
             }
             else if (_buttons[1].Equals(clicked))
             {
-                Game1.CurrentScreenState = Game1.ScreenState.AboutScreen;
+                Static.CurrentScreenState = ScreenState.AboutScreen;
             }
             else if (_buttons[2].Equals(clicked))
             {
-                Game1.CurrentScreenState = Game1.ScreenState.SettingsScreen;
+                Static.CurrentScreenState = ScreenState.SettingsScreen;
             }
         }
     }

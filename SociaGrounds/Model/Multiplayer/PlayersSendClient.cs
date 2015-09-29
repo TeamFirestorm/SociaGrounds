@@ -5,6 +5,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.Players;
 
 namespace SociaGrounds.Model.Multiplayer
@@ -37,7 +38,7 @@ namespace SociaGrounds.Model.Multiplayer
             NetPeerConfiguration config = new NetPeerConfiguration("game");
 
             //Players
-            Game1.Players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character")));
+            Static.Players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character")));
 
             // Create new client with the defined settings
             _client = new NetClient(config);
@@ -48,8 +49,8 @@ namespace SociaGrounds.Model.Multiplayer
 
             // Write byte, first byte describes the message type, letting the application know what to do with it.
             outmsg.Write((byte)PacketTypes.Connect);
-            outmsg.Write(Game1.Players[0].Position.X);
-            outmsg.Write(Game1.Players[0].Position.Y);
+            outmsg.Write(Static.Players[0].Position.X);
+            outmsg.Write(Static.Players[0].Position.Y);
 
             // Connect client with the host IP and default port
             _client.Connect(hostip, 14242, outmsg);
@@ -86,7 +87,7 @@ namespace SociaGrounds.Model.Multiplayer
                             // Read the first byte
                             if (msg.ReadByte() == (byte)PacketTypes.Connect)
                             {
-                                Game1.Players[0].Id = msg.ReadInt32();
+                                Static.Players[0].Id = msg.ReadInt32();
                                 int numPlayers = msg.ReadInt32();
 
                                 for (int i = 0; i < numPlayers; i++)
@@ -95,7 +96,7 @@ namespace SociaGrounds.Model.Multiplayer
                                     float x = msg.ReadFloat();
                                     float y = msg.ReadFloat();
 
-                                    Game1.Players.Add(new ForeignPlayer(new Vector2(x, y), id));
+                                    Static.Players.Add(new ForeignPlayer(new Vector2(x, y), id));
                                 }
 
                                 // When all players are added to list, start the game
@@ -141,7 +142,7 @@ namespace SociaGrounds.Model.Multiplayer
 
                             int id = msg.ReadInt32();
 
-                            foreach (CPlayer player in Game1.Players)
+                            foreach (CPlayer player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -161,7 +162,7 @@ namespace SociaGrounds.Model.Multiplayer
                         {
                             int id = msg.ReadInt32();
 
-                            foreach (CPlayer player in Game1.Players)
+                            foreach (CPlayer player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -169,7 +170,7 @@ namespace SociaGrounds.Model.Multiplayer
 
                                 if (foreign.Id == id)
                                 {
-                                    Game1.Players.Remove(foreign);
+                                    Static.Players.Remove(foreign);
                                     break;
                                 }
                             }
@@ -188,7 +189,7 @@ namespace SociaGrounds.Model.Multiplayer
                 {
                     _watch.Restart();
                     // Check if server sent new messages
-                    GetInputAndSendItToServer(Game1.Players[0]);
+                    GetInputAndSendItToServer(Static.Players[0]);
                     CheckServerMessages();
                 }
             }

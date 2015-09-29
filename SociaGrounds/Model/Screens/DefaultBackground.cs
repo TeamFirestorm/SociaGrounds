@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -12,7 +13,7 @@ namespace SociaGrounds.Model.Screens
         {
             spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
 
-            spriteBatch.Draw(Title, new Vector2((Game1.Viewport.Width / 2f - Title.Width / 2f), 50), Color.White);
+            spriteBatch.Draw(Title, new Vector2((Static.ScreenSize.Width / 2f - Title.Width / 2f), 50), Color.White);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -17,7 +18,7 @@ namespace SociaGrounds.Model.Screens
         {
             if (keyState.IsKeyDown(Keys.Escape))
             {
-                Game1.CurrentScreenState = Game1.ScreenState.HomeScreen;
+                Static.CurrentScreenState = ScreenState.HomeScreen;
             }
         }
 
@@ -29,11 +30,11 @@ namespace SociaGrounds.Model.Screens
 
             float height = 0;
 
-            spriteBatch.DrawString(Game1.Font, "Press escape to return", new Vector2(100,100), Color.Black);
+            spriteBatch.DrawString(Static.Font, "Press escape to return", new Vector2(100,100), Color.Black);
 
             foreach (string name in _names)
             {
-                spriteBatch.DrawString(Game1.Font, name, new Vector2(Game1.Viewport.Width / 2f, ((Game1.Viewport.Height / 2f) + height)), Color.Black);
+                spriteBatch.DrawString(Static.Font, name, new Vector2(Static.ScreenSize.Width / 2f, ((Static.ScreenSize.Height / 2f) + height)), Color.Black);
                 height += 40;
             }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.DB;
 using SociaGrounds.Model.Multiplayer;
 
@@ -59,7 +60,7 @@ namespace SociaGrounds.Model.Screens
                     Client = new PlayersSendClient(content, ip);
                     Task.Run(new Action(Client.Loop));
                 }
-                Game1.CurrentScreenState = Game1.ScreenState.RoomScreen;
+                Static.CurrentScreenState = ScreenState.RoomScreen;
             }
         }
 

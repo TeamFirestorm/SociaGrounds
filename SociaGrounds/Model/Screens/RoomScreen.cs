@@ -37,24 +37,24 @@ namespace SociaGrounds.Model.Screens
                 IsPlayingMusic = true;
             }
 
-            foreach (var player in Game1.Players)
+            foreach (var player in Static.Players)
             {
                 player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
             }
 
-            _camera.Update(graphics.Viewport, Game1.Players[0].Position, _map, _ui, keyState);
+            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map, _ui, keyState);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _camera.TranformPublic);
             _map.Draw(spriteBatch);
-            foreach (var player in Game1.Players)
+            foreach (var player in Static.Players)
             {
                 player.Draw(spriteBatch);
             }
             _map.DrawSolid(spriteBatch);
-            foreach (var player in Game1.Players)
+            foreach (var player in Static.Players)
             {
                 player.DrawText(spriteBatch);
             }

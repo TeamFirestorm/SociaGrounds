@@ -4,6 +4,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
 
@@ -24,14 +25,14 @@ namespace SociaGrounds.Model.Players
         {
             newQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Game1.Texture, startPosition, 64, 64, 10, 25, false);
+            animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
             speed = 3;
             this.connection = connection;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            font = Game1.Font;
+            font = Static.Font;
             chatMessage = "";
 
             Id = id;
@@ -50,13 +51,13 @@ namespace SociaGrounds.Model.Players
         {
             newQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Game1.Texture, startPosition, 64, 64, 10, 25, false);
+            animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
             speed = 3;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            font = Game1.Font;
+            font = Static.Font;
             chatMessage = "";
 
             Id = id;

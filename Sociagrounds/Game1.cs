@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.Players;
 using SociaGrounds.Model.Screens;
+using static SociaGrounds.Model.Controllers.Static;
 
 namespace SociaGrounds
 {
@@ -17,18 +18,7 @@ namespace SociaGrounds
     public class Game1 : Game
     {
         private SpriteBatch _spriteBatch;
-        public static Texture2D Texture;
-        public static SpriteFont Font;
         public const int SendTime = 50;
-
-        public enum ScreenState
-        {
-            HomeScreen,
-            LobbyScreen,
-            RoomScreen,
-            AboutScreen,
-            SettingsScreen,
-        }
 
         // All the screens
         private HomeScreen _homeScreen;
@@ -37,14 +27,6 @@ namespace SociaGrounds
         private RoomScreen _roomScreen;
         private SettingsScreen _settingsScreen;
 
-        //The size of the current screen
-        public static Viewport Viewport { get; private set; }
-
-        //The current Activated Screen;
-        public static ScreenState CurrentScreenState;
-
-        //The list containing all the players
-        public static List<CPlayer> Players;
 
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
@@ -86,14 +68,11 @@ namespace SociaGrounds
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Initializing playlist
-            Players = new List<CPlayer>();
-
             CurrentScreenState = ScreenState.HomeScreen;
 
             IsMouseVisible = true;
 
-            Viewport = GraphicsDevice.Viewport;
+            ScreenSize = GraphicsDevice.Viewport;
 
             base.Initialize();
         }
@@ -104,7 +83,7 @@ namespace SociaGrounds
         /// </summary>
         protected override void LoadContent()
         {
-            Texture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
+            PlayerTexture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
             Font = Content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
 
             // Songs load
