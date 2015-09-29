@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="Sociagrounds.App"
+    x:Class="SociaGrounds.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Sociagrounds"
+    xmlns:local="using:SociaGrounds"
     RequestedTheme="Light">
 
 </Application>

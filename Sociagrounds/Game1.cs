@@ -1,20 +1,78 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
+using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.Players;
+using SociaGrounds.Model.Screens;
 
-namespace Sociagrounds
+namespace SociaGrounds
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private SpriteBatch _spriteBatch;
+        public static Texture2D Texture;
+        public static SpriteFont Font;
+        public const int SendTime = 50;
 
+        public enum ScreenState
+        {
+            HomeScreen,
+            LobbyScreen,
+            RoomScreen,
+            AboutScreen,
+            SettingsScreen,
+        }
+
+        // All the screens
+        private HomeScreen _homeScreen;
+        private LobbyScreen _lobbyScreen;
+        private AboutScreen _aboutScreen;
+        private RoomScreen _roomScreen;
+        private SettingsScreen _settingsScreen;
+
+        //The size of the current screen
+        public static Viewport Viewport { get; private set; }
+
+        //The current Activated Screen;
+        public static ScreenState CurrentScreenState;
+
+        //The list containing all the players
+        public static List<CPlayer> Players;
+
+        /// <summary>
+        /// Creates Game1 wihich inherits from Monogame Game class
+        /// </summary>
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            // ReSharper disable once ObjectCreationAsStatement
+            new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
+            TouchPanel.EnabledGestures = GestureType.Tap;
+        }
+
+        /// <summary>
+        /// CompareById the parameter id to the id of the player
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static CPlayer CompareById(int id)
+        {
+            foreach (CPlayer player in Players)
+            {
+                if (player.Id == id)
+                {
+                    return player;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -25,7 +83,17 @@ namespace Sociagrounds
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Create a new SpriteBatch, which can be used to draw textures.
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // Initializing playlist
+            Players = new List<CPlayer>();
+
+            CurrentScreenState = ScreenState.HomeScreen;
+
+            IsMouseVisible = true;
+
+            Viewport = GraphicsDevice.Viewport;
 
             base.Initialize();
         }
@@ -36,10 +104,22 @@ namespace Sociagrounds
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
+            Font = Content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
 
-            // TODO: use this.Content to load your game content here
+            // Songs load
+            SongPlayer.AddSong(Content.Load<Song>("SociaGrounds/Music/splashscreen_music"));
+            SongPlayer.AddSong(Content.Load<Song>("SociaGrounds/Music/in-game-music"));
+
+            DefaultBackground.Background = Content.Load<Texture2D>("SociaGrounds/Background/background");
+            DefaultBackground.Title = Content.Load<Texture2D>("SociaGrounds/Background/Sociagrounds_title");
+
+            // Screens load
+            _homeScreen = new HomeScreen(Content);
+            _aboutScreen = new AboutScreen();
+            _lobbyScreen = new LobbyScreen();
+            _roomScreen = new RoomScreen(Content);
+            _settingsScreen = new SettingsScreen();
         }
 
         /// <summary>
@@ -48,7 +128,7 @@ namespace Sociagrounds
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
         /// <summary>
@@ -58,7 +138,41 @@ namespace Sociagrounds
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            MouseState mouseState = Mouse.GetState();
+            KeyboardState keyState = Keyboard.GetState();
+
+            // Switch statement to determine the screen update logic
+            switch (CurrentScreenState)
+            {
+                case ScreenState.HomeScreen:
+                    _homeScreen.Update(mouseState);
+                    break;
+
+                case ScreenState.LobbyScreen:
+
+                    if (!_lobbyScreen.FirstStarted)
+                    {
+                        _lobbyScreen.FirstStarted = true;
+                        _lobbyScreen.CreateConnections();
+                    }
+                    _lobbyScreen.Update(Content);
+                    break;
+
+                case ScreenState.AboutScreen:
+                    _aboutScreen.Update(keyState);
+                    break;
+
+                case ScreenState.SettingsScreen:
+                    _settingsScreen.Update(keyState);
+                    break;
+
+                case ScreenState.RoomScreen:
+                    _roomScreen.Update(gameTime, GraphicsDevice, keyState);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             base.Update(gameTime);
         }
@@ -71,7 +185,27 @@ namespace Sociagrounds
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // Switch statement to determine the draw logic
+            switch (CurrentScreenState)
+            {
+                case ScreenState.HomeScreen:
+                    _spriteBatch.Begin();
+                    _homeScreen.Draw(_spriteBatch);
+                    _spriteBatch.End();
+                    break;
+                case ScreenState.LobbyScreen:
+                    _lobbyScreen.Draw(_spriteBatch);
+                    break;
+                case ScreenState.AboutScreen:
+                    _aboutScreen.Draw(_spriteBatch);
+                    break;
+                case ScreenState.SettingsScreen:
+                    _settingsScreen.Draw(_spriteBatch);
+                    break;
+                case ScreenState.RoomScreen:
+                    _roomScreen.Draw(_spriteBatch);
+                    break;
+            }
 
             base.Draw(gameTime);
         }

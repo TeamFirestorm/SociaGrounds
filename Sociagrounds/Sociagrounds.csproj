@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{bd1e8328-ab8b-4014-a93d-5dac5b1ec565}</ProjectGuid>
+    <ProjectGuid>{05278C60-0E46-4F17-A0CC-BCB20585EFC8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sociagrounds</RootNamespace>
-    <AssemblyName>Sociagrounds</AssemblyName>
+    <RootNamespace>SociaGrounds</RootNamespace>
+    <AssemblyName>SociaGrounds</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10069.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    
-    <PackageCertificateKeyFile>Sociagrounds_TemporaryKey.pfx</PackageCertificateKeyFile>
-    
+    <PackageCertificateKeyFile>SociaGrounds_TemporaryKey.pfx</PackageCertificateKeyFile>
     <MonoGamePlatform>WindowsStoreApp</MonoGamePlatform>
-    <MonoGameContentBuilderExe></MonoGameContentBuilderExe>
+    <MonoGameContentBuilderExe>
+    </MonoGameContentBuilderExe>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -94,7 +94,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Reference Include="MonoGame.Framework">
-       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsUAP\MonoGame.Framework.dll</HintPath>
+      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsUAP\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -105,23 +105,84 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game1.cs" />
+    <Compile Include="Model\Controllers\SongPlayer.cs" />
+    <Compile Include="Model\DB\Connection.cs" />
+    <Compile Include="Model\DB\DataBase.cs" />
+    <Compile Include="Model\GUI\Button.cs" />
+    <Compile Include="Model\GUI\Camera.cs" />
+    <Compile Include="Model\GUI\GUI.cs" />
+    <Compile Include="Model\GUI\InputField.cs" />
+    <Compile Include="Model\GUI\KeyBoard.cs" />
+    <Compile Include="Model\GUI\RealKeyBoard.cs" />
+    <Compile Include="Model\Multiplayer\PacketTypes.cs" />
+    <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
+    <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />
+    <Compile Include="Model\Players\CAnimation.cs" />
+    <Compile Include="Model\Players\CPlayer.cs" />
+    <Compile Include="Model\Players\Direction.cs" />
+    <Compile Include="Model\Players\ForeignPlayer.cs" />
+    <Compile Include="Model\Players\MyPlayer.cs" />
+    <Compile Include="Model\Players\RectangleHelper.cs" />
+    <Compile Include="Model\Screens\AboutScreen.cs" />
+    <Compile Include="Model\Screens\DefaultBackground.cs" />
+    <Compile Include="Model\Screens\HomeScreen.cs" />
+    <Compile Include="Model\Screens\LobbyScreen.cs" />
+    <Compile Include="Model\Screens\RoomScreen.cs" />
+    <Compile Include="Model\Screens\SettingsScreen.cs" />
+    <Compile Include="Model\World\Asset.cs" />
+    <Compile Include="Model\World\GrassTile.cs" />
+    <Compile Include="Model\World\Map.cs" />
+    <Compile Include="Model\World\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\SociaGrounds\SociaGroundsFont.spritefont" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    
-    <None Include="Sociagrounds_TemporaryKey.pfx" />
-    
+    <None Include="SociaGrounds_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\SociaGrounds\Background\background.png" />
+    <Content Include="Content\SociaGrounds\Background\Sociagrounds_title.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\PressedButtonLeft.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\PressedButtonMiddle.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\PressedButtonRight.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonLeft.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonMiddle.png" />
+    <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonRight.png" />
+    <Content Include="Content\SociaGrounds\GUI\Inputfield\LeftTextfield.png" />
+    <Content Include="Content\SociaGrounds\GUI\Inputfield\MiddleTextfield.png" />
+    <Content Include="Content\SociaGrounds\Music\in-game-music.mp3" />
+    <Content Include="Content\SociaGrounds\Music\menu_music.wav" />
+    <Content Include="Content\SociaGrounds\Music\splashscreen_music.mp3" />
+    <Content Include="Content\SociaGrounds\Personas\Alwin_Character.png" />
+    <Content Include="Content\SociaGrounds\Personas\Chris_Character.png" />
+    <Content Include="Content\SociaGrounds\Personas\Gyllion_Character.png" />
+    <Content Include="Content\SociaGrounds\Personas\Thijs_Character.png" />
+    <Content Include="Content\SociaGrounds\Personas\Wouter_Character.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_0.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_1.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_2.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_3.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_4.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_F_0.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_F_1.png" />
+    <Content Include="Content\SociaGrounds\World\Grass\Grass_F_2.png" />
+    <Content Include="Content\SociaGrounds\World\Tree\TreeBottom.png" />
+    <Content Include="Content\SociaGrounds\World\Tree\TreeMid.png" />
+    <Content Include="Content\SociaGrounds\World\Tree\TreeTop.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\Logo.scale-100.png" />
-    <Content Include="Assets\SmallLogo.scale-100.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\StoreLogo.scale-100.png" />
-    <Content Include="Assets\WideLogo.scale-100.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -135,6 +196,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lidgren\Lidgren.csproj">
+      <Project>{d6722d10-3f96-47be-9756-b1160925d5ea}</Project>
+      <Name>Lidgren</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
