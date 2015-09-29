@@ -14,12 +14,9 @@ namespace SociaGrounds.Model.Screens
             _names = new [] {"Gyllion van Elderen", "Wouter Kosse", "Thijs Reeringh", "Chris Vinkers", "Alwin Masseling"};
         }
 
-        public void Update(KeyboardState keyState)
+        public void Update()
         {
-            if (keyState.IsKeyDown(Keys.Escape))
-            {
-                Static.CurrentScreenState = ScreenState.HomeScreen;
-            }
+            Static.Keyboard.CheckKeyState();
         }
 
         public void Draw(SpriteBatch spriteBatch)

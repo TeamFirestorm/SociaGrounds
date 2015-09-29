@@ -63,15 +63,16 @@ namespace SociaGrounds.Model.Players
         /// <param name="viewPort">For the height and width of the screen</param>
         /// <param name="map">All info about the map</param>
         /// <param name="keyState">The current keystate</param>
-        public override void Update(GameTime gameTime, Gui ui, Viewport viewPort, Map map, KeyboardState keyState)
+        public override void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState))
         {
-            Input(gameTime, map, keyState);
             animation.Position = position;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
+            Input(gameTime, map, state);
+
             // Show the chat message for a certain amount of time
-            if (!String.IsNullOrEmpty(chatMessage))
+            if (!string.IsNullOrEmpty(chatMessage))
             {
                 chatCounter += gameTime.ElapsedGameTime.Milliseconds;
 
@@ -105,7 +106,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="gameTime"></param>
         /// <param name="map"></param>
         /// <param name="keyState"></param>
-        private void Input(GameTime gameTime, Map map, KeyboardState keyState)
+        public void Input(GameTime gameTime, Map map, KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Up))
             {

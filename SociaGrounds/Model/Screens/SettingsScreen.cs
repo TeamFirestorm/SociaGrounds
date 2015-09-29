@@ -1,17 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.Screens
 {
     public class SettingsScreen
     {
-        public void Update(KeyboardState keyState)
+        public void Update()
         {
-            if (keyState.IsKeyDown(Keys.Escape))
-            {
-                Static.CurrentScreenState = ScreenState.HomeScreen;
-            }
+            Static.Keyboard.CheckKeyState();
         }
 
         public void Draw(SpriteBatch spriteBatch)

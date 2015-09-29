@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.GUI
 {
     public class Gui
     {
-        private readonly RealKeyBoard _keyboard;
+        private readonly InputField _inputField;
+        private readonly float _inputFieldHeight;
 
         /// <summary>
         /// This class is used to build the user interface of the application
@@ -15,7 +16,8 @@ namespace SociaGrounds.Model.GUI
         /// <param name="content">The contents in this parameter will be used to draw the GUI</param>
         public Gui(ContentManager content)
         {
-            _keyboard = new RealKeyBoard(content);
+            _inputFieldHeight = 4.7f;
+            _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
         }
 
         /// <summary>
@@ -23,10 +25,10 @@ namespace SociaGrounds.Model.GUI
         /// </summary>
         /// <param name="position">Position of the key pressed</param>
         /// <param name="viewport">Your screen(resolution)</param>
-        /// <param name="keyState">All keys in the keyboard</param>
-        public void Update(Vector2 position, Viewport viewport, KeyboardState keyState)
+        public void Update(Vector2 position, Viewport viewport)
         {
-            _keyboard.Update(position,viewport,keyState);
+            _inputField.Position = new Vector2(position.X - (viewport.Width / 11f), position.Y + (viewport.Height / _inputFieldHeight));
+            _inputField.Update(Static.Keyboard.TextBuffer);
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace SociaGrounds.Model.GUI
         /// <param name="spriteBatch">Contains the text for the chat</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            _keyboard.Draw(spriteBatch);
+            _inputField.Draw(spriteBatch);
         }
     }
 }

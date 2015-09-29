@@ -55,7 +55,7 @@ namespace SociaGrounds.Model.Players
         }
 
         // Abstract method to update the player
-        public abstract void Update(GameTime gameTime, Gui ui, Viewport viewPort, Map map, KeyboardState keyState);
+        public abstract void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState));
 
         // Abstract method to draw the player
         public abstract void Draw(SpriteBatch spriteBatch);

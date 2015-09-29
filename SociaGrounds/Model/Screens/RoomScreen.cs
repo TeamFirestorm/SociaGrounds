@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
@@ -29,7 +28,7 @@ namespace SociaGrounds.Model.Screens
             IsPlayingMusic = false;
         }
 
-        public void Update(GameTime gameTime, GraphicsDevice graphics, KeyboardState keyState)
+        public void Update(GameTime gameTime, GraphicsDevice graphics)
         {
             if (!IsPlayingMusic)
             {
@@ -37,12 +36,17 @@ namespace SociaGrounds.Model.Screens
                 IsPlayingMusic = true;
             }
 
-            foreach (var player in Static.Players)
-            {
-                player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
-            }
+            Static.Keyboard.CheckKeyState();
+            Static.Players[0].Update(gameTime, _map, Static.Keyboard.OldKeyboardState);
 
-            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map, _ui, keyState);
+            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map, _ui);
+
+            //TODO implement movement for foreign players
+            //foreach (var player in Static.Players)
+            //{
+            //    player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
+            //}
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

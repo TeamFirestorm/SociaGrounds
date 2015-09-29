@@ -14,7 +14,7 @@ namespace SociaGrounds.Model.GUI
 
         private Vector2 _centre;
 
-        public void Update(Viewport viewport, Vector2 position, Map map, Gui ui, KeyboardState keyState)
+        public void Update(Viewport viewport, Vector2 position, Map map, Gui ui)
         {
             // If the camera is on the left side of the map, stop the horizontal camera movement
             if (position.X < map.StartPosition.X + (viewport.Width / 4f))
@@ -51,7 +51,7 @@ namespace SociaGrounds.Model.GUI
             // Camera translation
             TranformPublic = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Height / 2.5f), -_centre.Y + (viewport.Width / 8f), 0)) * Matrix.CreateScale(2.0f, 2.0f, 0);
 
-            ui.Update(_centre, viewport, keyState);
+            ui.Update(_centre, viewport);
         }
     }
 }

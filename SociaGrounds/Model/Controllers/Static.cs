@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.Players;
 
 namespace SociaGrounds.Model.Controllers
 {
-    public class Static
+    public static class Static
     {
+        public static AKeyBoard Keyboard { get; set; }
+
         public static Texture2D PlayerTexture { get; set; }
         public static SpriteFont Font { get; set; }
 

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.Players;
 using SociaGrounds.Model.Screens;
 using static SociaGrounds.Model.Controllers.Static;
@@ -99,6 +99,8 @@ namespace SociaGrounds
             _lobbyScreen = new LobbyScreen();
             _roomScreen = new RoomScreen(Content);
             _settingsScreen = new SettingsScreen();
+
+            Static.Keyboard = new RealKeyBoard();
         }
 
         /// <summary>
@@ -118,7 +120,6 @@ namespace SociaGrounds
         protected override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
-            KeyboardState keyState = Keyboard.GetState();
 
             // Switch statement to determine the screen update logic
             switch (CurrentScreenState)
@@ -138,15 +139,15 @@ namespace SociaGrounds
                     break;
 
                 case ScreenState.AboutScreen:
-                    _aboutScreen.Update(keyState);
+                    _aboutScreen.Update();
                     break;
 
                 case ScreenState.SettingsScreen:
-                    _settingsScreen.Update(keyState);
+                    _settingsScreen.Update();
                     break;
 
                 case ScreenState.RoomScreen:
-                    _roomScreen.Update(gameTime, GraphicsDevice, keyState);
+                    _roomScreen.Update(gameTime, GraphicsDevice);
                     break;
 
                 default:
