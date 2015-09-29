@@ -3,6 +3,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
 
@@ -15,7 +16,7 @@ namespace SociaGrounds.Model.Players
     public abstract class CPlayer
     {
         // For the animation of the player
-        protected CAnimation animation;
+        protected CAnimation Animation;
 
         protected NetConnection connection;
         public NetConnection Connection
@@ -24,7 +25,7 @@ namespace SociaGrounds.Model.Players
         }
 
         // The walkspeed of the player
-        protected int speed;
+        protected int Speed;
 
         // The current position of the player
         protected Vector2 position;
@@ -64,13 +65,15 @@ namespace SociaGrounds.Model.Players
         public int Id { get; set; }
 
         // A queue that holds the new position of the foreign player
-        protected Queue<Vector2> newQPosition;
+        protected Queue<Vector2> NewQPosition;
 
         public void DrawText(SpriteBatch spriteBatch)
         {
             if (!string.IsNullOrEmpty(ChatMessage))
             {
-                spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (chatMessage.Length * 4) + 20, position.Y - 10), Color.White);
+                Vector2 textSize = Static.Font.MeasureString(chatMessage);
+
+                spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (textSize.X /2f) + 32, position.Y - 10), Color.White);
             }
         }
     }

@@ -5,29 +5,39 @@ using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.GUI
 {
-    public class Gui
+    public class RoomGui
     {
         private readonly InputField _inputField;
-        private readonly float _inputFieldHeight;
+        private readonly Button _showHideButton;
+
+        // Boolean to check if the keyboard is up
+        private bool _isKeyboardUp;
 
         /// <summary>
         /// This class is used to build the user interface of the application
         /// </summary>
         /// <param name="content">The contents in this parameter will be used to draw the GUI</param>
-        public Gui(ContentManager content)
+        public RoomGui(ContentManager content)
         {
-            _inputFieldHeight = 4.7f;
-            _inputField = new InputField(content, new Vector2(100, 0), 10, 0.08f);
+            _inputField = new InputField(content, Static.ScreenSize, 10, 0.2f);
+
+            _isKeyboardUp = false;
+
+            // Initialize
+            _showHideButton = new Button(content, Static.ScreenSize, "Show/Hide ", 0.4f);
         }
 
         /// <summary>
         /// Update method for the keyboard
         /// </summary>
-        /// <param name="cameraCenter">Position of the key pressed</param>
-        /// <param name="viewport">Your screen(resolution)</param>
-        public void Update(Vector2 cameraCenter, Viewport viewport)
+        public void Update()
         {
-            _inputField.Update(Static.Keyboard.TextBuffer, new Vector2(cameraCenter.X - (viewport.Width / 11f), cameraCenter.Y + (viewport.Height / _inputFieldHeight)));
+            _inputField.Update(Static.Keyboard.TextBuffer);
+
+            if (_showHideButton.CheckButtonSelected())
+            {
+                _isKeyboardUp = !_isKeyboardUp;
+            }
         }
 
         /// <summary>
@@ -37,6 +47,7 @@ namespace SociaGrounds.Model.GUI
         public void Draw(SpriteBatch spriteBatch)
         {
             _inputField.Draw(spriteBatch);
+            _showHideButton.Draw(spriteBatch);
         }
     }
 }

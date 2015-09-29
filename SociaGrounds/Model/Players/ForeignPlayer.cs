@@ -23,11 +23,11 @@ namespace SociaGrounds.Model.Players
         /// <param name = "id" > The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
-            newQPosition = new Queue<Vector2>();
+            NewQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
-            speed = 3;
+            Speed = 3;
             this.connection = connection;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
@@ -49,11 +49,11 @@ namespace SociaGrounds.Model.Players
         /// <param name="id">The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, int id)
         {
-            newQPosition = new Queue<Vector2>();
+            NewQPosition = new Queue<Vector2>();
 
-            animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             position = startPosition;
-            speed = 3;
+            Speed = 3;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
@@ -71,7 +71,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="pos">Positions of the foreign players</param>
         public void AddNewPosition(Vector2 pos)
         {
-            newQPosition.Enqueue(pos);
+            NewQPosition.Enqueue(pos);
         }
 
         /// <summary>
@@ -84,11 +84,11 @@ namespace SociaGrounds.Model.Players
         /// <param name="keyState">The current keystate</param>
         public override void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState))
         {
-            if (newQPosition.Count <= 0) return;
+            if (NewQPosition.Count <= 0) return;
 
             NewPosition(gameTime);
 
-            animation.Position = position;
+            Animation.Position = position;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
@@ -120,9 +120,9 @@ namespace SociaGrounds.Model.Players
         {
             if (_newPosition == default(Vector2))
             {
-                if (newQPosition.Count > 0)
+                if (NewQPosition.Count > 0)
                 {
-                    _newPosition = newQPosition.Dequeue();
+                    _newPosition = NewQPosition.Dequeue();
                 }
                 else
                 {
@@ -132,25 +132,25 @@ namespace SociaGrounds.Model.Players
 
             if (_newPosition.Y > position.Y)
             {
-                animation.Play(10, 9, gameTime);
+                Animation.Play(10, 9, gameTime);
 
                 position.Y += (_newPosition.Y - position.Y);
             }
             else if (_newPosition.Y < position.Y)
             {
-                animation.Play(8, 9, gameTime);
+                Animation.Play(8, 9, gameTime);
 
                 position.Y -= (position.Y - _newPosition.Y);
             } 
             else if (_newPosition.X < position.X)
             {
-                animation.Play(9, 9, gameTime);
+                Animation.Play(9, 9, gameTime);
 
                 position.X -= (position.X - _newPosition.X);
             }
             else if (_newPosition.X > position.X)
             {
-                animation.Play(11, 9, gameTime);
+                Animation.Play(11, 9, gameTime);
 
                 position.X += (_newPosition.X - position.X);
             }
@@ -167,7 +167,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="spriteBatch">The spritebatch used for drawing</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            animation.Draw(spriteBatch);
+            Animation.Draw(spriteBatch);
         }
     }
 }

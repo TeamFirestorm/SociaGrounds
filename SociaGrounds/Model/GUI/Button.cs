@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Numerics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -6,6 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SociaGrounds.Model.Controllers;
 using static SociaGrounds.Model.Controllers.SMouse;
 using static SociaGrounds.Model.Controllers.STouch;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SociaGrounds.Model.GUI
 {
@@ -52,10 +54,11 @@ namespace SociaGrounds.Model.GUI
         {
         }
 
-        public Button(ContentManager content, Vector2 position, string text, float scale, Rectangle rectangle)
-    : this(content, position, text, scale, text.Length)
+        public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, text.Length)
         {
-            _hitBox = rectangle;
+            Vector2 temp = new Vector2(0 + 20, viewport.Height - (viewport.Height/8f));
+
+            _hitBox = new Rectangle((int)temp.X, (int)temp.Y, (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
         }
 
         /// <summary>
@@ -149,6 +152,7 @@ namespace SociaGrounds.Model.GUI
                 {
                     return true;
                 }
+                return false;
             }
             _buttonState = 0;
             return false;

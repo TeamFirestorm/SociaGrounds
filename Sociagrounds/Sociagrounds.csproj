@@ -113,9 +113,8 @@
     <Compile Include="Model\DB\DataBase.cs" />
     <Compile Include="Model\GUI\Button.cs" />
     <Compile Include="Model\GUI\Camera.cs" />
-    <Compile Include="Model\GUI\GUI.cs" />
+    <Compile Include="Model\GUI\RoomGui.cs" />
     <Compile Include="Model\GUI\InputField.cs" />
-    <Compile Include="Model\GUI\RoomMenu.cs" />
     <Compile Include="Model\KeyBoards\KeyBoard.cs" />
     <Compile Include="Model\KeyBoards\RealKeyBoard.cs" />
     <Compile Include="Model\KeyBoards\VirtualKeyboard.cs" />

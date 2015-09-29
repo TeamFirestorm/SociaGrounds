@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
@@ -21,9 +20,9 @@ namespace SociaGrounds.Model.Players
         /// <param name="id">The ID of the player relevant for the server</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
-            animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
-            speed = 3;
+            Speed = 3;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
@@ -43,9 +42,9 @@ namespace SociaGrounds.Model.Players
         public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             // General initialize
-            animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
             position = startPosition;
-            speed = 3;
+            Speed = 3;
 
             // Chat message initialize
             font = Static.Font;
@@ -59,13 +58,11 @@ namespace SociaGrounds.Model.Players
         /// The update method for the player
         /// </summary>
         /// <param name="gameTime">Gametime object</param>
-        /// <param name="ui">The UI object relevant to the player</param>
-        /// <param name="viewPort">For the height and width of the screen</param>
         /// <param name="map">All info about the map</param>
-        /// <param name="keyState">The current keystate</param>
+        /// <param name="state">The keyboard state</param>
         public override void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState))
         {
-            animation.Position = position;
+            Animation.Position = position;
 
             rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
@@ -97,7 +94,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            animation.Draw(spriteBatch);
+            Animation.Draw(spriteBatch);
         }
 
         /// <summary>
@@ -114,8 +111,8 @@ namespace SociaGrounds.Model.Players
 
                 if (IsCollidingTop(map)) return;
 
-                animation.Play(8, 9, gameTime);
-                position.Y -= speed;
+                Animation.Play(8, 9, gameTime);
+                position.Y -= Speed;
             }
             else if (keyState.IsKeyDown(Keys.Down))
             {
@@ -123,8 +120,8 @@ namespace SociaGrounds.Model.Players
 
                 if (IsCollidingBottom(map)) return;
 
-                animation.Play(10, 9, gameTime);
-                position.Y += speed;
+                Animation.Play(10, 9, gameTime);
+                position.Y += Speed;
             }
             else if (keyState.IsKeyDown(Keys.Left))
             {
@@ -132,8 +129,8 @@ namespace SociaGrounds.Model.Players
 
                 if (IsCollidingLeft(map)) return;
 
-                animation.Play(9, 9, gameTime);
-                position.X -= speed;
+                Animation.Play(9, 9, gameTime);
+                position.X -= Speed;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
@@ -141,15 +138,15 @@ namespace SociaGrounds.Model.Players
 
                 if (IsCollidingRight(map)) return;
 
-                animation.Play(11, 9, gameTime);
-                position.X += speed;
+                Animation.Play(11, 9, gameTime);
+                position.X += Speed;
             }
             else
             {
-                if (_lastDirection == Direction.Up) animation.ResetAnimation(8,gameTime);
-                if (_lastDirection == Direction.Left) animation.ResetAnimation(9, gameTime);
-                if (_lastDirection == Direction.Down) animation.ResetAnimation(10, gameTime);
-                if (_lastDirection == Direction.Right) animation.ResetAnimation(11, gameTime);
+                if (_lastDirection == Direction.Up) Animation.ResetAnimation(8,gameTime);
+                if (_lastDirection == Direction.Left) Animation.ResetAnimation(9, gameTime);
+                if (_lastDirection == Direction.Down) Animation.ResetAnimation(10, gameTime);
+                if (_lastDirection == Direction.Right) Animation.ResetAnimation(11, gameTime);
             }
         }
 

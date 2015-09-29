@@ -11,7 +11,6 @@ namespace SociaGrounds.Model.Screens
     {
         private readonly Map _map;
         private readonly Camera _camera;
-        private readonly Gui _ui;
 
         public bool IsPlayingMusic { get; set; }
 
@@ -23,7 +22,7 @@ namespace SociaGrounds.Model.Screens
             _map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, content));
 
             _camera = new Camera();
-            _ui = new Gui(content);
+            
 
             IsPlayingMusic = false;
         }
@@ -39,7 +38,7 @@ namespace SociaGrounds.Model.Screens
             Static.Keyboard.CheckKeyState();
             Static.Players[0].Update(gameTime, _map, Static.Keyboard.OldKeyboardState);
 
-            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map, _ui);
+            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map);
 
             //TODO implement movement for foreign players
             //foreach (var player in Static.Players)
@@ -62,7 +61,7 @@ namespace SociaGrounds.Model.Screens
             {
                 player.DrawText(spriteBatch);
             }
-            _ui.Draw(spriteBatch);
+            
             spriteBatch.End();
         }
 

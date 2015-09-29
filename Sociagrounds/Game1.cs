@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.KeyBoards;
 using SociaGrounds.Model.Screens;
 using static SociaGrounds.Model.Controllers.Static;
@@ -25,6 +26,7 @@ namespace SociaGrounds
         private AboutScreen _aboutScreen;
         private RoomScreen _roomScreen;
         private SettingsScreen _settingsScreen;
+        private RoomGui _roomGui;
 
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
@@ -78,6 +80,7 @@ namespace SociaGrounds
             _lobbyScreen = new LobbyScreen();
             _roomScreen = new RoomScreen(Content);
             _settingsScreen = new SettingsScreen();
+            _roomGui = new RoomGui(Content);
 
 
             if (ThisDevice != "Windows.Desktop")
@@ -143,6 +146,7 @@ namespace SociaGrounds
 
                 case ScreenState.RoomScreen:
                     _roomScreen.Update(gameTime, GraphicsDevice);
+                    _roomGui.Update();
                     break;
 
                 default:
@@ -184,6 +188,10 @@ namespace SociaGrounds
                     break;
                 case ScreenState.RoomScreen:
                     _roomScreen.Draw(_spriteBatch);
+
+                    _spriteBatch.Begin();
+                    _roomGui.Draw(_spriteBatch);
+                    _spriteBatch.End();
                     break;
             }
 
