@@ -1,36 +1,39 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Media;
+using SociaGrounds.Model.Options;
 
 namespace SociaGrounds.Model.Controllers
 {
     public static class SongPlayer
     {
-        private static readonly List<Song> SongList;
+        private static readonly List<Song> SONG_LIST;
 
         static SongPlayer()
         {
             // Initializing songlist
-            SongList = new List<Song>();
+            SONG_LIST = new List<Song>();
         }
 
         public static void AddSong(Song song)
         {
-            SongList.Add(song);
+            SONG_LIST.Add(song);
         }
 
         public static void PlaySong(int song)
         {
-            if (song >= SongList.Count) return;
+            if (song >= SONG_LIST.Count) return;
+            if (Config.Instance.MutedMusic) return;
 
-            MediaPlayer.Play(SongList[song]);
+            MediaPlayer.Play(SONG_LIST[song]);
             MediaPlayer.IsRepeating = false;
         }
 
         public static void PlaySongRepeat(int song)
         {
-            if (song >= SongList.Count) return;
+            if (song >= SONG_LIST.Count) return;
+            if (Config.Instance.MutedMusic) return;
 
-            MediaPlayer.Play(SongList[song]);
+            MediaPlayer.Play(SONG_LIST[song]);
             MediaPlayer.IsRepeating = true;
         }
     }

@@ -121,6 +121,7 @@
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />
+    <Compile Include="Model\Options\Config.cs" />
     <Compile Include="Model\Players\CAnimation.cs" />
     <Compile Include="Model\Players\CPlayer.cs" />
     <Compile Include="Model\Players\Direction.cs" />
