@@ -24,7 +24,7 @@ namespace SociaGrounds.Model.Screens
                 new Button(content, new Vector2(middleWidth - 200, middleHeight + 200), "Play the Game", 1.0f),
             };
 
-            _buttons.Add(new Button(content, new Vector2(0 + 200, middleHeight), "ABout", 1.0f, _buttons[0].Width));
+            _buttons.Add(new Button(content, new Vector2(0 + 200, middleHeight), "About", 1.0f, _buttons[0].Width));
             _buttons.Add(new Button(content, new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Width));
         }
 

@@ -105,6 +105,7 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game1.cs" />
+    <Compile Include="Model\Controllers\Fonts.cs" />
     <Compile Include="Model\Controllers\SMouse.cs" />
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
@@ -143,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\SociaGrounds\SociaGroundsFont.spritefont" />
+    <None Include="Content\SociaGrounds\SociaGrounds_Font_Large.spritefont" />
+    <None Include="Content\SociaGrounds\SociaGrounds_Font_Small.spritefont" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

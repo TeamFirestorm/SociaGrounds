@@ -19,22 +19,13 @@ namespace SociaGrounds.Model.Controllers
             SONG_LIST.Add(song);
         }
 
-        public static void PlaySong(int song)
+        public static void PlaySong(int song, bool repeat = false)
         {
             if (song >= SONG_LIST.Count) return;
             if (Config.Instance.MutedMusic) return;
 
             MediaPlayer.Play(SONG_LIST[song]);
-            MediaPlayer.IsRepeating = false;
-        }
-
-        public static void PlaySongRepeat(int song)
-        {
-            if (song >= SONG_LIST.Count) return;
-            if (Config.Instance.MutedMusic) return;
-
-            MediaPlayer.Play(SONG_LIST[song]);
-            MediaPlayer.IsRepeating = true;
+            MediaPlayer.IsRepeating = repeat;
         }
     }
 }

@@ -343,10 +343,27 @@
 /processorParam:TextureFormat=Color
 /build:SociaGrounds/World/Tree/TreeTop.png
 
+#begin SociaGrounds/SociaGrounds_Font_Large.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:SociaGrounds/SociaGrounds_Font_Large.spritefont
+
+#begin SociaGrounds/SociaGrounds_Font_Small.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:SociaGrounds/SociaGrounds_Font_Small.spritefont
+
+#begin ../../../../../../Thijs Reeringh/Source/Repos/SociaGrounds/SociaGrounds/Content/SociaGrounds/SociaGrounds_Font_Small.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:../../../../../../Thijs Reeringh/Source/Repos/SociaGrounds/SociaGrounds/Content/SociaGrounds/SociaGrounds_Font_Small.spritefont
+
 #begin SociaGrounds/SociaGroundsFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:SociaGrounds/SociaGroundsFont.spritefont
-
 

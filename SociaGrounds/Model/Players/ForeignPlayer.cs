@@ -30,9 +30,8 @@ namespace SociaGrounds.Model.Players
             Speed = 3;
             this.connection = connection;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            font = Static.Font;
             chatMessage = "";
 
             Id = id;
@@ -55,9 +54,8 @@ namespace SociaGrounds.Model.Players
             position = startPosition;
             Speed = 3;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            font = Static.Font;
             chatMessage = "";
 
             Id = id;
@@ -90,24 +88,24 @@ namespace SociaGrounds.Model.Players
 
             Animation.Position = position;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Show the chat message for a certain amount of time
             if (!string.IsNullOrEmpty(chatMessage))
             {
-                chatCounter += gameTime.ElapsedGameTime.Milliseconds;
+                ChatCounter += gameTime.ElapsedGameTime.Milliseconds;
 
-                if (changedText)
+                if (ChangedText)
                 {
-                    chatCounter = 0;
-                    changedText = false;
+                    ChatCounter = 0;
+                    ChangedText = false;
                 }
 
                 // Then flush the chat message and reset the counter
-                if (chatCounter >= 5000)
+                if (ChatCounter >= 5000)
                 {
                     chatMessage = "";
-                    chatCounter = 0;
+                    ChatCounter = 0;
                 }
             }
         }

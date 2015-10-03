@@ -10,7 +10,6 @@ namespace SociaGrounds.Model.Controllers
         public static string ThisDevice { get; set; }
         public static AKeyBoard Keyboard { get; set; }
         public static Texture2D PlayerTexture { get; set; }
-        public static SpriteFont Font { get; set; }
 
         //The current Activated Screen;
         public static ScreenState CurrentScreenState { get; set; }

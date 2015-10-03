@@ -24,10 +24,9 @@ namespace SociaGrounds.Model.Players
             position = startPosition;
             Speed = 3;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             // Chat message initialize
-            font = Static.Font;
             chatMessage = "";
 
             Id = id;
@@ -47,11 +46,10 @@ namespace SociaGrounds.Model.Players
             Speed = 3;
 
             // Chat message initialize
-            font = Static.Font;
             chatMessage = "";
 
             // Rectangle initialize
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
 
         /// <summary>
@@ -64,26 +62,26 @@ namespace SociaGrounds.Model.Players
         {
             Animation.Position = position;
 
-            rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
             Input(gameTime, map, state);
 
             // Show the chat message for a certain amount of time
             if (!string.IsNullOrEmpty(chatMessage))
             {
-                chatCounter += gameTime.ElapsedGameTime.Milliseconds;
+                ChatCounter += gameTime.ElapsedGameTime.Milliseconds;
 
-                if (changedText)
+                if (ChangedText)
                 {
-                    chatCounter = 0;
-                    changedText = false;
+                    ChatCounter = 0;
+                    ChangedText = false;
                 }
 
                 // Then flush the chat message and reset the counter
-                if (chatCounter >= 5000)
+                if (ChatCounter >= 5000)
                 {
                     chatMessage = "";
-                    chatCounter = 0;
+                    ChatCounter = 0;
                 }
             }
         }
@@ -157,7 +155,7 @@ namespace SociaGrounds.Model.Players
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchLeftOf(asset.Rect))
+                if (Rect.TouchLeftOf(asset.Rect))
                 {
                     return true;
                 }
@@ -174,7 +172,7 @@ namespace SociaGrounds.Model.Players
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchRightOf(asset.Rect))
+                if (Rect.TouchRightOf(asset.Rect))
                 {
                     return true;
                 }
@@ -192,7 +190,7 @@ namespace SociaGrounds.Model.Players
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchBottomOf(asset.Rect))
+                if (Rect.TouchBottomOf(asset.Rect))
                 {
                     return true;
                 }
@@ -209,7 +207,7 @@ namespace SociaGrounds.Model.Players
             foreach (Asset asset in map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchTopOf(asset.Rect))
+                if (Rect.TouchTopOf(asset.Rect))
                 {
                     return true;
                 }

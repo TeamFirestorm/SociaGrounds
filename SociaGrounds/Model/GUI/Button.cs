@@ -27,8 +27,6 @@ namespace SociaGrounds.Model.GUI
         //Textures        
         private readonly Texture2D[][] _tetxures;
 
-        // Text
-        private readonly SpriteFont _font;
         private readonly string _text;
 
         // Rectangle for detection
@@ -37,7 +35,7 @@ namespace SociaGrounds.Model.GUI
         //The currentstate of the button
         private int _buttonState;
 
-        private readonly float _textPosition;
+        private Vector2 _textPosition;
 
         private bool _isTouched;
         
@@ -54,7 +52,7 @@ namespace SociaGrounds.Model.GUI
         {
         }
 
-        public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, text.Length)
+        public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, Fonts.LargeFont.MeasureString(text).X)
         {
             Vector2 temp = new Vector2(0 + 20, viewport.Height - (viewport.Height/8f));
 
@@ -89,14 +87,15 @@ namespace SociaGrounds.Model.GUI
 
             // Text
             _text = text;
-            _font = content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
 
             // The position, width and scale
             Position = position;
             Width = fixedWidth;
             _scale = scale;
 
-            _textPosition = (((Width * _tetxures[0][1].Width) /2) - ((text.Length * _tetxures[0][1].Width) /3f));
+            Vector2 textSize = Fonts.LargeFont.MeasureString(_text);
+
+            _textPosition = new Vector2(position.X + ((((Width + 2)* _tetxures[0][1].Width) - textSize.X)/2f), position.Y + ((_tetxures[0][1].Height - textSize.Y)/2));
 
             _hitBox = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
 
@@ -159,21 +158,21 @@ namespace SociaGrounds.Model.GUI
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {       
-                // Drawing the left part
-                spriteBatch.Draw(_tetxures[_buttonState][0], Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+        {
+            // Drawing the left part
+            spriteBatch.Draw(_tetxures[_buttonState][0], Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
-                // Drawing the mid part
-                for (int i = 0; i < Width; i++)
-                {
-                    spriteBatch.Draw(_tetxures[_buttonState][1], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * i), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
-                }
-
-                // Drawing the right part
-                spriteBatch.Draw(_tetxures[_buttonState][2], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * Width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
-
-                // Drawing the text
-                spriteBatch.DrawString(_font, _text, new Vector2(Position.X + (_textPosition * _scale), Position.Y + (40 * _scale)), Color.Black, 0f, new Vector2(0, 0), new Vector2(_scale / 0.5f, _scale / 0.5f), SpriteEffects.None, 0f);
+            // Drawing the mid part
+            for (int i = 0; i < Width; i++)
+            {
+                spriteBatch.Draw(_tetxures[_buttonState][1], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * i), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
             }
+
+            // Drawing the right part
+            spriteBatch.Draw(_tetxures[_buttonState][2], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * Width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+
+            // Drawing the text
+            spriteBatch.DrawString(Fonts.LargeFont, _text, new Vector2(_textPosition.X * _scale, _textPosition.Y * _scale), Color.Black);
         }
+    }
 }

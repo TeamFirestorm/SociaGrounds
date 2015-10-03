@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.GUI
 {
@@ -15,7 +16,6 @@ namespace SociaGrounds.Model.GUI
         private Vector2 _position;
 
         // String that will be updated in the textfield
-        private readonly SpriteFont _font;
         private string _text;
 
         // Amount of middle pieces in the textfield
@@ -24,29 +24,11 @@ namespace SociaGrounds.Model.GUI
         // Scale of the inputfield
         private readonly float _scale;
 
-        public InputField(ContentManager content, Vector2 position, int width, float scale)
-        {
-            // Loading the textures
-            _textFieldMiddle = content.Load<Texture2D>("SociaGrounds/GUI/Inputfield/MiddleTextfield");
-
-            // Initializing the position
-            _position = position;
-
-            // Loading the text stuff
-            _font = content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
-            _text = "";
-
-            _width = width;
-            _scale = scale;
-        }
-
         public InputField(ContentManager content, Viewport viewport, int width, float scale)
         {
             // Loading the textures
             _textFieldMiddle = content.Load<Texture2D>("SociaGrounds/GUI/Inputfield/MiddleTextfield");
 
-            // Loading the text stuff
-            _font = content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
             _text = "";
 
             _width = width;
@@ -72,7 +54,7 @@ namespace SociaGrounds.Model.GUI
             }
 
             // Text draw
-            spriteBatch.DrawString(_font, _text, new Vector2(_position.X + (30 * _scale), _position.Y + (80 * _scale)), Color.White, 0f, new Vector2(0, 0), new Vector2(_scale / 0.07f, _scale / 0.07f), SpriteEffects.None, 0f);
+            spriteBatch.DrawString(Fonts.LargeFont, _text, new Vector2(_position.X + (30 * _scale), _position.Y + (80 * _scale)), Color.White);
         }
     }
 }

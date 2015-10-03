@@ -56,7 +56,7 @@ namespace SociaGrounds.Model.Options
                 if (Instance != null) return;
 
                 //if it hasn't received anything, create new config
-                Instance = new Config(true);
+                Instance = new Config();
                 Instance.Save();
 #if DEBUG
                 Debug.WriteLine(@"new config created;");
@@ -65,7 +65,7 @@ namespace SociaGrounds.Model.Options
             else
             {
                 //create new config
-                Instance = new Config(true);
+                Instance = new Config();
                 Instance.Save();
 #if DEBUG
                 Debug.WriteLine(@"new config created;");
@@ -91,7 +91,7 @@ namespace SociaGrounds.Model.Options
         /// <summary>
         /// content of the Config file
         /// </summary>
-        private Config(bool temp)
+        private Config()
         {
             MutedMusic = false;
         }

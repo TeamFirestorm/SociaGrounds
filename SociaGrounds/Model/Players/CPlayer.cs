@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
@@ -35,15 +34,13 @@ namespace SociaGrounds.Model.Players
         }
 
         // The rectangle of the player used for collision detection
-        protected Rectangle rect;
+        protected Rectangle Rect;
 
-        // Chat properties
-        protected SpriteFont font;
-        protected float chatCounter;
+        protected float ChatCounter;
 
         protected string chatMessage;
 
-        protected bool changedText;
+        protected bool ChangedText;
 
         public string ChatMessage
         {
@@ -51,7 +48,7 @@ namespace SociaGrounds.Model.Players
             set
             {
                 chatMessage = value;
-                changedText = true;
+                ChangedText = true;
             }
         }
 
@@ -71,9 +68,9 @@ namespace SociaGrounds.Model.Players
         {
             if (!string.IsNullOrEmpty(ChatMessage))
             {
-                Vector2 textSize = Static.Font.MeasureString(chatMessage);
+                Vector2 textSize = Fonts.SmallFont.MeasureString(chatMessage);
 
-                spriteBatch.DrawString(font, chatMessage, new Vector2(position.X - (textSize.X /2f) + 32, position.Y - 10), Color.White);
+                spriteBatch.DrawString(Fonts.SmallFont, chatMessage, new Vector2(position.X - (textSize.X /2f) + 32, position.Y - 10), Color.White);
             }
         }
     }

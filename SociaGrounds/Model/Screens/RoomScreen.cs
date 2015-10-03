@@ -31,7 +31,7 @@ namespace SociaGrounds.Model.Screens
         {
             if (!IsPlayingMusic)
             {
-                SongPlayer.PlaySongRepeat(1);
+                SongPlayer.PlaySong(1, true);
                 IsPlayingMusic = true;
             }
 

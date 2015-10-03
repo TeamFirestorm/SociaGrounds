@@ -65,7 +65,7 @@ namespace SociaGrounds
         protected override void LoadContent()
         {
             PlayerTexture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
-            Font = Content.Load<SpriteFont>("SociaGrounds/SociaGroundsFont");
+            Fonts.CreateFonts(Content);
 
             // Songs load
             SongPlayer.AddSong(Content.Load<Song>("SociaGrounds/Music/splashscreen_music"));
