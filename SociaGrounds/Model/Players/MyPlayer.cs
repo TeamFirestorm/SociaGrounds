@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SociaGrounds.Model.Players
 {
-    public class MyPlayer : CPlayer
+    public class MyPlayer : Player
     {
         private Direction _lastDirection = Direction.Down;
 
@@ -17,7 +17,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="id">The ID of the player relevant for the server</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
-            _Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            _Animation = new Animation(texture, startPosition, 64, 64, 10, 25, true);
             Position = startPosition;
             _Speed = 3;
 
@@ -38,7 +38,7 @@ namespace SociaGrounds.Model.Players
         public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             // General initialize
-            _Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            _Animation = new Animation(texture, startPosition, 64, 64, 10, 25, true);
             Position = startPosition;
             _Speed = 4;
 

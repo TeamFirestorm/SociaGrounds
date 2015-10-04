@@ -137,7 +137,7 @@ namespace SociaGrounds.Model.Multiplayer
 
                             int id = msg.ReadInt32();
 
-                            foreach (CPlayer player in Static.Players)
+                            foreach (Player player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -157,7 +157,7 @@ namespace SociaGrounds.Model.Multiplayer
                         {
                             int id = msg.ReadInt32();
 
-                            foreach (CPlayer player in Static.Players)
+                            foreach (Player player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -191,7 +191,7 @@ namespace SociaGrounds.Model.Multiplayer
         }
 
         // Get input from player and send it to server
-        private static void GetInputAndSendItToServer(CPlayer player)
+        private static void GetInputAndSendItToServer(Player player)
         {
             // Create new message
             NetOutgoingMessage outmsg = _client.CreateMessage();

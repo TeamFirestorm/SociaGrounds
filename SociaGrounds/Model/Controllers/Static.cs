@@ -15,14 +15,14 @@ namespace SociaGrounds.Model.Controllers
         public static ScreenState CurrentScreenState { get; set; }
 
         //The list containing all the players
-        public static List<CPlayer> Players { get; }
+        public static List<Player> Players { get; }
 
         //The size of the current screen
         public static Viewport ScreenSize { get; set; }
 
         static Static()
         {
-            Players = new List<CPlayer>();
+            Players = new List<Player>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace SociaGrounds.Model.Controllers
         /// <returns></returns>
         public static ForeignPlayer FindForeignPlayerById(int id)
         {
-            foreach (CPlayer player in Players)
+            foreach (Player player in Players)
             {
                 if (player.Id == id)
                 {

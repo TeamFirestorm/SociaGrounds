@@ -9,7 +9,7 @@ namespace SociaGrounds.Model.Players
         public static bool IsCollidingRight(Rectangle rect)
         {
             // Check all the solid assets in the map
-            foreach (Asset asset in Map.SolidAssets)
+            foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
                 if (rect.TouchLeftOf(asset.Rect))
@@ -26,7 +26,7 @@ namespace SociaGrounds.Model.Players
         public static bool IsCollidingLeft(Rectangle rect)
         {
             // Check all the solid assets in the map
-            foreach (Asset asset in Map.SolidAssets)
+            foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
                 if (rect.TouchRightOf(asset.Rect))
@@ -44,7 +44,7 @@ namespace SociaGrounds.Model.Players
         {
 
             // Check all the solid assets in the map
-            foreach (Asset asset in Map.SolidAssets)
+            foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
                 if (rect.TouchBottomOf(asset.Rect))
@@ -61,7 +61,7 @@ namespace SociaGrounds.Model.Players
         public static bool IsCollidingBottom(Rectangle rect)
         {
             // Check all the solid assets in the map
-            foreach (Asset asset in Map.SolidAssets)
+            foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
                 if (rect.TouchTopOf(asset.Rect))
@@ -72,6 +72,38 @@ namespace SociaGrounds.Model.Players
 
             // If no collision has been found, return false
             return false;
+        }
+
+        public static bool TouchTopOf(this Rectangle r1, Rectangle r2)
+        {
+            return (r1.Bottom >= r2.Top - 1 &&
+                    r1.Bottom <= r2.Top + (r2.Height / 2) &&
+                    r1.Right >= r2.Left + (r2.Width / 5) &&
+                    r1.Left <= r2.Right - (r2.Width / 5));
+        }
+
+        public static bool TouchBottomOf(this Rectangle r1, Rectangle r2)
+        {
+            return (r1.Top <= r2.Bottom + (r2.Height / 5) &&
+                    r1.Top >= r2.Bottom - 1 &&
+                    r1.Right >= r2.Left + (r2.Width / 5) &&
+                    r1.Left <= r2.Right - (r2.Width / 5));
+        }
+
+        public static bool TouchLeftOf(this Rectangle r1, Rectangle r2)
+        {
+            return (r1.Right <= r2.Right &&
+                    r1.Right >= r2.Left &&
+                    r1.Top <= r2.Bottom - (r2.Width / 4) &&
+                    r1.Bottom >= r2.Top + (r2.Width / 4));
+        }
+
+        public static bool TouchRightOf(this Rectangle r1, Rectangle r2)
+        {
+            return (r1.Left >= r2.Left &&
+                    r1.Left <= r2.Right + 5 &&
+                    r1.Top <= r2.Bottom - (r2.Width / 4) &&
+                    r1.Bottom >= r2.Top + (r2.Width / 4));
         }
     }
 }

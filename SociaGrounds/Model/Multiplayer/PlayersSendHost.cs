@@ -83,7 +83,7 @@ namespace SociaGrounds.Model.Multiplayer
         }
 
         // Get input from player and send it to server
-        private void SendLocationToClients(CPlayer player)
+        private void SendLocationToClients(Player player)
         {
             List<NetConnection> all = _netServer.Connections;
             if (all.Count > 0)
@@ -149,7 +149,7 @@ namespace SociaGrounds.Model.Multiplayer
                                 if (Static.Players.Count - 1 > 0)
                                 {
                                     // Loop through every character in the game
-                                    foreach (CPlayer player in Static.Players)
+                                    foreach (Player player in Static.Players)
                                     {
                                         // All properties of the packet are kept here to send out
                                         if (_incMsg.SenderConnection != player.Connection)
@@ -216,7 +216,7 @@ namespace SociaGrounds.Model.Multiplayer
                         if (_incMsg.SenderConnection.Status == NetConnectionStatus.Disconnected || _incMsg.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             // Loop through the player until inactive is found and remove
-                            foreach (CPlayer player in Static.Players)
+                            foreach (Player player in Static.Players)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 

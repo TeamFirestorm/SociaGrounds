@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.Players
 {
-    public class CAnimation
+    public class Animation
     {
         // The spritesheet to be animated
         private readonly Texture2D _spriteSheat;
@@ -45,7 +45,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="startRow">Which row do you want to be animated?</param>
         /// <param name="fps">The amount of frames per second to play</param>
         /// <param name="isLooping">Should the animation loop or not?</param>
-        public CAnimation(Texture2D spriteSheat, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
+        public Animation(Texture2D spriteSheat, Vector2 position, int frameWidth, int frameHeight, int startRow, int fps, bool isLooping)
         {
             _spriteSheat = spriteSheat;
             Position = position;

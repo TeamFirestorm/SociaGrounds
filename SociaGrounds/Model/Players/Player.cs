@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
 {
@@ -12,10 +11,10 @@ namespace SociaGrounds.Model.Players
     /// This is the abstract class for both the myPlayer and Foreignplayer class.
     /// It's used to tie these two together.
     /// </summary>
-    public abstract class CPlayer
+    public abstract class Player
     {
         // For the animation of the player
-        protected CAnimation _Animation;
+        protected Animation _Animation;
 
         public NetConnection Connection { get; set; }
 
