@@ -21,11 +21,11 @@ namespace SociaGrounds.Model.Screens
 
             _buttons = new List<Button>
             {
-                new Button(content, new Vector2(middleWidth - 200, middleHeight + 200), "Play the Game", 1.0f),
+                new Button(new Vector2(middleWidth - 200, middleHeight + 200), "Play the Game", 1.0f, "Play the Game".Length, Fonts.LargeFont),
             };
 
-            _buttons.Add(new Button(content, new Vector2(0 + 200, middleHeight), "About", 1.0f, _buttons[0].Width));
-            _buttons.Add(new Button(content, new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Width));
+            _buttons.Add(new Button(new Vector2(0 + 200, middleHeight), "About", 1.0f, _buttons[0].Parts -2, Fonts.LargeFont));
+            _buttons.Add(new Button(new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Parts -2, Fonts.LargeFont));
         }
 
         public void Update()

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -28,6 +29,8 @@ namespace SociaGrounds
         private SettingsScreen _settingsScreen;
         private RoomGui _roomGui;
 
+        public static ContentManager StaticContent;
+
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
         /// </summary>
@@ -48,6 +51,8 @@ namespace SociaGrounds
         /// </summary>
         protected override void Initialize()
         {
+            StaticContent = Content;
+
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             ThisDevice = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
@@ -80,7 +85,7 @@ namespace SociaGrounds
             _lobbyScreen = new LobbyScreen();
             _roomScreen = new RoomScreen(Content);
             _settingsScreen = new SettingsScreen();
-            _roomGui = new RoomGui(Content);
+            _roomGui = new RoomGui();
 
 
             if (ThisDevice != "Windows.Desktop")

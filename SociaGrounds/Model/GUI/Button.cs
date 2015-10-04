@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -22,10 +20,10 @@ namespace SociaGrounds.Model.GUI
         // Scaling properties
         private readonly float _scale;
 
-        public float Width { get; }
+        public float Parts { get; }
 
         //Textures        
-        private readonly Texture2D[][] _tetxures;
+        public static readonly Texture2D[][] Textures;
 
         private readonly string _text;
 
@@ -38,69 +36,102 @@ namespace SociaGrounds.Model.GUI
         private Vector2 _textPosition;
 
         private bool _isTouched;
-        
 
-        /// <summary>
-        /// CCreates a new button with the lenght of the text as width
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="position"></param>
-        /// <param name="text"></param>
-        /// <param name="scale"></param>
-        public Button(ContentManager content, Vector2 position, string text, float scale) 
-            : this(content, position, text, scale, text.Length)
+        private readonly SpriteFont _font;
+
+        private Vector2 _textureSize;
+
+        static Button()
         {
-        }
-
-        public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, Fonts.LargeFont.MeasureString(text).X)
-        {
-            Vector2 temp = new Vector2(0 + 20, viewport.Height - (viewport.Height/8f));
-
-            _hitBox = new Rectangle((int)temp.X, (int)temp.Y, (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
-        }
-
-        /// <summary>
-        /// Creates a new Button with a fixed width
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="position"></param>
-        /// <param name="text"></param>
-        /// <param name="scale"></param>
-        /// <param name="fixedWidth"></param>
-        public Button(ContentManager content, Vector2 position, string text, float scale, float fixedWidth)
-        {
-            _tetxures = new[]
+            Textures = new[]
             {
                 new []
                 {
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonLeft"),
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonMiddle"),
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonRight")
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonLeft"),
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonMiddle"),
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/StandardButtonRight")
                 },
                 new []
                 {
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonLeft"),
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonMiddle"),
-                    content.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonRight")
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonLeft"),
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonMiddle"),
+                    Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonRight")
                 },
             };
+        }
 
-            // Text
-            _text = text;
-
+        public Button(Vector2 position, string text, float scale, float parts, SpriteFont font)
+        {
             // The position, width and scale
             Position = position;
-            Width = fixedWidth;
+            Parts = parts + 2;
             _scale = scale;
 
-            Vector2 textSize = Fonts.LargeFont.MeasureString(_text);
+            // Text and font
+            _text = text;
+            _font = font;
 
-            _textPosition = new Vector2(position.X + ((((Width + 2)* _tetxures[0][1].Width) - textSize.X)/2f), position.Y + ((_tetxures[0][1].Height - textSize.Y)/2));
 
-            _hitBox = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
+            _textureSize = new Vector2(Textures[0][1].Width * _scale, Textures[0][1].Height * _scale);
 
+            //Sets the position of the text
+            Vector2 textSize = (_font.MeasureString(_text) * scale);
+
+            _textPosition = new Vector2((((Parts * _textureSize.X) - textSize.X) / 2f) * scale, ((_textureSize.Y - textSize.Y) / 2));
+
+            //Sets the position of this buttons hitbox
+            _hitBox = new Rectangle((int)(position.X), (int)(position.Y), (int)(_textureSize.X * Parts), (int)_textureSize.Y);
+
+            //Set buttonstate to not clicked
             _buttonState = 0;
         }
+
+
+
+        ///// <summary>
+        ///// CCreates a new button with the lenght of the text as width
+        ///// </summary>
+        ///// <param name="content"></param>
+        ///// <param name="position"></param>
+        ///// <param name="text"></param>
+        ///// <param name="scale"></param>
+        //public Button(ContentManager content, Vector2 position, string text, float scale) : this(content, position, text, scale, text.Length)
+        //{
+        //}
+
+        //public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, Fonts.LargeFont.MeasureString(text).X)
+        //{
+        //    Vector2 temp = new Vector2(0 + 20, viewport.Height - (viewport.Height/8f));
+
+        //    _hitBox = new Rectangle((int)temp.X, (int)temp.Y, (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
+        //}
+
+        ///// <summary>
+        ///// Creates a new Button with a fixed width
+        ///// </summary>
+        ///// <param name="content"></param>
+        ///// <param name="position"></param>
+        ///// <param name="text"></param>
+        ///// <param name="scale"></param>
+        ///// <param name="fixedWidth"></param>
+        //public Button(ContentManager content, Vector2 position, string text, float scale, float fixedWidth)
+        //{
+        //    // Text
+        //    _text = text;
+
+        //    // The position, width and scale
+        //    Position = position;
+        //    Width = fixedWidth;
+        //    _scale = scale;
+
+        //    Vector2 textSize = Fonts.LargeFont.MeasureString(_text);
+
+        //    _textPosition = new Vector2(position.X + ((((Width + 2)* _tetxures[0][1].Width) - textSize.X)/2f), position.Y + ((_tetxures[0][1].Height - textSize.Y)/2));
+
+        //    _hitBox = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
+
+        //    _buttonState = 0;
+        //}
 
         public bool CheckButtonSelected()
         {
@@ -159,20 +190,25 @@ namespace SociaGrounds.Model.GUI
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 tempPos = Position;
+
             // Drawing the left part
-            spriteBatch.Draw(_tetxures[_buttonState][0], Position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Textures[_buttonState][0], tempPos, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+
+            tempPos.X += _textureSize.X;
 
             // Drawing the mid part
-            for (int i = 0; i < Width; i++)
+            for (int i = 1; i < Parts -1; i++)
             {
-                spriteBatch.Draw(_tetxures[_buttonState][1], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * i), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+                spriteBatch.Draw(Textures[_buttonState][1], tempPos, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+                tempPos.X += _textureSize.X;
             }
 
             // Drawing the right part
-            spriteBatch.Draw(_tetxures[_buttonState][2], new Vector2(Position.X + (_tetxures[0][0].Width * _scale) + ((_tetxures[0][1].Width * _scale) * Width), Position.Y), null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Textures[_buttonState][2], tempPos, null, Color.White, 0f, new Vector2(0, 0), new Vector2(_scale, _scale), SpriteEffects.None, 0f);
 
             // Drawing the text
-            spriteBatch.DrawString(Fonts.LargeFont, _text, new Vector2(_textPosition.X * _scale, _textPosition.Y * _scale), Color.Black);
+            spriteBatch.DrawString(_font, _text, new Vector2(Position.X + _textPosition.X, Position.Y + _textPosition.Y), Color.Black);
         }
     }
 }

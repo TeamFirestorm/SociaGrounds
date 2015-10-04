@@ -109,18 +109,6 @@
 /processorParam:TextureFormat=Color
 /build:SociaGrounds/GUI/Button/StandardButtonRight.png
 
-#begin SociaGrounds/GUI/Inputfield/LeftTextfield.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SociaGrounds/GUI/Inputfield/LeftTextfield.png
-
 #begin SociaGrounds/GUI/Inputfield/MiddleTextfield.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -354,12 +342,6 @@
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:SociaGrounds/SociaGrounds_Font_Small.spritefont
-
-#begin ../../../../../../Thijs Reeringh/Source/Repos/SociaGrounds/SociaGrounds/Content/SociaGrounds/SociaGrounds_Font_Small.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:../../../../../../Thijs Reeringh/Source/Repos/SociaGrounds/SociaGrounds/Content/SociaGrounds/SociaGrounds_Font_Small.spritefont
 
 #begin SociaGrounds/SociaGroundsFont.spritefont
 /importer:FontDescriptionImporter

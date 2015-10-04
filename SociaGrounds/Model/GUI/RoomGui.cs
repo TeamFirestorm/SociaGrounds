@@ -16,15 +16,25 @@ namespace SociaGrounds.Model.GUI
         /// <summary>
         /// This class is used to build the user interface of the application
         /// </summary>
-        /// <param name="content">The contents in this parameter will be used to draw the GUI</param>
-        public RoomGui(ContentManager content)
+        public RoomGui()
         {
-            _inputField = new InputField(content, Static.ScreenSize, 10, 0.2f);
+            //the stats for the inputfield
+            float scale = 0.5f;
+            Vector2 sprite = new Vector2(20 * scale, 120 * scale);
+            int width = (int) ((Static.ScreenSize.Width/2d)/sprite.X);
+            Vector2 position = new Vector2(((Static.ScreenSize.Width) - (sprite.X * width))/2, Static.ScreenSize.Height - sprite.Y - 80);
 
+
+
+            // Initialize controls
+            _inputField = new InputField(position, width, scale, Fonts.LargeFont);
+
+            string text = "Show/Hide";
+
+            _showHideButton = new Button(new Vector2(20, position.Y), text, scale, text.Length, Fonts.NormalFont);
+
+            //set the virtualkeyboard to not show
             _isKeyboardUp = false;
-
-            // Initialize
-            _showHideButton = new Button(content, Static.ScreenSize, "Show/Hide ", 0.4f);
         }
 
         /// <summary>
@@ -43,7 +53,7 @@ namespace SociaGrounds.Model.GUI
         /// <summary>
         /// Draw the text and show it above the corresponding player's head
         /// </summary>
-        /// <param name="spriteBatch">Contains the text for the chat</param>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             _inputField.Draw(spriteBatch);

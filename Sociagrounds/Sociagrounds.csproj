@@ -163,7 +163,6 @@
     <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonLeft.png" />
     <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonMiddle.png" />
     <Content Include="Content\SociaGrounds\GUI\Button\StandardButtonRight.png" />
-    <Content Include="Content\SociaGrounds\GUI\Inputfield\LeftTextfield.png" />
     <Content Include="Content\SociaGrounds\GUI\Inputfield\MiddleTextfield.png" />
     <Content Include="Content\SociaGrounds\Music\in-game-music.mp3" />
     <Content Include="Content\SociaGrounds\Music\menu_music.wav" />
