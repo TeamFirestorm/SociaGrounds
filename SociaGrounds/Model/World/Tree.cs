@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.World
@@ -6,10 +7,9 @@ namespace SociaGrounds.Model.World
     public class Tree : SolidAsset
     {
         private readonly int _amountOfLogs;
-
         private static readonly Texture2D[] TREE;
-
         private float _scale;
+        public string Name { get; set; }
 
         static Tree()
         {
@@ -23,13 +23,11 @@ namespace SociaGrounds.Model.World
             };
         }
 
-        public Tree(Vector2 position, int amountOfLogs, float scale) : base(position)
+        public Tree(string name, Vector2 position, int amountOfLogs, float scale) : base(position)
         {
-            // Initialization
-            this.position = position;
             _amountOfLogs = amountOfLogs;
             _scale = scale;
-
+            Name = name;
 
             // Creating the rectangle
             rect = new Rectangle((int)position.X, (int)position.Y, TREE[0].Width, TREE[0].Height);
@@ -66,6 +64,11 @@ namespace SociaGrounds.Model.World
         {
             // Draw the top
             spriteBatch.Draw(TREE[2], new Vector2(position.X - 33, position.Y - (float)((TREE[0].Height * 1.85) + (TREE[1].Height * _amountOfLogs))), Color.White);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Name:{0} - Rectangle {1}", Name, rect);
         }
     }
 }

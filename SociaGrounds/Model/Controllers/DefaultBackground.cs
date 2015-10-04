@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SociaGrounds.Model.Controllers;
 
-namespace SociaGrounds.Model.Screens
+namespace SociaGrounds.Model.Controllers
 {
     public class DefaultBackground
     {

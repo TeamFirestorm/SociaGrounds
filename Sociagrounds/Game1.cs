@@ -29,7 +29,7 @@ namespace SociaGrounds
         private SettingsScreen _settingsScreen;
         private RoomGui _roomGui;
 
-        public static ContentManager StaticContent;
+        public static ContentManager StaticContent { get; private set; }
 
         /// <summary>
         /// Creates Game1 wihich inherits from Monogame Game class
@@ -80,22 +80,14 @@ namespace SociaGrounds
             DefaultBackground.Title = Content.Load<Texture2D>("SociaGrounds/Background/Sociagrounds_title");
 
             // Screens load
-            _homeScreen = new HomeScreen(Content);
+            _homeScreen = new HomeScreen();
             _aboutScreen = new AboutScreen();
             _lobbyScreen = new LobbyScreen();
-            _roomScreen = new RoomScreen(Content);
+            _roomScreen = new RoomScreen();
             _settingsScreen = new SettingsScreen();
             _roomGui = new RoomGui();
 
-
-            if (ThisDevice != "Windows.Desktop")
-            {
-                
-            }
-            else
-            {
-                Static.Keyboard = new RealKeyBoard();
-            }
+            Static.Keyboard = new RealKeyBoard();
         }
 
         /// <summary>
@@ -128,7 +120,7 @@ namespace SociaGrounds
             switch (CurrentScreenState)
             {
                 case ScreenState.HomeScreen:
-                    _homeScreen.Update();
+                    _homeScreen.Update(gameTime);
                     break;
 
                 case ScreenState.LobbyScreen:
@@ -151,7 +143,7 @@ namespace SociaGrounds
 
                 case ScreenState.RoomScreen:
                     _roomScreen.Update(gameTime, GraphicsDevice);
-                    _roomGui.Update();
+                    _roomGui.Update(gameTime);
                     break;
 
                 default:

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.World;
@@ -15,18 +16,17 @@ namespace SociaGrounds.Model.Screens
 
         public bool IsPlayingMusic { get; set; }
 
-        public RoomScreen(ContentManager content)
+        public RoomScreen()
         {
             Vector2 margin = new Vector2(60,36);
 
-            _map = new Map(CreateMap((int)margin.X, (int)margin.Y), new Vector2(0, 0), margin ,content);
+            _map = new Map(CreateMap((int)margin.X, (int)margin.Y), new Vector2(0, 0), margin);
 
-            _map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, 1f));
-            _map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, 1f));
-            _map.AddSolidAsset(new Tree(new Vector2(200, 200), 0, 1f));
-
-            _camera = new Camera();
+            _map.AddSolidAsset(new Tree("Tree3", new Vector2(200, 200), 0, 1f));
+            _map.AddSolidAsset(new Tree("Tree1", new Vector2(350, 300), 1, 1f));
+            _map.AddSolidAsset(new Tree("Tree2", new Vector2(500, 250), 2, 1f));
             
+            _camera = new Camera();
 
             IsPlayingMusic = false;
         }

@@ -114,11 +114,11 @@
     <Compile Include="Model\DB\DataBase.cs" />
     <Compile Include="Model\GUI\Button.cs" />
     <Compile Include="Model\GUI\Camera.cs" />
+    <Compile Include="Model\GUI\DelayAction.cs" />
     <Compile Include="Model\GUI\RoomGui.cs" />
     <Compile Include="Model\GUI\InputField.cs" />
     <Compile Include="Model\KeyBoards\KeyBoard.cs" />
     <Compile Include="Model\KeyBoards\RealKeyBoard.cs" />
-    <Compile Include="Model\KeyBoards\VirtualKeyboard.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="Model\Players\ForeignPlayer.cs" />
     <Compile Include="Model\Players\MyPlayer.cs" />
     <Compile Include="Model\Screens\AboutScreen.cs" />
-    <Compile Include="Model\Screens\DefaultBackground.cs" />
+    <Compile Include="Model\Controllers\DefaultBackground.cs" />
     <Compile Include="Model\Screens\HomeScreen.cs" />
     <Compile Include="Model\Screens\LobbyScreen.cs" />
     <Compile Include="Model\Screens\RoomScreen.cs" />

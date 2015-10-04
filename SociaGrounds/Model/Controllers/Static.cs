@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.KeyBoards;
 using SociaGrounds.Model.Players;
 
@@ -17,12 +18,15 @@ namespace SociaGrounds.Model.Controllers
         //The list containing all the players
         public static List<Player> Players { get; }
 
+        public static List<Button> Buttons { get; }
+
         //The size of the current screen
         public static Viewport ScreenSize { get; set; }
 
         static Static()
         {
             Players = new List<Player>();
+            Buttons = new List<Button>();
         }
 
         /// <summary>

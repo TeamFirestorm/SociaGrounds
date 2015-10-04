@@ -15,6 +15,12 @@ namespace SociaGrounds.Model.GUI
         // Position of the inputfield
         private Vector2 _position;
 
+        public float PositionY
+        {
+            get { return _position.Y; }
+            set { _position.Y = value; }
+        } 
+
         // String that will be updated in the textfield
         private string _text;
 

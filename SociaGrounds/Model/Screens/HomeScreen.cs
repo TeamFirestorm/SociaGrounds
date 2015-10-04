@@ -12,7 +12,7 @@ namespace SociaGrounds.Model.Screens
         private readonly List<Button> _buttons;
         public bool IsPlayingMusic { get; set; }
 
-        public HomeScreen(ContentManager content)
+        public HomeScreen()
         {
             float middleWidth = Static.ScreenSize.Width / 2f;
             float middleHeight = Static.ScreenSize.Height / 2f;
@@ -26,7 +26,7 @@ namespace SociaGrounds.Model.Screens
             _buttons.Add(new Button(new Vector2(Static.ScreenSize.Width - 600, middleHeight), "Settings", 1.0f, _buttons[0].Parts -2, Fonts.LargeFont));
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             if (!IsPlayingMusic)
             {
@@ -36,7 +36,7 @@ namespace SociaGrounds.Model.Screens
 
             foreach (Button button in _buttons)
             {
-                if (button.CheckButtonSelected())
+                if (button.CheckButtonSelected(gametime))
                 {
                     ChangeScreen(button);
                 }

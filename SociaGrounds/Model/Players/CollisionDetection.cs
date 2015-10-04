@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
@@ -14,6 +15,7 @@ namespace SociaGrounds.Model.Players
                 // If a right collision has been found, return true
                 if (rect.TouchLeftOf(asset.Rect))
                 {
+                    Debug.WriteLine(asset + " Right");
                     return true;
                 }
             }
@@ -31,6 +33,7 @@ namespace SociaGrounds.Model.Players
                 // If a right collision has been found, return true
                 if (rect.TouchRightOf(asset.Rect))
                 {
+                    Debug.WriteLine(asset + " Left");
                     return true;
                 }
             }
@@ -49,6 +52,7 @@ namespace SociaGrounds.Model.Players
                 // If a right collision has been found, return true
                 if (rect.TouchBottomOf(asset.Rect))
                 {
+                    Debug.WriteLine(asset + " Top");
                     return true;
                 }
             }
@@ -66,6 +70,7 @@ namespace SociaGrounds.Model.Players
                 // If a right collision has been found, return true
                 if (rect.TouchTopOf(asset.Rect))
                 {
+                    Debug.WriteLine(asset + " Bottom");
                     return true;
                 }
             }

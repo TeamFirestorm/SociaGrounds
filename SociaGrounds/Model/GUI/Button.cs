@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -15,7 +16,17 @@ namespace SociaGrounds.Model.GUI
     public class Button
     {
         // Position of the button
-        public Vector2 Position { get; set; }
+        public Vector2 Position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+
+        public float PositionY
+        {
+            set { _position.Y = value; }
+            get { return _position.Y; }
+        }
 
         // Scaling properties
         private readonly float _scale;
@@ -41,6 +52,12 @@ namespace SociaGrounds.Model.GUI
 
         private Vector2 _textureSize;
 
+        private readonly DelayedAction _wait;
+
+        private Vector2 _position;
+
+        public Keys Key { get; private set; }
+
         static Button()
         {
             Textures = new[]
@@ -58,6 +75,11 @@ namespace SociaGrounds.Model.GUI
                     Game1.StaticContent.Load<Texture2D>("SociaGrounds/GUI/Button/PressedButtonRight")
                 },
             };
+        }
+
+        public Button(Vector2 position, string text, Keys key, float scale, float parts, SpriteFont font) : this(position,text,scale,parts,font)
+        {
+            Key = key;
         }
 
         public Button(Vector2 position, string text, float scale, float parts, SpriteFont font)
@@ -83,10 +105,14 @@ namespace SociaGrounds.Model.GUI
 
             //Set buttonstate to not clicked
             _buttonState = 0;
+
+            _wait = new DelayedAction(100);
         }
 
-        public bool CheckButtonSelected()
+        public bool CheckButtonSelected(GameTime gametime)
         {
+            _wait.Update(gametime.ElapsedGameTime.Milliseconds);
+
             if (Static.ThisDevice != "Windows.Desktop")
             {
                 return IsTouchReleased();
@@ -132,7 +158,11 @@ namespace SociaGrounds.Model.GUI
                 _buttonState = 1;
                 if (NewMouseState.LeftButton == ButtonState.Pressed)
                 {
-                    return true;
+                    if (!_wait.Started)
+                    {
+                        _wait.Started = true;
+                        return true;
+                    }                    
                 }
                 return false;
             }

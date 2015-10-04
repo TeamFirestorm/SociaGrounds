@@ -29,7 +29,7 @@ namespace SociaGrounds.Model.World
         }
 
         // Generate the map by saving certain objects in the list
-        public Map(int[,] map, Vector2 startPosition, Vector2 margin, ContentManager content)
+        public Map(int[,] map, Vector2 startPosition, Vector2 margin)
         {
             _createdMap = map;
 
@@ -37,15 +37,15 @@ namespace SociaGrounds.Model.World
             StartPosition = startPosition;
             Vector2 currentPosition = startPosition;
 
-            Texture2D grass0 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_0");
-            Texture2D grass1 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_1");
-            Texture2D grass2 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_2");
-            Texture2D grass3 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_3");
-            Texture2D grass4 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_4");
+            Texture2D grass0 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_0");
+            Texture2D grass1 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_1");
+            Texture2D grass2 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_2");
+            Texture2D grass3 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_3");
+            Texture2D grass4 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_4");
 
-            Texture2D grassFlower0 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_0");
-            Texture2D grassFlower1 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1");
-            Texture2D grassFlower2 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2");
+            Texture2D grassFlower0 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_0");
+            Texture2D grassFlower1 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1");
+            Texture2D grassFlower2 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2");
 
             _mapWidth = grass0.Width* (int)margin.X;
             _mapHeight = grass0.Height * (int)margin.Y;

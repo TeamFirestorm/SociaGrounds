@@ -9,65 +9,46 @@ namespace SociaGrounds.Model.KeyBoards
     /// </summary>
     public class RealKeyBoard : AKeyBoard
     {
-        private bool _isUppercase;
-        private bool _isCapsLock;
-
-        /// <summary>
-        /// Constructor of the keyboard, setting the textbuffer, 
-        /// wether it's clicked or not, the height of the field and making a vector object out of it
-        /// </summary>
-        public RealKeyBoard()
-        {
-            _isUppercase = false;
-            _isCapsLock = false;
-        }
-
-        /// <summary>
-        /// Method that adds text to the textbuffer
-        /// </summary>
-        /// <param name="value">The value that needs to be added</param>
-        private void AddText(char value)
-        {
-            TextBuffer = TextBuffer + value;
-        }
-
         /// <summary>
         /// method that keeps check of the current keystates
         /// </summary>
-        public override void CheckKeyState()
+        public override void CheckKeyState(KeyboardState state = default(KeyboardState))
         {
-            KeyboardState newState = Keyboard.GetState();
+            if (state == default(KeyboardState))
+            {
+                state = Keyboard.GetState();
+            }
 
             switch (Static.CurrentScreenState)
             {
                 case ScreenState.AboutScreen:
                 case ScreenState.SettingsScreen:
-                    if (OldKeyboardState.IsKeyDown(Keys.Escape) && newState.IsKeyUp(Keys.Escape))
+                    if (OldKeyboardState.IsKeyDown(Keys.Escape) && state.IsKeyUp(Keys.Escape))
                     {
                         Static.CurrentScreenState = ScreenState.HomeScreen;
                     }
                     break;
                 case ScreenState.RoomScreen:
-                    RoomKeyBoard(newState);
+                    RoomKeyBoard(state);
                     break;
             }
 
-            OldKeyboardState = newState;
+            OldKeyboardState = state;
         }
 
         private void RoomKeyBoard(KeyboardState newState)
         {
             if (OldKeyboardState.IsKeyDown(Keys.CapsLock) && newState.IsKeyUp(Keys.CapsLock))
             {
-                switch (_isUppercase)
+                switch (_IsUppercase)
                 {
                     case true:
-                        _isUppercase = false;
-                        _isCapsLock = false;
+                        _IsUppercase = false;
+                        _IsCapsLock = false;
                         break;
                     case false:
-                        _isUppercase = true;
-                        _isCapsLock = true;
+                        _IsUppercase = true;
+                        _IsCapsLock = true;
                         break;
                 }
             }
@@ -76,9 +57,9 @@ namespace SociaGrounds.Model.KeyBoards
             {
                 if (!OldKeyboardState.IsKeyDown(key) || !newState.IsKeyUp(key)) continue;
 
-                if (_isUppercase)
+                if (_IsUppercase)
                 {
-                    AddText(_isCapsLock
+                    AddText(_IsCapsLock
                         ? UpperCapsCase[Array.IndexOf(AllKeys, key)]
                         : UpperCase[Array.IndexOf(AllKeys, key)]);
                 }
@@ -107,11 +88,11 @@ namespace SociaGrounds.Model.KeyBoards
 
             if (newState.IsKeyDown(Keys.LeftShift))
             {
-                _isUppercase = !_isCapsLock;
+                _IsUppercase = !_IsCapsLock;
             }
             else if (OldKeyboardState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift))
             {
-                _isUppercase = _isCapsLock;
+                _IsUppercase = _IsCapsLock;
             }
         }
     }

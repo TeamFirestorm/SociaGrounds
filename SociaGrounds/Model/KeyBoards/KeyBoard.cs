@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.GUI;
 
 namespace SociaGrounds.Model.KeyBoards
 {
@@ -8,6 +10,9 @@ namespace SociaGrounds.Model.KeyBoards
     /// </summary>
     public abstract class AKeyBoard
     {
+        protected bool _IsUppercase;
+        protected bool _IsCapsLock;
+
         protected static readonly Keys[] AllKeys =
         {
             Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P,
@@ -36,13 +41,25 @@ namespace SociaGrounds.Model.KeyBoards
         };
 
         public string TextBuffer { get; protected set; }
+        
         public KeyboardState OldKeyboardState;
 
         protected AKeyBoard()
         {
             TextBuffer = "";
+            _IsUppercase = false;
+            _IsCapsLock = false;
         }
 
-        public abstract void CheckKeyState();
+        public abstract void CheckKeyState(KeyboardState state = default(KeyboardState));
+
+        /// <summary>
+        /// Method that adds text to the textbuffer
+        /// </summary>
+        /// <param name="value">The value that needs to be added</param>
+        protected virtual void AddText(char value)
+        {
+            TextBuffer = TextBuffer + value;
+        }
     }
 }
