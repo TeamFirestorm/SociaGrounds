@@ -136,8 +136,10 @@
     <Compile Include="Model\Screens\RoomScreen.cs" />
     <Compile Include="Model\Screens\SettingsScreen.cs" />
     <Compile Include="Model\World\Asset.cs" />
+    <Compile Include="Model\Players\CollisionDetection.cs" />
     <Compile Include="Model\World\GrassTile.cs" />
     <Compile Include="Model\World\Map.cs" />
+    <Compile Include="Model\World\SolidAsset.cs" />
     <Compile Include="Model\World\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenState.cs" />
@@ -182,6 +184,7 @@
     <Content Include="Content\SociaGrounds\World\Grass\Grass_F_2.png" />
     <Content Include="Content\SociaGrounds\World\Tree\TreeBottom.png" />
     <Content Include="Content\SociaGrounds\World\Tree\TreeMid.png" />
+    <Content Include="Content\SociaGrounds\World\Tree\TreeShade.png" />
     <Content Include="Content\SociaGrounds\World\Tree\TreeTop.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -52,6 +52,8 @@ namespace SociaGrounds.Model.Players
             }
         }
 
+        protected SpriteFont Font = Fonts.NormalFont;
+
         // Abstract method to update the player
         public abstract void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState));
 
@@ -68,9 +70,9 @@ namespace SociaGrounds.Model.Players
         {
             if (!string.IsNullOrEmpty(ChatMessage))
             {
-                Vector2 textSize = Fonts.SmallFont.MeasureString(chatMessage);
+                Vector2 textSize = Font.MeasureString(chatMessage);
 
-                spriteBatch.DrawString(Fonts.SmallFont, chatMessage, new Vector2(position.X - (textSize.X /2f) + 32, position.Y - 10), Color.White);
+                spriteBatch.DrawString(Font, chatMessage, new Vector2(position.X - (textSize.X /2f) + 32, position.Y - 10), Color.White);
             }
         }
     }

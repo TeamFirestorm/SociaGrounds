@@ -35,12 +35,9 @@ namespace SociaGrounds.Model.Multiplayer
         /// <summary>
         /// Constructor of the class, adding players and making a connection to the host
         /// </summary>
-        /// <param name="content">Content to send to the host</param>
-        public PlayersSendHost(ContentManager content)
+        public PlayersSendHost()
         {
             _numberOfPlayers = 1;
-
-            Static.Players.Add(new MyPlayer(new Vector2(100, 100), content.Load<Texture2D>("Personas/Chris_Character"), 0));
 
             _watch = new Stopwatch();
 

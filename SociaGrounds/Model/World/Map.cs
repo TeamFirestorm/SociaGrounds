@@ -9,121 +9,102 @@ namespace SociaGrounds.Model.World
     {
         private readonly List<Asset> _nonSolidAssets;
 
-        private readonly List<Asset> _solidAssets;
-        public List<Asset> SolidAssets
-        {
-            get { return _solidAssets; }
-        }
+        private static readonly List<SolidAsset> _solidAssets;
 
-        private readonly Vector2 _startPosition;
-        public Vector2 StartPosition
-        {
-            get { return _startPosition; }
-        }
+        public static List<SolidAsset> SolidAssets => _solidAssets;
+
+        public Vector2 StartPosition { get; }
 
         private readonly int _mapWidth, _mapHeight;
 
-        public int MapWidth
-        {
-            get { return _mapWidth; }
-        }
+        public int MapWidth => _mapWidth;
 
-        public int MapHeight
+        public int MapHeight => _mapHeight;
+
+        private int[,] _createdMap;
+
+        static Map()
         {
-            get { return _mapHeight; }
+            _solidAssets = new List<SolidAsset>();
         }
 
         // Generate the map by saving certain objects in the list
         public Map(int[,] map, Vector2 startPosition, ContentManager content)
         {
+            _createdMap = map;
+
             _nonSolidAssets = new List<Asset>();
-            _solidAssets = new List<Asset>();
-            _startPosition = startPosition;
+            StartPosition = startPosition;
             Vector2 currentPosition = startPosition;
-            Texture2D grassTexture = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_0");
+
+            Texture2D grass0 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_0");
+            Texture2D grass1 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_1");
+            Texture2D grass2 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_2");
+            Texture2D grass3 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_3");
+            Texture2D grass4 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_4");
+
+            Texture2D grassFlower0 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_0");
+            Texture2D grassFlower1 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1");
+            Texture2D grassFlower2 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2");
 
             // Looping through the multidimensional array that has been given
             for (int x = 0; x < map.GetLength(0); x++)
             {
-                _mapWidth = 0;
-
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    if (map[x,y] == 0)
+                    switch (map[x, y])
                     {
-                        _nonSolidAssets.Add(new GrassTile(grassTexture, currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
+                        case 0:
+                            _nonSolidAssets.Add(new GrassTile(grass0, currentPosition));
+                            break;
+                        case 1:
+                            _nonSolidAssets.Add(new GrassTile(grass1, currentPosition));
+                            break;
+                        case 2:
+                            _nonSolidAssets.Add(new GrassTile(grass2, currentPosition));
+                            break;
+                        case 3:
+                            _nonSolidAssets.Add(new GrassTile(grass3, currentPosition));
+                            break;
+                        case 4:
+                            _nonSolidAssets.Add(new GrassTile(grass4, currentPosition));
+                            break;
+                        case 5:
+                            _nonSolidAssets.Add(new GrassTile(grassFlower0, currentPosition));
+                            break;
+                        case 6:
+                            _nonSolidAssets.Add(new GrassTile(grassFlower1, currentPosition));
+                            break;
+                        case 7:
+                            _nonSolidAssets.Add(new GrassTile(grassFlower2, currentPosition));
+                            break;
+                        default:
+                            _nonSolidAssets.Add(new GrassTile(grass0, currentPosition));
+                            break;
                     }
 
-                    if (map[x, y] == 1)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_2"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
-
-                    if (map[x, y] == 2)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_3"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
-
-                    if (map[x, y] == 3)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_4"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
-
-                    if (map[x, y] == 4)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_0"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
-
-                    if (map[x, y] == 5)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
-
-                    if (map[x, y] == 6)
-                    {
-                        _nonSolidAssets.Add(new GrassTile(content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2"), currentPosition));
-
-                        // Update the x position of the currentPosition
-                        currentPosition.X += grassTexture.Width;
-                    }
+                    //update the current position
+                    currentPosition.X += grass0.Width;
 
                     // Update the mapWidth
-                    _mapWidth += grassTexture.Width;
+                    _mapWidth += grass0.Width;
                 }
                 // Update the y position of the currentPosition
                 // And reset the x position
-                currentPosition.Y += grassTexture.Height;
+                currentPosition.Y += grass0.Height;
                 currentPosition.X = startPosition.X;
 
                 // Update the mapHeight
-                _mapHeight += grassTexture.Height;
+                _mapHeight += grass0.Height;
             }
         }
 
-        public void AddSolidAsset(Asset asset)
+        public void AddSolidAsset(SolidAsset asset)
         {
             _solidAssets.Add(asset);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawNonSolid(SpriteBatch spriteBatch)
         {
             foreach(Asset asset in _nonSolidAssets)
             {
@@ -133,9 +114,17 @@ namespace SociaGrounds.Model.World
 
         public void DrawSolid(SpriteBatch spriteBatch)
         {
-            foreach (Asset asset in _solidAssets)
+            foreach (SolidAsset asset in _solidAssets)
             {
                 asset.Draw(spriteBatch);
+            }
+        }
+
+        public void DrawShade(SpriteBatch spriteBatch)
+        {
+            foreach (SolidAsset asset in _solidAssets)
+            {
+                asset.DrawShade(spriteBatch);
             }
         }
     }

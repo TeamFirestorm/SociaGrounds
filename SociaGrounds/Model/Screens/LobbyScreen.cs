@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.DB;
 using SociaGrounds.Model.Multiplayer;
+using SociaGrounds.Model.Players;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -46,22 +48,31 @@ namespace SociaGrounds.Model.Screens
             {
                 _alreadyStarted = true;
 
+                CreateMyPlayer(content);
+
                 string ip = DataBase.CheckPossibleConnection(_connections);
 
                 if (ip == null)
                 {
-                    Host = new PlayersSendHost(content);
+                    Host = new PlayersSendHost();
                     Task.Run(new Action(Host.Loop));
                     InsertConnection();
                 }
                 else
                 {
                     Host = null;
-                    Client = new PlayersSendClient(content, ip);
+                    Client = new PlayersSendClient(ip);
                     Task.Run(new Action(Client.Loop));
                 }
+
                 Static.CurrentScreenState = ScreenState.RoomScreen;
             }
+        }
+
+        private void CreateMyPlayer(ContentManager content)
+        {
+            //Create Player
+            Static.Players.Add(new MyPlayer(new Vector2(1000, 600), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character")));
         }
 
         private static async void InsertConnection()

@@ -22,23 +22,20 @@ namespace SociaGrounds.Model.Multiplayer
         private bool _stopped;
         private readonly Stopwatch _watch;
 
-        public PlayersSendClient(ContentManager content, string ip)
+        public PlayersSendClient(string ip)
         {
             _watch = new Stopwatch();
             _started = false;
             _stopped = false;
-            CreateClient(content, ip);
+            CreateClient(ip);
         }
 
-        private void CreateClient(ContentManager content, string ip)
+        private void CreateClient(string ip)
         {
             // Read the ip and make it a string
             string hostip = ip;
             // Create new object of configs.
             NetPeerConfiguration config = new NetPeerConfiguration("game");
-
-            //Players
-            Static.Players.Add(new MyPlayer(new Vector2(0, 0), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character")));
 
             // Create new client with the defined settings
             _client = new NetClient(config);

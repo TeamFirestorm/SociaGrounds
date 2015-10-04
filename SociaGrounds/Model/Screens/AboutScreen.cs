@@ -7,10 +7,12 @@ namespace SociaGrounds.Model.Screens
     public class AboutScreen
     {
         private readonly string[] _names;
+        private SpriteFont _font;
 
         public AboutScreen()
         {
             _names = new [] {"Gyllion van Elderen", "Wouter Kosse", "Thijs Reeringh", "Chris Vinkers" /*, "Alwin Masseling"*/};
+            _font = Fonts.NormalFont;
         }
 
         public void Update()
@@ -26,11 +28,11 @@ namespace SociaGrounds.Model.Screens
 
             float height = 0;
 
-            spriteBatch.DrawString(Fonts.NormalFont, "Press escape to return", new Vector2(100,100), Color.Black);
+            spriteBatch.DrawString(_font, "Press escape to return", new Vector2(100,100), Color.Black);
 
             foreach (string name in _names)
             {
-                spriteBatch.DrawString(Fonts.NormalFont, name, new Vector2(Static.ScreenSize.Width / 2f, ((Static.ScreenSize.Height / 2f) + height)), Color.Black);
+                spriteBatch.DrawString(_font, name, new Vector2(Static.ScreenSize.Width / 2f, ((Static.ScreenSize.Height / 2f) + height)), Color.Black);
                 height += 40;
             }
 

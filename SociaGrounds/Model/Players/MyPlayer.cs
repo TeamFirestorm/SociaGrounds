@@ -64,7 +64,7 @@ namespace SociaGrounds.Model.Players
 
             Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
 
-            Input(gameTime, map, state);
+            Input(gameTime, state);
 
             // Show the chat message for a certain amount of time
             if (!string.IsNullOrEmpty(chatMessage))
@@ -101,13 +101,13 @@ namespace SociaGrounds.Model.Players
         /// <param name="gameTime"></param>
         /// <param name="map"></param>
         /// <param name="keyState"></param>
-        public void Input(GameTime gameTime, Map map, KeyboardState keyState)
+        public void Input(GameTime gameTime, KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Up))
             {
                 _lastDirection = Direction.Up;
 
-                if (IsCollidingTop(map)) return;
+                if (CollisionDetection.IsCollidingTop(Rect)) return;
 
                 Animation.Play(8, 9, gameTime);
                 position.Y -= Speed;
@@ -116,7 +116,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Down;
 
-                if (IsCollidingBottom(map)) return;
+                if (CollisionDetection.IsCollidingBottom(Rect)) return;
 
                 Animation.Play(10, 9, gameTime);
                 position.Y += Speed;
@@ -125,7 +125,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Left;
 
-                if (IsCollidingLeft(map)) return;
+                if (CollisionDetection.IsCollidingLeft(Rect)) return;
 
                 Animation.Play(9, 9, gameTime);
                 position.X -= Speed;
@@ -134,7 +134,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Right;
 
-                if (IsCollidingRight(map)) return;
+                if (CollisionDetection.IsCollidingRight(Rect)) return;
 
                 Animation.Play(11, 9, gameTime);
                 position.X += Speed;
@@ -146,75 +146,6 @@ namespace SociaGrounds.Model.Players
                 if (_lastDirection == Direction.Down) Animation.ResetAnimation(10, gameTime);
                 if (_lastDirection == Direction.Right) Animation.ResetAnimation(11, gameTime);
             }
-        }
-
-        // Check if the player has a collision on his right side
-        private bool IsCollidingRight(Map map)
-        {
-            // Check all the solid assets in the map
-            foreach (Asset asset in map.SolidAssets)
-            {
-                // If a right collision has been found, return true
-                if (Rect.TouchLeftOf(asset.Rect))
-                {
-                    return true;
-                }
-            }
-
-            // If no collision has been found, return false
-            return false;
-        }
-
-        // Check if the player has a collision on his left side
-        private bool IsCollidingLeft(Map map)
-        {
-            // Check all the solid assets in the map
-            foreach (Asset asset in map.SolidAssets)
-            {
-                // If a right collision has been found, return true
-                if (Rect.TouchRightOf(asset.Rect))
-                {
-                    return true;
-                }
-            }
-
-            // If no collision has been found, return false
-            return false;
-        }
-
-        // Check if the player has a collision on his top side
-        private bool IsCollidingTop(Map map)
-        {
-
-            // Check all the solid assets in the map
-            foreach (Asset asset in map.SolidAssets)
-            {
-                // If a right collision has been found, return true
-                if (Rect.TouchBottomOf(asset.Rect))
-                {
-                    return true;
-                }
-            }
-
-            // If no collision has been found, return false
-            return false;
-        }
-
-        // Check if the player has a collision on his bottom side
-        private bool IsCollidingBottom(Map map)
-        {
-            // Check all the solid assets in the map
-            foreach (Asset asset in map.SolidAssets)
-            {
-                // If a right collision has been found, return true
-                if (Rect.TouchTopOf(asset.Rect))
-                {
-                    return true;
-                }
-            }
-
-            // If no collision has been found, return false
-            return false;
         }
     }
 }

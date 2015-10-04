@@ -1,44 +1,73 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Windows.UI.Xaml.Media;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.World
 {
-    public class Tree : Asset
+    public class Tree : SolidAsset
     {
         private readonly int _amountOfLogs;
-        private readonly Texture2D _bottom;
-        private readonly Texture2D _mid;
-        private readonly Texture2D _top;
 
-        public Tree(Vector2 position, int amountOfLogs, ContentManager content) : base(position)
+        private static readonly Texture2D[] TREE;
+
+        private float _scale;
+
+        static Tree()
+        {
+            // Loading textures
+            TREE = new[]
+            {
+                Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Tree/TreeBottom"),
+                Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Tree/TreeMid"),
+                Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Tree/TreeTop"),
+                Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Tree/TreeShade"),
+            };
+        }
+
+        public Tree(Vector2 position, int amountOfLogs, float scale) : base(position)
         {
             // Initialization
             this.position = position;
             _amountOfLogs = amountOfLogs;
+            _scale = scale;
 
-            // Loading textures
-            _bottom = content.Load<Texture2D>("SociaGrounds/World/Tree/TreeBottom");
-            _mid = content.Load<Texture2D>("SociaGrounds/World/Tree/TreeMid");
-            _top = content.Load<Texture2D>("SociaGrounds/World/Tree/TreeTop");
 
             // Creating the rectangle
-            rect = new Rectangle((int)(position.X + (_bottom.Width / 3.1f)), (int)position.Y + 10, (_bottom.Width / 3), (int)(_bottom.Height /2.5));
+            rect = new Rectangle((int)position.X, (int)position.Y, TREE[0].Width, TREE[0].Height);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Draw the bottom and determine the rectangle height
-            spriteBatch.Draw(_bottom, position, Color.White);
+            DrawBottom(spriteBatch);
+            DrawMiddle(spriteBatch);
+            DrawTop(spriteBatch);
+        }
 
+        public override void DrawShade(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(TREE[3], new Vector2(position.X - 19,position.Y + 11), Color.White);
+        }
+
+        private void DrawBottom(SpriteBatch spriteBatch)
+        {
+            // Draw the bottom and determine the rectangle height
+            spriteBatch.Draw(TREE[0], position, Color.White);
+        }
+
+        private void DrawMiddle(SpriteBatch spriteBatch)
+        {
             // Draw the amount of logs
             for (int i = 0; i < _amountOfLogs; i++)
             {
-                spriteBatch.Draw(_mid, new Vector2(position.X + 24, position.Y - (_bottom.Height + (_mid.Height * i) - 10)), Color.White);
+                spriteBatch.Draw(TREE[1], new Vector2(position.X + 5, position.Y - (TREE[0].Height + (TREE[1].Height * i))), Color.White);
             }
+        }
 
+        private void DrawTop(SpriteBatch spriteBatch)
+        {
             // Draw the top
-            spriteBatch.Draw(_top, new Vector2(position.X - 15, position.Y - (float)((_bottom.Height * 1.85) + (_mid.Height * _amountOfLogs))), Color.White);
+            spriteBatch.Draw(TREE[2], new Vector2(position.X - 33, position.Y - (float)((TREE[0].Height * 1.85) + (TREE[1].Height * _amountOfLogs))), Color.White);
         }
     }
 }
