@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml.Media;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.World
