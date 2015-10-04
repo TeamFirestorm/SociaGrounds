@@ -9,9 +9,9 @@ namespace SociaGrounds.Model.World
     {
         private readonly List<Asset> _nonSolidAssets;
 
-        private static readonly List<SolidAsset> _solidAssets;
+        private static readonly List<SolidAsset> SOLID_ASSETS;
 
-        public static List<SolidAsset> SolidAssets => _solidAssets;
+        public static List<SolidAsset> SolidAssets => SOLID_ASSETS;
 
         public Vector2 StartPosition { get; }
 
@@ -25,11 +25,11 @@ namespace SociaGrounds.Model.World
 
         static Map()
         {
-            _solidAssets = new List<SolidAsset>();
+            SOLID_ASSETS = new List<SolidAsset>();
         }
 
         // Generate the map by saving certain objects in the list
-        public Map(int[,] map, Vector2 startPosition, ContentManager content)
+        public Map(int[,] map, Vector2 startPosition, Vector2 margin, ContentManager content)
         {
             _createdMap = map;
 
@@ -46,6 +46,9 @@ namespace SociaGrounds.Model.World
             Texture2D grassFlower0 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_0");
             Texture2D grassFlower1 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1");
             Texture2D grassFlower2 = content.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2");
+
+            _mapWidth = grass0.Width* (int)margin.X;
+            _mapHeight = grass0.Height * (int)margin.Y;
 
             // Looping through the multidimensional array that has been given
             for (int x = 0; x < map.GetLength(0); x++)
@@ -85,23 +88,17 @@ namespace SociaGrounds.Model.World
 
                     //update the current position
                     currentPosition.X += grass0.Width;
-
-                    // Update the mapWidth
-                    _mapWidth += grass0.Width;
                 }
                 // Update the y position of the currentPosition
                 // And reset the x position
                 currentPosition.Y += grass0.Height;
                 currentPosition.X = startPosition.X;
-
-                // Update the mapHeight
-                _mapHeight += grass0.Height;
             }
         }
 
         public void AddSolidAsset(SolidAsset asset)
         {
-            _solidAssets.Add(asset);
+            SOLID_ASSETS.Add(asset);
         }
 
         public void DrawNonSolid(SpriteBatch spriteBatch)
@@ -114,7 +111,7 @@ namespace SociaGrounds.Model.World
 
         public void DrawSolid(SpriteBatch spriteBatch)
         {
-            foreach (SolidAsset asset in _solidAssets)
+            foreach (SolidAsset asset in SOLID_ASSETS)
             {
                 asset.Draw(spriteBatch);
             }
@@ -122,7 +119,7 @@ namespace SociaGrounds.Model.World
 
         public void DrawShade(SpriteBatch spriteBatch)
         {
-            foreach (SolidAsset asset in _solidAssets)
+            foreach (SolidAsset asset in SOLID_ASSETS)
             {
                 asset.DrawShade(spriteBatch);
             }

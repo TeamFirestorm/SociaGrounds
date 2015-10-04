@@ -17,7 +17,9 @@ namespace SociaGrounds.Model.Screens
 
         public RoomScreen(ContentManager content)
         {
-            _map = new Map(CreateMap(60,36), new Vector2(0, 0), content);
+            Vector2 margin = new Vector2(60,36);
+
+            _map = new Map(CreateMap((int)margin.X, (int)margin.Y), new Vector2(0, 0), margin ,content);
 
             _map.AddSolidAsset(new Tree(new Vector2(350, 300), 1, 1f));
             _map.AddSolidAsset(new Tree(new Vector2(500, 250), 2, 1f));
