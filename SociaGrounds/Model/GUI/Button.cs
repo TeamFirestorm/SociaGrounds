@@ -71,7 +71,6 @@ namespace SociaGrounds.Model.GUI
             _text = text;
             _font = font;
 
-
             _textureSize = new Vector2(Textures[0][1].Width * _scale, Textures[0][1].Height * _scale);
 
             //Sets the position of the text
@@ -86,53 +85,6 @@ namespace SociaGrounds.Model.GUI
             _buttonState = 0;
         }
 
-
-
-        ///// <summary>
-        ///// CCreates a new button with the lenght of the text as width
-        ///// </summary>
-        ///// <param name="content"></param>
-        ///// <param name="position"></param>
-        ///// <param name="text"></param>
-        ///// <param name="scale"></param>
-        //public Button(ContentManager content, Vector2 position, string text, float scale) : this(content, position, text, scale, text.Length)
-        //{
-        //}
-
-        //public Button(ContentManager content, Viewport viewport, string text, float scale): this(content, new Vector2(0 + 20, viewport.Height - (viewport.Height /8f)), text, scale, Fonts.LargeFont.MeasureString(text).X)
-        //{
-        //    Vector2 temp = new Vector2(0 + 20, viewport.Height - (viewport.Height/8f));
-
-        //    _hitBox = new Rectangle((int)temp.X, (int)temp.Y, (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
-        //}
-
-        ///// <summary>
-        ///// Creates a new Button with a fixed width
-        ///// </summary>
-        ///// <param name="content"></param>
-        ///// <param name="position"></param>
-        ///// <param name="text"></param>
-        ///// <param name="scale"></param>
-        ///// <param name="fixedWidth"></param>
-        //public Button(ContentManager content, Vector2 position, string text, float scale, float fixedWidth)
-        //{
-        //    // Text
-        //    _text = text;
-
-        //    // The position, width and scale
-        //    Position = position;
-        //    Width = fixedWidth;
-        //    _scale = scale;
-
-        //    Vector2 textSize = Fonts.LargeFont.MeasureString(_text);
-
-        //    _textPosition = new Vector2(position.X + ((((Width + 2)* _tetxures[0][1].Width) - textSize.X)/2f), position.Y + ((_tetxures[0][1].Height - textSize.Y)/2));
-
-        //    _hitBox = new Rectangle((int)(position.X * scale), (int)(position.Y * scale), (int)((_tetxures[0][0].Width * scale) + ((_tetxures[0][1].Width * Width) * scale) + (_tetxures[0][2].Width * scale)), (int)(_tetxures[0][1].Height * scale));
-
-        //    _buttonState = 0;
-        //}
-
         public bool CheckButtonSelected()
         {
             if (Static.ThisDevice != "Windows.Desktop")
@@ -143,7 +95,7 @@ namespace SociaGrounds.Model.GUI
             return IsClicked();
         }
 
-        public bool IsTouchReleased()
+        private bool IsTouchReleased()
         {
             if (NewTouchLocations.Count == 0 && _isTouched)
             {
