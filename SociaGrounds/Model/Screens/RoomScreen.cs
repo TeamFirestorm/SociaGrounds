@@ -40,7 +40,7 @@ namespace SociaGrounds.Model.Screens
             }
 
             Static.Keyboard.CheckKeyState();
-            Static.Players[0].Update(gameTime, _map, Static.Keyboard.OldKeyboardState);
+            Static.Players[0].Update(gameTime, Static.Keyboard.OldKeyboardState);
 
             _camera.Update(graphics.Viewport, Static.Players[0].Position, _map);
 

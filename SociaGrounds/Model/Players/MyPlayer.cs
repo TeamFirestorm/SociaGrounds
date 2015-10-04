@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
 {
@@ -13,19 +12,19 @@ namespace SociaGrounds.Model.Players
         /// Constructor of the player that can be controlled with direct input
         /// This version is used if the player is a client
         /// </summary>
-        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="startPosition">The startPosition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
         /// <param name="id">The ID of the player relevant for the server</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
         {
-            Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
-            position = startPosition;
-            Speed = 3;
+            _Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            Position = startPosition;
+            _Speed = 3;
 
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            _Rect = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
 
             // Chat message initialize
-            chatMessage = "";
+            _ChatMessage = "";
 
             Id = id;
         }
@@ -34,20 +33,20 @@ namespace SociaGrounds.Model.Players
         /// Constructor of the player that can be controlled with direct input
         /// This version is used for the host
         /// </summary>
-        /// <param name="startPosition">The startposition of the player when entering the room</param>
+        /// <param name="startPosition">The startPosition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
         public MyPlayer(Vector2 startPosition, Texture2D texture)
         {
             // General initialize
-            Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
-            position = startPosition;
-            Speed = 3;
+            _Animation = new CAnimation(texture, startPosition, 64, 64, 10, 25, true);
+            Position = startPosition;
+            _Speed = 4;
 
             // Chat message initialize
-            chatMessage = "";
+            _ChatMessage = "";
 
             // Rectangle initialize
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            _Rect = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
         }
 
         /// <summary>
@@ -56,32 +55,11 @@ namespace SociaGrounds.Model.Players
         /// <param name="gameTime">Gametime object</param>
         /// <param name="map">All info about the map</param>
         /// <param name="state">The keyboard state</param>
-        public override void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState))
+        public override void Update(GameTime gameTime, KeyboardState state = default(KeyboardState))
         {
-            Animation.Position = position;
-
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            base.Update(gameTime, state);
 
             Input(gameTime, state);
-
-            // Show the chat message for a certain amount of time
-            if (!string.IsNullOrEmpty(chatMessage))
-            {
-                ChatCounter += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (ChangedText)
-                {
-                    ChatCounter = 0;
-                    ChangedText = false;
-                }
-
-                // Then flush the chat message and reset the counter
-                if (ChatCounter >= 5000)
-                {
-                    chatMessage = "";
-                    ChatCounter = 0;
-                }
-            }
         }
 
         /// <summary>
@@ -90,14 +68,13 @@ namespace SociaGrounds.Model.Players
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Animation.Draw(spriteBatch);
+            _Animation.Draw(spriteBatch);
         }
 
         /// <summary>
         /// Method for all input for the palyer
         /// </summary>
         /// <param name="gameTime"></param>
-        /// <param name="map"></param>
         /// <param name="keyState"></param>
         public void Input(GameTime gameTime, KeyboardState keyState)
         {
@@ -105,44 +82,44 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Up;
 
-                if (CollisionDetection.IsCollidingTop(Rect)) return;
+                if (CollisionDetection.IsCollidingTop(_Rect)) return;
 
-                Animation.Play(8, 9, gameTime);
-                position.Y -= Speed;
+                _Animation.Play(8, 9, gameTime);
+                _Position.Y -= _Speed;
             }
             else if (keyState.IsKeyDown(Keys.Down))
             {
                 _lastDirection = Direction.Down;
 
-                if (CollisionDetection.IsCollidingBottom(Rect)) return;
+                if (CollisionDetection.IsCollidingBottom(_Rect)) return;
 
-                Animation.Play(10, 9, gameTime);
-                position.Y += Speed;
+                _Animation.Play(10, 9, gameTime);
+                _Position.Y += _Speed;
             }
             else if (keyState.IsKeyDown(Keys.Left))
             {
                 _lastDirection = Direction.Left;
 
-                if (CollisionDetection.IsCollidingLeft(Rect)) return;
+                if (CollisionDetection.IsCollidingLeft(_Rect)) return;
 
-                Animation.Play(9, 9, gameTime);
-                position.X -= Speed;
+                _Animation.Play(9, 9, gameTime);
+                _Position.X -= _Speed;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
                 _lastDirection = Direction.Right;
 
-                if (CollisionDetection.IsCollidingRight(Rect)) return;
+                if (CollisionDetection.IsCollidingRight(_Rect)) return;
 
-                Animation.Play(11, 9, gameTime);
-                position.X += Speed;
+                _Animation.Play(11, 9, gameTime);
+                _Position.X += _Speed;
             }
             else
             {
-                if (_lastDirection == Direction.Up) Animation.ResetAnimation(8,gameTime);
-                if (_lastDirection == Direction.Left) Animation.ResetAnimation(9, gameTime);
-                if (_lastDirection == Direction.Down) Animation.ResetAnimation(10, gameTime);
-                if (_lastDirection == Direction.Right) Animation.ResetAnimation(11, gameTime);
+                if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8,gameTime);
+                if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);
+                if (_lastDirection == Direction.Down) _Animation.ResetAnimation(10, gameTime);
+                if (_lastDirection == Direction.Right) _Animation.ResetAnimation(11, gameTime);
             }
         }
     }

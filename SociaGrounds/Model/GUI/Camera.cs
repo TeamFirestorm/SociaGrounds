@@ -48,7 +48,7 @@ namespace SociaGrounds.Model.GUI
             }
 
             // Camera translation
-            TranformPublic = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Width / 2f), -_centre.Y + (viewport.Height / 2f), 0));  // * Matrix.CreateScale(2.0f, 2.0f, 0);
+            TranformPublic = Matrix.CreateTranslation(new Vector3(-_centre.X + (viewport.Width / 2f), -_centre.Y + (viewport.Height / 2f), 0));
         }
 
         //public void Update(Viewport viewport, Vector2 position, Map map)

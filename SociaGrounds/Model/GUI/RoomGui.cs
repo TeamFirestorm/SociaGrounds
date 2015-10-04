@@ -30,7 +30,7 @@ namespace SociaGrounds.Model.GUI
 
             string text = "Show/Hide";
 
-            _showHideButton = new Button(new Vector2(20, position.Y), text, scale, text.Length, Fonts.NormalFont);
+            _showHideButton = new Button(new Vector2(20, position.Y), text, scale, text.Length, Fonts.SmallFont);
 
             //set the virtualkeyboard to not show
             _isKeyboardUp = false;

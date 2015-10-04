@@ -12,7 +12,7 @@ namespace SociaGrounds.Model.Screens
         public AboutScreen()
         {
             _names = new [] {"Gyllion van Elderen", "Wouter Kosse", "Thijs Reeringh", "Chris Vinkers" /*, "Alwin Masseling"*/};
-            _font = Fonts.NormalFont;
+            _font = Fonts.SmallFont;
         }
 
         public void Update()

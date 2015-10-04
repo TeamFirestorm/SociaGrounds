@@ -21,16 +21,16 @@ namespace SociaGrounds.Model.Players
         /// <param name = "id" > The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, NetConnection connection, int id)
         {
-            NewQPosition = new Queue<Vector2>();
+            _NewQPosition = new Queue<Vector2>();
 
-            Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
-            position = startPosition;
-            Speed = 3;
-            this.connection = connection;
+            _Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            _Position = startPosition;
+            _Speed = 3;
+            Connection = connection;
 
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            _Rect = new Rectangle((int)_Position.X, (int)_Position.Y, 64, 64);
 
-            chatMessage = "";
+            _ChatMessage = "";
 
             Id = id;
 
@@ -46,15 +46,15 @@ namespace SociaGrounds.Model.Players
         /// <param name="id">The ID of the player relevant for the server</param>
         public ForeignPlayer(Vector2 startPosition, int id)
         {
-            NewQPosition = new Queue<Vector2>();
+            _NewQPosition = new Queue<Vector2>();
 
-            Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
-            position = startPosition;
-            Speed = 3;
+            _Animation = new CAnimation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            _Position = startPosition;
+            _Speed = 3;
 
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            _Rect = new Rectangle((int)_Position.X, (int)_Position.Y, 64, 64);
 
-            chatMessage = "";
+            _ChatMessage = "";
 
             Id = id;
 
@@ -62,63 +62,40 @@ namespace SociaGrounds.Model.Players
         }
 
         /// <summary>
-        /// This method is used to receive the new position data from the host
+        /// This method is used to receive the new _Position data from the host
         /// </summary>
         /// <param name="pos">Positions of the foreign players</param>
         public void AddNewPosition(Vector2 pos)
         {
-            NewQPosition.Enqueue(pos);
+            _NewQPosition.Enqueue(pos);
         }
 
         /// <summary>
         /// The update method for the foreign player
         /// </summary>
         /// <param name="gameTime">Gametime object</param>
-        /// <param name="ui">The UI object relevant to the player</param>
-        /// <param name="viewPort">For the height and width of the screen</param>
-        /// <param name="map">All info about the map</param>
-        /// <param name="keyState">The current keystate</param>
-        public override void Update(GameTime gameTime, Map map, KeyboardState state = default(KeyboardState))
+        /// <param name="state"></param>
+        public override void Update(GameTime gameTime, KeyboardState state = default(KeyboardState))
         {
-            if (NewQPosition.Count <= 0) return;
-
-            NewPosition(gameTime);
-
-            Animation.Position = position;
-
-            Rect = new Rectangle((int)position.X, (int)position.Y, 64, 64);
-
-            // Show the chat message for a certain amount of time
-            if (!string.IsNullOrEmpty(chatMessage))
+            if (_NewQPosition.Count > 0)
             {
-                ChatCounter += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (ChangedText)
-                {
-                    ChatCounter = 0;
-                    ChangedText = false;
-                }
-
-                // Then flush the chat message and reset the counter
-                if (ChatCounter >= 5000)
-                {
-                    chatMessage = "";
-                    ChatCounter = 0;
-                }
+                NewPosition(gameTime);
             }
+
+            base.Update(gameTime,state);
         }
 
         /// <summary>
-        /// Sets the new position of a foreign player
+        /// Sets the new _Position of a foreign player
         /// </summary>
         /// <param name="gameTime"></param>
         private void NewPosition(GameTime gameTime)
         {
             if (_newPosition == default(Vector2))
             {
-                if (NewQPosition.Count > 0)
+                if (_NewQPosition.Count > 0)
                 {
-                    _newPosition = NewQPosition.Dequeue();
+                    _newPosition = _NewQPosition.Dequeue();
                 }
                 else
                 {
@@ -126,32 +103,32 @@ namespace SociaGrounds.Model.Players
                 }
             }
 
-            if (_newPosition.Y > position.Y)
+            if (_newPosition.Y > _Position.Y)
             {
-                Animation.Play(10, 9, gameTime);
+                _Animation.Play(10, 9, gameTime);
 
-                position.Y += (_newPosition.Y - position.Y);
+                _Position.Y += (_newPosition.Y - _Position.Y);
             }
-            else if (_newPosition.Y < position.Y)
+            else if (_newPosition.Y < _Position.Y)
             {
-                Animation.Play(8, 9, gameTime);
+                _Animation.Play(8, 9, gameTime);
 
-                position.Y -= (position.Y - _newPosition.Y);
+                _Position.Y -= (_Position.Y - _newPosition.Y);
             } 
-            else if (_newPosition.X < position.X)
+            else if (_newPosition.X < _Position.X)
             {
-                Animation.Play(9, 9, gameTime);
+                _Animation.Play(9, 9, gameTime);
 
-                position.X -= (position.X - _newPosition.X);
+                _Position.X -= (_Position.X - _newPosition.X);
             }
-            else if (_newPosition.X > position.X)
+            else if (_newPosition.X > _Position.X)
             {
-                Animation.Play(11, 9, gameTime);
+                _Animation.Play(11, 9, gameTime);
 
-                position.X += (_newPosition.X - position.X);
+                _Position.X += (_newPosition.X - _Position.X);
             }
 
-            if (position == _newPosition)
+            if (_Position == _newPosition)
             {
                 _newPosition = default(Vector2);
             }
@@ -163,7 +140,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="spriteBatch">The spritebatch used for drawing</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Animation.Draw(spriteBatch);
+            _Animation.Draw(spriteBatch);
         }
     }
 }
