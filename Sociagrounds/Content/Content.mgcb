@@ -331,12 +331,6 @@
 /processorParam:TextureFormat=Color
 /build:SociaGrounds/World/Tree/TreeTop.png
 
-#begin SociaGrounds/SociaGrounds_Font_Large.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:SociaGrounds/SociaGrounds_Font_Large.spritefont
-
 #begin SociaGrounds/SociaGrounds_Font_Small.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -360,4 +354,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SociaGrounds/World/Tree/TreeShade.png
+
+#begin SociaGrounds/SociaGrounds_Font_Large.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:SociaGrounds/SociaGrounds_Font_Large.spritefont
 
