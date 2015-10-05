@@ -8,12 +8,12 @@ namespace SociaGrounds.Model.GUI
     /// Class is used to connect the windows phone & desktop keyboards.
     /// Making it easier to migrate between the platforms.
     /// </summary>
-    public class SociaKeyBoard
+    public static class SociaKeyBoard
     {
-        protected bool _IsUppercase;
-        protected bool _IsCapsLock;
+        private static bool _isUppercase;
+        private static bool _isCapsLock;
 
-        protected static readonly Keys[] AllKeys =
+        private static readonly Keys[] ALL_KEYS =
         {
             Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P,
             Keys.A, Keys.S , Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L,
@@ -22,40 +22,40 @@ namespace SociaGrounds.Model.GUI
             Keys.D8, Keys.D9, Keys.D0
         };
 
-        protected static readonly char[] UpperCase =
+        private static readonly char[] UPPER_CASE =
         {
             'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M',' ',
             '!','@','#','$','%','^','&','*','(',')'
         };
 
-        protected static readonly char[] UpperCapsCase =
+        private static readonly char[] UPPER_CAPS_CASE =
         {
             'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M',' ',
             '1','2','3','4','5','6','7','8','9','0'
         };
 
-        protected static readonly char[] LowerCase =
+        private static readonly char[] LOWER_CASE =
         {
             'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m',' ',
             '1','2','3','4','5','6','7','8','9','0'
         };
 
-        public string TextBuffer { get; protected set; }
+        public static string TextBuffer { get; private set; }
 
-        public KeyboardState OldKeyboardState { get; private set; }
+        private static KeyboardState _oldKeyboardState;
 
-        public SociaKeyBoard()
+        static SociaKeyBoard()
         {
             TextBuffer = "";
-            _IsUppercase = false;
-            _IsCapsLock = false;
+            _isUppercase = false;
+            _isCapsLock = false;
         }
 
         /// <summary>
         /// Method that adds text to the textbuffer
         /// </summary>
         /// <param name="value">The value that needs to be added</param>
-        protected virtual void AddText(char value)
+        private static void AddText(char value)
         {
             TextBuffer = TextBuffer + value;
         }
@@ -63,7 +63,7 @@ namespace SociaGrounds.Model.GUI
         /// <summary>
         /// method that keeps check of the current keystates
         /// </summary>
-        public void CheckKeyState(KeyboardState state = default(KeyboardState))
+        public static KeyboardState CheckKeyState(KeyboardState state = default(KeyboardState))
         {
             if (state == default(KeyboardState))
             {
@@ -74,53 +74,64 @@ namespace SociaGrounds.Model.GUI
             {
                 case ScreenState.AboutScreen:
                 case ScreenState.SettingsScreen:
-                    if (OldKeyboardState.IsKeyDown(Keys.Escape) && state.IsKeyUp(Keys.Escape))
-                    {
-                        Static.CurrentScreenState = ScreenState.HomeScreen;
-                    }
+                    AboutSettingsKeyboard(state);
                     break;
                 case ScreenState.RoomScreen:
                     RoomKeyBoard(state);
+                    break;
+                case ScreenState.HomeScreen:
+                    break;
+                case ScreenState.LobbyScreen:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            OldKeyboardState = state;
+            _oldKeyboardState = state;
+
+            return _oldKeyboardState;
         }
 
-        private void RoomKeyBoard(KeyboardState newState)
+        private static void AboutSettingsKeyboard(KeyboardState newState)
         {
-            if (OldKeyboardState.IsKeyDown(Keys.CapsLock) && newState.IsKeyUp(Keys.CapsLock))
+            if (_oldKeyboardState.IsKeyDown(Keys.Escape) && newState.IsKeyUp(Keys.Escape))
             {
-                switch (_IsUppercase)
+                Static.CurrentScreenState = ScreenState.HomeScreen;
+            }
+        }
+
+        private static void RoomKeyBoard(KeyboardState newState)
+        {
+            if (_oldKeyboardState.IsKeyDown(Keys.CapsLock) && newState.IsKeyUp(Keys.CapsLock))
+            {
+                switch (_isUppercase)
                 {
                     case true:
-                        _IsUppercase = false;
-                        _IsCapsLock = false;
+                        _isUppercase = false;
+                        _isCapsLock = false;
                         break;
                     case false:
-                        _IsUppercase = true;
-                        _IsCapsLock = true;
+                        _isUppercase = true;
+                        _isCapsLock = true;
                         break;
                 }
             }
 
-            foreach (Keys key in AllKeys)
+            foreach (Keys key in ALL_KEYS)
             {
-                if (!OldKeyboardState.IsKeyDown(key) || !newState.IsKeyUp(key)) continue;
+                if (!_oldKeyboardState.IsKeyDown(key) || !newState.IsKeyUp(key)) continue;
 
-                if (_IsUppercase)
+                if (_isUppercase)
                 {
-                    AddText(_IsCapsLock ? UpperCapsCase[Array.IndexOf(AllKeys, key)] : UpperCase[Array.IndexOf(AllKeys, key)]);
+                    AddText(_isCapsLock ? UPPER_CAPS_CASE[Array.IndexOf(ALL_KEYS, key)] : UPPER_CASE[Array.IndexOf(ALL_KEYS, key)]);
                 }
                 else
                 {
-                    AddText(LowerCase[Array.IndexOf(AllKeys, key)]);
+                    AddText(LOWER_CASE[Array.IndexOf(ALL_KEYS, key)]);
                 }
             }
 
-            if (OldKeyboardState.IsKeyDown(Keys.Enter) && newState.IsKeyUp(Keys.Enter))
+            if (_oldKeyboardState.IsKeyDown(Keys.Enter) && newState.IsKeyUp(Keys.Enter))
             {
                 if (string.IsNullOrEmpty(TextBuffer)) return;
 
@@ -128,7 +139,7 @@ namespace SociaGrounds.Model.GUI
                 TextBuffer = "";
             }
 
-            if (OldKeyboardState.IsKeyDown(Keys.Back) && newState.IsKeyUp(Keys.Back))
+            if (_oldKeyboardState.IsKeyDown(Keys.Back) && newState.IsKeyUp(Keys.Back))
             {
                 if (TextBuffer.Length > 0)
                 {
@@ -139,11 +150,11 @@ namespace SociaGrounds.Model.GUI
 
             if (newState.IsKeyDown(Keys.LeftShift))
             {
-                _IsUppercase = !_IsCapsLock;
+                _isUppercase = !_isCapsLock;
             }
-            else if (OldKeyboardState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift))
+            else if (_oldKeyboardState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift))
             {
-                _IsUppercase = _IsCapsLock;
+                _isUppercase = _isCapsLock;
             }
         }
     }

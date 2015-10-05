@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI;
 
 namespace SociaGrounds.Model.Screens
 {
@@ -8,7 +9,7 @@ namespace SociaGrounds.Model.Screens
     {
         public void Update()
         {
-            Static.Keyboard.CheckKeyState();
+            SociaKeyBoard.CheckKeyState();
         }
 
         public void Draw(SpriteBatch spriteBatch)

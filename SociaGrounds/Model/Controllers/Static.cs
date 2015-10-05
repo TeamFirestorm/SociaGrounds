@@ -8,7 +8,6 @@ namespace SociaGrounds.Model.Controllers
     public static class Static
     {
         public static string ThisDevice { get; set; }
-        public static SociaKeyBoard Keyboard { get; set; }
         public static Texture2D PlayerTexture { get; set; }
 
         //The current Activated Screen;

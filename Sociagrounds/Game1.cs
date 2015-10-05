@@ -85,8 +85,6 @@ namespace SociaGrounds
             _roomScreen = new RoomScreen();
             _settingsScreen = new SettingsScreen();
             _roomGui = new RoomGui();
-
-            Static.Keyboard = new SociaKeyBoard();
         }
 
         /// <summary>

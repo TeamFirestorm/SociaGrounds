@@ -181,7 +181,7 @@ namespace SociaGrounds.Model.GUI
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            _inputField.Update(Static.Keyboard.TextBuffer);
+            _inputField.Update(SociaKeyBoard.TextBuffer);
 
             if (_showHideButton.CheckButtonSelected(gameTime))
             {
@@ -212,7 +212,7 @@ namespace SociaGrounds.Model.GUI
             KeyboardState state = new KeyboardState(_keys.ToArray());
             _keys.Clear();
 
-            Static.Keyboard.CheckKeyState(state);
+            SociaKeyBoard.CheckKeyState(state);
         }
 
         /// <summary>
