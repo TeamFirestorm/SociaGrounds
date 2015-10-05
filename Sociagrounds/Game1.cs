@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
-using SociaGrounds.Model.KeyBoards;
 using SociaGrounds.Model.Screens;
 using static SociaGrounds.Model.Controllers.Static;
 
@@ -87,7 +86,7 @@ namespace SociaGrounds
             _settingsScreen = new SettingsScreen();
             _roomGui = new RoomGui();
 
-            Static.Keyboard = new RealKeyBoard();
+            Static.Keyboard = new SociaKeyBoard();
         }
 
         /// <summary>

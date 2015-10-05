@@ -117,8 +117,7 @@
     <Compile Include="Model\GUI\DelayAction.cs" />
     <Compile Include="Model\GUI\RoomGui.cs" />
     <Compile Include="Model\GUI\InputField.cs" />
-    <Compile Include="Model\KeyBoards\KeyBoard.cs" />
-    <Compile Include="Model\KeyBoards\RealKeyBoard.cs" />
+    <Compile Include="Model\GUI\SociaKeyBoard.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />

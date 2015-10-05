@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGrounds.Model.GUI;
-using SociaGrounds.Model.KeyBoards;
 using SociaGrounds.Model.Players;
 
 namespace SociaGrounds.Model.Controllers
@@ -9,7 +8,7 @@ namespace SociaGrounds.Model.Controllers
     public static class Static
     {
         public static string ThisDevice { get; set; }
-        public static AKeyBoard Keyboard { get; set; }
+        public static SociaKeyBoard Keyboard { get; set; }
         public static Texture2D PlayerTexture { get; set; }
 
         //The current Activated Screen;
