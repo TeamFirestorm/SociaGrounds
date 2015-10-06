@@ -17,9 +17,9 @@ namespace SociaGrounds.Model.Screens
             _font = Fonts.SmallFont;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            SociaKeyBoard.CheckKeyState();
+            SociaKeyBoard.CheckKeyState(gameTime);
         }
         
         public void Draw(SpriteBatch spriteBatch)

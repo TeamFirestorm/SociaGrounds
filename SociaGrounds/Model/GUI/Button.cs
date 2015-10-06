@@ -109,7 +109,7 @@ namespace SociaGrounds.Model.GUI
             _wait = new DelayedAction(100);
         }
 
-        public bool CheckButtonSelected(GameTime gametime)
+        public bool Update(GameTime gametime)
         {
             _wait.Update(gametime.ElapsedGameTime.Milliseconds);
 

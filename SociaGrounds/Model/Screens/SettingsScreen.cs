@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 
@@ -7,9 +7,9 @@ namespace SociaGrounds.Model.Screens
 {
     public class SettingsScreen
     {
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            SociaKeyBoard.CheckKeyState();
+            SociaKeyBoard.CheckKeyState(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

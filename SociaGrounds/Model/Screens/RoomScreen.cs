@@ -39,7 +39,7 @@ namespace SociaGrounds.Model.Screens
                 IsPlayingMusic = true;
             }
 
-            KeyboardState oldstate =  SociaKeyBoard.CheckKeyState();
+            KeyboardState oldstate =  SociaKeyBoard.CheckKeyState(gameTime);
             Static.Players[0].Update(gameTime, oldstate);
 
             _camera.Update(graphics.Viewport, Static.Players[0].Position, _map);

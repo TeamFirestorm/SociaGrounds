@@ -131,11 +131,11 @@ namespace SociaGrounds
                     break;
 
                 case ScreenState.AboutScreen:
-                    _aboutScreen.Update();
+                    _aboutScreen.Update(gameTime);
                     break;
 
                 case ScreenState.SettingsScreen:
-                    _settingsScreen.Update();
+                    _settingsScreen.Update(gameTime);
                     break;
 
                 case ScreenState.RoomScreen:

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 
@@ -12,6 +13,8 @@ namespace SociaGrounds.Model.GUI
     {
         private static bool _isUppercase;
         private static bool _isCapsLock;
+
+        private static DelayedAction _wait;
 
         private static readonly Keys[] ALL_KEYS =
         {
@@ -49,6 +52,7 @@ namespace SociaGrounds.Model.GUI
             TextBuffer = "";
             _isUppercase = false;
             _isCapsLock = false;
+            _wait = new DelayedAction(100);
         }
 
         /// <summary>
@@ -63,12 +67,14 @@ namespace SociaGrounds.Model.GUI
         /// <summary>
         /// method that keeps check of the current keystates
         /// </summary>
-        public static KeyboardState CheckKeyState(KeyboardState state = default(KeyboardState))
+        public static KeyboardState CheckKeyState(GameTime gameTime,KeyboardState state = default(KeyboardState))
         {
             if (state == default(KeyboardState))
             {
                 state = Keyboard.GetState();
             }
+
+            _wait.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             switch (Static.CurrentScreenState)
             {
@@ -141,20 +147,41 @@ namespace SociaGrounds.Model.GUI
 
             if (_oldKeyboardState.IsKeyDown(Keys.Back) && newState.IsKeyUp(Keys.Back))
             {
-                if (TextBuffer.Length > 0)
-                {
-                    char[] text = TextBuffer.ToCharArray();
-                    TextBuffer = new string(text, 0, text.Length - 1);
-                }
+                RemoveLastChar();
             }
 
-            if (newState.IsKeyDown(Keys.LeftShift))
+            if (_oldKeyboardState.IsKeyDown(Keys.Back) && newState.IsKeyDown(Keys.Back))
+            {
+                if (CheckIfDelayStarted()) return;
+                RemoveLastChar();
+            }
+
+            if (newState.IsKeyDown(Keys.LeftShift) || newState.IsKeyDown(Keys.RightShift))
             {
                 _isUppercase = !_isCapsLock;
             }
-            else if (_oldKeyboardState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift))
+            else if (_oldKeyboardState.IsKeyDown(Keys.LeftShift) && newState.IsKeyUp(Keys.LeftShift) 
+                || _oldKeyboardState.IsKeyDown(Keys.RightShift) && newState.IsKeyUp(Keys.RightShift))
             {
                 _isUppercase = _isCapsLock;
+            }
+        }
+
+        private static bool CheckIfDelayStarted()
+        {
+            if (_wait.Started) return true;
+
+            _wait.Started = true;
+
+            return false;
+        }
+
+        private static void RemoveLastChar()
+        {
+            if (TextBuffer.Length > 0)
+            {
+                char[] text = TextBuffer.ToCharArray();
+                TextBuffer = new string(text, 0, text.Length - 1);
             }
         }
     }

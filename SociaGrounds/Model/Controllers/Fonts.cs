@@ -5,9 +5,9 @@ namespace SociaGrounds.Model.Controllers
 {
     public class Fonts
     {
-        public static SpriteFont SmallFont;
-        public static SpriteFont Medium;
-        public static SpriteFont LargeFont;
+        public static SpriteFont SmallFont { get; private set; }
+        public static SpriteFont Medium { get; private set; }
+        public static SpriteFont LargeFont { get; private set; }
 
         public static void CreateFonts(ContentManager content)
         {

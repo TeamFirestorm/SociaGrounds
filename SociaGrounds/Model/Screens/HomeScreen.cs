@@ -36,7 +36,7 @@ namespace SociaGrounds.Model.Screens
 
             foreach (Button button in _buttons)
             {
-                if (button.CheckButtonSelected(gametime))
+                if (button.Update(gametime))
                 {
                     ChangeScreen(button);
                 }
