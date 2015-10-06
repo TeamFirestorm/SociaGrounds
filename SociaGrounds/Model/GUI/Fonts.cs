@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SociaGrounds.Model.Controllers
+namespace SociaGrounds.Model.GUI
 {
     public class Fonts
     {

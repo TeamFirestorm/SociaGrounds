@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
-using SociaGrounds.Model.GUI;
+using SociaGrounds.Model.GUI.Controls;
 
 namespace SociaGrounds.Model.Controllers
 {

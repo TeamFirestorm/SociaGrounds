@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
+using SociaGrounds.Model.GUI.Controls;
+using SociaGrounds.Model.Players;
 using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Screens
@@ -43,12 +45,7 @@ namespace SociaGrounds.Model.Screens
 
             _camera.Update(graphics.Viewport, StaticPlayer.ForeignPlayers[0].Position, _map);
 
-            //TODO implement movement for foreign players
-            //foreach (var player in Static.Players)
-            //{
-            //    player.Update(gameTime, _ui, graphics.Viewport, _map, keyState);
-            //}
-
+            StaticPlayer.UpdateForeignPlayers(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

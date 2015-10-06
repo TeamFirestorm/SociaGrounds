@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace SociaGrounds.Model.Controllers
+namespace SociaGrounds.Model.GUI
 {
     public static class SMouse
     {

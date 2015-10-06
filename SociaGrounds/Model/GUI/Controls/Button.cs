@@ -3,11 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SociaGrounds.Model.Controllers;
-using static SociaGrounds.Model.Controllers.SMouse;
-using static SociaGrounds.Model.Controllers.STouch;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace SociaGrounds.Model.GUI
+namespace SociaGrounds.Model.GUI.Controls
 {
     /// <summary>
     /// This class is used to manage all the buttons of the application.
@@ -122,17 +120,17 @@ namespace SociaGrounds.Model.GUI
 
         private bool IsTouchReleased()
         {
-            if (NewTouchLocations.Count == 0 && _isTouched)
+            if (STouch.NewTouchLocations.Count == 0 && _isTouched)
             {
                 _isTouched = false;
                 _buttonState = 0;
                 return true;
             }
 
-            if (NewTouchLocations.Count == 0) return false;
+            if (STouch.NewTouchLocations.Count == 0) return false;
 
             // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in NewTouchLocations)
+            foreach (TouchLocation touch in STouch.NewTouchLocations)
             {
                 // Check if the position is pressed within the button
                 if (new Rectangle((int)touch.Position.X, (int)touch.Position.Y, 1, 1).Intersects(_hitBox))
@@ -152,10 +150,10 @@ namespace SociaGrounds.Model.GUI
         private bool IsClicked()
         {
             // Check if the current mouse position is over hitbox
-            if (new Rectangle(NewMouseState.X, NewMouseState.Y, 1, 1).Intersects(_hitBox))
+            if (new Rectangle(SMouse.NewMouseState.X, SMouse.NewMouseState.Y, 1, 1).Intersects(_hitBox))
             {
                 _buttonState = 1;
-                if (NewMouseState.LeftButton == ButtonState.Pressed)
+                if (SMouse.NewMouseState.LeftButton == ButtonState.Pressed)
                 {
                     if (!_wait.Started)
                     {

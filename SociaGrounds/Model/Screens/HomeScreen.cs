@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
+using SociaGrounds.Model.GUI.Controls;
 
 namespace SociaGrounds.Model.Screens
 {

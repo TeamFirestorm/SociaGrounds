@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SociaGrounds.Model.GUI
+namespace SociaGrounds.Model.GUI.Controls
 {
     public class InputField
     {

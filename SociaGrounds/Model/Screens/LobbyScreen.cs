@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.DB;
+using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.Multiplayer;
 using SociaGrounds.Model.Players;
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SociaGrounds.Model.Players;
 
-namespace SociaGrounds.Model.Controllers
+namespace SociaGrounds.Model.Players
 {
     public static class StaticPlayer
     {
@@ -31,6 +31,14 @@ namespace SociaGrounds.Model.Controllers
                 }
             }
             return null;
+        }
+
+        public static void UpdateForeignPlayers(GameTime gameTime)
+        {
+            foreach (ForeignPlayer foreign in ForeignPlayers)
+            {
+                foreign.Update(gameTime);
+            }
         }
     }
 }

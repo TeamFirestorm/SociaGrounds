@@ -105,20 +105,20 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game1.cs" />
-    <Compile Include="Model\Controllers\Fonts.cs" />
-    <Compile Include="Model\Controllers\SMouse.cs" />
+    <Compile Include="Model\GUI\Fonts.cs" />
+    <Compile Include="Model\GUI\SMouse.cs" />
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
-    <Compile Include="Model\Controllers\StaticPlayer.cs" />
-    <Compile Include="Model\Controllers\STouch.cs" />
+    <Compile Include="Model\Players\StaticPlayer.cs" />
+    <Compile Include="Model\GUI\STouch.cs" />
     <Compile Include="Model\DB\Connection.cs" />
     <Compile Include="Model\DB\DataBase.cs" />
-    <Compile Include="Model\GUI\Button.cs" />
+    <Compile Include="Model\GUI\Controls\Button.cs" />
     <Compile Include="Model\GUI\Camera.cs" />
-    <Compile Include="Model\GUI\DelayAction.cs" />
+    <Compile Include="Model\GUI\Controls\DelayAction.cs" />
     <Compile Include="Model\GUI\RoomGui.cs" />
-    <Compile Include="Model\GUI\InputField.cs" />
-    <Compile Include="Model\GUI\SociaKeyBoard.cs" />
+    <Compile Include="Model\GUI\Controls\InputField.cs" />
+    <Compile Include="Model\GUI\Controls\SociaKeyBoard.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
     <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="Model\Players\ForeignPlayer.cs" />
     <Compile Include="Model\Players\MyPlayer.cs" />
     <Compile Include="Model\Screens\AboutScreen.cs" />
-    <Compile Include="Model\Controllers\DefaultBackground.cs" />
+    <Compile Include="Model\GUI\DefaultBackground.cs" />
     <Compile Include="Model\Screens\HomeScreen.cs" />
     <Compile Include="Model\Screens\LobbyScreen.cs" />
     <Compile Include="Model\Screens\RoomScreen.cs" />

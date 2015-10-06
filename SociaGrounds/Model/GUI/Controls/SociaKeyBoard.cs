@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.Players;
 
-namespace SociaGrounds.Model.GUI
+namespace SociaGrounds.Model.GUI.Controls
 {
     /// <summary>
     /// Class is used to connect the windows phone & desktop keyboards.
@@ -14,7 +15,7 @@ namespace SociaGrounds.Model.GUI
         private static bool _isUppercase;
         private static bool _isCapsLock;
 
-        private static DelayedAction _wait;
+        private static readonly DelayedAction WAIT;
 
         private static readonly Keys[] ALL_KEYS =
         {
@@ -52,7 +53,7 @@ namespace SociaGrounds.Model.GUI
             TextBuffer = "";
             _isUppercase = false;
             _isCapsLock = false;
-            _wait = new DelayedAction(100);
+            WAIT = new DelayedAction(100);
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace SociaGrounds.Model.GUI
                 state = Keyboard.GetState();
             }
 
-            _wait.Update(gameTime.ElapsedGameTime.Milliseconds);
+            WAIT.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             switch (Static.CurrentScreenState)
             {
@@ -169,9 +170,9 @@ namespace SociaGrounds.Model.GUI
 
         private static bool CheckIfDelayStarted()
         {
-            if (_wait.Started) return true;
+            if (WAIT.Started) return true;
 
-            _wait.Started = true;
+            WAIT.Started = true;
 
             return false;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SociaGrounds.Model.GUI
+﻿namespace SociaGrounds.Model.GUI.Controls
 {
     public class DelayedAction
     {

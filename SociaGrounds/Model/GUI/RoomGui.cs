@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI.Controls;
 using static SociaGrounds.Model.Controllers.Static;
 
 namespace SociaGrounds.Model.GUI

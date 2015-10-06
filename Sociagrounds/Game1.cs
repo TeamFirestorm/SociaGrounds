@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using SociaGrounds.Model;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
+using SociaGrounds.Model.Players;
 using SociaGrounds.Model.Screens;
 using static SociaGrounds.Model.Controllers.Static;
 
