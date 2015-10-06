@@ -71,8 +71,8 @@ namespace SociaGrounds.Model.Screens
 
         private void CreateMyPlayer(ContentManager content)
         {
-            //Create Player
-            Static.Players.Add(new MyPlayer(new Vector2(1000, 600), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character")));
+            //Create MyPlayer
+            StaticPlayer.MyPlayer = new MyPlayer(new Vector2(1000, 600), content.Load<Texture2D>("SociaGrounds/Personas/Chris_Character"));
         }
 
         private static async void InsertConnection()

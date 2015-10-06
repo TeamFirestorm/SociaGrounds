@@ -72,10 +72,10 @@ namespace SociaGrounds.Model.Multiplayer
             _isRunning = true;
             while (_isRunning)
             {
-                if (_watch.ElapsedMilliseconds >= Game1.SendTime)
+                if (_watch.ElapsedMilliseconds >= Static.SendTime)
                 {
                     _watch.Stop();
-                    SendLocationToClients(Static.Players[0]);
+                    SendLocationToClients(StaticPlayer.ForeignPlayers[0]);
                     _watch.Restart();
                 }
                 ServerRunning();
@@ -132,7 +132,7 @@ namespace SociaGrounds.Model.Multiplayer
                             float x = _incMsg.ReadFloat();
                             float y = _incMsg.ReadFloat();
 
-                            Static.Players.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
+                            StaticPlayer.ForeignPlayers.Add(new ForeignPlayer(new Vector2(x, y), _incMsg.SenderConnection, _numberOfPlayers));
                             _numberOfPlayers++;
 
                             for (int i = 0; i < 10; i++)
@@ -142,14 +142,14 @@ namespace SociaGrounds.Model.Multiplayer
 
                                 // Write the bytes
                                 outmsg.Write((byte)PacketTypes.Connect);
-                                outmsg.Write(Static.Players.Last().Id);
+                                outmsg.Write(StaticPlayer.ForeignPlayers.Last().Id);
 
-                                outmsg.Write(Static.Players.Count - 1);
+                                outmsg.Write(StaticPlayer.ForeignPlayers.Count - 1);
 
-                                if (Static.Players.Count - 1 > 0)
+                                if (StaticPlayer.ForeignPlayers.Count - 1 > 0)
                                 {
                                     // Loop through every character in the game
-                                    foreach (Player player in Static.Players)
+                                    foreach (Player player in StaticPlayer.ForeignPlayers)
                                     {
                                         // All properties of the packet are kept here to send out
                                         if (_incMsg.SenderConnection != player.Connection)
@@ -182,7 +182,7 @@ namespace SociaGrounds.Model.Multiplayer
                             float y = _incMsg.ReadFloat();
                             string msg = _incMsg.ReadString();
 
-                            ForeignPlayer foreign = Static.FindForeignPlayerById(id);
+                            ForeignPlayer foreign = StaticPlayer.FindForeignPlayerById(id);
                             foreign.AddNewPosition(new Vector2(x, y));
                             foreign.ChatMessage = msg;
 
@@ -216,7 +216,7 @@ namespace SociaGrounds.Model.Multiplayer
                         if (_incMsg.SenderConnection.Status == NetConnectionStatus.Disconnected || _incMsg.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             // Loop through the player until inactive is found and remove
-                            foreach (Player player in Static.Players)
+                            foreach (Player player in StaticPlayer.ForeignPlayers)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -228,7 +228,7 @@ namespace SociaGrounds.Model.Multiplayer
                                     outmsg.Write((byte)PacketTypes.Disconnect);
                                     outmsg.Write(foreign.Id);
 
-                                    Static.Players.Remove(foreign);
+                                    StaticPlayer.ForeignPlayers.Remove(foreign);
 
                                     List<NetConnection> all = _netServer.Connections;
                                     all.Remove(_incMsg.SenderConnection);

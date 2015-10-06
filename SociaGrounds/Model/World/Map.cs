@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.World
@@ -15,11 +14,9 @@ namespace SociaGrounds.Model.World
 
         public Vector2 StartPosition { get; }
 
-        private readonly int _mapWidth, _mapHeight;
+        public int MapWidth { get; }
 
-        public int MapWidth => _mapWidth;
-
-        public int MapHeight => _mapHeight;
+        public int MapHeight { get; }
 
         private int[,] _createdMap;
 
@@ -47,8 +44,8 @@ namespace SociaGrounds.Model.World
             Texture2D grassFlower1 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_1");
             Texture2D grassFlower2 = Game1.StaticContent.Load<Texture2D>("SociaGrounds/World/Grass/Grass_F_2");
 
-            _mapWidth = grass0.Width* (int)margin.X;
-            _mapHeight = grass0.Height * (int)margin.Y;
+            MapWidth = grass0.Width* (int)margin.X;
+            MapHeight = grass0.Height * (int)margin.Y;
 
             // Looping through the multidimensional array that has been given
             for (int x = 0; x < map.GetLength(0); x++)

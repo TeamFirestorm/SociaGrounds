@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SociaGrounds.Model.World
@@ -30,7 +29,7 @@ namespace SociaGrounds.Model.World
             Name = name;
 
             // Creating the rectangle
-            rect = new Rectangle((int)position.X, (int)position.Y, TREE[0].Width, TREE[0].Height);
+            _Rect = new Rectangle((int)position.X, (int)position.Y, TREE[0].Width, TREE[0].Height);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -42,13 +41,13 @@ namespace SociaGrounds.Model.World
 
         public override void DrawShade(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TREE[3], new Vector2(position.X - 19,position.Y + 11), Color.White);
+            spriteBatch.Draw(TREE[3], new Vector2(_Position.X - 19,_Position.Y + 11), Color.White);
         }
 
         private void DrawBottom(SpriteBatch spriteBatch)
         {
             // Draw the bottom and determine the rectangle height
-            spriteBatch.Draw(TREE[0], position, Color.White);
+            spriteBatch.Draw(TREE[0], _Position, Color.White);
         }
 
         private void DrawMiddle(SpriteBatch spriteBatch)
@@ -56,19 +55,19 @@ namespace SociaGrounds.Model.World
             // Draw the amount of logs
             for (int i = 0; i < _amountOfLogs; i++)
             {
-                spriteBatch.Draw(TREE[1], new Vector2(position.X + 5, position.Y - (TREE[0].Height + (TREE[1].Height * i))), Color.White);
+                spriteBatch.Draw(TREE[1], new Vector2(_Position.X + 5, _Position.Y - (TREE[0].Height + (TREE[1].Height * i))), Color.White);
             }
         }
 
         private void DrawTop(SpriteBatch spriteBatch)
         {
             // Draw the top
-            spriteBatch.Draw(TREE[2], new Vector2(position.X - 33, position.Y - (float)((TREE[0].Height * 1.85) + (TREE[1].Height * _amountOfLogs))), Color.White);
+            spriteBatch.Draw(TREE[2], new Vector2(_Position.X - 33, _Position.Y - (float)((TREE[0].Height * 1.85) + (TREE[1].Height * _amountOfLogs))), Color.White);
         }
 
         public override string ToString()
         {
-            return string.Format("Name:{0} - Rectangle {1}", Name, rect);
+            return string.Format("Name:{0} - Rectangle {1}", Name, _Rect);
         }
     }
 }

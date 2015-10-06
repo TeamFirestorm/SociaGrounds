@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
 {
@@ -23,7 +22,7 @@ namespace SociaGrounds.Model.Players
         {
             _NewQPosition = new Queue<Vector2>();
 
-            _Animation = new Animation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            _Animation = new Animation(StaticPlayer.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             _Position = startPosition;
             _Speed = 3;
             Connection = connection;
@@ -48,7 +47,7 @@ namespace SociaGrounds.Model.Players
         {
             _NewQPosition = new Queue<Vector2>();
 
-            _Animation = new Animation(Static.PlayerTexture, startPosition, 64, 64, 10, 25, false);
+            _Animation = new Animation(StaticPlayer.PlayerTexture, startPosition, 64, 64, 10, 25, false);
             _Position = startPosition;
             _Speed = 3;
 

@@ -109,6 +109,7 @@
     <Compile Include="Model\Controllers\SMouse.cs" />
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
+    <Compile Include="Model\Controllers\StaticPlayer.cs" />
     <Compile Include="Model\Controllers\STouch.cs" />
     <Compile Include="Model\DB\Connection.cs" />
     <Compile Include="Model\DB\DataBase.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="Model\World\SolidAsset.cs" />
     <Compile Include="Model\World\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenState.cs" />
+    <Compile Include="Model\ScreenState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\SociaGrounds\SociaGroundsFont.spritefont" />

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
@@ -40,9 +39,9 @@ namespace SociaGrounds.Model.Screens
             }
 
             KeyboardState oldstate =  SociaKeyBoard.CheckKeyState(gameTime);
-            Static.Players[0].Update(gameTime, oldstate);
+            StaticPlayer.ForeignPlayers[0].Update(gameTime, oldstate);
 
-            _camera.Update(graphics.Viewport, Static.Players[0].Position, _map);
+            _camera.Update(graphics.Viewport, StaticPlayer.ForeignPlayers[0].Position, _map);
 
             //TODO implement movement for foreign players
             //foreach (var player in Static.Players)
@@ -58,14 +57,14 @@ namespace SociaGrounds.Model.Screens
 
             _map.DrawNonSolid(spriteBatch);
             _map.DrawShade(spriteBatch);
-            foreach (var player in Static.Players)
+            foreach (var player in StaticPlayer.ForeignPlayers)
             {
                 player.Draw(spriteBatch);
             }
 
             _map.DrawSolid(spriteBatch);
 
-            foreach (var player in Static.Players)
+            foreach (var player in StaticPlayer.ForeignPlayers)
             {
                 player.DrawText(spriteBatch);
             }

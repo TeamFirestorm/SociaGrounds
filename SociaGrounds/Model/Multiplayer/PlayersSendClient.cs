@@ -44,8 +44,8 @@ namespace SociaGrounds.Model.Multiplayer
 
             // Write byte, first byte describes the message type, letting the application know what to do with it.
             outmsg.Write((byte)PacketTypes.Connect);
-            outmsg.Write(Static.Players[0].Position.X);
-            outmsg.Write(Static.Players[0].Position.Y);
+            outmsg.Write(StaticPlayer.ForeignPlayers[0].Position.X);
+            outmsg.Write(StaticPlayer.ForeignPlayers[0].Position.Y);
 
             // Connect client with the host IP and default port
             _client.Connect(hostip, 14242, outmsg);
@@ -82,7 +82,7 @@ namespace SociaGrounds.Model.Multiplayer
                             // Read the first byte
                             if (msg.ReadByte() == (byte)PacketTypes.Connect)
                             {
-                                Static.Players[0].Id = msg.ReadInt32();
+                                StaticPlayer.ForeignPlayers[0].Id = msg.ReadInt32();
                                 int numPlayers = msg.ReadInt32();
 
                                 for (int i = 0; i < numPlayers; i++)
@@ -91,7 +91,7 @@ namespace SociaGrounds.Model.Multiplayer
                                     float x = msg.ReadFloat();
                                     float y = msg.ReadFloat();
 
-                                    Static.Players.Add(new ForeignPlayer(new Vector2(x, y), id));
+                                    StaticPlayer.ForeignPlayers.Add(new ForeignPlayer(new Vector2(x, y), id));
                                 }
 
                                 // When all players are added to list, start the game
@@ -137,7 +137,7 @@ namespace SociaGrounds.Model.Multiplayer
 
                             int id = msg.ReadInt32();
 
-                            foreach (Player player in Static.Players)
+                            foreach (Player player in StaticPlayer.ForeignPlayers)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -157,7 +157,7 @@ namespace SociaGrounds.Model.Multiplayer
                         {
                             int id = msg.ReadInt32();
 
-                            foreach (Player player in Static.Players)
+                            foreach (Player player in StaticPlayer.ForeignPlayers)
                             {
                                 if (player.GetType() != typeof(ForeignPlayer)) continue;
 
@@ -165,7 +165,7 @@ namespace SociaGrounds.Model.Multiplayer
 
                                 if (foreign.Id == id)
                                 {
-                                    Static.Players.Remove(foreign);
+                                    StaticPlayer.ForeignPlayers.Remove(foreign);
                                     break;
                                 }
                             }
@@ -180,11 +180,11 @@ namespace SociaGrounds.Model.Multiplayer
             while (!_stopped)
             {
                 if (!_started) continue;
-                if (_watch.ElapsedMilliseconds >= Game1.SendTime)
+                if (_watch.ElapsedMilliseconds >= Static.SendTime)
                 {
                     _watch.Restart();
                     // Check if server sent new messages
-                    GetInputAndSendItToServer(Static.Players[0]);
+                    GetInputAndSendItToServer(StaticPlayer.ForeignPlayers[0]);
                     CheckServerMessages();
                 }
             }

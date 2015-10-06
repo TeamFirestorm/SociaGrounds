@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 
@@ -9,11 +8,11 @@ namespace SociaGrounds.Model.Screens
     public class AboutScreen
     {
         private readonly string[] _names;
-        private SpriteFont _font;
+        private readonly SpriteFont _font;
 
         public AboutScreen()
         {
-            _names = new [] {"Gyllion van Elderen", "Wouter Kosse", "Thijs Reeringh", "Chris Vinkers" /*, "Alwin Masseling"*/};
+            _names = new [] {"Gyllion van Elderen", "Wouter Kosse", "Thijs Reeringh", "Chris Vinkers"};
             _font = Fonts.SmallFont;
         }
 
@@ -30,7 +29,7 @@ namespace SociaGrounds.Model.Screens
 
             float height = 0;
 
-            spriteBatch.DrawString(_font, "Press escape to return", new Vector2(100,100), Color.Black);
+            spriteBatch.DrawString(_font, "Press escape to return" , new Vector2(100,100), Color.Black);
 
             foreach (string name in _names)
             {

@@ -7,7 +7,7 @@ namespace SociaGrounds.Model.World
     {
         public abstract void DrawShade(SpriteBatch spriteBatch);
 
-        public SolidAsset(Vector2 position) : base(position)
+        protected SolidAsset(Vector2 position) : base(position)
         {
 
         }

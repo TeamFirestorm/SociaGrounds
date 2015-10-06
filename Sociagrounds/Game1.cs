@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using SociaGrounds.Model;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.Screens;
@@ -18,7 +19,6 @@ namespace SociaGrounds
     public class Game1 : Game
     {
         private SpriteBatch _spriteBatch;
-        public const int SendTime = 50;
 
         // All the screens
         private HomeScreen _homeScreen;
@@ -54,7 +54,9 @@ namespace SociaGrounds
 
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             ThisDevice = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+
             CurrentScreenState = ScreenState.HomeScreen;
             IsMouseVisible = true;
             ScreenSize = GraphicsDevice.Viewport;
@@ -68,15 +70,15 @@ namespace SociaGrounds
         /// </summary>
         protected override void LoadContent()
         {
-            PlayerTexture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
+            //Loads the player texture
+            StaticPlayer.PlayerTexture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
+
+            //Loads the used fonts
             Fonts.CreateFonts(Content);
 
-            // Songs load
+            // Loads the songs
             SongPlayer.AddSong(Content.Load<Song>("SociaGrounds/Music/splashscreen_music"));
             SongPlayer.AddSong(Content.Load<Song>("SociaGrounds/Music/in-game-music"));
-
-            DefaultBackground.Background = Content.Load<Texture2D>("SociaGrounds/Background/background");
-            DefaultBackground.Title = Content.Load<Texture2D>("SociaGrounds/Background/Sociagrounds_title");
 
             // Screens load
             _homeScreen = new HomeScreen();
@@ -85,6 +87,10 @@ namespace SociaGrounds
             _roomScreen = new RoomScreen();
             _settingsScreen = new SettingsScreen();
             _roomGui = new RoomGui();
+
+            // Sets the menu background
+            DefaultBackground.Background = Content.Load<Texture2D>("SociaGrounds/Background/background");
+            DefaultBackground.Title = Content.Load<Texture2D>("SociaGrounds/Background/Sociagrounds_title");
         }
 
         /// <summary>
@@ -103,15 +109,7 @@ namespace SociaGrounds
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (ThisDevice != "Windows.Desktop")
-            {
-                STouch.NewTouchLocations = TouchPanel.GetState();
-            }
-            else
-            {
-                SMouse.NewMouseState = Mouse.GetState();
-            }
-            
+            ControlStart();
 
             // Switch statement to determine the screen update logic
             switch (CurrentScreenState)
@@ -147,12 +145,29 @@ namespace SociaGrounds
                     throw new ArgumentOutOfRangeException();
             }
 
+            ControlEnd();
+
+            base.Update(gameTime);
+        }
+
+        private void ControlStart()
+        {
+            if (ThisDevice != "Windows.Desktop")
+            {
+                STouch.NewTouchLocations = TouchPanel.GetState();
+            }
+            else
+            {
+                SMouse.NewMouseState = Mouse.GetState();
+            }
+        }
+
+        private void ControlEnd()
+        {
             if (ThisDevice == "Windows.Desktop")
             {
                 SMouse.OldMouseState = SMouse.NewMouseState;
             }
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -167,9 +182,7 @@ namespace SociaGrounds
             switch (CurrentScreenState)
             {
                 case ScreenState.HomeScreen:
-                    _spriteBatch.Begin();
                     _homeScreen.Draw(_spriteBatch);
-                    _spriteBatch.End();
                     break;
                 case ScreenState.LobbyScreen:
                     _lobbyScreen.Draw(_spriteBatch);

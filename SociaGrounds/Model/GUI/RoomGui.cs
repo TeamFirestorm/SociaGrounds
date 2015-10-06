@@ -68,7 +68,7 @@ namespace SociaGrounds.Model.GUI
 
             if (!_isKeyboardUp) return;
 
-            foreach (Button button in Static.Buttons)
+            foreach (Button button in KeyBoardButtons)
             {
                 if (button.Update(gameTime))
                 {
@@ -93,7 +93,7 @@ namespace SociaGrounds.Model.GUI
 
             if (!_isKeyboardUp) return;
 
-            foreach (Button button in Static.Buttons)
+            foreach (Button button in KeyBoardButtons)
             {
                 button.Draw(spriteBatch);
             }
@@ -104,135 +104,191 @@ namespace SociaGrounds.Model.GUI
             position.Y += (sprite.Y + 20) - 320;
             float startX = position.X;
 
-            Static.Buttons.Add(new Button(position, "`", scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "`", scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "1", Keys.D1, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "1", Keys.D1, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "2", Keys.D2, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "2", Keys.D2, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "3", Keys.D3, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "3", Keys.D3, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "4", Keys.D4, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "4", Keys.D4, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "5", Keys.D5, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "5", Keys.D5, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "6", Keys.D6, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "6", Keys.D6, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "7", Keys.D7, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "7", Keys.D7, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "8", Keys.D8, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "8", Keys.D8, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "9", Keys.D9, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "9", Keys.D9, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "0", Keys.D0, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "0", Keys.D0, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "-", Keys.OemMinus, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "-", Keys.OemMinus, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "+", Keys.OemPlus, scale, 4, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "+", Keys.OemPlus, scale, 4, Fonts.SmallFont));
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "backspace", Keys.Back, scale, 10, Fonts.SmallFont));
+
+            KeyBoardButtons.Add(new Button(position, "backspace", Keys.Back, scale, 10, Fonts.SmallFont));
 
             position.X = startX;
             position.Y += sprite.Y;
-            Static.Buttons.Add(new Button(position, "Tab", Keys.Tab, scale, 7, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Tab", Keys.Tab, scale, 7, Fonts.SmallFont));
+
             position.X += sprite.X * 9;
-            Static.Buttons.Add(new Button(position, "Q", Keys.Q, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Q", Keys.Q, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "W", Keys.W, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "W", Keys.W, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "E", Keys.E, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "E", Keys.E, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "R", Keys.R, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "R", Keys.R, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "T", Keys.T, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "T", Keys.T, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "Y", Keys.Y, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Y", Keys.Y, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "U", Keys.U, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "U", Keys.U, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "I", Keys.I, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "I", Keys.I, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "O", Keys.O, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "O", Keys.O, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "P", Keys.P, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "P", Keys.P, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "[", Keys.OemOpenBrackets, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "[", Keys.OemOpenBrackets, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "]", Keys.OemCloseBrackets, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "]", Keys.OemCloseBrackets, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "\\", Keys.OemBackslash, scale, 7, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "\\", Keys.OemBackslash, scale, 7, Fonts.SmallFont));
 
             position.X = startX;
             position.Y += sprite.Y;
-            Static.Buttons.Add(new Button(position, "Caps Lock", Keys.CapsLock, scale, 9, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Caps Lock", Keys.CapsLock, scale, 9, Fonts.SmallFont));
+
             position.X += sprite.X * 11;
-            Static.Buttons.Add(new Button(position, "A", Keys.A, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "A", Keys.A, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "S", Keys.S, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "S", Keys.S, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "D", Keys.D, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "D", Keys.D, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "F", Keys.F, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "F", Keys.F, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "G", Keys.G, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "G", Keys.G, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "H", Keys.H, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "H", Keys.H, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "J", Keys.J, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "J", Keys.J, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "K", Keys.K, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "K", Keys.K, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "L", Keys.L, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "L", Keys.L, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, ";", Keys.OemSemicolon, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, ";", Keys.OemSemicolon, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "'", Keys.OemQuotes, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "'", Keys.OemQuotes, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "Enter", Keys.Enter, scale, 11, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Enter", Keys.Enter, scale, 11, Fonts.SmallFont));
 
             position.X = startX;
             position.Y += sprite.Y;
-            Static.Buttons.Add(new Button(position, "Shift", Keys.LeftShift, scale, 12, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Shift", Keys.LeftShift, scale, 12, Fonts.SmallFont));
+
             position.X += sprite.X * 14;
-            Static.Buttons.Add(new Button(position, "Z", Keys.Z, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Z", Keys.Z, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "X", Keys.X, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "X", Keys.X, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "C", Keys.C, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "C", Keys.C, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "V", Keys.V, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "V", Keys.V, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "B", Keys.B, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "B", Keys.B, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "N", Keys.N, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "N", Keys.N, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "M", Keys.M, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "M", Keys.M, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, ",", Keys.OemComma, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, ",", Keys.OemComma, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, ".", Keys.OemPeriod, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, ".", Keys.OemPeriod, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "?", Keys.OemQuestion, scale, 4, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "?", Keys.OemQuestion, scale, 4, Fonts.SmallFont));
+
             position.X += sprite.X * 6;
-            Static.Buttons.Add(new Button(position, "Shift", Keys.RightShift, scale, 14, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Shift", Keys.RightShift, scale, 14, Fonts.SmallFont));
 
             position.X = startX;
             position.Y += sprite.Y;
-            Static.Buttons.Add(new Button(position, "Control", Keys.LeftControl, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Control", Keys.LeftControl, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Windows", Keys.LeftWindows, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Windows", Keys.LeftWindows, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Alt", Keys.LeftAlt, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Alt", Keys.LeftAlt, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Space", Keys.Space, scale, 32, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Space", Keys.Space, scale, 32, Fonts.SmallFont));
+
             position.X += sprite.X * 34;
-            Static.Buttons.Add(new Button(position, "Alt", Keys.RightAlt, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Alt", Keys.RightAlt, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Windows", Keys.RightWindows, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Windows", Keys.RightWindows, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Copy", Keys.OemCopy, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Copy", Keys.OemCopy, scale, 6, Fonts.SmallFont));
+
             position.X += sprite.X * 8;
-            Static.Buttons.Add(new Button(position, "Control", Keys.RightControl, scale, 6, Fonts.SmallFont));
+            KeyBoardButtons.Add(new Button(position, "Control", Keys.RightControl, scale, 6, Fonts.SmallFont));
         }
     }
 }

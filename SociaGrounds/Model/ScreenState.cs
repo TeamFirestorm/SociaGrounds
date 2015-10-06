@@ -1,4 +1,4 @@
-﻿namespace SociaGrounds
+﻿namespace SociaGrounds.Model
 { 
         public enum ScreenState
         {

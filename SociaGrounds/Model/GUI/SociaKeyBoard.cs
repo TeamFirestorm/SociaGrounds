@@ -141,7 +141,7 @@ namespace SociaGrounds.Model.GUI
             {
                 if (string.IsNullOrEmpty(TextBuffer)) return;
 
-                Static.Players[0].ChatMessage = TextBuffer;
+                StaticPlayer.ForeignPlayers[0].ChatMessage = TextBuffer;
                 TextBuffer = "";
             }
 

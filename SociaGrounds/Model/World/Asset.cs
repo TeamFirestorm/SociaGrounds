@@ -6,18 +6,15 @@ namespace SociaGrounds.Model.World
     public abstract class Asset
     {
         // The position of the asset
-        protected Vector2 position;
+        protected Vector2 _Position;
 
         // The rectangle of the asset for collsion detection
-        protected Rectangle rect;
-        public Rectangle Rect
-        {
-            get { return rect; }
-        }
+        protected Rectangle _Rect;
+        public Rectangle Rect => _Rect;
 
         protected Asset(Vector2 position)
         {
-            this.position = position;
+            _Position = position;
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);
