@@ -53,7 +53,6 @@ namespace SociaGrounds.Model.Players
         /// The update method for the player
         /// </summary>
         /// <param name="gameTime">Gametime object</param>
-        /// <param name="map">All info about the map</param>
         /// <param name="state">The keyboard state</param>
         public override void Update(GameTime gameTime, KeyboardState state = default(KeyboardState))
         {

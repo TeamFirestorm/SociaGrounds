@@ -41,9 +41,9 @@ namespace SociaGrounds.Model.Screens
             }
 
             KeyboardState oldstate =  SociaKeyBoard.CheckKeyState(gameTime);
-            StaticPlayer.ForeignPlayers[0].Update(gameTime, oldstate);
+            StaticPlayer.MyPlayer.Update(gameTime, oldstate);
 
-            _camera.Update(graphics.Viewport, StaticPlayer.ForeignPlayers[0].Position, _map);
+            _camera.Update(graphics.Viewport, StaticPlayer.MyPlayer.Position, _map);
 
             StaticPlayer.UpdateForeignPlayers(gameTime);
         }
@@ -54,17 +54,12 @@ namespace SociaGrounds.Model.Screens
 
             _map.DrawNonSolid(spriteBatch);
             _map.DrawShade(spriteBatch);
-            foreach (var player in StaticPlayer.ForeignPlayers)
-            {
-                player.Draw(spriteBatch);
-            }
+
+            StaticPlayer.DrawPlayers(spriteBatch);
 
             _map.DrawSolid(spriteBatch);
 
-            foreach (var player in StaticPlayer.ForeignPlayers)
-            {
-                player.DrawText(spriteBatch);
-            }
+            StaticPlayer.DrawPlayerText(spriteBatch);
             
             spriteBatch.End();
         }

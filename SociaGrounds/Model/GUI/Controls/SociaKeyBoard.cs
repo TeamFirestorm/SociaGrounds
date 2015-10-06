@@ -75,7 +75,7 @@ namespace SociaGrounds.Model.GUI.Controls
                 state = Keyboard.GetState();
             }
 
-            WAIT.Update(gameTime.ElapsedGameTime.Milliseconds);
+            WAIT.Update(gameTime);
 
             switch (Static.CurrentScreenState)
             {
@@ -142,7 +142,7 @@ namespace SociaGrounds.Model.GUI.Controls
             {
                 if (string.IsNullOrEmpty(TextBuffer)) return;
 
-                StaticPlayer.ForeignPlayers[0].ChatMessage = TextBuffer;
+                StaticPlayer.MyPlayer.ChatMessage = TextBuffer;
                 TextBuffer = "";
             }
 

@@ -3,6 +3,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 
 namespace SociaGrounds.Model.Players
@@ -33,8 +34,6 @@ namespace SociaGrounds.Model.Players
         // The rectangle of the player used for collision detection
         protected Rectangle _Rect;
 
-        protected float _ChatCounter;
-
         protected string _ChatMessage;
 
         protected bool _ChangedText;
@@ -51,6 +50,13 @@ namespace SociaGrounds.Model.Players
 
         protected SpriteFont _Font = Fonts.Medium;
 
+        private readonly DelayedAction _delay;
+
+        protected Player()
+        {
+            _delay = new DelayedAction(8000);
+        }
+
         // Abstract method to update the player
         public virtual void Update(GameTime gameTime, KeyboardState state = default(KeyboardState))
         {
@@ -59,23 +65,20 @@ namespace SociaGrounds.Model.Players
             _Rect = new Rectangle((int)_Position.X, (int)_Position.Y, 64, 64);
 
             // Show the chat message for a certain amount of time
-            if (!string.IsNullOrEmpty(_ChatMessage))
+            if (string.IsNullOrEmpty(_ChatMessage)) return;
+
+            if (_ChangedText)
             {
-                _ChatCounter += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (_ChangedText)
-                {
-                    _ChatCounter = 0;
-                    _ChangedText = false;
-                }
-
-                // Then flush the chat message and reset the counter
-                if (_ChatCounter >= 8000)
-                {
-                    _ChatMessage = "";
-                    _ChatCounter = 0;
-                }
+                _delay.Reset();
+                _delay.Started = true;
+                _ChangedText = false;
             }
+
+            // Then flush the chat message and reset the counter
+            if (!_delay.Update(gameTime)) return;
+
+            _ChatMessage = "";
+            _delay.Reset();
         }
 
         // Abstract method to draw the player

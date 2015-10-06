@@ -33,7 +33,25 @@ namespace SociaGrounds.Model.Players
             return null;
         }
 
-        public static void UpdateForeignPlayers(GameTime gameTime)
+        public static void DrawPlayers(SpriteBatch spriteBatch)
+        {
+            MyPlayer.Draw(spriteBatch);
+            foreach (var player in ForeignPlayers)
+            {
+                player.Draw(spriteBatch);
+            }
+        }
+
+        public static void DrawPlayerText(SpriteBatch spriteBatch)
+        {
+            MyPlayer.DrawText(spriteBatch);
+            foreach (var player in ForeignPlayers)
+            {
+                player.DrawText(spriteBatch);
+            }
+        }
+
+    public static void UpdateForeignPlayers(GameTime gameTime)
         {
             foreach (ForeignPlayer foreign in ForeignPlayers)
             {

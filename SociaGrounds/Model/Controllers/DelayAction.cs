@@ -1,4 +1,6 @@
-﻿namespace SociaGrounds.Model.GUI.Controls
+﻿using Microsoft.Xna.Framework;
+
+namespace SociaGrounds.Model.Controllers
 {
     public class DelayedAction
     {
@@ -14,17 +16,25 @@
         public float TimeRemaining { get; private set; }
         public bool Started { get; set; }
 
-        public void Update(float deltaTime)
+        public bool Update(GameTime gameTime)
         {
-            if (!Started) return;
+            if (!Started) return false;
 
-            TimeRemaining -= deltaTime;
+            TimeRemaining -= gameTime.ElapsedGameTime.Milliseconds;
 
             if (TimeRemaining <= 0)
             {
-                Started = false;
-                TimeRemaining = _delayStart;
+                Reset();
+                return true;
             }
+
+            return false;
+        }
+
+        public void Reset()
+        {
+            Started = false;
+            TimeRemaining = _delayStart;
         }
     }
 }

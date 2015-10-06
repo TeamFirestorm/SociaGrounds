@@ -115,7 +115,7 @@
     <Compile Include="Model\DB\DataBase.cs" />
     <Compile Include="Model\GUI\Controls\Button.cs" />
     <Compile Include="Model\GUI\Camera.cs" />
-    <Compile Include="Model\GUI\Controls\DelayAction.cs" />
+    <Compile Include="Model\Controllers\DelayAction.cs" />
     <Compile Include="Model\GUI\RoomGui.cs" />
     <Compile Include="Model\GUI\Controls\InputField.cs" />
     <Compile Include="Model\GUI\Controls\SociaKeyBoard.cs" />

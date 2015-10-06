@@ -44,8 +44,8 @@ namespace SociaGrounds.Model.Multiplayer
 
             // Write byte, first byte describes the message type, letting the application know what to do with it.
             outmsg.Write((byte)PacketTypes.Connect);
-            outmsg.Write(StaticPlayer.ForeignPlayers[0].Position.X);
-            outmsg.Write(StaticPlayer.ForeignPlayers[0].Position.Y);
+            outmsg.Write(StaticPlayer.MyPlayer.Position.X);
+            outmsg.Write(StaticPlayer.MyPlayer.Position.Y);
 
             // Connect client with the host IP and default port
             _client.Connect(hostip, 14242, outmsg);

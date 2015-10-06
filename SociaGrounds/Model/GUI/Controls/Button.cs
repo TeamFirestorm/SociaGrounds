@@ -108,7 +108,7 @@ namespace SociaGrounds.Model.GUI.Controls
 
         public bool Update(GameTime gametime)
         {
-            _wait.Update(gametime.ElapsedGameTime.Milliseconds);
+            _wait.Update(gametime);
 
             if (Static.ThisDevice != "Windows.Desktop")
             {
