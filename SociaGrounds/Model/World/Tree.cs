@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.World
 {
@@ -29,7 +31,10 @@ namespace SociaGrounds.Model.World
             Name = name;
 
             // Creating the rectangle
-            _Rect = new Rectangle((int)position.X, (int)position.Y, TREE[0].Width, TREE[0].Height);
+            _HitBox = new Rectangle((int)position.X, (int)position.Y + (TREE[0].Height /2), TREE[0].Width, TREE[0].Height /2);
+            
+            Debug.WriteLine("TopLeft: {0} | RightDown: {2} || name: {1}", _HitBox.Location, name, new Vector2(_HitBox.Location.X + _HitBox.Width, _HitBox.Location.Y + _HitBox.Height));
+            Debug.WriteLine("Left: {0} | Top: {1} | Right: {2} | Bottom: {3} || Name: {4}", _HitBox.Left, _HitBox.Top, _HitBox.Right, _HitBox.Bottom, name);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -42,6 +47,8 @@ namespace SociaGrounds.Model.World
         public override void DrawShade(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TREE[3], new Vector2(_Position.X - 19,_Position.Y + 11), Color.White);
+
+            //spriteBatch.Draw(Static.DummyTexture, _HitBox, Color.Chocolate);
         }
 
         private void DrawBottom(SpriteBatch spriteBatch)
@@ -67,7 +74,7 @@ namespace SociaGrounds.Model.World
 
         public override string ToString()
         {
-            return string.Format("Name:{0} - Rectangle {1}", Name, _Rect);
+            return string.Format("Name:{0} - Rectangle {1}", Name, _HitBox);
         }
     }
 }

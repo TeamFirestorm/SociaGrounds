@@ -62,8 +62,6 @@ namespace SociaGrounds.Model.Players
         {
             _Animation.Position = _Position;
 
-            _Rect = new Rectangle((int)_Position.X, (int)_Position.Y, 64, 64);
-
             // Show the chat message for a certain amount of time
             if (string.IsNullOrEmpty(_ChatMessage)) return;
 

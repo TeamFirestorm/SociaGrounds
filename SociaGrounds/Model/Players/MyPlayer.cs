@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -19,17 +20,8 @@ namespace SociaGrounds.Model.Players
         /// <param name="startPosition">The startPosition of the player when entering the room</param>
         /// <param name="texture">The spritesheet of the player</param>
         /// <param name="id">The ID of the player relevant for the server</param>
-        public MyPlayer(Vector2 startPosition, Texture2D texture, int id)
+        public MyPlayer(Vector2 startPosition, Texture2D texture, int id) : this(startPosition, texture)
         {
-            _Animation = new Animation(texture, startPosition, 64, 64, 10, 25, true);
-            Position = startPosition;
-            _Speed = 3;
-
-            _Rect = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
-
-            // Chat message initialize
-            _ChatMessage = "";
-
             Id = id;
         }
 
@@ -50,7 +42,7 @@ namespace SociaGrounds.Model.Players
             _ChatMessage = "";
 
             // Rectangle initialize
-            _Rect = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
+            _Rect = new Rectangle((int)Position.X, (int)Position.Y,1,1);
         }
 
         /// <summary>
@@ -61,6 +53,8 @@ namespace SociaGrounds.Model.Players
         public override void Update(GameTime gameTime, KeyboardState state = default(KeyboardState))
         {
             base.Update(gameTime, state);
+
+            _Rect = new Rectangle((int)Position.X + 17, (int)Position.Y + 12, 30, 50);
 
             if (Static.ThisDevice != "Windows.Desktop")
             {
@@ -78,6 +72,7 @@ namespace SociaGrounds.Model.Players
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //spriteBatch.Draw(Static.DummyTexture, _Rect, Color.Blue);
             _Animation.Draw(spriteBatch);
         }
 

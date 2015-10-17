@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SociaGrounds.Model.Controllers;
 
 namespace SociaGrounds.Model.Players
 {

@@ -7,13 +7,13 @@ namespace SociaGrounds.Model.Players
     public static class CollisionDetection
     {
         // Check if the player has a collision on his right side
-        public static bool IsCollidingRight(Rectangle rect)
+        public static bool IsCollidingRight(Rectangle playerHitbox)
         {
             // Check all the solid assets in the map
             foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchLeftOf(asset.Rect))
+                if (playerHitbox.TouchLeftOf(asset.HitBox))
                 {
                     Debug.WriteLine(asset + " Right");
                     return true;
@@ -25,13 +25,13 @@ namespace SociaGrounds.Model.Players
         }
 
         // Check if the player has a collision on his left side
-        public static bool IsCollidingLeft(Rectangle rect)
+        public static bool IsCollidingLeft(Rectangle playerHitbox)
         {
             // Check all the solid assets in the map
             foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchRightOf(asset.Rect))
+                if (playerHitbox.TouchRightOf(asset.HitBox))
                 {
                     Debug.WriteLine(asset + " Left");
                     return true;
@@ -43,14 +43,14 @@ namespace SociaGrounds.Model.Players
         }
 
         // Check if the player has a collision on his top side
-        public static bool IsCollidingTop(Rectangle rect)
+        public static bool IsCollidingTop(Rectangle playerHitbox)
         {
 
             // Check all the solid assets in the map
             foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchBottomOf(asset.Rect))
+                if (playerHitbox.TouchBottomOf(asset.HitBox))
                 {
                     Debug.WriteLine(asset + " Top");
                     return true;
@@ -62,13 +62,13 @@ namespace SociaGrounds.Model.Players
         }
 
         // Check if the player has a collision on his bottom side
-        public static bool IsCollidingBottom(Rectangle rect)
+        public static bool IsCollidingBottom(Rectangle playerHitbox)
         {
             // Check all the solid assets in the map
             foreach (SolidAsset asset in Map.SolidAssets)
             {
                 // If a right collision has been found, return true
-                if (rect.TouchTopOf(asset.Rect))
+                if (playerHitbox.TouchTopOf(asset.HitBox))
                 {
                     Debug.WriteLine(asset + " Bottom");
                     return true;
@@ -79,36 +79,36 @@ namespace SociaGrounds.Model.Players
             return false;
         }
 
-        public static bool TouchTopOf(this Rectangle r1, Rectangle r2)
+        public static bool TouchTopOf(this Rectangle playerHitbox, Rectangle assetHitBox)
         {
-            return (r1.Bottom >= r2.Top - 1 &&
-                    r1.Bottom <= r2.Top + (r2.Height / 2) &&
-                    r1.Right >= r2.Left + (r2.Width / 5) &&
-                    r1.Left <= r2.Right - (r2.Width / 5));
+            return (playerHitbox.Bottom >= assetHitBox.Top - 1
+                    && playerHitbox.Bottom <= assetHitBox.Top + (assetHitBox.Height / 2)
+                    && playerHitbox.Right >= assetHitBox.Left + (assetHitBox.Width / 5)
+                    && playerHitbox.Left <= assetHitBox.Right - (assetHitBox.Width / 5));
         }
 
-        public static bool TouchBottomOf(this Rectangle r1, Rectangle r2)
+        public static bool TouchBottomOf(this Rectangle playerHitbox, Rectangle assetHitBox)
         {
-            return (r1.Top <= r2.Bottom + (r2.Height / 5) &&
-                    r1.Top >= r2.Bottom - 1 &&
-                    r1.Right >= r2.Left + (r2.Width / 5) &&
-                    r1.Left <= r2.Right - (r2.Width / 5));
+            return (playerHitbox.Top <= assetHitBox.Bottom + (assetHitBox.Height / 5)
+                    && playerHitbox.Top >= assetHitBox.Bottom
+                    && playerHitbox.Right >= assetHitBox.Left + (assetHitBox.Width / 5)
+                    && playerHitbox.Left <= assetHitBox.Right - (assetHitBox.Width / 5));
         }
 
-        public static bool TouchLeftOf(this Rectangle r1, Rectangle r2)
+        public static bool TouchLeftOf(this Rectangle playerHitbox, Rectangle assetHitBox)
         {
-            return (r1.Right <= r2.Right &&
-                    r1.Right >= r2.Left &&
-                    r1.Top <= r2.Bottom - (r2.Width / 4) &&
-                    r1.Bottom >= r2.Top + (r2.Width / 4));
+            return (playerHitbox.Right <= assetHitBox.Right
+                    && playerHitbox.Right >= assetHitBox.Left - 4
+                    && playerHitbox.Top <= assetHitBox.Bottom - (assetHitBox.Width / 4)
+                    && playerHitbox.Bottom >= assetHitBox.Top + (assetHitBox.Width / 4));
         }
 
-        public static bool TouchRightOf(this Rectangle r1, Rectangle r2)
+        public static bool TouchRightOf(this Rectangle playerHitbox, Rectangle assetHitBox)
         {
-            return (r1.Left >= r2.Left &&
-                    r1.Left <= r2.Right + 5 &&
-                    r1.Top <= r2.Bottom - (r2.Width / 4) &&
-                    r1.Bottom >= r2.Top + (r2.Width / 4));
+            return (playerHitbox.Left >= assetHitBox.Left
+                    && playerHitbox.Left <= assetHitBox.Right + 2
+                    && playerHitbox.Top <= assetHitBox.Bottom - (assetHitBox.Width / 4)
+                    && playerHitbox.Bottom >= assetHitBox.Top + (assetHitBox.Width / 4));
         }
     }
 }

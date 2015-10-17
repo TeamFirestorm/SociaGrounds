@@ -9,8 +9,9 @@ namespace SociaGrounds.Model.World
         protected Vector2 _Position;
 
         // The rectangle of the asset for collsion detection
-        protected Rectangle _Rect;
-        public Rectangle Rect => _Rect;
+        protected Rectangle _HitBox;
+
+        public Rectangle HitBox => _HitBox;
 
         protected Asset(Vector2 position)
         {

@@ -23,9 +23,9 @@ namespace SociaGrounds.Model.Screens
 
             _map = new Map(CreateMap((int)margin.X, (int)margin.Y), new Vector2(0, 0), margin);
 
-            _map.AddSolidAsset(new Tree("Tree3", new Vector2(200, 200), 0, 1f));
-            _map.AddSolidAsset(new Tree("Tree1", new Vector2(350, 300), 1, 1f));
-            _map.AddSolidAsset(new Tree("Tree2", new Vector2(500, 250), 2, 1f));
+            _map.AddSolidAsset(new Tree("small", new Vector2(200, 200), 0, 1f));
+            _map.AddSolidAsset(new Tree("medium", new Vector2(350, 300), 1, 1f));
+            _map.AddSolidAsset(new Tree("large", new Vector2(500, 250), 2, 1f));
             
             _camera = new Camera();
 

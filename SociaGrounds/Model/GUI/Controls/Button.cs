@@ -167,9 +167,9 @@ namespace SociaGrounds.Model.GUI.Controls
             // Drawing the text
             spriteBatch.DrawString(_font, _text, new Vector2(Position.X + _textPosition.X, Position.Y + _textPosition.Y), Color.Black);
 
-#if DEBUG
-            spriteBatch.Draw(Static.DummyTexture,destinationRectangle: _hitBox, color:Color.Chocolate);
-#endif
+//#if DEBUG
+//            spriteBatch.Draw(Static.DummyTexture,destinationRectangle: _hitBox, color:Color.Chocolate);
+//#endif
         }
     }
 }
