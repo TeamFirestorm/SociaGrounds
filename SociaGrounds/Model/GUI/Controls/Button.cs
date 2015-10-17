@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Windows.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI.Input;
+using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SociaGrounds.Model.GUI.Controls
@@ -165,6 +166,10 @@ namespace SociaGrounds.Model.GUI.Controls
 
             // Drawing the text
             spriteBatch.DrawString(_font, _text, new Vector2(Position.X + _textPosition.X, Position.Y + _textPosition.Y), Color.Black);
+
+#if DEBUG
+            spriteBatch.Draw(Static.DummyTexture,destinationRectangle: _hitBox, color:Color.Chocolate);
+#endif
         }
     }
 }

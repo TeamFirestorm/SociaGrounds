@@ -72,6 +72,10 @@ namespace SociaGrounds
         /// </summary>
         protected override void LoadContent()
         {
+            //loads a dummy texture to check the hitboxes of items
+            DummyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            DummyTexture.SetData(new[] { Color.White });
+
             //Loads the player texture
             StaticPlayer.PlayerTexture = Content.Load<Texture2D>("SociaGrounds/Personas/Gyllion_Character");
 

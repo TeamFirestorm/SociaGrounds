@@ -6,6 +6,9 @@ namespace SociaGrounds.Model.Controllers
 {
     public static class Static
     {
+
+        public static Texture2D DummyTexture { get; set; }
+
         public const int SendTime = 50;
         public static string ThisDevice { get; set; }
         //The current Activated Screen;
@@ -16,7 +19,6 @@ namespace SociaGrounds.Model.Controllers
 
         static Static()
         {
-
             KeyBoardButtons = new List<Button>();
         }
     }
