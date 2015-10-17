@@ -58,7 +58,7 @@ namespace SociaGrounds.Model.Players
 
             if (Static.ThisDevice != "Windows.Desktop")
             {
-                Input(gameTime, InputLocation.NewTouchLocations);
+                Input(gameTime);
             }
             else
             {
@@ -76,45 +76,45 @@ namespace SociaGrounds.Model.Players
             _Animation.Draw(spriteBatch);
         }
 
-        public void Input(GameTime gameTime, TouchCollection touchLocations)
+        public void Input(GameTime gameTime)
         {
-           // //if (keyState.IsKeyDown(Keys.Up))
-           // {
-           //     _lastDirection = Direction.Up;
+            if (InputLocation.IsTouchDown(1))
+            {
+                _lastDirection = Direction.Up;
 
-           //     if (CollisionDetection.IsCollidingTop(_Rect)) return;
+                if (CollisionDetection.IsCollidingTop(_Rect)) return;
 
-           //     _Animation.Play(8, 9, gameTime);
-           //     _Position.Y -= _Speed;
-           // }
-           // //else if (keyState.IsKeyDown(Keys.Down))
-           // {
-           //     _lastDirection = Direction.Down;
+                _Animation.Play(8, 9, gameTime);
+                _Position.Y -= _Speed;
+            }
+            else if (InputLocation.IsTouchDown(3))
+            {
+                _lastDirection = Direction.Down;
 
-           //     if (CollisionDetection.IsCollidingBottom(_Rect)) return;
+                if (CollisionDetection.IsCollidingBottom(_Rect)) return;
 
-           //     _Animation.Play(10, 9, gameTime);
-           //     _Position.Y += _Speed;
-           // }
-           // //else if (keyState.IsKeyDown(Keys.Left))
-           // {
-           //     _lastDirection = Direction.Left;
+                _Animation.Play(10, 9, gameTime);
+                _Position.Y += _Speed;
+            }
+            else if (InputLocation.IsTouchDown(0))
+            {
+                _lastDirection = Direction.Left;
 
-           //     if (CollisionDetection.IsCollidingLeft(_Rect)) return;
+                if (CollisionDetection.IsCollidingLeft(_Rect)) return;
 
-           //     _Animation.Play(9, 9, gameTime);
-           //     _Position.X -= _Speed;
-           // }
-           //// else if (keyState.IsKeyDown(Keys.Right))
-           // {
-           //     _lastDirection = Direction.Right;
+                _Animation.Play(9, 9, gameTime);
+                _Position.X -= _Speed;
+            }
+             else if (InputLocation.IsTouchDown(2))
+            {
+                _lastDirection = Direction.Right;
 
-           //     if (CollisionDetection.IsCollidingRight(_Rect)) return;
+                if (CollisionDetection.IsCollidingRight(_Rect)) return;
 
-           //     _Animation.Play(11, 9, gameTime);
-           //     _Position.X += _Speed;
-           // }
-            //else
+                _Animation.Play(11, 9, gameTime);
+                _Position.X += _Speed;
+            }
+            else
             {
                 if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8, gameTime);
                 if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);

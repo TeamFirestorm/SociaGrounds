@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.GUI.Controls;
+using SociaGrounds.Model.GUI.Input;
 using static SociaGrounds.Model.Controllers.Static;
 
 namespace SociaGrounds.Model.GUI
@@ -16,6 +17,8 @@ namespace SociaGrounds.Model.GUI
         private bool _isKeyboardUp;
 
         private readonly List<Keys> _virtualKeys;
+
+        public ScreenClick[] MovementTouch { get; private set; }
 
         /// <summary>
         /// This class is used to build the user interface of the application

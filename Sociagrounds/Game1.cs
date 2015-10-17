@@ -63,6 +63,8 @@ namespace SociaGrounds
             IsMouseVisible = true;
             ScreenSize = GraphicsDevice.Viewport;
 
+            InputLocation.SetMovementTouch(ScreenSize);
+
             base.Initialize();
         }
 

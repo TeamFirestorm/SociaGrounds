@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.GUI.Controls;
+using SociaGrounds.Model.GUI.Input;
 using SociaGrounds.Model.Players;
 using SociaGrounds.Model.World;
 
@@ -60,7 +61,7 @@ namespace SociaGrounds.Model.Screens
             _map.DrawSolid(spriteBatch);
 
             StaticPlayer.DrawPlayerText(spriteBatch);
-            
+
             spriteBatch.End();
         }
 
