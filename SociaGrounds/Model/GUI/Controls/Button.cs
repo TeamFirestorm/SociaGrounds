@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI.Input;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SociaGrounds.Model.GUI.Controls
@@ -112,32 +113,32 @@ namespace SociaGrounds.Model.GUI.Controls
 
             if (Static.ThisDevice != "Windows.Desktop")
             {
-                return IsTouchReleased();
+                return UpdateTouch();
             }
 
-            return IsClicked();
+            return UpdateMouse();
         }
 
-        private bool IsTouchReleased()
+        private bool UpdateTouch()
         {
-            if (STouch.NewTouchLocations.Count == 0 && _isTouched)
+            if (STouch.NewTouchLocations.Count == 0 && !_isTouched) return false;
+
+            ControlReturn returnVal = STouch.IsTouchReleased(_hitBox, ref _isTouched);
+            _buttonState = returnVal.State;
+
+            return returnVal.IsReleased;
+        }
+
+        private bool UpdateMouse()
+        {
+            ControlReturn returnVal = SMouse.IsClicked(_hitBox);
+
+            _buttonState = returnVal.State;
+
+            if (!_wait.Started && returnVal.IsReleased)
             {
-                _isTouched = false;
-                _buttonState = 0;
+                _wait.Started = true;
                 return true;
-            }
-
-            if (STouch.NewTouchLocations.Count == 0) return false;
-
-            // Loop through all the locations where touch is possible
-            foreach (TouchLocation touch in STouch.NewTouchLocations)
-            {
-                // Check if the position is pressed within the button
-                if (new Rectangle((int)touch.Position.X, (int)touch.Position.Y, 1, 1).Intersects(_hitBox))
-                {
-                    _buttonState = 1;
-                    _isTouched = true;
-                }
             }
 
             return false;
@@ -191,3 +192,30 @@ namespace SociaGrounds.Model.GUI.Controls
         }
     }
 }
+
+//Old button touch stuff
+
+//private bool IsTouchReleased()
+//{
+//    if (STouch.NewTouchLocations.Count == 0 && _isTouched)
+//    {
+//        _isTouched = false;
+//        _buttonState = 0;
+//        return true;
+//    }
+
+//    if (STouch.NewTouchLocations.Count == 0) return false;
+
+//    // Loop through all the locations where touch is possible
+//    foreach (TouchLocation touch in STouch.NewTouchLocations)
+//    {
+//        // Check if the position is pressed within the button
+//        if (new Rectangle((int)touch.Position.X, (int)touch.Position.Y, 1, 1).Intersects(_hitBox))
+//        {
+//            _buttonState = 1;
+//            _isTouched = true;
+//        }
+//    }
+
+//    return false;
+//}

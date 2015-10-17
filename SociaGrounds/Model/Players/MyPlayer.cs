@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI;
+using SociaGrounds.Model.GUI.Input;
 
 namespace SociaGrounds.Model.Players
 {
@@ -58,7 +62,15 @@ namespace SociaGrounds.Model.Players
         {
             base.Update(gameTime, state);
 
-            Input(gameTime, state);
+
+            if (Static.ThisDevice != "Windows.Desktop")
+            {
+                Input(gameTime, STouch.NewTouchLocations);
+            }
+            else
+            {
+                Input(gameTime, state);
+            }
         }
 
         /// <summary>
@@ -68,6 +80,53 @@ namespace SociaGrounds.Model.Players
         public override void Draw(SpriteBatch spriteBatch)
         {
             _Animation.Draw(spriteBatch);
+        }
+
+        public void Input(GameTime gameTime, TouchCollection touchLocations)
+        {
+            //if (keyState.IsKeyDown(Keys.Up))
+            {
+                _lastDirection = Direction.Up;
+
+                if (CollisionDetection.IsCollidingTop(_Rect)) return;
+
+                _Animation.Play(8, 9, gameTime);
+                _Position.Y -= _Speed;
+            }
+            //else if (keyState.IsKeyDown(Keys.Down))
+            {
+                _lastDirection = Direction.Down;
+
+                if (CollisionDetection.IsCollidingBottom(_Rect)) return;
+
+                _Animation.Play(10, 9, gameTime);
+                _Position.Y += _Speed;
+            }
+            //else if (keyState.IsKeyDown(Keys.Left))
+            {
+                _lastDirection = Direction.Left;
+
+                if (CollisionDetection.IsCollidingLeft(_Rect)) return;
+
+                _Animation.Play(9, 9, gameTime);
+                _Position.X -= _Speed;
+            }
+           // else if (keyState.IsKeyDown(Keys.Right))
+            {
+                _lastDirection = Direction.Right;
+
+                if (CollisionDetection.IsCollidingRight(_Rect)) return;
+
+                _Animation.Play(11, 9, gameTime);
+                _Position.X += _Speed;
+            }
+            //else
+            {
+                if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8, gameTime);
+                if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);
+                if (_lastDirection == Direction.Down) _Animation.ResetAnimation(10, gameTime);
+                if (_lastDirection == Direction.Right) _Animation.ResetAnimation(11, gameTime);
+            }
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="06555f44-ea7d-4208-9516-b46db7fde559" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>SociaGrounds</DisplayName>
-    <PublisherDisplayName>Thijs Reeringh</PublisherDisplayName>
+    <PublisherDisplayName>Team Firestorm</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -17,6 +17,9 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SociaGrounds.App">
       <uap:VisualElements DisplayName="SociaGrounds" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="SociaGrounds" BackgroundColor="#464646">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape" />
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
