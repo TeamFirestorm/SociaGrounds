@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 using SociaGrounds.Model.Controllers;
-using SociaGrounds.Model.GUI;
 using SociaGrounds.Model.GUI.Input;
 
 namespace SociaGrounds.Model.Players
@@ -42,7 +39,7 @@ namespace SociaGrounds.Model.Players
             _ChatMessage = "";
 
             // Rectangle initialize
-            _Rect = new Rectangle((int)Position.X, (int)Position.Y,1,1);
+            _Rect = new Rectangle((int)Position.X, (int)Position.Y, 1, 1);
         }
 
         /// <summary>
@@ -82,7 +79,11 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Up;
 
-                if (CollisionDetection.IsCollidingTop(_Rect)) return;
+                if (CollisionDetection.IsCollidingTop(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(8, 9, gameTime);
                 _Position.Y -= _Speed;
@@ -91,7 +92,11 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Down;
 
-                if (CollisionDetection.IsCollidingBottom(_Rect)) return;
+                if (CollisionDetection.IsCollidingBottom(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(10, 9, gameTime);
                 _Position.Y += _Speed;
@@ -100,26 +105,31 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Left;
 
-                if (CollisionDetection.IsCollidingLeft(_Rect)) return;
+                if (CollisionDetection.IsCollidingLeft(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(9, 9, gameTime);
                 _Position.X -= _Speed;
             }
-             else if (InputLocation.IsTouchDown(2))
+            else if (InputLocation.IsTouchDown(2))
             {
                 _lastDirection = Direction.Right;
 
-                if (CollisionDetection.IsCollidingRight(_Rect)) return;
+                if (CollisionDetection.IsCollidingRight(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(11, 9, gameTime);
                 _Position.X += _Speed;
             }
             else
             {
-                if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8, gameTime);
-                if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);
-                if (_lastDirection == Direction.Down) _Animation.ResetAnimation(10, gameTime);
-                if (_lastDirection == Direction.Right) _Animation.ResetAnimation(11, gameTime);
+                ResetAnimation(gameTime);
             }
         }
 
@@ -134,7 +144,11 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Up;
 
-                if (CollisionDetection.IsCollidingTop(_Rect)) return;
+                if (CollisionDetection.IsCollidingTop(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                };
 
                 _Animation.Play(8, 9, gameTime);
                 _Position.Y -= _Speed;
@@ -143,7 +157,11 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Down;
 
-                if (CollisionDetection.IsCollidingBottom(_Rect)) return;
+                if (CollisionDetection.IsCollidingBottom(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                };
 
                 _Animation.Play(10, 9, gameTime);
                 _Position.Y += _Speed;
@@ -152,7 +170,11 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Left;
 
-                if (CollisionDetection.IsCollidingLeft(_Rect)) return;
+                if (CollisionDetection.IsCollidingLeft(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(9, 9, gameTime);
                 _Position.X -= _Speed;
@@ -161,18 +183,27 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Right;
 
-                if (CollisionDetection.IsCollidingRight(_Rect)) return;
+                if (CollisionDetection.IsCollidingRight(_Rect))
+                {
+                    ResetAnimation(gameTime);
+                    return;
+                }
 
                 _Animation.Play(11, 9, gameTime);
                 _Position.X += _Speed;
             }
             else
             {
-                if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8,gameTime);
-                if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);
-                if (_lastDirection == Direction.Down) _Animation.ResetAnimation(10, gameTime);
-                if (_lastDirection == Direction.Right) _Animation.ResetAnimation(11, gameTime);
+                ResetAnimation(gameTime);
             }
+        }
+
+        private void ResetAnimation(GameTime gameTime)
+        {
+            if (_lastDirection == Direction.Up) _Animation.ResetAnimation(8, gameTime);
+            if (_lastDirection == Direction.Left) _Animation.ResetAnimation(9, gameTime);
+            if (_lastDirection == Direction.Down) _Animation.ResetAnimation(10, gameTime);
+            if (_lastDirection == Direction.Right) _Animation.ResetAnimation(11, gameTime);
         }
     }
 }
