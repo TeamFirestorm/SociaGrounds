@@ -156,11 +156,11 @@ namespace SociaGrounds
         {
             if (ThisDevice != "Windows.Desktop")
             {
-                STouch.NewTouchLocations = TouchPanel.GetState();
+                InputLocation.NewTouchLocations = TouchPanel.GetState();
             }
             else
             {
-                SMouse.NewMouseState = Mouse.GetState();
+                InputLocation.NewMouseState = Mouse.GetState();
             }
         }
 
@@ -168,7 +168,7 @@ namespace SociaGrounds
         {
             if (ThisDevice == "Windows.Desktop")
             {
-                SMouse.OldMouseState = SMouse.NewMouseState;
+                InputLocation.OldMouseState = InputLocation.NewMouseState;
             }
         }
 

@@ -109,8 +109,7 @@
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
     <Compile Include="Model\GUI\Input\ControlReturn.cs" />
-    <Compile Include="Model\GUI\Input\SMouse.cs" />
-    <Compile Include="Model\GUI\Input\STouch.cs" />
+    <Compile Include="Model\GUI\Input\InputLocation.cs" />
     <Compile Include="Model\Players\StaticPlayer.cs" />
     <Compile Include="Model\DB\Connection.cs" />
     <Compile Include="Model\DB\DataBase.cs" />

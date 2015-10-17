@@ -121,9 +121,9 @@ namespace SociaGrounds.Model.GUI.Controls
 
         private bool UpdateTouch()
         {
-            if (STouch.NewTouchLocations.Count == 0 && !_isTouched) return false;
+            if (InputLocation.NewTouchLocations.Count == 0 && !_isTouched) return false;
 
-            ControlReturn returnVal = STouch.IsTouchReleased(_hitBox, ref _isTouched);
+            ControlReturn returnVal = InputLocation.IsTouchReleased(_hitBox, ref _isTouched);
             _buttonState = returnVal.State;
 
             return returnVal.IsReleased;
@@ -131,7 +131,7 @@ namespace SociaGrounds.Model.GUI.Controls
 
         private bool UpdateMouse()
         {
-            ControlReturn returnVal = SMouse.IsClicked(_hitBox);
+            ControlReturn returnVal = InputLocation.IsClicked(_hitBox);
 
             _buttonState = returnVal.State;
 
@@ -141,30 +141,6 @@ namespace SociaGrounds.Model.GUI.Controls
                 return true;
             }
 
-            return false;
-        }
-
-        /// <summary>
-        /// Checks if the mousecursor hovers over this buttons hitbox
-        /// </summary>
-        /// <returns></returns>
-        private bool IsClicked()
-        {
-            // Check if the current mouse position is over hitbox
-            if (new Rectangle(SMouse.NewMouseState.X, SMouse.NewMouseState.Y, 1, 1).Intersects(_hitBox))
-            {
-                _buttonState = 1;
-                if (SMouse.NewMouseState.LeftButton == ButtonState.Pressed)
-                {
-                    if (!_wait.Started)
-                    {
-                        _wait.Started = true;
-                        return true;
-                    }                    
-                }
-                return false;
-            }
-            _buttonState = 0;
             return false;
         }
 
@@ -193,21 +169,21 @@ namespace SociaGrounds.Model.GUI.Controls
     }
 }
 
-//Old button touch stuff
+//Old button touch and click stuff
 
 //private bool IsTouchReleased()
 //{
-//    if (STouch.NewTouchLocations.Count == 0 && _isTouched)
+//    if (InputLocation.NewTouchLocations.Count == 0 && _isTouched)
 //    {
 //        _isTouched = false;
 //        _buttonState = 0;
 //        return true;
 //    }
 
-//    if (STouch.NewTouchLocations.Count == 0) return false;
+//    if (InputLocation.NewTouchLocations.Count == 0) return false;
 
 //    // Loop through all the locations where touch is possible
-//    foreach (TouchLocation touch in STouch.NewTouchLocations)
+//    foreach (TouchLocation touch in InputLocation.NewTouchLocations)
 //    {
 //        // Check if the position is pressed within the button
 //        if (new Rectangle((int)touch.Position.X, (int)touch.Position.Y, 1, 1).Intersects(_hitBox))
@@ -219,3 +195,24 @@ namespace SociaGrounds.Model.GUI.Controls
 
 //    return false;
 //}
+
+//private bool IsClicked()
+//{
+//    // Check if the current mouse position is over hitbox
+//    if (new Rectangle(InputLocation.NewMouseState.X, InputLocation.NewMouseState.Y, 1, 1).Intersects(_hitBox))
+//    {
+//        _buttonState = 1;
+//        if (InputLocation.NewMouseState.LeftButton == ButtonState.Pressed)
+//        {
+//            if (!_wait.Started)
+//            {
+//                _wait.Started = true;
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    _buttonState = 0;
+//    return false;
+//}
+
