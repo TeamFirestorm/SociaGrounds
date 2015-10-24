@@ -108,9 +108,9 @@
     <Compile Include="Model\GUI\Fonts.cs" />
     <Compile Include="Model\Controllers\SongPlayer.cs" />
     <Compile Include="Model\Controllers\Static.cs" />
-    <Compile Include="Model\GUI\Input\ControlReturn.cs" />
-    <Compile Include="Model\GUI\Input\InputLocation.cs" />
-    <Compile Include="Model\GUI\Input\ScreenClick.cs" />
+    <Compile Include="Model\GUI\Controls\Input\ControlReturn.cs" />
+    <Compile Include="Model\GUI\Controls\Input\InputLocation.cs" />
+    <Compile Include="Model\GUI\Controls\Input\ScreenClick.cs" />
     <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Players\StaticPlayer.cs" />
     <Compile Include="Model\DB\Connection.cs" />

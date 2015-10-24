@@ -1,8 +1,8 @@
-﻿using Windows.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
+using SociaGrounds.Model.GUI.Controls.Input;
 using SociaGrounds.Model.GUI.Input;
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = Microsoft.Xna.Framework.Vector2;

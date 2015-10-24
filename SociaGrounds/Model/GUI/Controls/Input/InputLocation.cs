@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using SociaGrounds.Model.GUI.Controls.Input;
 
 namespace SociaGrounds.Model.GUI.Input
 {

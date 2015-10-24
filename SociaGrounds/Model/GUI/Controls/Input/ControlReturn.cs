@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SociaGrounds.Model.GUI.Input
+﻿namespace SociaGrounds.Model.GUI.Controls.Input
 {
     public class ControlReturn
     {
