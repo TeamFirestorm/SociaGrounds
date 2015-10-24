@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -16,8 +17,8 @@ namespace SociaGrounds.Model.Screens
     {
         private readonly List<Connection> _connections;
 
-        private PlayersSendHost Host { get; set; }
-        private PlayersSendClient Client { get; set; }
+        //private PlayersSendHost Host { get; set; }
+        //private PlayersSendClient Client { get; set; }
 
         private bool _createdList;
         private bool _alreadyStarted;
@@ -55,15 +56,19 @@ namespace SociaGrounds.Model.Screens
 
                 if (ip == null)
                 {
-                    Host = new PlayersSendHost();
-                    Task.Run(new Action(Host.Loop));
-                    InsertConnection();
+                    //Host = new PlayersSendHost();
+                    //Debug.WriteLine("Created Server");
+                    //Task.Run(new Action(Host.Loop));
+                    //Debug.WriteLine("Started server update loop");
+                    //InsertConnection();
+                    //Debug.WriteLine("Added connection to the database");
                 }
                 else
                 {
-                    Host = null;
-                    Client = new PlayersSendClient(ip);
-                    Task.Run(new Action(Client.Loop));
+                    //Client = new PlayersSendClient(ip);
+                    //Debug.WriteLine("Created Client");
+                    //Task.Run(new Action(Client.Loop));
+                    //Debug.WriteLine("Started client update loop");
                 }
 
                 Static.CurrentScreenState = ScreenState.RoomScreen;

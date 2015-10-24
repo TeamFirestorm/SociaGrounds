@@ -111,6 +111,7 @@
     <Compile Include="Model\GUI\Input\ControlReturn.cs" />
     <Compile Include="Model\GUI\Input\InputLocation.cs" />
     <Compile Include="Model\GUI\Input\ScreenClick.cs" />
+    <Compile Include="Model\Multiplayer\PacketTypes.cs" />
     <Compile Include="Model\Players\StaticPlayer.cs" />
     <Compile Include="Model\DB\Connection.cs" />
     <Compile Include="Model\DB\DataBase.cs" />
@@ -120,9 +121,6 @@
     <Compile Include="Model\GUI\RoomGui.cs" />
     <Compile Include="Model\GUI\Controls\InputField.cs" />
     <Compile Include="Model\GUI\Controls\SociaKeyBoard.cs" />
-    <Compile Include="Model\Multiplayer\PacketTypes.cs" />
-    <Compile Include="Model\Multiplayer\PlayersSendClient.cs" />
-    <Compile Include="Model\Multiplayer\PlayersSendHost.cs" />
     <Compile Include="Model\Options\Config.cs" />
     <Compile Include="Model\Players\Animation.cs" />
     <Compile Include="Model\Players\Player.cs" />
@@ -214,6 +212,7 @@
       <Name>Lidgren</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
