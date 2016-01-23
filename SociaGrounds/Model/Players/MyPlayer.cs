@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI.Input;
 using SociaGrounds.Model.World;
 
@@ -55,14 +53,7 @@ namespace SociaGrounds.Model.Players
 
             _Rect = new Rectangle((int)Position.X + 17, (int)Position.Y + 12, 30, 50);
 
-            if (Static.ThisDevice != "Windows.Desktop")
-            {
-                InputTouch(gameTime);
-            }
-            else
-            {
-                InputKeyboard(gameTime, state);
-            }
+            Input(gameTime, state);
         }
 
         /// <summary>
@@ -83,7 +74,7 @@ namespace SociaGrounds.Model.Players
 
                 if (CollisionDetection.IsCollidingTop(_Rect))
                 {
-                    ResetAnimation(gameTime);
+                    _Animation.ResetAnimation(9, gameTime);
                     return;
                 }
 
@@ -140,54 +131,54 @@ namespace SociaGrounds.Model.Players
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="keyState"></param>
-        public void InputKeyboard(GameTime gameTime, KeyboardState keyState)
+        public void Input(GameTime gameTime, KeyboardState keyState)
         {
-            if (keyState.IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.Up) || InputLocation.IsTouchDown(1))
             {
                 _lastDirection = Direction.Up;
 
                 if (CollisionDetection.IsCollidingTop(_Rect) || _Position.Y - _Speed <= -12)
                 {
-                    ResetAnimation(gameTime);
+                    _Animation.ResetAnimation(8, gameTime);
                     return;
-                };
+                }
 
                 _Animation.Play(8, 9, gameTime);
                 _Position.Y -= _Speed;
             }
-            else if (keyState.IsKeyDown(Keys.Down))
+            else if (keyState.IsKeyDown(Keys.Down) || InputLocation.IsTouchDown(3))
             {
                 _lastDirection = Direction.Down;
 
                 if (CollisionDetection.IsCollidingBottom(_Rect) || _Position.Y + _Speed >= Map.MapHeight - 60)
                 {
-                    ResetAnimation(gameTime);
+                    _Animation.ResetAnimation(10, gameTime);
                     return;
-                };
+                }
 
                 _Animation.Play(10, 9, gameTime);
                 _Position.Y += _Speed;
             }
-            else if (keyState.IsKeyDown(Keys.Left))
+            else if (keyState.IsKeyDown(Keys.Left) || InputLocation.IsTouchDown(0))
             {
                 _lastDirection = Direction.Left;
 
                 if (CollisionDetection.IsCollidingLeft(_Rect) || _Position.X - _Speed <= - 23)
                 {
-                    ResetAnimation(gameTime);
+                    _Animation.ResetAnimation(9, gameTime);
                     return;
                 }
 
                 _Animation.Play(9, 9, gameTime);
                 _Position.X -= _Speed;
             }
-            else if (keyState.IsKeyDown(Keys.Right))
+            else if (keyState.IsKeyDown(Keys.Right) || InputLocation.IsTouchDown(2))
             {
                 _lastDirection = Direction.Right;
 
                 if (CollisionDetection.IsCollidingRight(_Rect) || _Position.X + _Speed >= Map.MapWidth - 40)
                 {
-                    ResetAnimation(gameTime);
+                    _Animation.ResetAnimation(11, gameTime);
                     return;
                 }
 
