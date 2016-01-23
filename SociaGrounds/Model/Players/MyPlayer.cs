@@ -146,7 +146,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Up;
 
-                if (CollisionDetection.IsCollidingTop(_Rect) || _Position.Y - _Speed <= -26)
+                if (CollisionDetection.IsCollidingTop(_Rect) || _Position.Y - _Speed <= -12)
                 {
                     ResetAnimation(gameTime);
                     return;
@@ -172,7 +172,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Left;
 
-                if (CollisionDetection.IsCollidingLeft(_Rect) || _Position.X - _Speed <= - 21)
+                if (CollisionDetection.IsCollidingLeft(_Rect) || _Position.X - _Speed <= - 23)
                 {
                     ResetAnimation(gameTime);
                     return;
