@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SociaGrounds.Model.Controllers;
 using SociaGrounds.Model.GUI.Input;
+using SociaGrounds.Model.World;
 
 namespace SociaGrounds.Model.Players
 {
@@ -55,11 +57,11 @@ namespace SociaGrounds.Model.Players
 
             if (Static.ThisDevice != "Windows.Desktop")
             {
-                Input(gameTime);
+                InputTouch(gameTime);
             }
             else
             {
-                Input(gameTime, state);
+                InputKeyboard(gameTime, state);
             }
         }
 
@@ -73,7 +75,7 @@ namespace SociaGrounds.Model.Players
             _Animation.Draw(spriteBatch);
         }
 
-        public void Input(GameTime gameTime)
+        public void InputTouch(GameTime gameTime)
         {
             if (InputLocation.IsTouchDown(1))
             {
@@ -138,13 +140,13 @@ namespace SociaGrounds.Model.Players
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="keyState"></param>
-        public void Input(GameTime gameTime, KeyboardState keyState)
+        public void InputKeyboard(GameTime gameTime, KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Up))
             {
                 _lastDirection = Direction.Up;
 
-                if (CollisionDetection.IsCollidingTop(_Rect))
+                if (CollisionDetection.IsCollidingTop(_Rect) || _Position.Y - _Speed <= -26)
                 {
                     ResetAnimation(gameTime);
                     return;
@@ -157,7 +159,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Down;
 
-                if (CollisionDetection.IsCollidingBottom(_Rect))
+                if (CollisionDetection.IsCollidingBottom(_Rect) || _Position.Y + _Speed >= Map.MapHeight - 60)
                 {
                     ResetAnimation(gameTime);
                     return;
@@ -170,7 +172,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Left;
 
-                if (CollisionDetection.IsCollidingLeft(_Rect))
+                if (CollisionDetection.IsCollidingLeft(_Rect) || _Position.X - _Speed <= - 21)
                 {
                     ResetAnimation(gameTime);
                     return;
@@ -183,7 +185,7 @@ namespace SociaGrounds.Model.Players
             {
                 _lastDirection = Direction.Right;
 
-                if (CollisionDetection.IsCollidingRight(_Rect))
+                if (CollisionDetection.IsCollidingRight(_Rect) || _Position.X + _Speed >= Map.MapWidth - 40)
                 {
                     ResetAnimation(gameTime);
                     return;

@@ -14,9 +14,9 @@ namespace SociaGrounds.Model.World
 
         public Vector2 StartPosition { get; }
 
-        public int MapWidth { get; }
+        public static int MapWidth { get; private set; }
 
-        public int MapHeight { get; }
+        public static int MapHeight { get; private set; }
 
         private int[,] _createdMap;
 
